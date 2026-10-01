@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="nl" dir="ltr" data-page-language="nl">
+
+<head>
+    <meta charset="utf-8">
+    <title>S&R CoreSync Solutions | Geavanceerde Bedrijfssoftware, ERP & AI Systemen</title>
+    <meta name="author" content="S&R CoreSync Solutions">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO: localized page -->
+    <meta name="description" content="Wij ontwikkelen geavanceerde bedrijfssoftware, cloudapplicaties, ERP- en boekhoudkoppelingen en AI-automatisering voor bedrijven in Nederland en het Midden-Oosten.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://dananajmah.com/nl/">
+    <link rel="alternate" hreflang="ar" href="../index.html">
+    <link rel="alternate" hreflang="en" href="../en/index.html">
+    <link rel="alternate" hreflang="nl" href="./index.html">
+    <link rel="alternate" hreflang="x-default" href="../index.html">
+
+    <!-- Social Meta -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="S&R CoreSync Solutions">
+    <meta property="og:title" content="S&R CoreSync Solutions | Geavanceerde Bedrijfssoftware, ERP & AI Systemen">
+    <meta property="og:description" content="Wij ontwikkelen geavanceerde bedrijfssoftware, cloudapplicaties, ERP- en boekhoudkoppelingen en AI-automatisering voor bedrijven in Nederland en het Midden-Oosten.">
+    <meta property="og:image" content="https://dananajmah.com/assets/images/og/home.jpg">
+
+    <!-- PWA & Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../assets/logo-neon-icon.svg">
+    <link rel="manifest" href="../manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CoreSync">
+    <link rel="apple-touch-icon" href="../assets/logo-neon-icon.svg">
+    <meta name="application-name" content="S&R CoreSync">
+    <meta name="msapplication-TileColor" content="#010907">
+
+    <!-- Official Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Alexandria:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Official Style Bundles from dananajmah.com (LTR Bundle) -->
+    <link rel="stylesheet" href="https://dananajmah.com/assets/css/bundle/a1920feb46.css?v=298e8be4">
+
+    <!-- Libraries -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/themes/odometer-theme-default.min.css">
+
+    <!-- JS Libraries -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <style>
+        :root {
+            --primary-gold: #c5a880;
+            --primary-gold-hover: #d8bc95;
+            --bg-dark: #010907;
+            --card-glass: rgba(14, 24, 20, 0.65);
+            --border-glass: rgba(197, 168, 128, 0.18);
+        }
+
+        .service-icon {
+            color: var(--primary-gold);
+        }
+        .signature-founder-img {
+            height: 64px;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
+        }
+        .card-popular {
+            border-color: var(--primary-gold) !important;
+        }
+        .btn-gold-action {
+            background: var(--primary-gold) !important;
+            color: #000 !important;
+        }
+        .btn-gold-submit {
+            background: var(--primary-gold) !important;
+            color: #000 !important;
+            font-weight: 700 !important;
+        }
+
+        body, h1, h2, h3, h4, h5, h6, 
+        .hero-reference__title, .text-display-1, .text-display-2, 
+        .s-title, .desc, .plan-name, .nav-menu-main, .tf-btn,
+        .accordion-text, .accordion-content, .tf-input, .tf-lable {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+        }
+
+        body {
+            background-color: var(--bg-dark) !important;
+            color: #f8fafc !important;
+            overflow-x: hidden;
+        }
+
+        .brand-logo-site {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none !important;
+        }
+
+        .brand-emblem-img {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.45));
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .brand-emblem-img:hover {
+            transform: scale(1.08);
+            filter: drop-shadow(0 0 16px rgba(250, 204, 21, 0.75));
+        }
+
+        .brand-sr-text {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            color: var(--primary-gold);
+        }
+
+        .brand-sub-text {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* Header Contact & Language Switcher */
+        .header-contact {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 16px;
+            position: relative;
+        }
+
+        .header-whatsapp-btn {
+            display: inline-flex !important;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px !important;
+            border: 1px solid rgba(255, 255, 255, 0.4) !important;
+            border-radius: 12px !important;
+            background: rgba(0, 0, 0, 0.25) !important;
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+            color: #ffffff !important;
+            font-size: 0.92rem !important;
+            font-weight: 500 !important;
+            text-decoration: none !important;
+            transition: all 0.25s ease !important;
+            white-space: nowrap;
+            line-height: 1;
+        }
+
+        .header-whatsapp-btn:hover {
+            border-color: #ffffff !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4) !important;
+            transform: translateY(-1px);
+        }
+
+        .header-whatsapp-btn svg {
+            flex-shrink: 0;
+            width: 17px;
+            height: 17px;
+        }
+
+        .header-language {
+            position: relative;
+            display: inline-block;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .header-language summary {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: #ffffff;
+            cursor: pointer;
+            list-style: none;
+            padding: 6px 4px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            transition: opacity 0.2s ease;
+            outline: none !important;
+        }
+
+        .header-language summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .header-language summary:hover {
+            opacity: 0.85;
+        }
+
+        .header-language__current {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .header-language__current svg {
+            stroke: currentColor;
+            fill: none;
+        }
+
+        .header-language__chevron {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.25s ease;
+        }
+
+        .header-language[open] .header-language__chevron {
+            transform: rotate(180deg);
+        }
+
+        .header-language__options {
+            position: absolute;
+            top: calc(100% + 12px);
+            right: 0;
+            min-width: 165px;
+            background: rgba(16, 20, 18, 0.96);
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 8px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.75), 0 0 1px rgba(255, 255, 255, 0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            z-index: 99999;
+            animation: langFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes langFadeIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .language-switcher__button {
+            display: block;
+            text-align: center;
+            padding: 9px 18px;
+            font-size: 0.92rem;
+            color: rgba(255, 255, 255, 0.78) !important;
+            text-decoration: none !important;
+            border-radius: 10px;
+            border: 1px solid transparent !important;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .language-switcher__button:hover {
+            color: #ffffff !important;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .language-switcher__button.is-active {
+            border: 1px solid rgba(197, 168, 128, 0.85) !important;
+            background: rgba(197, 168, 128, 0.08) !important;
+            color: #ffffff !important;
+            font-weight: 600;
+        }
+
+        .nav-item-demo-highlight {
+            color: var(--primary-gold) !important;
+            font-weight: 700;
+        }
+
+        .gold-accent {
+            color: var(--primary-gold) !important;
+        }
+
+        .founder-editorial-card {
+            background: rgba(10, 20, 16, 0.6);
+            border: 1px solid rgba(197, 168, 128, 0.2);
+            border-radius: 20px;
+            padding: 2.2rem;
+            transition: all 0.35s ease;
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+        }
+
+        .founder-editorial-card:hover {
+            border-color: var(--primary-gold);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(197, 168, 128, 0.15);
+        }
+
+        .founder-avatar-box {
+            width: 72px;
+            height: 72px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(197, 168, 128, 0.2), rgba(1, 9, 7, 0.8));
+            border: 1.5px solid var(--primary-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ffffff;
+            flex-shrink: 0;
+        }
+
+        .founder-avatar-img-wrap {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-gold);
+            box-shadow: 0 0 24px rgba(197, 168, 128, 0.35);
+            background: radial-gradient(circle, rgba(197, 168, 128, 0.15) 0%, rgba(1, 9, 7, 0.9) 100%);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .founder-editorial-card:hover .founder-avatar-img-wrap {
+            transform: scale(1.06);
+            box-shadow: 0 0 32px rgba(197, 168, 128, 0.6);
+        }
+
+        .founder-avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .founder-badge-company {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(197, 168, 128, 0.12);
+            border: 1px solid rgba(197, 168, 128, 0.35);
+            color: var(--primary-gold);
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 999px;
+            letter-spacing: 0.3px;
+        }
+
+        .footer-watermark-agency {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(3.5rem, 12vw, 9.5rem);
+            font-weight: 900;
+            text-align: center;
+            letter-spacing: 4px;
+            background: linear-gradient(180deg, rgba(197, 168, 128, 0.25) 0%, rgba(255, 255, 255, 0.02) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+            line-height: 1;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+
+<body class="counter-scroll preloader-complete">
+
+    <!-- Cursor Trail -->
+    <canvas class="cursor-trail d-none d-xl-block" id="trail"></canvas>
+
+    <!-- Floating Follow Sidebar -->
+    <aside class="floating-follow" aria-label="Volg S&R CoreSync Solutions">
+        <div class="floating-follow__icons">
+            <a href="https://wa.me/31612345678" target="_blank" rel="noopener noreferrer" class="floating-follow__link floating-follow__link--whatsapp" aria-label="WhatsApp" title="WhatsApp">
+                <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false" width="16" height="16"><path d="M16.02 3.2a12.7 12.7 0 0 0-10.95 19.14L3.2 28.8l6.62-1.74A12.8 12.8 0 1 0 16.02 3.2Zm0 23.24a10.48 10.48 0 0 1-5.35-1.46l-.38-.23-3.93 1.03 1.05-3.83-.25-.4a10.5 10.5 0 1 1 8.86 4.89Zm5.76-7.85c-.32-.16-1.9-.94-2.19-1.05-.3-.11-.51-.16-.73.16-.21.32-.83 1.05-1.02 1.26-.19.21-.38.24-.7.08a8.65 8.65 0 0 1-2.55-1.57 9.57 9.57 0 0 1-1.77-2.2c-.18-.32 0-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.54.1-.21.05-.4-.03-.56-.08-.16-.73-1.75-1-2.39-.26-.62-.53-.54-.73-.55h-.62c-.21 0-.56.08-.86.4-.3.32-1.13 1.1-1.13 2.69s1.16 3.13 1.32 3.35c.16.21 2.27 3.46 5.5 4.85.77.33 1.37.53 1.84.68.77.24 1.47.2 2.03.12.62-.09 1.9-.78 2.17-1.54.27-.75.27-1.4.19-1.54-.08-.13-.3-.21-.62-.37Z" fill="currentColor"/></svg>
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="floating-follow__link" aria-label="LinkedIn" title="LinkedIn">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76c-.95 0-1.72.77-1.72 1.72s.77 1.73 1.72 1.73a1.73 1.73 0 0 0 1.73-1.73c0-.95-.78-1.72-1.73-1.72m1.39 9.74v-8.37H5.07v8.37h2.78Z"/></svg>
+            </a>
+            <a href="mailto:info@coresync-solutions.com" class="floating-follow__link floating-follow__link--mail" aria-label="E-mail" title="info@coresync-solutions.com">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            </a>
+        </div>
+        <span class="floating-follow__line" aria-hidden="true"></span>
+        <span class="floating-follow__label">CORESYNC</span>
+    </aside>
+
+    <!-- Floating Actions -->
+    <div class="floating-actions">
+        <a href="https://wa.me/31612345678" target="_blank" rel="noopener noreferrer" class="floating-whatsapp" aria-label="Contact via WhatsApp" title="WhatsApp">
+            <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M16.02 3.2a12.7 12.7 0 0 0-10.95 19.14L3.2 28.8l6.62-1.74A12.8 12.8 0 1 0 16.02 3.2Zm0 23.24a10.48 10.48 0 0 1-5.35-1.46l-.38-.23-3.93 1.03 1.05-3.83-.25-.4a10.5 10.5 0 1 1 8.86 4.89Zm5.76-7.85c-.32-.16-1.9-.94-2.19-1.05-.3-.11-.51-.16-.73.16-.21.32-.83 1.05-1.02 1.26-.19.21-.38.24-.7.08a8.65 8.65 0 0 1-2.55-1.57 9.57 9.57 0 0 1-1.77-2.2c-.18-.32 0-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.54.1-.21.05-.4-.03-.56-.08-.16-.73-1.75-1-2.39-.26-.62-.53-.54-.73-.55h-.62c-.21 0-.56.08-.86.4-.3.32-1.13 1.1-1.13 2.69s1.16 3.13 1.32 3.35c.16.21 2.27 3.46 5.5 4.85.77.33 1.37.53 1.84.68.77.24 1.47.2 2.03.12.62-.09 1.9-.78 2.17-1.54.27-.75.27-1.4.19-1.54-.08-.13-.3-.21-.62-.37Z" fill="currentColor"/></svg>
+        </a>
+        <button id="goTop" aria-label="Naar boven" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+            <span class="border-progress"></span>
+            <span class="ic-wrap">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
+            </span>
+        </button>
+    </div>
+
+    <main id="wrapper">
+        <!-- Hero Section -->
+        <div class="hero-editorial hero-cinematic" id="home" data-section>
+            <div class="cinematic-viewport" aria-hidden="true">
+                <div class="cinematic-scene">
+                    <video class="cinematic-video cinematic-video--a" muted loop autoplay preload="auto" poster="../assets/hero-founder-poster.webp" src="../assets/hero-founder-cinematic.mp4" aria-hidden="true"></video>
+                </div>
+            </div>
+
+            <!-- Header -->
+            <header class="tf-header header-refined">
+                <div class="header-inner">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <!-- Logo -->
+                            <div class="col-6 col-md-3">
+                                <a href="./index.html" class="brand-logo-site" title="S&R CoreSync Solutions">
+                                    <img src="../assets/logo-neon-icon.svg" alt="S&R CoreSync Official Emblem" class="brand-emblem-img" />
+                                    <div class="brand-logo-site-logo brand-logo-flex">
+                                        <span class="brand-sr-text">S&amp;R</span>
+                                        <span class="brand-sub-text">CoreSync</span>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Nav Menu -->
+                            <div class="col-6 col-md-5 d-none d-md-block text-center">
+                                <div class="box-navigation">
+                                    <ul class="nav-menu-main">
+                                        <li class="menu-item"><a href="#work" class="item-link link text-caption"><span>01 /</span>PROJECTEN</a></li>
+                                        <li class="menu-item"><a href="#service" class="item-link link text-caption"><span>02 /</span>DIENSTEN</a></li>
+                                        <li class="menu-item"><a href="#about" class="item-link link text-caption"><span>03 /</span>OVER ONS</a></li>
+                                        <li class="menu-item"><a href="#pricing" class="item-link link text-caption"><span>04 /</span>PRIJZEN</a></li>
+                                        <li class="menu-item"><a href="#faq" class="item-link link text-caption"><span>05 /</span>FAQ</a></li>
+                                        <li class="menu-item"><a href="#contact" class="item-link link text-caption"><span>06 /</span>CONTACT</a></li>
+                                        <li class="menu-item"><a href="../demo.html" class="item-link link text-caption nav-item-demo-highlight"><span>07 /</span>LIVE DEMO</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Header Actions -->
+                            <div class="col-3 col-md-4 d-none d-sm-block">
+                                <div class="header-contact d-flex align-items-center justify-content-end gap-3">
+                                    <a href="https://wa.me/31612345678" target="_blank" rel="noopener noreferrer" class="tf-btn header-whatsapp-btn" aria-label="Neem contact op via WhatsApp">
+                                        <span class="header-contact-icon" aria-hidden="true"><svg viewBox="0 0 32 32" focusable="false" width="16" height="16"><path d="M16.02 3.2a12.7 12.7 0 0 0-10.95 19.14L3.2 28.8l6.62-1.74A12.8 12.8 0 1 0 16.02 3.2Zm0 23.24a10.48 10.48 0 0 1-5.35-1.46l-.38-.23-3.93 1.03 1.05-3.83-.25-.4a10.5 10.5 0 1 1 8.86 4.89Zm5.76-7.85c-.32-.16-1.9-.94-2.19-1.05-.3-.11-.51-.16-.73.16-.21.32-.83 1.05-1.02 1.26-.19.21-.38.24-.7.08a8.65 8.65 0 0 1-2.55-1.57 9.57 9.57 0 0 1-1.77-2.2c-.18-.32 0-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.54.1-.21.05-.4-.03-.56-.08-.16-.73-1.75-1-2.39-.26-.62-.53-.54-.73-.55h-.62c-.21 0-.56.08-.86.4-.3.32-1.13 1.1-1.13 2.69s1.16 3.13 1.32 3.35c.16.21 2.27 3.46 5.5 4.85.77.33 1.37.53 1.84.68.77.24 1.47.2 2.03.12.62-.09 1.9-.78 2.17-1.54.27-.75.27-1.4.19-1.54-.08-.13-.3-.21-.62-.37Z" fill="currentColor"/></svg></span>
+                                        <span>Neem contact op</span>
+                                    </a>
+
+                                    <details class="language-switcher notranslate header-language" translate="no">
+                                        <summary aria-label="Kies taal">
+                                            <span class="header-language__current">
+                                                <svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16"><circle cx="12" cy="12" r="8.5"></circle><path d="M3.8 12h16.4M12 3.5c2.2 2.3 3.4 5.1 3.4 8.5S14.2 18.2 12 20.5M12 3.5C9.8 5.8 8.6 8.6 8.6 12s1.2 6.2 3.4 8.5"></path></svg>
+                                                <span>NL</span>
+                                            </span>
+                                            <span class="header-language__chevron" aria-hidden="true">
+                                                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                            </span>
+                                        </summary>
+                                        <div class="header-language__options">
+                                            <a class="language-switcher__button" href="../index.html" hreflang="ar" lang="ar">العربية</a>
+                                            <a class="language-switcher__button" href="../en/index.html" hreflang="en" lang="en">English</a>
+                                            <a class="language-switcher__button is-active" href="./index.html" hreflang="nl" lang="nl" aria-current="page">Nederlands</a>
+                                        </div>
+                                    </details>
+                                </div>
+                            </div>
+
+                            <!-- Mobile Menu Trigger -->
+                            <div class="col-6 col-sm-3 col-md-2 d-flex d-md-none justify-content-end align-items-center header-mobile-actions gap-2">
+                                <details class="language-switcher language-switcher--mobile notranslate header-language" translate="no">
+                                    <summary aria-label="Kies taal">
+                                        <span class="header-language__current">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16"><circle cx="12" cy="12" r="8.5"></circle><path d="M3.8 12h16.4M12 3.5c2.2 2.3 3.4 5.1 3.4 8.5S14.2 18.2 12 20.5M12 3.5C9.8 5.8 8.6 8.6 8.6 12s1.2 6.2 3.4 8.5"></path></svg>
+                                            <span>NL</span>
+                                        </span>
+                                        <span class="header-language__chevron" aria-hidden="true">
+                                            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                        </span>
+                                    </summary>
+                                    <div class="header-language__options">
+                                        <a class="language-switcher__button" href="../index.html" hreflang="ar" lang="ar">العربية</a>
+                                        <a class="language-switcher__button" href="../en/index.html" hreflang="en" lang="en">English</a>
+                                        <a class="language-switcher__button is-active" href="./index.html" hreflang="nl" lang="nl" aria-current="page">Nederlands</a>
+                                    </div>
+                                </details>
+                                <button type="button" class="btn-mobile-menu open-mb-menu text-caption text-white link" onclick="document.querySelector('.offcanvas-menu').classList.add('active');">
+                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                                    MENU
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Hero Content -->
+            <div class="section-hero-v1 hero-reference">
+                <div class="overlay"></div>
+                <div class="content-wrap">
+                    <div class="container">
+                        <div class="hero-reference__grid">
+                            <div class="hero-reference__copy">
+                                <p class="hero-availability hero-intro">
+                                    <span class="hero-availability__dot"></span>
+                                    BESCHIKBAAR VOOR NIEUWE PROJECTEN 2026
+                                </p>
+                                <h1 class="hero-reference__title">
+                                    <span class="hero-title-line"><span class="hero-title-line__text">Slimme Software &amp;</span></span>
+                                    <span class="hero-title-line"><span class="hero-title-line__text">ERP-Systemen die <span class="hero-title-accent">Groeien</span></span></span>
+                                </h1>
+                                <div class="hero-reference__bottom hero-intro">
+                                    <p>Wij bouwen op maat gemaakte cloudapplicaties, geautomatiseerde ERP- en boekhoudkoppelingen en geavanceerde AI-systemen waarmee bedrijven in Nederland en het Midden-Oosten soepel kunnen opschalen.</p>
+                                    <div class="hero-reference__actions d-flex flex-wrap gap-2">
+                                        <a href="#contact" class="tf-btn hero-reference__action">NEEM CONTACT OP</a>
+                                        <a href="../demo.html" class="tf-btn hero-reference__action hero-btn-demo">
+                                            <span>LIVE SYSTEEM DEMO</span>
+                                        </a>
+                                        <a href="#pricing" class="tf-btn hero-reference__action hero-reference__package-btn"><span>BEKIJK PAKKETTEN</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Diensten Section -->
+        <div id="service" data-section class="section-scroll-anchor" aria-hidden="true"></div>
+        <section class="section-tech-stack-v2 service-orbit-section" id="services" data-section>
+            <div class="container">
+                <div class="s-header d-block text-center mb-5">
+                    <p class="text-caption gold-accent">ONZE EXPERTISE</p>
+                    <h2 class="text-display-2">Gespecialiseerde Diensten</h2>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="founder-editorial-card h-100">
+                            <div class="ic-img service-icon mb-3">
+                                <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                            </div>
+                            <h4 class="text-white mb-2">Cloud ERP &amp; Bedrijfssystemen</h4>
+                            <p class="text-muted">Op maat gemaakte ERP-oplossingen die supply chain, voorraadbeheer, facturatie en analyses naadloos samenbrengen.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="founder-editorial-card h-100">
+                            <div class="ic-img service-icon mb-3">
+                                <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l6 8-2.5 6h-7L6 11l6-8Z"/><path d="M12 3v7"/><circle cx="12" cy="12" r="1.8"/><path d="M8.5 20.5h7"/></svg>
+                            </div>
+                            <h4 class="text-white mb-2">AI &amp; Procesautomatisering</h4>
+                            <p class="text-muted">Autonome werkprocessen, slimme documentverwerking en data-inzichten aangedreven door moderne kunstmatige intelligentie.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="founder-editorial-card h-100">
+                            <div class="ic-img service-icon mb-3">
+                                <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M8.5 9V6.5a3.5 3.5 0 0 1 7 0V9"/></svg>
+                            </div>
+                            <h4 class="text-white mb-2">Financiële &amp; Boekhoudtechnologie</h4>
+                            <p class="text-muted">Fiscaal conforme multi-valuta grootboeken, automatische factuurafstemming en directe bankkoppelingen conform de Nederlandse norm.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Over Ons & Oprichters Section -->
+        <div id="about" data-section class="section-scroll-anchor" aria-hidden="true"></div>
+        <section class="flat-spacing pb-5">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <p class="text-caption gold-accent">WIE WIJ ZIJN</p>
+                        <h2 class="text-display-2 text-white mb-4">Nederlands Vakmanschap. Wereldwijde Ambitie.</h2>
+                        <p class="text-muted mb-4">S&amp;R CoreSync Solutions combineert betrouwbare Europese softwarestandaarden met innovatieve architectuur. Gevestigd in Nederland en actief in Europa en het Midden-Oosten, bouwen wij systemen die bedrijven future-proof maken.</p>
+                        
+                        <div class="d-flex align-items-center gap-4 mt-4">
+                            <img src="../assets/signature-neon.svg?v=salim" alt="Mohammad Salim Aziza Handtekening" class="signature-founder-img" />
+                            <div>
+                                <h6 class="text-white mb-0">Directie &amp; Architecten</h6>
+                                <span class="text-muted font-caption">S&amp;R CoreSync Solutions</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row g-4">
+                            <div class="col-sm-6">
+                                <div class="founder-editorial-card h-100">
+                                    <div class="founder-avatar-img-wrap mb-3">
+                                        <img src="../assets/founder-salim.png" alt="Ir. Mohammad Salim Aziza" class="founder-avatar-img" />
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2 flex-wrap mb-1">
+                                        <h5 class="text-white fw-bold mb-0">Ir. Mohammad Salim Aziza</h5>
+                                        <span class="founder-badge-company">Castle Strangers</span>
+                                    </div>
+                                    <span class="gold-accent d-block mb-2 font-caption font-weight-bold">Medeoprichter &amp; Technisch Leider // CTO</span>
+                                    <p class="text-muted small">Hoofdontwikkelaar gespecialiseerd in schaalbare cloud-ecosystemen, mobiele apps (iOS &amp; Android) en AI-oplossingen voor bedrijven in Nederland en het Midden-Oosten.</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="founder-editorial-card h-100">
+                                    <div class="founder-avatar-img-wrap mb-3">
+                                        <img src="../assets/founder-raed.png" alt="Dhr. Mohammad Raed Kaakeh" class="founder-avatar-img" />
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2 flex-wrap mb-1">
+                                        <h5 class="text-white fw-bold mb-0">Dhr. Mohammad Raed Kaakeh</h5>
+                                        <span class="founder-badge-company">Castle Strangers</span>
+                                    </div>
+                                    <span class="gold-accent d-block mb-2 font-caption font-weight-bold">Medeoprichter &amp; Financieel ERP Architect // CFO</span>
+                                    <p class="text-muted small">Specialist in financiële bedrijfssoftware (ERP), databasebeheer en koppelingen conform de Nederlandse wetgeving, AVG en btw-richtlijnen.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Prijzen Section -->
+        <div id="pricing" data-section class="section-scroll-anchor" aria-hidden="true"></div>
+        <section class="flat-spacing pb-5">
+            <div class="container">
+                <div class="s-header d-block text-center mb-5">
+                    <p class="text-caption gold-accent">HELDERE PRIJZEN</p>
+                    <h2 class="text-display-2 text-white">Investeren in Duurzame Groei</h2>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-4">
+                        <div class="founder-editorial-card text-center p-4">
+                            <span class="text-muted font-caption">STARTEND &amp; MKB</span>
+                            <h3 class="text-white mt-2">CoreSync Starter</h3>
+                            <h2 class="gold-accent my-3">€695</h2>
+                            <p class="text-muted small mb-4">Complete cloudoplossing voor groeiende bedrijven met geautomatiseerde facturatie en dashboard.</p>
+                            <a href="#contact" class="tf-btn w-100 justify-content-center">Kies Pakket</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="founder-editorial-card text-center p-4 card-popular">
+                            <span class="gold-accent font-caption font-weight-bold">MEEST GEKOZEN</span>
+                            <h3 class="text-white mt-2">Business Pro ERP</h3>
+                            <h2 class="gold-accent my-3">€1.495</h2>
+                            <p class="text-muted small mb-4">Compleet ERP-systeem met multi-vestiging ondersteuning, voorraadbeheer en mobiele app-koppeling.</p>
+                            <a href="#contact" class="tf-btn w-100 justify-content-center btn-gold-action">Kies Pakket</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="founder-editorial-card text-center p-4">
+                            <span class="text-muted font-caption">ENTERPRISE OP MAAT</span>
+                            <h3 class="text-white mt-2">Custom Ecosysteem</h3>
+                            <h2 class="gold-accent my-3">€2.950+</h2>
+                            <p class="text-muted small mb-4">Toegewijde cloudinfrastructuur, op maat gemaakte AI-koppelingen, data-migratie en 24/7 SLA.</p>
+                            <a href="#contact" class="tf-btn w-100 justify-content-center">Offerte Aanvragen</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. FAQ Section -->
+        <div id="faq" data-section class="section-scroll-anchor" aria-hidden="true"></div>
+        <section class="flat-spacing pb-5">
+            <div class="container">
+                <div class="s-header d-block text-center mb-5">
+                    <p class="text-caption gold-accent">VEELGESTELDE VRAGEN</p>
+                    <h2 class="text-display-2 text-white">Alles Wat U Moet Weten</h2>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="founder-editorial-card mb-3 p-4">
+                            <h5 class="text-white mb-2">Hoe lang duurt een gemiddeld ERP-implementatietraject?</h5>
+                            <p class="text-muted mb-0">De meeste implementaties worden binnen 4 tot 8 weken afgerond, afhankelijk van de complexiteit van uw processen en eventuele datamigratie.</p>
+                        </div>
+                        <div class="founder-editorial-card mb-3 p-4">
+                            <h5 class="text-white mb-2">Voldoen de systemen aan de Nederlandse belasting- en privacywetgeving?</h5>
+                            <p class="text-muted mb-0">Ja, al onze softwaremodules zijn volledig compatibel met de Nederlandse btw-regelgeving, de AVG (GDPR) en gangbare boekhoudnormen.</p>
+                        </div>
+                        <div class="founder-editorial-card mb-3 p-4">
+                            <h5 class="text-white mb-2">Kunnen we het systeem vooraf uitproberen?</h5>
+                            <p class="text-muted mb-0">Zeker. U kunt via de link 'Live Demo' in het hoofdmenu direct een interactief voorproefje van onze interface bekijken.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Contact Section -->
+        <div id="contact" data-section class="section-scroll-anchor" aria-hidden="true"></div>
+        <section class="flat-spacing pb-5">
+            <div class="container">
+                <div class="s-header d-block text-center mb-5">
+                    <p class="text-caption gold-accent">CONTACT OPNEMEN</p>
+                    <h2 class="text-display-2 text-white">Laten We Uw Systeem Bouwen</h2>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="founder-editorial-card p-5">
+                            <form onsubmit="event.preventDefault(); alert('Hartelijk dank! Uw bericht is ontvangen. Wij nemen zo spoedig mogelijk contact met u op.');">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control bg-transparent text-white border-secondary p-3" placeholder="Uw Naam" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="email" class="form-control bg-transparent text-white border-secondary p-3" placeholder="Zakelijk E-mailadres" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <input type="text" class="form-control bg-transparent text-white border-secondary p-3" placeholder="Bedrijfsnaam & Sector">
+                                    </div>
+                                    <div class="col-12">
+                                        <textarea rows="4" class="form-control bg-transparent text-white border-secondary p-3" placeholder="Beschrijf uw project, ERP-wensen of systeemuitdaging..." required></textarea>
+                                    </div>
+                                    <div class="col-12 text-center mt-4">
+                                        <button type="submit" class="tf-btn px-5 py-3 w-100 justify-content-center btn-gold-submit">VERSTUUR BERICHT</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Watermark -->
+        <div class="footer-watermark-agency">CORESYNC</div>
+    </main>
+
+    <!-- Offcanvas Mobile Menu -->
+    <div class="offcanvas-menu">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <span class="brand-sr-text">S&amp;R CoreSync</span>
+            <button type="button" class="btn text-white fs-4" onclick="document.querySelector('.offcanvas-menu').classList.remove('active');">✕</button>
+        </div>
+        <ul class="nav-menu-mobile list-unstyled">
+            <li class="mb-3"><a href="#work" class="text-white text-decoration-none" onclick="document.querySelector('.offcanvas-menu').classList.remove('active');">Projecten</a></li>
+            <li class="mb-3"><a href="#service" class="text-white text-decoration-none" onclick="document.querySelector('.offcanvas-menu').classList.remove('active');">Diensten</a></li>
+            <li class="mb-3"><a href="#about" class="text-white text-decoration-none" onclick="document.querySelector('.offcanvas-menu').classList.remove('active');">Over ons</a></li>
+            <li class="mb-3"><a href="#pricing" class="text-white text-decoration-none" onclick="document.querySelector('.offcanvas-menu').classList.remove('active');">Prijzen</a></li>
+            <li class="mb-3"><a href="#faq" class="text-white text-decoration-none" onclick="document.querySelector('.offcanvas-menu').classList.remove('active');">FAQ</a></li>
+            <li class="mb-3"><a href="#contact" class="text-white text-decoration-none" onclick="document.querySelector('.offcanvas-menu').classList.remove('active');">Contact</a></li>
+            <li class="mb-3"><a href="../demo.html" class="gold-accent text-decoration-none">Live Demo</a></li>
+        </ul>
+    </div>
+
+    <script>
+        // Ensure iOS Safari plays inline without HTML validation warning
+        document.querySelectorAll('video').forEach(v => {
+            v.setAttribute('playsinline', '');
+            v.playsInline = true;
+        });
+
+        // Close language dropdown on outside click
+        document.addEventListener('click', (e) => {
+            document.querySelectorAll('.header-language').forEach(el => {
+                if (el.hasAttribute('open') && !el.contains(e.target)) {
+                    el.removeAttribute('open');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

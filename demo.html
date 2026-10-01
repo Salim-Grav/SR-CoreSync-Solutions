@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S&R CoreSync | المنصة السحابية التجريبية (Live Interactive Demo Portal)</title>
+    <link rel="icon" type="image/svg+xml" href="./assets/logo-neon-icon.svg">
+    
+    <!-- الخطوط الرسمية الفاخرة: Alexandria + Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- مكتبة الرسوم البيانية Chart.js ومكتبات التفاعل -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --bg-base: #010907;
+            --bg-surface: rgba(10, 20, 16, 0.7);
+            --bg-card: rgba(14, 28, 22, 0.6);
+            --gold: #c5a880;
+            --gold-hover: #e0c59e;
+            --gold-glow: rgba(197, 168, 128, 0.25);
+            --text-main: #f8fafc;
+            --text-muted: rgba(248, 250, 252, 0.65);
+            --border-glass: rgba(197, 168, 128, 0.18);
+            --success: #10b981;
+            --cyan: #38bdf8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: 'Alexandria', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .font-num {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* شريط التنقل العلوي للمنصة التجريبية */
+        .portal-header {
+            background: rgba(1, 9, 7, 0.9);
+            border-bottom: 1px solid var(--border-glass);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            padding: 0.9rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .portal-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .brand-badge {
+            background: linear-gradient(135deg, rgba(197, 168, 128, 0.3), rgba(1, 9, 7, 0.8));
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px var(--gold-glow);
+        }
+
+        .portal-brand-emblem {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.45));
+        }
+
+        .portal-brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .portal-brand-text h1 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .portal-brand-text h1 span {
+            color: var(--gold);
+        }
+
+        .portal-brand-tag {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .live-status-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--success);
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .live-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+            box-shadow: 0 0 8px var(--success);
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.2); }
+        }
+
+        .btn-return-main {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 500;
+            transition: all 0.25s ease;
+        }
+
+        .btn-return-main:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(197, 168, 128, 0.1);
+        }
+
+        /* الهيكل الأساسي للوحة التحكم */
+        .portal-layout {
+            display: flex;
+            flex: 1;
+            min-height: calc(100vh - 65px);
+        }
+
+        /* القائمة الجانبية (Sidebar) */
+        .portal-sidebar {
+            width: 260px;
+            background: rgba(4, 12, 9, 0.7);
+            border-left: 1px solid var(--border-glass);
+            padding: 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 900px) {
+            .portal-sidebar {
+                width: 70px;
+                padding: 1rem 0.5rem;
+            }
+            .nav-item span {
+                display: none;
+            }
+            .sidebar-user-card .user-info {
+                display: none;
+            }
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 16px;
+            border-radius: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border: 1px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(197, 168, 128, 0.08);
+            color: #fff;
+        }
+
+        .nav-item.active {
+            background: linear-gradient(90deg, rgba(197, 168, 128, 0.2), rgba(197, 168, 128, 0.05));
+            color: var(--gold);
+            border-color: rgba(197, 168, 128, 0.35);
+            font-weight: 600;
+        }
+
+        .nav-item svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-spacer {
+            flex: 1;
+        }
+
+        .sidebar-user-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-glass);
+            border-radius: 14px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--gold);
+            color: #010907;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .user-info {
+            line-height: 1.2;
+        }
+
+        .user-name {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .user-role {
+            font-size: 0.7rem;
+            color: var(--gold);
+        }
+
+        /* منطقة المحتوى الرئيسي (Main Content Workspace) */
+        .portal-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            background: radial-gradient(circle at 10% 10%, rgba(197, 168, 128, 0.05) 0%, transparent 60%);
+        }
+
+        .tab-section {
+            display: none;
+            animation: fadeIn 0.35s ease forwards;
+        }
+
+        .tab-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* العناوين والتنبيهات */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .section-title-wrap h2 {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .section-title-wrap p {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+        }
+
+        .action-cta-btn {
+            background: linear-gradient(135deg, var(--gold), #9e8058);
+            color: #010907;
+            font-weight: 700;
+            padding: 10px 22px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Alexandria', sans-serif;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 20px rgba(197, 168, 128, 0.3);
+        }
+
+        .action-cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(197, 168, 128, 0.45);
+        }
+
+        /* شبكة بطاقات الإحصاءات السريعة (Stats Grid) */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 18px;
+            padding: 1.5rem;
+            position: relative;
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--gold);
+        }
+
+        .stat-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-label {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .stat-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(197, 168, 128, 0.12);
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 0.4rem;
+        }
+
+        .stat-trend {
+            font-size: 0.78rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stat-trend.positive {
+            color: var(--success);
+        }
+
+        /* شبكة الرسوم البيانية والجداول */
+        .charts-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 1100px) {
+            .charts-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .glass-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 1.8rem;
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+        }
+
+        .glass-box-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .glass-box-header h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 280px;
+            width: 100%;
+        }
+
+        /* جدول العمليات المالية (Ledger Table) */
+        .data-table-wrap {
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: right;
+            font-size: 0.88rem;
+        }
+
+        .data-table th {
+            padding: 12px 16px;
+            color: var(--gold);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-glass);
+            font-size: 0.8rem;
+        }
+
+        .data-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .data-table tr:hover td {
+            background: rgba(197, 168, 128, 0.04);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 0.74rem;
+            font-weight: 600;
+        }
+
+        .status-completed {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .status-processing {
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--cyan);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        /* روبوت الذكاء الاصطناعي المالي (Financial AI Copilot) */
+        .ai-chat-box {
+            display: flex;
+            flex-direction: column;
+            height: 520px;
+            border-radius: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            overflow: hidden;
+        }
+
+        .ai-chat-header {
+            padding: 1.2rem 1.8rem;
+            border-bottom: 1px solid var(--border-glass);
+            background: rgba(197, 168, 128, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .ai-chat-messages {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .chat-bubble {
+            max-width: 80%;
+            padding: 14px 18px;
+            border-radius: 16px;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .chat-ai {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glass);
+            color: #f1f5f9;
+            align-self: flex-start;
+            border-top-right-radius: 4px;
+        }
+
+        .chat-user {
+            background: linear-gradient(135deg, var(--gold), #8a6c42);
+            color: #010907;
+            align-self: flex-end;
+            font-weight: 500;
+            border-top-left-radius: 4px;
+        }
+
+        .ai-prompt-chips {
+            display: flex;
+            gap: 8px;
+            padding: 0 1.5rem 1rem;
+            overflow-x: auto;
+            flex-wrap: wrap;
+        }
+
+        .prompt-chip {
+            background: rgba(197, 168, 128, 0.1);
+            border: 1px solid rgba(197, 168, 128, 0.25);
+            color: var(--gold);
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .prompt-chip:hover {
+            background: var(--gold);
+            color: #010907;
+        }
+
+        .ai-chat-input-bar {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border-glass);
+            display: flex;
+            gap: 10px;
+            background: rgba(1, 9, 7, 0.6);
+        }
+
+        .ai-chat-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: #fff;
+            font-family: 'Alexandria', sans-serif;
+            font-size: 0.88rem;
+            outline: none;
+        }
+
+        .ai-chat-input:focus {
+            border-color: var(--gold);
+        }
+
+        .ai-send-btn {
+            background: var(--gold);
+            color: #010907;
+            border: none;
+            border-radius: 12px;
+            padding: 0 20px;
+            cursor: pointer;
+            font-weight: 700;
+            font-family: 'Alexandria', sans-serif;
+        }
+
+        /* نافذة المعاملة الجديدة التجريبية */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: #050d0a;
+            border: 1px solid var(--gold);
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            padding: 2.2rem;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.9);
+        }
+
+        .tx-amount-highlight {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .stat-val-success {
+            color: var(--success);
+        }
+
+        .modal-form-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .modal-form-input {
+            width: 100%;
+        }
+
+        .modal-form-select {
+            width: 100%;
+            background: #010907;
+        }
+
+        .modal-form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- شريط التنقل العلوي -->
+    <header class="portal-header">
+        <a href="index.html" class="portal-brand">
+            <img src="./assets/logo-neon-icon.svg" alt="S&R CoreSync Emblem" class="portal-brand-emblem" />
+            <div class="portal-brand-text">
+                <h1><span>S&R</span> CORESYNC</h1>
+                <span class="portal-brand-tag">CLOUD ERP & FINANCIAL INTELLIGENCE</span>
+            </div>
+        </a>
+
+        <div class="header-controls">
+            <div class="live-status-pill">
+                <span class="live-status-dot"></span>
+                <span>النظام السحابي متصل (EU Node)</span>
+            </div>
+            <a href="logo-studio.html" class="btn-return-main" title="استوديو ومحرر الشعار">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle></svg>
+                استوديو الشعار
+            </a>
+            <a href="index.html" class="btn-return-main">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                العودة للموقع
+            </a>
+        </div>
+    </header>
+
+    <!-- الهيكل والتقسيم الداخلي -->
+    <div class="portal-layout">
+        <!-- القائمة الجانبية -->
+        <aside class="portal-sidebar">
+            <div class="nav-item active" onclick="switchPortalTab('overview', this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                <span>لوحة القيادة المالية</span>
+            </div>
+            <div class="nav-item" onclick="switchPortalTab('erp', this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                <span>إدارة الـ ERP والمخازن</span>
+            </div>
+            <div class="nav-item" onclick="switchPortalTab('invoices', this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                <span>الفواتير والتدفقات النقدية</span>
+            </div>
+            <div class="nav-item" onclick="switchPortalTab('ai', this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4M12 16h.01"></path></svg>
+                <span>المساعد المالي الذكي (AI)</span>
+            </div>
+            <div class="nav-item" onclick="switchPortalTab('cloud', this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+                <span>حالة الخوادم السحابية</span>
+            </div>
+
+            <div class="sidebar-spacer"></div>
+
+            <div class="sidebar-user-card">
+                <div class="user-avatar font-num">SR</div>
+                <div class="user-info">
+                    <div class="user-name">جلسة معاينة تفاعلية</div>
+                    <div class="user-role">S&R Executive Demo</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- منطقة العمل الرئيسية -->
+        <main class="portal-content">
+            
+            <!-- 1. شاشة النظرة العامة والمالية -->
+            <section class="tab-section active" id="tab-overview">
+                <div class="section-header">
+                    <div class="section-title-wrap">
+                        <h2>لوحة القيادة والتدفق المالي اللحظي</h2>
+                        <p>نظام محاكاة حي لحركات الحسابات والإيرادات والمصروفات السحابية المؤتمتة</p>
+                    </div>
+                    <button class="action-cta-btn" onclick="openNewTxModal()">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        تسجيل معاملة تجريبية
+                    </button>
+                </div>
+
+                <!-- شبكة بطاقات الأرقام -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <span class="stat-label">إجمالي الإيرادات السنوية</span>
+                            <div class="stat-icon font-num">€</div>
+                        </div>
+                        <div class="stat-value font-num" id="stat-revenue">€ 842,500</div>
+                        <div class="stat-trend positive">
+                            <span>+18.4%</span> مقارنة بالربع السابق
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <span class="stat-label">التدفقات النقدية الصافية</span>
+                            <div class="stat-icon">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                            </div>
+                        </div>
+                        <div class="stat-value font-num">€ 318,920</div>
+                        <div class="stat-trend positive">
+                            <span>+9.2%</span> هامش ربحية تشغيلية
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <span class="stat-label">طلبات الـ ERP المنجزة</span>
+                            <div class="stat-icon">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                            </div>
+                        </div>
+                        <div class="stat-value font-num" id="stat-orders">1,428</div>
+                        <div class="stat-trend positive">
+                            <span>99.8%</span> نسبة الامتثال والدقة
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <span class="stat-label">عمليات الأتمتة الموفرة</span>
+                            <div class="stat-icon">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            </div>
+                        </div>
+                        <div class="stat-value font-num">480 ساعة</div>
+                        <div class="stat-trend positive">
+                            وفر شهري مباشر في وقت الفريق
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الرسم البياني الرئيسي وتوزيع الأصول -->
+                <div class="charts-row">
+                    <div class="glass-box">
+                        <div class="glass-box-header">
+                            <h3>حركة الإيرادات والتدفق النقدي الشهري (€)</h3>
+                            <span class="text-caption text-white-64 font-num">2026 Monthly Trend</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="glass-box">
+                        <div class="glass-box-header">
+                            <h3>توزيع العمليات حسب القطاع</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- جدول العمليات اللحظية -->
+                <div class="glass-box">
+                    <div class="glass-box-header">
+                        <h3>سجل العمليات والربط المحاسبي المباشر</h3>
+                        <span class="text-caption text-white-64">مزامنة سحابية لحظية</span>
+                    </div>
+                    <div class="data-table-wrap">
+                        <table class="data-table" id="transactionsTable">
+                            <thead>
+                                <tr>
+                                    <th>رقم المعاملة</th>
+                                    <th>الجهة / العميل</th>
+                                    <th>التاريخ</th>
+                                    <th>المبلغ</th>
+                                    <th>نوع العملية</th>
+                                    <th>الحالة</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="font-num">#CS-9842</td>
+                                    <td>مجموعة الخدمات اللوجستية (هولندا)</td>
+                                    <td class="font-num">2026-10-01</td>
+                                    <td class="font-num tx-amount-highlight">€ 24,800</td>
+                                    <td>تكامل مخازن ERP</td>
+                                    <td><span class="status-badge status-completed">تمت المزامنة</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-num">#CS-9841</td>
+                                    <td>شركة الاستشارات المالية (فرانكفورت)</td>
+                                    <td class="font-num">2026-09-30</td>
+                                    <td class="font-num tx-amount-highlight">€ 18,500</td>
+                                    <td>حوكمة دفاتر الحسابات</td>
+                                    <td><span class="status-badge status-completed">تمت المزامنة</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-num">#CS-9840</td>
+                                    <td>مجموعة التوزيع التجاري (الرياض)</td>
+                                    <td class="font-num">2026-09-29</td>
+                                    <td class="font-num tx-amount-highlight">€ 42,000</td>
+                                    <td>تطبيق مالي سحابي</td>
+                                    <td><span class="status-badge status-processing">قيد التدقيق الآلي</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-num">#CS-9839</td>
+                                    <td>سلسلة مطاعم راقية (أمستردام)</td>
+                                    <td class="font-num">2026-09-28</td>
+                                    <td class="font-num tx-amount-highlight">€ 9,450</td>
+                                    <td>ربط نقاط البيع POS</td>
+                                    <td><span class="status-badge status-completed">تمت المزامنة</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. شاشة الـ ERP والمخازن -->
+            <section class="tab-section" id="tab-erp">
+                <div class="section-header">
+                    <div class="section-title-wrap">
+                        <h2>منظومة الـ ERP وإدارة سلاسل الإمداد</h2>
+                        <p>تكامل مركزي للمخازن، المشتريات، وتتبع الأصول بين المستودعات الأوروبية والخليجية</p>
+                    </div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">المستودعات المرتبطة</div>
+                        <div class="stat-value font-num">6 مراكز</div>
+                        <div class="stat-trend positive">أمستردام، روتردام، الرياض، دبي</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">إجمالي الأصناف النشطة</div>
+                        <div class="stat-value font-num">18,450 وحدة</div>
+                        <div class="stat-trend positive">تتبع تلقائي بالباركود وRFID</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">أوامر التوريد الجارية</div>
+                        <div class="stat-value font-num">34 أمر توريد</div>
+                        <div class="stat-trend positive">مؤتمتة مع الموردين المعتمدين</div>
+                    </div>
+                </div>
+                <div class="glass-box">
+                    <h3 class="mb-3">خريطة تدفق السلع والطلبات التلقائية</h3>
+                    <p class="text-white-64">
+                        يقوم محرك S&R CoreSync ERP بتحديث مستويات المخزون تلقائيًا فور صدور أي فاتورة مبيعات، وإطلاق طلبات إعادة التوريد الذكية عند بلوغ حد الأمان، مما يمنع انقطاع البضائع ويخفض تكاليف التخزين بنسبة 25%.
+                    </p>
+                </div>
+            </section>
+
+            <!-- 3. شاشة الفواتير والتدفقات النقدية -->
+            <section class="tab-section" id="tab-invoices">
+                <div class="section-header">
+                    <div class="section-title-wrap">
+                        <h2>الفواتير الإلكترونية والامتثال الضريبي</h2>
+                        <p>مطابقة معايير الفوترة الإلكترونية المعتمدة في هولندا والاتحاد الأوروبي وهيئة الزكاة والضريبة (ZATCA)</p>
+                    </div>
+                </div>
+                <div class="glass-box">
+                    <div class="glass-box-header">
+                        <h3>سجل الفواتير الصادرة والواردة</h3>
+                    </div>
+                    <div class="data-table-wrap">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>رقم الفاتورة</th>
+                                    <th>العميل</th>
+                                    <th>المبلغ الصافي</th>
+                                    <th>الضريبة (VAT 21%)</th>
+                                    <th>الإجمالي</th>
+                                    <th>حالة السداد</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="font-num">INV-2026-081</td>
+                                    <td>Amsterdam Tech Hub</td>
+                                    <td class="font-num">€ 10,000</td>
+                                    <td class="font-num">€ 2,100</td>
+                                    <td class="font-num tx-amount-highlight">€ 12,100</td>
+                                    <td><span class="status-badge status-completed">مدفوعة عبر iDEAL</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-num">INV-2026-082</td>
+                                    <td>Gulf Logistics Partners</td>
+                                    <td class="font-num">€ 35,000</td>
+                                    <td class="font-num">€ 0 (Reverse Charge)</td>
+                                    <td class="font-num tx-amount-highlight">€ 35,000</td>
+                                    <td><span class="status-badge status-processing">تستحق خلال 14 يوم</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. المساعد المالي والبرمجي بالذكاء الاصطناعي (AI Copilot) -->
+            <section class="tab-section" id="tab-ai">
+                <div class="section-header">
+                    <div class="section-title-wrap">
+                        <h2>المساعد المالي والتحليلي بالذكاء الاصطناعي</h2>
+                        <p>توليد تقارير مالية وتنبؤات استراتيجية فورية مبنية على بيانات مؤسستك الحية</p>
+                    </div>
+                </div>
+
+                <div class="ai-chat-box">
+                    <div class="ai-chat-header">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="live-status-dot"></span>
+                            <span class="fw-bold text-white">CoreSync AI Financial Agent v2.6</span>
+                        </div>
+                        <span class="text-caption text-white-64">مدرب على المعايير المحاسبية الدولية IFRS</span>
+                    </div>
+
+                    <div class="ai-chat-messages" id="aiChatMessages">
+                        <div class="chat-bubble chat-ai">
+                            مرحباً بك! أنا المساعد المالي الذكي لنظام S&R CoreSync. قمت للتو بمراجعة كافة حركات التدفق النقدي ومطابقة فواتير الشهر الحالي. كيف يمكنني مساعدتك اليوم؟
+                        </div>
+                    </div>
+
+                    <div class="ai-prompt-chips">
+                        <div class="prompt-chip" onclick="askAiPrompt('حلل التدفق المالي لشهر أكتوبر وأخبرني بهامش الأرباح المتوقع')">📊 تحليل التدفق المالي لشهر أكتوبر</div>
+                        <div class="prompt-chip" onclick="askAiPrompt('ما هي الفواتير المعلقة التي تتجاوز مدتها 15 يوماً؟')">⏳ الفواتير المتأخرة</div>
+                        <div class="prompt-chip" onclick="askAiPrompt('قدم لي نصيحة لتحسين كفاءة إدارة المخزون وفق بيانات الأسبوع الماضي')">💡 تحسين تكاليف التخزين</div>
+                    </div>
+
+                    <div class="ai-chat-input-bar">
+                        <input type="text" id="aiInput" class="ai-chat-input" placeholder="اكتب استفسارك المالي أو التقني هنا..." onkeypress="if(event.key === 'Enter') sendAiMessage()">
+                        <button class="ai-send-btn" onclick="sendAiMessage()">إرسال</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. حالة الخوادم السحابية والأمان (Cloud Health) -->
+            <section class="tab-section" id="tab-cloud">
+                <div class="section-header">
+                    <div class="section-title-wrap">
+                        <h2>حالة البنية التحتية السحابية (Cloud Nodes)</h2>
+                        <p>مراقبة لحظية للخوادم الموزعة في أمستردام وفرانكفورت والرياض مع نسخ احتياطي فوري</p>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">عقدة أمستردام الرئيسية (NL)</div>
+                        <div class="stat-value font-num stat-val-success">99.99%</div>
+                        <div class="stat-trend positive">زمن الاستجابة: 12ms (فائق السرعة)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">عقدة فرانكفورت الاحتياطية (DE)</div>
+                        <div class="stat-value font-num stat-val-success">100%</div>
+                        <div class="stat-trend positive">نسخ متزامن ومشفّر AES-256</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">بوابة الشرق الأوسط السحابية (KSA)</div>
+                        <div class="stat-value font-num stat-val-success">99.98%</div>
+                        <div class="stat-trend positive">تكامل محلي سريع مع البنوك</div>
+                    </div>
+                </div>
+
+                <div class="glass-box">
+                    <h3 class="mb-3">معايير الأمان والحماية المؤسسية</h3>
+                    <p class="text-white-64">
+                        تعتمد منصة S&R CoreSync على بنية تحتية سحابية هجينة تضمن عزل بيانات كل عميل في قواعد بيانات مشفرة مستقلة، مع شهادات التوافق مع اللائحة العامة لحماية البيانات في الاتحاد الأوروبي (GDPR) وأنظمة الأمن السيبراني المصرفية.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- نافذة تسجيل معاملة تجريبية منبثقة -->
+    <div class="modal-overlay" id="newTxModal" onclick="if(event.target === this) closeNewTxModal()">
+        <div class="modal-card">
+            <h3 class="text-white mb-2 fw-bold">تسجيل معاملة تجريبية في الـ ERP</h3>
+            <p class="text-caption text-white-64 mb-4">أدخل بيانات المعاملة لاختبار المزامنة اللحظية في الرسم البياني والجدول</p>
+            
+            <div class="modal-form-fields">
+                <div>
+                    <label class="text-caption text-white-64 mb-1 d-block" for="txClient">اسم الجهة أو العميل</label>
+                    <input type="text" id="txClient" class="ai-chat-input modal-form-input" value="شركة تجارية هولندية جديدة" placeholder="اسم الجهة أو العميل" title="اسم الجهة أو العميل">
+                </div>
+                <div>
+                    <label class="text-caption text-white-64 mb-1 d-block" for="txAmount">المبلغ باليورو (€)</label>
+                    <input type="number" id="txAmount" class="ai-chat-input font-num modal-form-input" value="15000" placeholder="المبلغ باليورو" title="المبلغ باليورو (€)">
+                </div>
+                <div>
+                    <label class="text-caption text-white-64 mb-1 d-block" for="txType">نوع الخدمة</label>
+                    <select id="txType" class="ai-chat-input modal-form-select" title="نوع الخدمة" aria-label="نوع الخدمة">
+                        <option value="ربط وتكامل ERP">ربط وتكامل ERP</option>
+                        <option value="تطوير برمجيات سحابية">تطوير برمجيات سحابية</option>
+                        <option value="استشارات مالية وحوكمة">استشارات مالية وحوكمة</option>
+                    </select>
+                </div>
+                <div class="modal-form-actions">
+                    <button type="button" class="btn-return-main" onclick="closeNewTxModal()">إلغاء</button>
+                    <button type="button" class="action-cta-btn" onclick="saveNewTx()">حفظ ومزامنة فورية</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // التبديل بين الشاشات في القائمة الجانبية
+        function switchPortalTab(tabId, el) {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            el.classList.add('active');
+
+            document.querySelectorAll('.tab-section').forEach(sec => sec.classList.remove('active'));
+            const target = document.getElementById('tab-' + tabId);
+            if (target) {
+                target.classList.add('active');
+            }
+        }
+
+        // إعداد الرسوم البيانية التفاعلية بواسطة Chart.js
+        let revenueChartInstance;
+        let categoryChartInstance;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // رسم بياني الإيرادات الشهرية
+            const ctxRev = document.getElementById('revenueChart').getContext('2d');
+            revenueChartInstance = new Chart(ctxRev, {
+                type: 'line',
+                data: {
+                    labels: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر'],
+                    datasets: [
+                        {
+                            label: 'الإيرادات الفعلية (€)',
+                            data: [54000, 62000, 71000, 79000, 85000, 92000, 88000, 105000, 122000, 144500],
+                            borderColor: '#c5a880',
+                            backgroundColor: 'rgba(197, 168, 128, 0.1)',
+                            fill: true,
+                            tension: 0.35,
+                            borderWidth: 3,
+                            pointBackgroundColor: '#c5a880',
+                            pointRadius: 4
+                        },
+                        {
+                            label: 'التدفق النقدي الصافي (€)',
+                            data: [22000, 26000, 31000, 34000, 39000, 42000, 38000, 49000, 56000, 68000],
+                            borderColor: '#10b981',
+                            borderDash: [5, 5],
+                            tension: 0.35,
+                            borderWidth: 2,
+                            pointRadius: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'rgba(255, 255, 255, 0.75)',
+                                font: { family: 'Alexandria', size: 12 }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: 'rgba(255, 255, 255, 0.6)', font: { family: 'Alexandria' } }
+                        },
+                        y: {
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: 'rgba(255, 255, 255, 0.6)', font: { family: 'Plus Jakarta Sans' } }
+                        }
+                    }
+                }
+            });
+
+            // رسم بياني توزيع القطاعات
+            const ctxCat = document.getElementById('categoryChart').getContext('2d');
+            categoryChartInstance = new Chart(ctxCat, {
+                type: 'doughnut',
+                data: {
+                    labels: ['حلول ERP والربط المالي', 'برمجيات سحابية وتطبيقات', 'أتمتة الذكاء الاصطناعي', 'استشارات وحوكمة'],
+                    datasets: [{
+                        data: [45, 30, 15, 10],
+                        backgroundColor: ['#c5a880', '#38bdf8', '#10b981', '#f59e0b'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: 'rgba(255, 255, 255, 0.7)',
+                                font: { family: 'Alexandria', size: 11 },
+                                boxWidth: 12
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+        // المساعد المالي الذكي (AI Chat Logic)
+        function askAiPrompt(text) {
+            document.getElementById('aiInput').value = text;
+            sendAiMessage();
+        }
+
+        function sendAiMessage() {
+            const input = document.getElementById('aiInput');
+            const query = input.value.trim();
+            if (!query) return;
+
+            const chat = document.getElementById('aiChatMessages');
+
+            // رسالة المستخدم
+            const userMsg = document.createElement('div');
+            userMsg.className = 'chat-bubble chat-user';
+            userMsg.innerText = query;
+            chat.appendChild(userMsg);
+            input.value = '';
+            chat.scrollTop = chat.scrollHeight;
+
+            // توليد الرد الآلي الذكي بعد ثوانٍ معدودة
+            setTimeout(() => {
+                let aiResponse = "";
+                if (query.includes('أكتوبر') || query.includes('التدفق')) {
+                    aiResponse = "بناءً على مطابقة دفاتر المحاسبة ونظام الـ ERP لشهر أكتوبر:\n- إجمالي الإيرادات المحققة: €144,500 (+18% نمو قياسي).\n- هامش الربح التشغيلي: 27.4% وهو أعلى من متوسط القطاع في هولندا.\n- التوصية: تسريع تحصيل دفعة بقيمة €42,000 مستحقة في 10 أكتوبر لتعزيز السيولة المتاحة للاستثمار في البنية السحابية.";
+                } else if (query.includes('فواتير') || query.includes('المتأخرة')) {
+                    aiResponse = "توجد فاتورة واحدة معلقة بقيمة €35,000 لعميل في الرياض تستحق خلال 14 يوماً مع بند Reverse Charge ضريبي سليم. لا توجد أي فواتير متعثرة تتجاوز 30 يوماً بفضل التنبيهات الآلية للواتساب والإيميل.";
+                } else {
+                    aiResponse = "تم تحليل استفسارك عبر خوارزمية S&R CoreSync المالية. الأنظمة تعمل بتناسق تام بين المحاسبة والعمليات، ويمكن لأتمتة الـ RPA توفير 35 ساعة عمل إضافية لفريقك خلال الشهر القادم عبر أرشفة الفواتير المباشرة.";
+                }
+
+                const aiMsg = document.createElement('div');
+                aiMsg.className = 'chat-bubble chat-ai';
+                aiMsg.innerText = aiResponse;
+                chat.appendChild(aiMsg);
+                chat.scrollTop = chat.scrollHeight;
+            }, 600);
+        }
+
+        // نافذة المعاملة الجديدة
+        function openNewTxModal() {
+            document.getElementById('newTxModal').classList.add('active');
+        }
+
+        function closeNewTxModal() {
+            document.getElementById('newTxModal').classList.remove('active');
+        }
+
+        function saveNewTx() {
+            const client = document.getElementById('txClient').value;
+            const amount = parseFloat(document.getElementById('txAmount').value) || 0;
+            const type = document.getElementById('txType').value;
+
+            // إضافة صف جديد للجدول
+            const tbody = document.querySelector('#transactionsTable tbody');
+            const tr = document.createElement('tr');
+            const randomId = '#CS-' + Math.floor(1000 + Math.random() * 9000);
+
+            tr.innerHTML = `
+                <td class="font-num">${randomId}</td>
+                <td>${client}</td>
+                <td class="font-num">2026-10-01</td>
+                <td class="font-num" style="color: var(--gold); font-weight: 700;">€ ${amount.toLocaleString()}</td>
+                <td>${type}</td>
+                <td><span class="status-badge status-completed">تمت المزامنة فوراً</span></td>
+            `;
+
+            tbody.prepend(tr);
+
+            // تحديث عداد الإيرادات
+            const revEl = document.getElementById('stat-revenue');
+            revEl.innerText = `€ ${(842500 + amount).toLocaleString()}`;
+
+            // تحديث الرسم البياني
+            if (revenueChartInstance) {
+                const dataArr = revenueChartInstance.data.datasets[0].data;
+                dataArr[dataArr.length - 1] += amount;
+                revenueChartInstance.update();
+            }
+
+            closeNewTxModal();
+            alert('تمت إضافة المعاملة بنجاح وتحديث قيود الـ ERP والرسوم البيانية لحظياً!');
+        }
+    </script>
+</body>
+</html>
