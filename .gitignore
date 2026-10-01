@@ -1,0 +1,10 @@
+# Temporary scripts and scratch files
+scratch/
+__pycache__/
+*.pyc
+
+# IDE & Editor files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
