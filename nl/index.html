@@ -207,8 +207,8 @@
             min-width: 0;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
-            text-align: left;
+            align-items: center !important;
+            text-align: center !important;
         }
 
         .founder-card-titles h4 {
@@ -218,6 +218,7 @@
             line-height: 1.3;
             color: #ffffff;
             width: 100%;
+            text-align: center !important;
             word-break: normal;
             overflow-wrap: break-word;
         }
@@ -227,10 +228,14 @@
             line-height: 1.45;
             color: rgba(255, 255, 255, 0.64);
             margin-top: 5px;
+            text-align: center !important;
         }
 
         .founder-header-spacer {
-            display: none !important;
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+            display: block;
         }
 
         .founder-avatar-box {
