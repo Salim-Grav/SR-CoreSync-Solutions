@@ -516,49 +516,55 @@
 
         .founder-role-badge {
             display: inline-block;
-            background: rgba(197, 168, 128, 0.14);
-            border: 1px solid rgba(197, 168, 128, 0.38);
+            background: rgba(197, 168, 128, 0.15);
+            border: 1px solid rgba(197, 168, 128, 0.4);
             color: var(--primary-gold);
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             font-weight: 600;
-            padding: 3px 12px;
+            padding: 4px 14px;
             border-radius: 999px;
             margin-top: 5px;
             letter-spacing: 0.2px;
+            text-align: center;
         }
 
         .founder-editorial-card p.text-body-2 {
             font-size: 0.94rem;
             line-height: 1.85;
-            color: rgba(255, 255, 255, 0.8);
-            margin-top: 1rem;
-            text-align: justify;
+            color: rgba(255, 255, 255, 0.82);
+            margin: 1.2rem auto 0 auto;
+            text-align: center;
+            max-width: 95%;
         }
 
         .founder-tags-list {
             display: flex;
             flex-wrap: wrap;
+            align-items: center;
+            justify-content: center !important;
             gap: 10px;
             margin-top: 1.4rem;
+            width: 100%;
         }
 
         .founder-tag-pill {
             background: rgba(197, 168, 128, 0.08);
             border: 1px solid rgba(197, 168, 128, 0.22);
-            color: rgba(255, 255, 255, 0.85);
-            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.88);
+            font-size: 0.82rem;
             font-weight: 500;
             padding: 6px 14px;
             border-radius: 8px;
             transition: all 0.25s ease;
+            text-align: center;
         }
 
         .founder-tag-pill:hover {
-            background: rgba(197, 168, 128, 0.2);
+            background: rgba(197, 168, 128, 0.22);
             border-color: var(--primary-gold);
             color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(197, 168, 128, 0.2);
+            box-shadow: 0 4px 12px rgba(197, 168, 128, 0.25);
         }
 
         /* نافذة الاتصال المباشر الفورية */
@@ -1641,15 +1647,16 @@
                 <div class="founders-editorial-grid">
                     <!-- الشريك المؤسس R: أ. محمد رائد كعكة (الجهة اليسرى تحت النص) -->
                     <div class="founder-editorial-card founder-card--raed">
-                        <div class="founder-header-flex">
+                        <div class="founder-card-header founder-card-header--raed">
                             <div class="founder-avatar-img-wrap">
                                 <img src="./assets/founder-raed.png?v=color_v2" alt="أ. محمد رائد كعكة" class="founder-avatar-img" />
                             </div>
-                            <div>
+                            <div class="founder-card-titles">
                                 <h4 class="text-white fw-bold mb-1">أ. محمد رائد كعكة</h4>
                                 <span class="founder-role-badge">شريك مؤسس ومطور نظم محاسبة الشركات // CFO</span>
                                 <p class="text-caption text-white-64 mb-0 mt-1">كبير مطوري أنظمة الـ ERP والتشريعات المالية الأوروبية</p>
                             </div>
+                            <div class="founder-header-spacer" aria-hidden="true"></div>
                         </div>
                         <p class="text-body-2 text-white-64 mb-3">
                             متخصص في تصميم وتطوير الأنظمة المحاسبية والمالية للشركات والمؤسسات (ERP)، وإدارة قواعد البيانات ودمج الحلول البرمجية مع الأنظمة والتشريعات المالية لمساعدة الشركات على إدارة حساباتها بدقة وسهولة متناهية وفق أعلى المعايير في هولندا وأوروبا والشرق الأوسط.
@@ -1664,14 +1671,15 @@
 
                     <!-- الشريك المؤسس S: م. محمد سليم عزيزة (الجهة اليمنى تحت الصورة) -->
                     <div class="founder-editorial-card founder-card--salim">
-                        <div class="founder-header-flex">
-                            <div class="founder-avatar-img-wrap">
-                                <img src="./assets/founder-salim.png?v=color_v2" alt="م. محمد سليم عزيزة" class="founder-avatar-img" />
-                            </div>
-                            <div>
+                        <div class="founder-card-header founder-card-header--salim">
+                            <div class="founder-header-spacer" aria-hidden="true"></div>
+                            <div class="founder-card-titles">
                                 <h4 class="text-white fw-bold mb-1">م. محمد سليم عزيزة</h4>
                                 <span class="founder-role-badge">المسؤول التقني ومطور البرمجيات // CTO</span>
                                 <p class="text-caption text-white-64 mb-0 mt-1">شريك مؤسس وكبير مهندسي البرمجيات والأنظمة الذكية</p>
+                            </div>
+                            <div class="founder-avatar-img-wrap">
+                                <img src="./assets/founder-salim.png?v=color_v2" alt="م. محمد سليم عزيزة" class="founder-avatar-img" />
                             </div>
                         </div>
                         <p class="text-body-2 text-white-64 mb-3">
