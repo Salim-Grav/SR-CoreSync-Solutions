@@ -1232,6 +1232,7 @@
                 justify-content: space-between;
                 margin-top: 8px;
             }
+        }
         /* ================================================================
            الخيار الثاني: المشهد السينمائي المقسّم تفاعلياً (Interactive Split Hero)
            ================================================================ */
@@ -1353,13 +1354,14 @@
 
         .hero-split-center-badge {
             position: absolute;
-            top: 50%;
+            top: auto !important;
+            bottom: clamp(55px, 8vh, 85px) !important;
             left: 50%;
-            transform: translate(-50%, -50%);
-            width: 44px;
-            height: 44px;
+            transform: translateX(-50%);
+            width: 46px;
+            height: 46px;
             border-radius: 50%;
-            background: rgba(1, 9, 7, 0.9);
+            background: rgba(1, 9, 7, 0.92);
             border: 1.5px solid var(--primary-gold);
             -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
@@ -1367,11 +1369,11 @@
             align-items: center;
             justify-content: center;
             color: var(--primary-gold);
-            font-size: 0.82rem;
+            font-size: 0.84rem;
             font-weight: 800;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            box-shadow: 0 0 20px rgba(197, 168, 128, 0.45);
-            z-index: 5;
+            box-shadow: 0 0 24px rgba(197, 168, 128, 0.5), inset 0 0 10px rgba(197, 168, 128, 0.2);
+            z-index: 6;
             pointer-events: none;
         }
 
