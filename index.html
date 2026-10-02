@@ -238,6 +238,31 @@
             transform: scaleX(-1);
         }
 
+        /* وضع شعار اللوغو المتحرك على يسار الصورة أعلى النص وتنسيق تموضع النص طردياً */
+        .section-about-me .col-left .badget {
+            right: auto !important;
+            left: -35px !important;
+            top: 22% !important;
+            transform: translateY(-50%) !important;
+            z-index: 10 !important;
+        }
+
+        @media (max-width: 991px) {
+            .section-about-me .col-left .badget {
+                left: 10px !important;
+                right: auto !important;
+                top: 18% !important;
+                transform: translateY(-50%) !important;
+            }
+        }
+
+        /* تنزيل النص قليلاً ليتناسب طرداً مع موقع الشعار والصورة */
+        @media (min-width: 992px) {
+            .section-about-me .col-right {
+                padding-top: 3.5rem !important;
+            }
+        }
+
         .founder-badge-company {
             display: inline-flex;
             align-items: center;
