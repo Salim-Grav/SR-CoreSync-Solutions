@@ -231,9 +231,9 @@
             display: block;
         }
 
-        /* عكس جهة صورة الشخص لتنظر وتتجه نحو اليسار */
+        /* عكس جهة صورة المؤسس لتنظر وتتجه نحو اليسار */
         .about-media .video,
-        .founder-editorial-card:first-child .founder-avatar-img {
+        .founder-card--salim .founder-avatar-img {
             -webkit-transform: scaleX(-1);
             transform: scaleX(-1);
         }
@@ -1281,27 +1281,9 @@
                 <img loading="lazy" decoding="async" width="1440" height="906" src="https://dananajmah.com/assets/images/section/bg-about.webp" alt="خلفية">
             </div>
             <div class="container position-relative z-5">
-                <div class="row align-items-center">
-                    <!-- الصورة السينمائية: تظهر على اليمين في RTL (أول عنصر في Bootstrap RTL = يمين) -->
-                    <div class="col-lg-5 order-1">
-                        <div class="col-left mb-lg-0">
-                            <div class="about-media">
-                                <video class="video" muted loop autoplay preload="auto" poster="./assets/about-founder-poster.webp" src="./assets/about-founder-cinematic.mp4"></video>
-                                <div class="overlay v1"></div>
-                                <div class="overlay mark-1"></div>
-                                <div class="overlay mark-2"></div>
-                            </div>
-                            <div class="signature">
-                                <img loading="lazy" decoding="async" width="1000" height="252" src="./assets/signature-neon.svg?v=salim" alt="Mohammad Salim Aziza - التوقيع النيوني الذهبي">
-                            </div>
-                            <div class="badget">
-                                <img loading="lazy" decoding="async" width="156" height="156" src="./assets/logo-neon-icon.svg" alt="S&amp;R CoreSync Solutions - شارة التميز والاعتماد">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- النص والإحصائيات: تظهر على اليسار في RTL (ثاني عنصر في Bootstrap RTL = يسار) -->
-                    <div class="col-lg-6 offset-lg-1 col-xl-5 offset-xl-2 order-2">
+                <div class="row align-items-center justify-content-between">
+                    <!-- النص والإحصائيات: تظهر في الجهة اليسرى على الشاشات الكبيرة -->
+                    <div class="col-lg-6 order-2 order-lg-1">
                         <div class="col-right">
                             <h6 class="mini-title text-caption text-white-64">
                                 نبذة عن الشركة والمؤسسين
@@ -1333,38 +1315,30 @@
                             </ul>
                         </div>
                     </div>
+
+                    <!-- الصورة السينمائية: تظهر في الجهة اليمنى على الشاشات الكبيرة -->
+                    <div class="col-lg-5 order-1 order-lg-2">
+                        <div class="col-left mb-lg-0">
+                            <div class="about-media">
+                                <video class="video" muted loop autoplay preload="auto" poster="./assets/about-founder-poster.webp" src="./assets/about-founder-cinematic.mp4"></video>
+                                <div class="overlay v1"></div>
+                                <div class="overlay mark-1"></div>
+                                <div class="overlay mark-2"></div>
+                            </div>
+                            <div class="signature">
+                                <img loading="lazy" decoding="async" width="1000" height="252" src="./assets/signature-neon.svg?v=salim" alt="Mohammad Salim Aziza - التوقيع النيوني الذهبي">
+                            </div>
+                            <div class="badget">
+                                <img loading="lazy" decoding="async" width="156" height="156" src="./assets/logo-neon-icon.svg" alt="S&amp;R CoreSync Solutions - شارة التميز والاعتماد">
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- بطاقتا الشريكين المؤسسين (S & R) - البيانات والصور الرسمية المعتمدة -->
                 <div class="founders-editorial-grid">
-                    <!-- الشريك المؤسس S: م. محمد سليم عزيزة -->
-                    <div class="founder-editorial-card">
-                        <div class="founder-header-flex founder-header-flex--rtl">
-                            <div class="text-end">
-                                <div class="d-flex align-items-center gap-2 flex-wrap mb-1 justify-content-end">
-                                    <span class="founder-badge-company">Castle Strangers</span>
-                                    <h4 class="text-white fw-bold mb-0">م. محمد سليم عزيزة</h4>
-                                </div>
-                                <span class="founder-role-badge">المسؤول التقني ومطور البرمجيات // CTO</span>
-                                <p class="text-caption text-white-64 mb-0 mt-1">شريك مؤسس وكبير مهندسي البرمجيات والأنظمة الذكية</p>
-                            </div>
-                            <div class="founder-avatar-img-wrap">
-                                <img src="./assets/founder-salim.png" alt="م. محمد سليم عزيزة" class="founder-avatar-img" />
-                            </div>
-                        </div>
-                        <p class="text-body-2 text-white-64 mb-3">
-                            المطور المسؤول عن بناء وتحديث المنظومات والحلول البرمجية المتكاملة للجالية والشركات والمؤسسات. نعمل على تقديم حلول برمجية متكاملة تشمل تطبيقات الهواتف الذكية، المواقع السريعة، وأنظمة الذكاء الاصطناعي المخصصة لمساعدة عملائنا في هولندا وأوروبا والشرق الأوسط على كسب المزيد من الزبائن وتحقيق النجاح والريادة الرقمية.
-                        </p>
-                        <div class="founder-tags-list">
-                            <span class="founder-tag-pill">مواقع الويب المتقدمة (React & Next.js)</span>
-                            <span class="founder-tag-pill">تطبيقات الهواتف الذكية (Android & iOS)</span>
-                            <span class="founder-tag-pill">حلول الذكاء الاصطناعي (RAG & Chatbots)</span>
-                            <span class="founder-tag-pill">هندسة السحابة والأتمتة الرقمية</span>
-                        </div>
-                    </div>
-
-                    <!-- الشريك المؤسس R: أ. محمد رائد كعكة -->
-                    <div class="founder-editorial-card">
+                    <!-- الشريك المؤسس R: أ. محمد رائد كعكة (الجهة اليسرى تحت النص) -->
+                    <div class="founder-editorial-card founder-card--raed">
                         <div class="founder-header-flex">
                             <div class="founder-avatar-img-wrap">
                                 <img src="./assets/founder-raed.png" alt="أ. محمد رائد كعكة" class="founder-avatar-img" />
@@ -1386,6 +1360,32 @@
                             <span class="founder-tag-pill">تطبيقات الهواتف الذكية (Android & iOS)</span>
                             <span class="founder-tag-pill">إدارة قواعد البيانات وتكامل الـ APIs</span>
                             <span class="founder-tag-pill">الامتثال الضريبي الهولندي والأوروبي (VAT)</span>
+                        </div>
+                    </div>
+
+                    <!-- الشريك المؤسس S: م. محمد سليم عزيزة (الجهة اليمنى تحت الصورة) -->
+                    <div class="founder-editorial-card founder-card--salim">
+                        <div class="founder-header-flex founder-header-flex--rtl">
+                            <div class="text-end">
+                                <div class="d-flex align-items-center gap-2 flex-wrap mb-1 justify-content-end">
+                                    <span class="founder-badge-company">Castle Strangers</span>
+                                    <h4 class="text-white fw-bold mb-0">م. محمد سليم عزيزة</h4>
+                                </div>
+                                <span class="founder-role-badge">المسؤول التقني ومطور البرمجيات // CTO</span>
+                                <p class="text-caption text-white-64 mb-0 mt-1">شريك مؤسس وكبير مهندسي البرمجيات والأنظمة الذكية</p>
+                            </div>
+                            <div class="founder-avatar-img-wrap">
+                                <img src="./assets/founder-salim.png" alt="م. محمد سليم عزيزة" class="founder-avatar-img" />
+                            </div>
+                        </div>
+                        <p class="text-body-2 text-white-64 mb-3">
+                            المطور المسؤول عن بناء وتحديث المنظومات والحلول البرمجية المتكاملة للجالية والشركات والمؤسسات. نعمل على تقديم حلول برمجية متكاملة تشمل تطبيقات الهواتف الذكية، المواقع السريعة، وأنظمة الذكاء الاصطناعي المخصصة لمساعدة عملائنا في هولندا وأوروبا والشرق الأوسط على كسب المزيد من الزبائن وتحقيق النجاح والريادة الرقمية.
+                        </p>
+                        <div class="founder-tags-list">
+                            <span class="founder-tag-pill">مواقع الويب المتقدمة (React & Next.js)</span>
+                            <span class="founder-tag-pill">تطبيقات الهواتف الذكية (Android & iOS)</span>
+                            <span class="founder-tag-pill">حلول الذكاء الاصطناعي (RAG & Chatbots)</span>
+                            <span class="founder-tag-pill">هندسة السحابة والأتمتة الرقمية</span>
                         </div>
                     </div>
                 </div>
