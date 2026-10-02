@@ -6122,133 +6122,10 @@
         }
 
         // ==========================================
-        // محرك العرض السينمائي التناوبي المزدوج للشاشة الرئيسية (Dynamic Duo Hero Slider Engine)
+        // الشاشة الرئيسية التفاعلية المقسمة (Interactive Split Hero)
+        // يتم التحكم في تمدد وتفاعل الجانبين عبر CSS Flexbox التفاعلي
         // ==========================================
-        const HERO_DUO_DATA = {
-            salim: {
-                tag: '<bdi>متاحون لمشاريع 2026</bdi> // <bdi>م. محمد سليم عزيزة</bdi> • <bdi dir="ltr">CTO</bdi>',
-                titleLine1: 'أنظمة وبرمجيات سحابية',
-                titleAccent: 'ذكية',
-                titleLine2: 'لنمو أعمالك وريادتها',
-                desc: 'نبتكر حلولاً برمجية مخصصة، تطبيقات سحابية فائقة السرعة، ومنصات ذكاء اصطناعي لمساعدة كبرى الشركات في هولندا والشرق الأوسط على أتمتة أعمالها والتوسع عالمياً.',
-                signature: './assets/signature-neon.svg?v=dana_v2',
-                expandText: 'عرض سينمائي حي لم. سليم'
-            },
-            raed: {
-                tag: '<bdi>متاحون لمشاريع 2026</bdi> // <bdi>أ. محمد رائد كعكة</bdi> • <bdi dir="ltr">CFO</bdi>',
-                titleLine1: 'حلول محاسبية متطورة',
-                titleAccent: 'وتكامل ERP',
-                titleLine2: 'يضمن الامتثال والربحية الكاملة',
-                desc: 'متخصصون في هندسة وتطوير أنظمة الـ ERP للشركات والمؤسسات، وإدارة قواعد البيانات، والتكامل الضريبي والمالي المعتمد وفق أعلى المعايير في هولندا وأوروبا والشرق الأوسط.',
-                signature: './assets/signature-neon-raed.svg?v=dana_v2',
-                expandText: 'عرض بصري حي لأ. رائد'
-            }
-        };
 
-        let currentHeroSlide = 'salim';
-        let heroProgressInterval = null;
-        let heroProgressPercent = 0;
-        let isHeroHovered = false;
-        const HERO_CYCLE_DURATION = 7000; // 7 ثوانٍ
-        const PROGRESS_STEP_MS = 50;
-
-        function initHeroDuoSlider() {
-            startHeroTimer();
-
-            const heroSec = document.getElementById('home');
-            if (heroSec) {
-                heroSec.addEventListener('mouseenter', () => {
-                    isHeroHovered = true;
-                });
-                heroSec.addEventListener('mouseleave', () => {
-                    isHeroHovered = false;
-                });
-            }
-        }
-
-        function startHeroTimer() {
-            clearInterval(heroProgressInterval);
-            heroProgressPercent = 0;
-            updateHeroProgressBar(0);
-
-            heroProgressInterval = setInterval(() => {
-                if (isHeroHovered) return; // توقف مؤقت ذكي عند وضع الماوس
-                heroProgressPercent += (PROGRESS_STEP_MS / HERO_CYCLE_DURATION) * 100;
-                if (heroProgressPercent >= 100) {
-                    heroProgressPercent = 0;
-                    const nextFounder = currentHeroSlide === 'salim' ? 'raed' : 'salim';
-                    switchHeroDuoSlide(nextFounder, false);
-                }
-                updateHeroProgressBar(heroProgressPercent);
-            }, PROGRESS_STEP_MS);
-        }
-
-        function updateHeroProgressBar(percent) {
-            const bar = document.getElementById('heroProgressBar');
-            if (bar) {
-                bar.style.width = Math.min(100, Math.max(0, percent)) + '%';
-            }
-        }
-
-        function switchHeroDuoSlide(founder, playAudio = true) {
-            if (founder === currentHeroSlide && playAudio) return;
-            currentHeroSlide = founder;
-            heroProgressPercent = 0;
-            updateHeroProgressBar(0);
-
-            if (playAudio) {
-                LuxuryAudio.play('switch');
-            }
-
-            const slideSalim = document.getElementById('heroSlideSalim');
-            const slideRaed = document.getElementById('heroSlideRaed');
-            const pillSalim = document.getElementById('heroDuoPillSalim');
-            const pillRaed = document.getElementById('heroDuoPillRaed');
-
-            if (founder === 'salim') {
-                if (slideSalim) slideSalim.classList.add('active');
-                if (slideRaed) slideRaed.classList.remove('active');
-                if (pillSalim) {
-                    pillSalim.classList.add('active');
-                    pillSalim.setAttribute('aria-selected', 'true');
-                }
-                if (pillRaed) {
-                    pillRaed.classList.remove('active');
-                    pillRaed.setAttribute('aria-selected', 'false');
-                }
-            } else {
-                if (slideSalim) slideSalim.classList.remove('active');
-                if (slideRaed) slideRaed.classList.add('active');
-                if (pillSalim) {
-                    pillSalim.classList.remove('active');
-                    pillSalim.setAttribute('aria-selected', 'false');
-                }
-                if (pillRaed) {
-                    pillRaed.classList.add('active');
-                    pillRaed.setAttribute('aria-selected', 'true');
-                }
-            }
-
-            // تحديث النصوص بتناغم سلس
-            const data = HERO_DUO_DATA[founder];
-            if (data) {
-                const tagEl = document.getElementById('heroFounderTagText');
-                const title1El = document.getElementById('heroTitleLine1');
-                const accentEl = document.getElementById('heroTitleAccent');
-                const title2El = document.getElementById('heroTitleLine2');
-                const descEl = document.getElementById('heroMainDesc');
-                const sigImg = document.getElementById('heroSignatureImg');
-                const expandText = document.getElementById('heroCinemaExpandText');
-
-                if (tagEl) tagEl.innerHTML = data.tag;
-                if (title1El) title1El.textContent = data.titleLine1;
-                if (accentEl) accentEl.textContent = data.titleAccent;
-                if (title2El) title2El.textContent = data.titleLine2;
-                if (descEl) descEl.textContent = data.desc;
-                if (sigImg) sigImg.src = data.signature;
-                if (expandText) expandText.textContent = data.expandText;
-            }
-        }
 
         // ==========================================
         // وظائف نافذة العرض السينمائي المكبر للشريكين المؤسسين (Executive Cinema Lightbox)
@@ -6426,7 +6303,6 @@
 
         // تفعيل النقر التلقائي على أي عنصر يحمل كلاس الشعار لفتح المعاينة وتفعيل فيزياء الميلان 3D
         document.addEventListener('DOMContentLoaded', () => {
-            initHeroDuoSlider();
             updateROICalculator();
 
             document.querySelectorAll('.brand-logo-preview-trigger').forEach(el => {
