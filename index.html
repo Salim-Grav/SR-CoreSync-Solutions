@@ -1233,259 +1233,196 @@
                 margin-top: 8px;
             }
         /* ================================================================
-           نظام العرض السينمائي التناوبي المزدوج للشاشة الرئيسية (Dynamic Duo Hero Slider)
+           الخيار الثاني: المشهد السينمائي المقسّم تفاعلياً (Interactive Split Hero)
            ================================================================ */
         .hero-cinematic {
             position: relative;
             min-height: 100vh;
             overflow: hidden;
             background: #010907;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .hero-duo-viewport {
+        .hero-split-viewport {
             position: absolute;
             inset: 0;
             width: 100%;
             height: 100%;
+            display: flex;
+            direction: rtl;
             z-index: 1;
             overflow: hidden;
-            pointer-events: auto;
+            background: #010907;
         }
 
-        .hero-duo-slide {
-            position: absolute;
-            inset: 0;
-            width: 100%;
+        .hero-split-side {
+            position: relative;
+            flex: 1 1 50%;
             height: 100%;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s ease;
+            overflow: hidden;
             cursor: pointer;
+            transition: flex 0.65s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
         }
 
-        .hero-duo-slide.active {
-            opacity: 1;
-            visibility: visible;
-            z-index: 2;
+        /* توسع الجانب عند وضع الفأرة (Interactive Expansion) */
+        .hero-split-viewport:hover .hero-split-side {
+            filter: brightness(0.65) grayscale(12%);
         }
 
-        .hero-duo-slide-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center top;
-            display: block;
-            transform: scale(1);
-            animation: heroKenBurns 18s ease-in-out infinite alternate;
-            transform-origin: center 30%;
-        }
-
-        @keyframes heroKenBurns {
-            0% {
-                transform: scale(1) translateY(0);
-            }
-            50% {
-                transform: scale(1.06) translateY(-1.5%);
-            }
-            100% {
-                transform: scale(1.02) translateY(0.8%);
-            }
-        }
-
-        /* مؤثرات الإضاءة والظلال للدمج الفاخر مع خلفية الموقع الداكنة */
-        .hero-duo-vignette {
-            position: absolute;
-            inset: 0;
-            background: 
-                radial-gradient(circle at 50% 25%, transparent 35%, rgba(1, 9, 7, 0.72) 75%, rgba(1, 9, 7, 0.98) 100%),
-                linear-gradient(to bottom, rgba(1, 9, 7, 0.6) 0%, transparent 20%, transparent 65%, rgba(1, 9, 7, 0.98) 100%),
-                linear-gradient(to right, rgba(1, 9, 7, 0.9) 0%, rgba(1, 9, 7, 0.6) 30%, transparent 60%);
-            pointer-events: none;
+        .hero-split-viewport .hero-split-side:hover {
+            flex: 1.35 1 58%;
+            filter: brightness(1.05) grayscale(0%);
             z-index: 3;
         }
 
-        /* وميض الضوء الذهبي الخافت المسرحي */
-        .hero-duo-spotlight {
+        .hero-split-side-img {
             position: absolute;
-            top: -20%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: clamp(600px, 80vw, 1200px);
-            height: clamp(600px, 80vw, 1200px);
-            background: radial-gradient(circle, rgba(197, 168, 128, 0.15) 0%, rgba(197, 168, 128, 0.04) 40%, transparent 70%);
-            pointer-events: none;
-            mix-blend-mode: screen;
-            z-index: 4;
-            animation: heroSpotlightPulse 8s ease-in-out infinite alternate;
-        }
-
-        @keyframes heroSpotlightPulse {
-            0% { opacity: 0.6; transform: translateX(-50%) scale(0.95); }
-            100% { opacity: 1; transform: translateX(-50%) scale(1.08); }
-        }
-
-        /* بطاقة الشريك العائمة / شارة التخصص التفاعلية */
-        .hero-founder-tag-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(1, 9, 7, 0.85);
-            border: 1px solid rgba(197, 168, 128, 0.4);
-            -webkit-backdrop-filter: blur(12px);
-            backdrop-filter: blur(12px);
-            padding: 8px 18px;
-            border-radius: 999px;
-            color: #ffffff;
-            font-size: 0.82rem;
-            font-weight: 600;
-            margin-bottom: 1.25rem;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7), 0 0 16px rgba(197, 168, 128, 0.2);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            direction: rtl;
-        }
-
-        .hero-founder-tag-pill .gold-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--primary-gold);
-            box-shadow: 0 0 10px var(--primary-gold);
-            animation: cinemaPulse 1.8s infinite ease-in-out;
-            flex-shrink: 0;
-        }
-
-        /* عناصر التحكم بالتبديل التناوبي والشريط الذهبي للتقدم */
-        .hero-duo-controls-wrap {
-            margin-top: 1.5rem;
-            display: inline-flex;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 10;
-            width: 100%;
-            max-width: 440px;
-        }
-
-        .hero-duo-pills {
-            display: inline-flex;
-            align-items: center;
-            background: rgba(1, 9, 7, 0.82);
-            border: 1.2px solid rgba(197, 168, 128, 0.35);
-            border-radius: 999px;
-            padding: 4px;
-            gap: 6px;
-            -webkit-backdrop-filter: blur(14px);
-            backdrop-filter: blur(14px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
-            direction: rtl;
-            width: fit-content;
-        }
-
-        .hero-duo-pill {
-            background: transparent;
-            border: none;
-            color: rgba(255, 255, 255, 0.75);
-            padding: 6px 14px;
-            border-radius: 999px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            direction: rtl;
-        }
-
-        .hero-duo-pill:hover {
-            color: #ffffff;
-            background: rgba(197, 168, 128, 0.12);
-        }
-
-        .hero-duo-pill.active {
-            background: linear-gradient(135deg, var(--primary-gold) 0%, #e6d4b9 100%);
-            color: #010907 !important;
-            box-shadow: 0 0 18px rgba(197, 168, 128, 0.5);
-        }
-
-        .hero-duo-pill.active .duo-pill-role {
-            background: rgba(1, 9, 7, 0.18);
-            color: #010907;
-        }
-
-        .duo-pill-avatar {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 1px solid currentColor;
-            flex-shrink: 0;
-        }
-
-        .duo-pill-avatar img {
+            inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center 20%;
             display: block;
+            transform: scale(1);
+            transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: splitKenBurns 20s ease-in-out infinite alternate;
         }
 
-        .duo-pill-role {
-            font-size: 0.7rem;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2px 7px;
-            border-radius: 999px;
-            color: rgba(255, 255, 255, 0.85);
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 800;
+        .hero-split-side:hover .hero-split-side-img {
+            transform: scale(1.06);
         }
 
-        /* شريط التقدم الذهبي التناوبي (7 ثوانٍ) */
-        .hero-progress-track {
+        @keyframes splitKenBurns {
+            0% { transform: scale(1) translateY(0); }
+            50% { transform: scale(1.04) translateY(-1.5%); }
+            100% { transform: scale(1.01) translateY(0.8%); }
+        }
+
+        /* فلاتر وتدرجات الإضاءة والظلال للدمج الفاخر */
+        .hero-split-vignette {
+            position: absolute;
+            inset: 0;
+            background: 
+                linear-gradient(to top, rgba(1, 9, 7, 0.96) 0%, rgba(1, 9, 7, 0.6) 30%, transparent 65%),
+                linear-gradient(to bottom, rgba(1, 9, 7, 0.75) 0%, transparent 22%),
+                radial-gradient(circle at center, transparent 35%, rgba(1, 9, 7, 0.55) 100%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* الإضاءة النيونية المسرحية */
+        .hero-split-spotlight {
+            position: absolute;
+            top: -15%;
+            left: 50%;
+            transform: translateX(-50%);
             width: 100%;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 999px;
-            overflow: hidden;
-            position: relative;
+            height: 80%;
+            background: radial-gradient(ellipse at 50% 0%, rgba(197, 168, 128, 0.18) 0%, transparent 65%);
+            pointer-events: none;
+            mix-blend-mode: screen;
+            z-index: 3;
+            transition: opacity 0.5s ease;
         }
 
-        .hero-progress-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--primary-gold), #fff);
-            box-shadow: 0 0 8px var(--primary-gold);
-            border-radius: 999px;
-            transition: width 0.1s linear;
+        .hero-split-side:hover .hero-split-spotlight {
+            background: radial-gradient(ellipse at 50% 0%, rgba(197, 168, 128, 0.28) 0%, transparent 70%);
         }
 
-        /* شارة التوقيع النيوني العائمة أسفل البانر */
-        .hero-signature-preview {
-            display: inline-flex;
+        /* الفاصل العمودي الذهبي بين الشريكين */
+        .hero-split-divider {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            background: linear-gradient(to bottom, 
+                transparent 0%, 
+                rgba(197, 168, 128, 0.25) 20%, 
+                var(--primary-gold) 50%, 
+                rgba(197, 168, 128, 0.25) 80%, 
+                transparent 100%
+            );
+            z-index: 4;
+            pointer-events: none;
+            box-shadow: 0 0 12px rgba(197, 168, 128, 0.4);
+        }
+
+        .hero-split-center-badge {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(1, 9, 7, 0.9);
+            border: 1.5px solid var(--primary-gold);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            display: flex;
             align-items: center;
-            gap: 12px;
-            margin-top: 1rem;
-            cursor: pointer;
-            transition: transform 0.3s ease;
+            justify-content: center;
+            color: var(--primary-gold);
+            font-size: 0.82rem;
+            font-weight: 800;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            box-shadow: 0 0 20px rgba(197, 168, 128, 0.45);
+            z-index: 5;
+            pointer-events: none;
         }
 
-        .hero-signature-preview:hover {
-            transform: scale(1.04);
+        /* البطاقة العائمة لكل شريك في أسفل عموده */
+        .hero-split-card {
+            position: absolute;
+            bottom: clamp(100px, 14vh, 140px);
+            padding: clamp(1rem, 2vw, 1.4rem);
+            background: rgba(1, 9, 7, 0.82);
+            border: 1px solid rgba(197, 168, 128, 0.32);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            border-radius: 18px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(197, 168, 128, 0.12);
+            z-index: 5;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            max-width: 420px;
+            box-sizing: border-box;
+            direction: rtl;
+            text-align: right;
         }
 
-        .hero-signature-preview img {
-            height: 36px;
-            width: auto;
-            filter: drop-shadow(0 0 10px rgba(197, 168, 128, 0.5));
-            transition: filter 0.3s ease;
+        .hero-split-side--salim .hero-split-card {
+            right: clamp(16px, 3.5vw, 60px);
         }
 
-        .hero-signature-preview:hover img {
-            filter: drop-shadow(0 0 16px rgba(197, 168, 128, 0.8));
+        .hero-split-side--raed .hero-split-card {
+            left: clamp(16px, 3.5vw, 60px);
         }
 
-        .hero-signature-hint {
+        .hero-split-side:hover .hero-split-card {
+            border-color: var(--primary-gold);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.9), 0 0 28px rgba(197, 168, 128, 0.28);
+            background: rgba(1, 9, 7, 0.92);
+        }
+
+        .hero-split-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .hero-split-role-tag {
             font-size: 0.72rem;
-            color: rgba(197, 168, 128, 0.8);
-            border: 1px dashed rgba(197, 168, 128, 0.3);
+            font-weight: 700;
+            color: var(--primary-gold);
+            background: rgba(197, 168, 128, 0.12);
+            border: 1px solid rgba(197, 168, 128, 0.28);
             padding: 3px 10px;
             border-radius: 999px;
             display: inline-flex;
@@ -1493,53 +1430,173 @@
             gap: 5px;
         }
 
-        /* تلميح التكبير السينمائي */
-        .hero-cinema-expand-hint {
-            position: absolute;
-            bottom: 30px;
-            left: 30px;
-            background: rgba(1, 9, 7, 0.75);
-            border: 1px solid rgba(197, 168, 128, 0.35);
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-            padding: 7px 16px;
-            border-radius: 999px;
+        .hero-split-role-tag .gold-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--primary-gold);
+            box-shadow: 0 0 6px var(--primary-gold);
+        }
+
+        .hero-split-name {
+            font-size: clamp(1.2rem, 1.8vw, 1.45rem);
+            font-weight: 800;
             color: #ffffff;
-            font-size: 0.75rem;
-            font-weight: 600;
+            margin: 0 0 4px 0;
+            line-height: 1.25;
+        }
+
+        .hero-split-bio {
+            font-size: 0.8rem;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.72);
+            margin: 0 0 10px 0;
+        }
+
+        .hero-split-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(197, 168, 128, 0.16);
+        }
+
+        .hero-split-signature {
+            height: 32px;
+            width: auto;
+            filter: drop-shadow(0 0 8px rgba(197, 168, 128, 0.5));
+            transition: filter 0.3s ease;
+        }
+
+        .hero-split-card:hover .hero-split-signature {
+            filter: drop-shadow(0 0 14px rgba(197, 168, 128, 0.85));
+        }
+
+        .hero-split-btn-cinema {
+            background: rgba(197, 168, 128, 0.14);
+            border: 1px solid rgba(197, 168, 128, 0.38);
+            color: #ffffff;
+            font-size: 0.74rem;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none !important;
+            flex-shrink: 0;
+        }
+
+        .hero-split-btn-cinema:hover {
+            background: var(--primary-gold);
+            color: #010907 !important;
+            box-shadow: 0 0 16px rgba(197, 168, 128, 0.45);
+        }
+
+        /* المحتوى المركزي التحريري للبانر */
+        .hero-split-top-content {
+            position: relative;
+            z-index: 10;
+            padding-top: clamp(100px, 14vh, 125px);
+            text-align: center;
+            pointer-events: none;
+            width: 100%;
+            max-width: 920px;
+            margin: 0 auto;
+            padding-left: 20px;
+            padding-right: 20px;
+            box-sizing: border-box;
+        }
+
+        .hero-split-badge-unified {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            z-index: 10;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            background: rgba(1, 9, 7, 0.85);
+            border: 1px solid rgba(197, 168, 128, 0.4);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            padding: 7px 18px;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.85rem;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+            pointer-events: auto;
         }
 
-        .hero-cinema-expand-hint:hover {
-            background: rgba(197, 168, 128, 0.25);
-            border-color: var(--primary-gold);
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(197, 168, 128, 0.4);
+        .hero-split-title-unified {
+            font-size: clamp(1.8rem, 3.8vw, 3.2rem);
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 0.75rem;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.85);
         }
 
-        .hero-cinema-expand-hint svg {
+        .hero-split-title-unified .accent {
             color: var(--primary-gold);
+            text-shadow: 0 0 25px rgba(197, 168, 128, 0.5);
         }
 
-        @media (max-width: 768px) {
-            .hero-cinema-expand-hint {
-                bottom: 16px;
-                left: 16px;
-                padding: 6px 12px;
-                font-size: 0.7rem;
+        .hero-split-desc-unified {
+            font-size: clamp(0.88rem, 1.2vw, 1.05rem);
+            color: rgba(255, 255, 255, 0.82);
+            max-width: 720px;
+            margin: 0 auto 1.5rem auto;
+            line-height: 1.6;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+        }
+
+        /* شريط الأزرار التفاعلي المركزي */
+        .hero-split-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            pointer-events: auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @media (max-width: 992px) {
+            .hero-split-viewport {
+                flex-direction: column;
             }
-            .hero-duo-pills {
+            .hero-split-side {
+                flex: 1 1 50%;
+                min-height: 48vh;
+            }
+            .hero-split-viewport:hover .hero-split-side {
+                filter: none;
+            }
+            .hero-split-viewport .hero-split-side:hover {
+                flex: 1 1 50%;
+            }
+            .hero-split-divider {
                 width: 100%;
-                justify-content: center;
+                height: 1px;
+                top: 50%;
+                bottom: auto;
+                left: 0;
+                transform: none;
             }
-            .hero-duo-slide-img {
-                object-position: center 20%;
+            .hero-split-card {
+                position: relative;
+                bottom: auto;
+                right: auto !important;
+                left: auto !important;
+                margin: 12px;
+                max-width: 100%;
+            }
+            .hero-split-top-content {
+                padding-top: 90px;
             }
         }
 
@@ -3403,30 +3460,69 @@
 
     <main id="wrapper">
 
-        <!-- 1. البانر الترحيبي والسينمائي (Hero Cinematic Section) -->
-        <div class="hero-editorial hero-cinematic" id="home" data-section>
-            <!-- مسرح الخلفية السينمائي التناوبي المزدوج (Dynamic Duo Hero Viewport) -->
-            <div class="hero-duo-viewport" aria-label="عرض سينمائي للشريكين المؤسسين">
-                <!-- مشهد م. سليم عزيزة -->
-                <div class="hero-duo-slide active" id="heroSlideSalim" onclick="openFounderCinema('salim')" title="انقر لفتح المسرح السينمائي المكبر لم. سليم عزيزة">
-                    <img class="hero-duo-slide-img" src="./assets/hero-founder-salim-chair.jpg" alt="م. محمد سليم عزيزة - CTO & كبير مهندسي البرمجيات والذكاء الاصطناعي">
-                    <div class="hero-duo-vignette" aria-hidden="true"></div>
-                    <div class="hero-duo-spotlight" aria-hidden="true"></div>
+        <!-- 1. البانر الترحيبي والسينمائي المشترك (Interactive Split Hero Section) -->
+        <div class="hero-editorial hero-cinematic hero-split-hero" id="home" data-section>
+            <!-- مسرح الخلفية المقسم تفاعلياً (Interactive Split Viewport) -->
+            <div class="hero-split-viewport" aria-label="العرض السينمائي المقسم للشريكين المؤسسين">
+                <!-- الجانب الأيمن: م. محمد سليم عزيزة (CTO) -->
+                <div class="hero-split-side hero-split-side--salim" onclick="openFounderCinema('salim')" title="انقر للتكبير والعرض السينمائي لم. محمد سليم عزيزة">
+                    <img class="hero-split-side-img" src="./assets/hero-founder-salim-chair.jpg" alt="م. محمد سليم عزيزة - CTO & كبير مهندسي البرمجيات والذكاء الاصطناعي">
+                    <div class="hero-split-vignette" aria-hidden="true"></div>
+                    <div class="hero-split-spotlight" aria-hidden="true"></div>
+
+                    <!-- بطاقة م. سليم العائمة التفاعلية -->
+                    <div class="hero-split-card" onclick="event.stopPropagation(); openFounderCinema('salim')">
+                        <div class="hero-split-card-header">
+                            <span class="hero-split-role-tag">
+                                <span class="gold-dot" aria-hidden="true"></span>
+                                <bdi>المسؤول التقني</bdi> // <bdi dir="ltr">CTO</bdi>
+                            </span>
+                        </div>
+                        <h3 class="hero-split-name">م. محمد سليم عزيزة</h3>
+                        <p class="hero-split-bio">هندسة البرمجيات السحابية المتقدمة، تطبيقات الويب والهواتف الذكية، وأتمتة الذكاء الاصطناعي (AI &amp; Cloud).</p>
+                        <div class="hero-split-card-footer">
+                            <img class="hero-split-signature" src="./assets/signature-neon.svg?v=dana_v2" alt="توقيع م. سليم عزيزة">
+                            <button type="button" class="hero-split-btn-cinema" onclick="openFounderCinema('salim')">
+                                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/></svg>
+                                <span>عرض سينمائي 4K</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- مشهد أ. رائد كعكة -->
-                <div class="hero-duo-slide" id="heroSlideRaed" onclick="openFounderCinema('raed')" title="انقر لفتح المسرح السينمائي المكبر لأ. رائد كعكة">
-                    <img class="hero-duo-slide-img" src="./assets/hero-founder-raed-chair.jpg" alt="أ. محمد رائد كعكة - CFO & كبير مطوري أنظمة الـ ERP والربط المالي">
-                    <div class="hero-duo-vignette" aria-hidden="true"></div>
-                    <div class="hero-duo-spotlight" aria-hidden="true"></div>
+                <!-- الفاصل الضوئي الذهبي واللوغو المشترك في المنتصف -->
+                <div class="hero-split-divider" aria-hidden="true">
+                    <div class="hero-split-center-badge" title="S&R CoreSync Solutions">
+                        S&amp;R
+                    </div>
+                </div>
+
+                <!-- الجانب الأيسر: أ. محمد رائد كعكة (CFO) -->
+                <div class="hero-split-side hero-split-side--raed" onclick="openFounderCinema('raed')" title="انقر للتكبير والعرض السينمائي لأ. محمد رائد كعكة">
+                    <img class="hero-split-side-img" src="./assets/hero-founder-raed-chair.jpg" alt="أ. محمد رائد كعكة - CFO & كبير مطوري أنظمة الـ ERP والربط المالي">
+                    <div class="hero-split-vignette" aria-hidden="true"></div>
+                    <div class="hero-split-spotlight" aria-hidden="true"></div>
+
+                    <!-- بطاقة أ. رائد العائمة التفاعلية -->
+                    <div class="hero-split-card" onclick="event.stopPropagation(); openFounderCinema('raed')">
+                        <div class="hero-split-card-header">
+                            <span class="hero-split-role-tag">
+                                <span class="gold-dot" aria-hidden="true"></span>
+                                <bdi>المسؤول المالي</bdi> // <bdi dir="ltr">CFO</bdi>
+                            </span>
+                        </div>
+                        <h3 class="hero-split-name">أ. محمد رائد كعكة</h3>
+                        <p class="hero-split-bio">تصميم وتطوير أنظمة الـ ERP، إدارة قواعد البيانات، والامتثال المحاسبي والضريبي الهولندي والأوروبي (VAT).</p>
+                        <div class="hero-split-card-footer">
+                            <img class="hero-split-signature" src="./assets/signature-neon-raed.svg?v=dana_v2" alt="توقيع أ. رائد كعكة">
+                            <button type="button" class="hero-split-btn-cinema" onclick="openFounderCinema('raed')">
+                                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/></svg>
+                                <span>عرض سينمائي 4K</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <!-- زر تلميح التكبير السينمائي للشاشة الرئيسية -->
-            <button type="button" class="hero-cinema-expand-hint" onclick="openFounderCinema(currentHeroSlide)" title="عرض سينمائي حي ومكبر للشريك المعروض">
-                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"/></svg>
-                <span id="heroCinemaExpandText">عرض سينمائي مكبّر 4K</span>
-            </button>
 
             <!-- شريط التنقل العلوي الملكي (Header Refined) -->
             <header class="tf-header header-refined">
@@ -3505,69 +3601,35 @@
                 </div>
             </header>
 
-            <!-- المحتوى التحريري الرئيسي للبانر (Hero Banner Content) -->
-            <div class="section-hero-v1 hero-reference">
-                <div class="overlay"></div>
-                <div class="content-wrap">
-                    <div class="container">
-                        <div class="hero-reference__grid">
-                            <div class="hero-reference__copy">
-                                <div class="hero-founder-tag-pill" id="heroFounderTagPill">
-                                    <span class="gold-dot" aria-hidden="true"></span>
-                                    <span id="heroFounderTagText"><bdi>متاحون لمشاريع 2026</bdi> // <bdi>م. محمد سليم عزيزة</bdi> • <bdi dir="ltr">CTO</bdi></span>
-                                </div>
-                                <h1 class="hero-reference__title" id="heroMainTitle">
-                                    <span class="hero-title-line"><span class="hero-title-line__text" id="heroTitleLine1">أنظمة وبرمجيات سحابية</span></span>
-                                    <span class="hero-title-line"><span class="hero-title-line__text"><span class="hero-title-accent" id="heroTitleAccent">ذكية</span> <span id="heroTitleLine2">لنمو أعمالك وريادتها</span></span></span>
-                                </h1>
-                                <div class="hero-reference__bottom hero-intro">
-                                    <p id="heroMainDesc">نبتكر حلولاً برمجية مخصصة، تطبيقات سحابية فائقة السرعة، ومنصات ذكاء اصطناعي لمساعدة كبرى الشركات في هولندا والشرق الأوسط على أتمتة أعمالها والتوسع عالمياً.</p>
+            <!-- المحتوى التحريري المركزي الموحد للبانر -->
+            <div class="hero-split-top-content">
+                <div class="hero-split-badge-unified">
+                    <span class="gold-pulse-dot" aria-hidden="true"></span>
+                    <span>S&amp;R CoreSync Solutions • قيادة تقنية ومالية موحدة</span>
+                </div>
+                <h1 class="hero-split-title-unified">
+                    <span>أنظمة برمجية سحابية</span> <span class="accent">وتكامل ERP مالي</span>
+                </h1>
+                <p class="hero-split-desc-unified">
+                    ندمج بين عبقرية هندسة البرمجيات السحابية والعمق الاستراتيجي للأنظمة المالية الأوروبية، لنبني لشركتك منظومة رقمية مؤتمتة تقودها نحو التوسع وتحقيق أقصى درجات الربحية.
+                </p>
 
-                                    <!-- شريط التحكم التناوبي المزدوج والمؤشر الزمني (7 ثوانٍ) -->
-                                    <div class="hero-duo-controls-wrap">
-                                        <div class="hero-duo-pills" role="tablist" aria-label="تبديل الشريك في الشاشة الرئيسية">
-                                            <button type="button" class="hero-duo-pill active" id="heroDuoPillSalim" onclick="switchHeroDuoSlide('salim')" role="tab" aria-selected="true">
-                                                <span class="duo-pill-avatar"><img src="./assets/founder-salim.png?v=color_v2" alt="سليم"></span>
-                                                <span>م. سليم عزيزة</span>
-                                                <span class="duo-pill-role">CTO</span>
-                                            </button>
-                                            <button type="button" class="hero-duo-pill" id="heroDuoPillRaed" onclick="switchHeroDuoSlide('raed')" role="tab" aria-selected="false">
-                                                <span class="duo-pill-avatar"><img src="./assets/founder-raed.png?v=color_v2" alt="رائد"></span>
-                                                <span>أ. رائد كعكة</span>
-                                                <span class="duo-pill-role">CFO</span>
-                                            </button>
-                                        </div>
-                                        <div class="hero-progress-track" title="المؤقت الزمني للتبديل التلقائي (يتوقف تلقائياً عند وضع الماوس)">
-                                            <div class="hero-progress-bar" id="heroProgressBar"></div>
-                                        </div>
-                                    </div>
-
-                                    <!-- التوقيع النيوني الذهبي للشريك المعروض -->
-                                    <div class="hero-signature-preview" id="heroSignaturePreview" onclick="openFounderCinema(currentHeroSlide)" title="انقر لفتح المسرح السينمائي المكبر">
-                                        <img id="heroSignatureImg" src="./assets/signature-neon.svg?v=dana_v2" alt="التوقيع النيوني الذهبي">
-                                        <span class="hero-signature-hint">عرض سينمائي ↗</span>
-                                    </div>
-
-                                    <div class="hero-reference__actions d-flex flex-wrap gap-2 mt-3">
-                                        <a href="#contact" class="tf-btn hero-reference__action">تواصـــل معنا</a>
-                                        <button type="button" class="tf-btn hero-reference__action hero-btn-vip" onclick="openExecutiveBookingModal()">
-                                            <span>حجز استشارة VIP 👔</span>
-                                        </button>
-                                        <a href="#roi-calculator" class="tf-btn hero-reference__action hero-btn-roi">
-                                            <span>حاسبة التوفير (ROI) 📊</span>
-                                        </a>
-                                        <button type="button" class="tf-btn hero-reference__action hero-btn-install" onclick="openInstallModal()">
-                                            <span>تثبيت التطبيق (Windows & Mobile)</span>
-                                        </button>
-                                        <a href="demo.html" class="tf-btn hero-reference__action hero-btn-demo">
-                                            <span>النظام التجريبي (Live Demo)</span>
-                                        </a>
-                                        <a href="#pricing" class="tf-btn hero-reference__action hero-reference__package-btn"><span>عـــرض البـــاقات</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <!-- أزرار الإجراءات الرئيسية الموحدة -->
+                <div class="hero-split-actions">
+                    <a href="#contact" class="tf-btn hero-reference__action">تواصـــل معنا</a>
+                    <button type="button" class="tf-btn hero-reference__action hero-btn-vip" onclick="openExecutiveBookingModal()">
+                        <span>حجز استشارة VIP 👔</span>
+                    </button>
+                    <a href="#roi-calculator" class="tf-btn hero-reference__action hero-btn-roi">
+                        <span>حاسبة التوفير (ROI) 📊</span>
+                    </a>
+                    <button type="button" class="tf-btn hero-reference__action hero-btn-install" onclick="openInstallModal()">
+                        <span>تثبيت التطبيق (Windows & Mobile)</span>
+                    </button>
+                    <a href="demo.html" class="tf-btn hero-reference__action hero-btn-demo">
+                        <span>النظام التجريبي (Live Demo)</span>
+                    </a>
+                    <a href="#pricing" class="tf-btn hero-reference__action hero-reference__package-btn"><span>عـــرض البـــاقات</span></a>
                 </div>
             </div>
         </div>
