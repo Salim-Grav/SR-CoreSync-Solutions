@@ -6100,9 +6100,132 @@
         }
 
         // ==========================================
-        // الشاشة الرئيسية التفاعلية المقسمة (Interactive Split Hero)
-        // يتم التحكم في تمدد وتفاعل الجانبين عبر CSS Flexbox التفاعلي
+        // الخيار الثالث: محرك منصة الخلفية المسرحية المتناوبة مع ثبات العنوان (Option 3 Stage Engine)
         // ==========================================
+        const STAGE_FOUNDERS_DATA = {
+            salim: {
+                role: 'المسؤول التقني // CTO',
+                name: 'م. محمد سليم عزيزة',
+                bio: 'هندسة البرمجيات السحابية المتقدمة، تطبيقات الويب والهواتف الذكية، وأتمتة الذكاء الاصطناعي (AI & Cloud).',
+                sig: './assets/signature-neon.svg?v=dana_v2'
+            },
+            raed: {
+                role: 'المسؤول المالي // CFO',
+                name: 'أ. محمد رائد كعكة',
+                bio: 'تصميم وتطوير أنظمة الـ ERP، إدارة قواعد البيانات، والامتثال المحاسبي والضريبي الهولندي والأوروبي (VAT).',
+                sig: './assets/signature-neon-raed.svg?v=dana_v2'
+            }
+        };
+
+        let currentStageFounder = 'salim';
+        let stageProgressInterval = null;
+        let stageProgressPercent = 0;
+        let isStageHovered = false;
+        const STAGE_CYCLE_DURATION = 6500; // 6.5 ثوانٍ
+        const STAGE_STEP_MS = 50;
+
+        function initStageEngine() {
+            startStageTimer();
+
+            const heroSec = document.getElementById('home');
+            if (heroSec) {
+                heroSec.addEventListener('mouseenter', () => { isStageHovered = true; });
+                heroSec.addEventListener('mouseleave', () => { isStageHovered = false; });
+            }
+        }
+
+        function startStageTimer() {
+            clearInterval(stageProgressInterval);
+            stageProgressPercent = 0;
+            updateStageProgressBar(0);
+
+            stageProgressInterval = setInterval(() => {
+                if (isStageHovered) return;
+                stageProgressPercent += (STAGE_STEP_MS / STAGE_CYCLE_DURATION) * 100;
+                if (stageProgressPercent >= 100) {
+                    stageProgressPercent = 0;
+                    const next = currentStageFounder === 'salim' ? 'raed' : 'salim';
+                    switchStageFounder(next, false);
+                }
+                updateStageProgressBar(stageProgressPercent);
+            }, STAGE_STEP_MS);
+        }
+
+        function updateStageProgressBar(percent) {
+            const bar = document.getElementById('heroStageProgressBar');
+            if (bar) {
+                bar.style.width = Math.min(100, Math.max(0, percent)) + '%';
+            }
+        }
+
+        function switchStageFounder(founder, playAudio = true) {
+            if (founder === currentStageFounder && playAudio) return;
+            currentStageFounder = founder;
+            stageProgressPercent = 0;
+            updateStageProgressBar(0);
+
+            if (playAudio && typeof LuxuryAudio !== 'undefined') {
+                LuxuryAudio.play('switch');
+            }
+
+            // 1. تبديل طبقات الخلفية المسرحية
+            const layerSalim = document.getElementById('heroStageLayerSalim');
+            const layerRaed = document.getElementById('heroStageLayerRaed');
+            const pillSalim = document.getElementById('heroStagePillSalim');
+            const pillRaed = document.getElementById('heroStagePillRaed');
+
+            if (founder === 'salim') {
+                if (layerSalim) layerSalim.classList.add('active');
+                if (layerRaed) layerRaed.classList.remove('active');
+                if (pillSalim) { pillSalim.classList.add('active'); pillSalim.setAttribute('aria-selected', 'true'); }
+                if (pillRaed) { pillRaed.classList.remove('active'); pillRaed.setAttribute('aria-selected', 'false'); }
+            } else {
+                if (layerSalim) layerSalim.classList.remove('active');
+                if (layerRaed) layerRaed.classList.add('active');
+                if (pillSalim) { pillSalim.classList.remove('active'); pillSalim.setAttribute('aria-selected', 'false'); }
+                if (pillRaed) { pillRaed.classList.add('active'); pillRaed.setAttribute('aria-selected', 'true'); }
+            }
+
+            // 2. تحديث نصوص وتوقيع البطاقة العائمة الذكية
+            const data = STAGE_FOUNDERS_DATA[founder];
+            if (data) {
+                const roleEl = document.getElementById('heroStageCardRoleText');
+                const nameEl = document.getElementById('heroStageCardName');
+                const bioEl = document.getElementById('heroStageCardBio');
+                const sigEl = document.getElementById('heroStageCardSig');
+
+                if (nameEl) {
+                    nameEl.style.opacity = '0';
+                    setTimeout(() => {
+                        nameEl.textContent = data.name;
+                        nameEl.style.opacity = '1';
+                    }, 200);
+                }
+                if (roleEl) {
+                    roleEl.textContent = data.role;
+                }
+                if (bioEl) {
+                    bioEl.style.opacity = '0';
+                    setTimeout(() => {
+                        bioEl.textContent = data.bio;
+                        bioEl.style.opacity = '1';
+                    }, 200);
+                }
+                if (sigEl) {
+                    sigEl.style.opacity = '0';
+                    setTimeout(() => {
+                        sigEl.src = data.sig;
+                        sigEl.alt = data.name;
+                        sigEl.style.opacity = '1';
+                    }, 200);
+                }
+            }
+        }
+
+        function triggerCurrentFounderCinema() {
+            openFounderCinema(currentStageFounder);
+        }
+
 
 
         // ==========================================
@@ -6281,6 +6404,7 @@
 
         // تفعيل النقر التلقائي على أي عنصر يحمل كلاس الشعار لفتح المعاينة وتفعيل فيزياء الميلان 3D
         document.addEventListener('DOMContentLoaded', () => {
+            initStageEngine();
             updateROICalculator();
 
             document.querySelectorAll('.brand-logo-preview-trigger').forEach(el => {
