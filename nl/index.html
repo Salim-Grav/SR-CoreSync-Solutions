@@ -2035,9 +2035,7 @@
         }
     
         /* ===================================================================
-           S&R CORESYNC - LUXURY REFINED HEADER & NAVIGATION ARCHITECTURE
-           Eliminates word overlapping, establishes robust flex layout hierarchy,
-           and guarantees seamless 1:1 luxury responsiveness on all screens.
+           S&R CORESYNC - ZERO-OVERLAP LUXURY REFINED HEADER & NAVIGATION
            =================================================================== */
 
         .tf-header {
@@ -2063,24 +2061,40 @@
             padding: 14px 0 !important;
         }
 
-        .tf-header .container {
-            max-width: 1600px !important;
+        /* 100% full-width header container - prevents cramping on desktop */
+        .tf-header .container,
+        .tf-header .header-inner .container {
+            max-width: 100% !important;
             width: 100% !important;
-            padding-left: clamp(16px, 2.5vw, 36px) !important;
-            padding-right: clamp(16px, 2.5vw, 36px) !important;
+            padding-left: clamp(20px, 3.5vw, 60px) !important;
+            padding-right: clamp(20px, 3.5vw, 60px) !important;
         }
 
-        /* Reset and override any conflicting CSS grid / nth-child rules from external bundles */
-        .tf-header .header-inner .row,
-        .tf-header.header-refined .header-inner .row {
+        /* Pure flex row with strict RTL for Arabic and LTR for English/Dutch */
+        html[lang="ar"] .tf-header .header-inner .row {
             display: flex !important;
             flex-wrap: nowrap !important;
+            flex-direction: row !important;
             align-items: center !important;
             justify-content: space-between !important;
-            gap: clamp(12px, 1.5vw, 28px) !important;
+            direction: rtl !important;
+            gap: clamp(12px, 1.8vw, 36px) !important;
             grid-template-columns: none !important;
-            direction: inherit !important;
             margin: 0 !important;
+            width: 100% !important;
+        }
+
+        html:not([lang="ar"]) .tf-header .header-inner .row {
+            display: flex !important;
+            flex-wrap: nowrap !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            direction: ltr !important;
+            gap: clamp(12px, 1.8vw, 36px) !important;
+            grid-template-columns: none !important;
+            margin: 0 !important;
+            width: 100% !important;
         }
 
         .tf-header .header-inner .row > div {
@@ -2091,7 +2105,7 @@
             max-width: none !important;
         }
 
-        /* 1. Zone 1: Brand & Emblem */
+        /* Zone 1: Logo (Right in RTL, Left in LTR) */
         .header-col-brand {
             flex: 0 0 auto !important;
             display: flex !important;
@@ -2140,9 +2154,9 @@
             margin-left: 4px;
         }
 
-        /* 2. Zone 2: Desktop Navigation Bar */
+        /* Zone 2: Navigation Links (Center) */
         .header-col-nav {
-            flex: 1 1 auto !important;
+            flex: 0 1 auto !important;
             display: flex !important;
             justify-content: center !important;
             align-items: center !important;
@@ -2160,7 +2174,7 @@
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
-            gap: clamp(6px, 0.9vw, 16px) !important;
+            gap: clamp(8px, 1.1vw, 20px) !important;
             list-style: none !important;
             margin: 0 !important;
             padding: 0 !important;
@@ -2175,11 +2189,11 @@
         .nav-menu-main .item-link {
             display: inline-flex !important;
             align-items: center !important;
-            gap: 4px !important;
-            padding: 5px 8px !important;
-            font-size: clamp(0.72rem, 0.8vw, 0.84rem) !important;
+            gap: 5px !important;
+            padding: 6px 10px !important;
+            font-size: clamp(0.76rem, 0.84vw, 0.88rem) !important;
             font-weight: 600 !important;
-            color: rgba(255, 255, 255, 0.78) !important;
+            color: rgba(255, 255, 255, 0.8) !important;
             text-decoration: none !important;
             white-space: nowrap !important;
             border-radius: 8px !important;
@@ -2188,39 +2202,26 @@
 
         .nav-menu-main .item-link span {
             font-family: 'Plus Jakarta Sans', sans-serif !important;
-            font-size: 0.68rem !important;
+            font-size: 0.7rem !important;
             color: var(--primary-gold) !important;
-            opacity: 0.85 !important;
+            opacity: 0.9 !important;
             font-weight: 700 !important;
         }
 
         .nav-menu-main .item-link:hover {
             color: #ffffff !important;
-            background: rgba(255, 255, 255, 0.07) !important;
+            background: rgba(255, 255, 255, 0.08) !important;
         }
 
         .nav-menu-main .item-link.gold-accent {
             color: var(--primary-gold) !important;
         }
 
-        .nav-item-demo-highlight {
-            background: rgba(197, 168, 128, 0.12) !important;
-            border: 1px solid rgba(197, 168, 128, 0.28) !important;
-            color: var(--primary-gold) !important;
-        }
-
-        .nav-item-demo-highlight:hover {
-            background: rgba(197, 168, 128, 0.25) !important;
-            border-color: var(--primary-gold) !important;
-            color: #ffffff !important;
-        }
-
-        /* 3. Zone 3: Actions, Portal, VIP & Language */
+        /* Zone 3: Actions (Left in RTL, Right in LTR) */
         .header-col-actions {
             flex: 0 0 auto !important;
             display: flex !important;
             align-items: center !important;
-            justify-content: flex-end !important;
             gap: clamp(6px, 0.8vw, 12px) !important;
             white-space: nowrap !important;
             z-index: 2;
@@ -2230,7 +2231,7 @@
             background: rgba(197, 168, 128, 0.08) !important;
             border: 1px solid rgba(197, 168, 128, 0.35) !important;
             color: #e6ca9f !important;
-            padding: 6px 13px !important;
+            padding: 6px 14px !important;
             border-radius: 999px !important;
             font-size: 0.8rem !important;
             font-weight: 700 !important;
@@ -2299,7 +2300,7 @@
             transform: translateY(-1px) !important;
         }
 
-        /* زر القائمة للهواتف والشاشات الصغيرة */
+        /* Hamburger button */
         .btn-mobile-menu {
             display: none !important;
             align-items: center !important;
@@ -2322,13 +2323,21 @@
             color: var(--primary-gold) !important;
         }
 
-        /* 4. Responsive Breakpoints - Zero Overlap Guarantee */
-        @media (max-width: 1279px) {
+        /* Zero Overlap Threshold */
+        @media (max-width: 1399px) {
             .header-col-nav {
                 display: none !important;
             }
             .btn-mobile-menu {
                 display: inline-flex !important;
+            }
+        }
+        @media (min-width: 1400px) {
+            .header-col-nav {
+                display: flex !important;
+            }
+            .btn-mobile-menu {
+                display: none !important;
             }
         }
 
@@ -2344,18 +2353,20 @@
                 padding: 7px !important;
                 border-radius: 50% !important;
                 min-width: 36px !important;
+                width: 36px !important;
+                height: 36px !important;
                 justify-content: center !important;
             }
         }
 
-        /* 5. Luxury Full-Screen Off-Canvas Mobile Menu (Fixes Image 3 horizontal text completely) */
+        /* Offcanvas Mobile Menu (Vertical & Clean) */
         .offcanvas-menu {
             position: fixed !important;
             inset: 0 !important;
             background: #010907 !important;
             background: radial-gradient(circle at 80% 20%, rgba(197, 168, 128, 0.12) 0%, #010907 70%) !important;
-            z-index: 999999 !important;
-            display: none;
+            z-index: 9999999 !important;
+            display: none !important;
             padding: clamp(1.5rem, 4vw, 3rem) !important;
             overflow-y: auto !important;
             overflow-x: hidden !important;
@@ -2465,7 +2476,6 @@
             padding-top: 1.5rem !important;
             border-top: 1px solid rgba(197, 168, 128, 0.15) !important;
         }
-
     </style>
 </head>
 
@@ -2516,6 +2526,7 @@
 
             <!-- شريط التنقل العلوي (Header Refined) -->
             <!-- Koninklijke Top Navigatiebalk (Header Refined) -->
+            <!-- Koninklijke Top Navigatiebalk (Header Refined) -->
             <header class="tf-header header-refined">
                 <div class="header-inner">
                     <div class="container">
@@ -2542,7 +2553,6 @@
                                         <li class="menu-item"><a href="#roi-calculator" class="item-link link text-caption gold-accent"><span>05 /</span>ROI CALCULATOR</a></li>
                                         <li class="menu-item"><a href="#faq" class="item-link link text-caption"><span>06 /</span>FAQ</a></li>
                                         <li class="menu-item"><a href="#contact" class="item-link link text-caption"><span>07 /</span>CONTACT</a></li>
-                                        <li class="menu-item"><a href="../demo.html" class="item-link link text-caption nav-item-demo-highlight"><span>08 /</span>LIVE DEMO</a></li>
                                     </ul>
                                 </div>
                             </div>
