@@ -2112,10 +2112,10 @@
         }
 
         .tf-header .container {
-            max-width: 1600px !important;
+            max-width: 1720px !important;
             width: 100% !important;
-            padding-left: clamp(16px, 2.5vw, 36px) !important;
-            padding-right: clamp(16px, 2.5vw, 36px) !important;
+            padding-left: clamp(14px, 1.8vw, 28px) !important;
+            padding-right: clamp(14px, 1.8vw, 28px) !important;
         }
 
         /* Reset and override any conflicting CSS grid / nth-child rules from external bundles */
@@ -2125,7 +2125,7 @@
             flex-wrap: nowrap !important;
             align-items: center !important;
             justify-content: space-between !important;
-            gap: clamp(12px, 1.5vw, 28px) !important;
+            gap: clamp(8px, 1vw, 18px) !important;
             grid-template-columns: none !important;
             margin: 0 !important;
         }
@@ -2191,13 +2191,13 @@
         .brand-logo-site {
             display: inline-flex !important;
             align-items: center !important;
-            gap: 12px !important;
+            gap: 8px !important;
             text-decoration: none !important;
         }
 
         .brand-emblem-img {
-            width: 42px !important;
-            height: 42px !important;
+            width: 38px !important;
+            height: 38px !important;
             object-fit: contain !important;
             filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.45)) !important;
             transition: transform 0.3s ease, filter 0.3s ease !important;
@@ -2211,7 +2211,7 @@
         .brand-sr-text {
             font-family: 'Plus Jakarta Sans', sans-serif !important;
             font-weight: 800 !important;
-            font-size: 1.18rem !important;
+            font-size: 1.12rem !important;
             color: var(--primary-gold) !important;
             letter-spacing: -0.5px !important;
         }
@@ -2219,7 +2219,7 @@
         .brand-sub-text {
             font-family: 'Plus Jakarta Sans', sans-serif !important;
             font-weight: 700 !important;
-            font-size: 1.18rem !important;
+            font-size: 1.12rem !important;
             color: #ffffff !important;
             letter-spacing: -0.5px !important;
             margin-right: 4px;
@@ -2249,7 +2249,7 @@
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
-            gap: clamp(6px, 0.9vw, 16px) !important;
+            gap: clamp(2px, 0.45vw, 8px) !important;
             list-style: none !important;
             margin: 0 !important;
             padding: 0 !important;
@@ -2264,9 +2264,9 @@
         .nav-menu-main .item-link {
             display: inline-flex !important;
             align-items: center !important;
-            gap: 4px !important;
-            padding: 5px 8px !important;
-            font-size: clamp(0.72rem, 0.8vw, 0.84rem) !important;
+            gap: 2px !important;
+            padding: 4px clamp(4px, 0.35vw, 7px) !important;
+            font-size: clamp(0.68rem, 0.73vw, 0.8rem) !important;
             font-weight: 600 !important;
             color: rgba(255, 255, 255, 0.78) !important;
             text-decoration: none !important;
@@ -2277,7 +2277,7 @@
 
         .nav-menu-main .item-link span {
             font-family: 'Plus Jakarta Sans', sans-serif !important;
-            font-size: 0.68rem !important;
+            font-size: 0.64rem !important;
             color: var(--primary-gold) !important;
             opacity: 0.85 !important;
             font-weight: 700 !important;
@@ -2310,7 +2310,7 @@
             display: flex !important;
             align-items: center !important;
             justify-content: flex-end !important;
-            gap: clamp(6px, 0.8vw, 12px) !important;
+            gap: clamp(4px, 0.5vw, 9px) !important;
             white-space: nowrap !important;
             z-index: 2;
         }
@@ -2319,13 +2319,13 @@
             background: rgba(197, 168, 128, 0.08) !important;
             border: 1px solid rgba(197, 168, 128, 0.35) !important;
             color: #e6ca9f !important;
-            padding: 6px 13px !important;
+            padding: 5px clamp(7px, 0.5vw, 11px) !important;
             border-radius: 999px !important;
-            font-size: 0.8rem !important;
+            font-size: clamp(0.72rem, 0.75vw, 0.78rem) !important;
             font-weight: 700 !important;
             display: inline-flex !important;
             align-items: center !important;
-            gap: 6px !important;
+            gap: 5px !important;
             cursor: pointer !important;
             transition: all 0.25s ease !important;
             white-space: nowrap !important;
@@ -2343,13 +2343,13 @@
             background: linear-gradient(135deg, rgba(197, 168, 128, 0.24), rgba(197, 168, 128, 0.08)) !important;
             border: 1px solid rgba(197, 168, 128, 0.55) !important;
             color: #ffffff !important;
-            padding: 6px 14px !important;
+            padding: 5px clamp(7px, 0.5vw, 11px) !important;
             border-radius: 999px !important;
-            font-size: 0.8rem !important;
+            font-size: clamp(0.72rem, 0.75vw, 0.78rem) !important;
             font-weight: 700 !important;
             display: inline-flex !important;
             align-items: center !important;
-            gap: 6px !important;
+            gap: 5px !important;
             cursor: pointer !important;
             transition: all 0.25s ease !important;
             white-space: nowrap !important;
@@ -2367,13 +2367,13 @@
         .header-whatsapp-btn {
             display: inline-flex !important;
             align-items: center !important;
-            gap: 7px !important;
-            padding: 6px 14px !important;
+            gap: 5px !important;
+            padding: 5px clamp(7px, 0.5vw, 11px) !important;
             border: 1px solid rgba(255, 255, 255, 0.35) !important;
             border-radius: 10px !important;
             background: rgba(0, 0, 0, 0.3) !important;
             color: #ffffff !important;
-            font-size: 0.82rem !important;
+            font-size: clamp(0.72rem, 0.75vw, 0.78rem) !important;
             font-weight: 600 !important;
             text-decoration: none !important;
             transition: all 0.25s ease !important;
