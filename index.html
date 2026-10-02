@@ -4131,6 +4131,210 @@
         </div>
     </div>
 
+    <!-- نافذة حجز الاستشارات التنفيذية الفاخرة (Executive VIP Consultation Booking Modal) -->
+    <div class="sr-booking-modal-overlay" id="executiveBookingModal" role="dialog" aria-modal="true" aria-labelledby="vipBookingTitle" onclick="if(event.target === this) closeExecutiveBookingModal()">
+        <div class="sr-booking-modal-card">
+            <!-- رأس النافذة -->
+            <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-secondary border-opacity-25">
+                <div>
+                    <span class="sr-logo-badge-pill mb-1 d-inline-flex">
+                        <span class="gold-dot"></span> استشارة مباشرة مع الإدارة العليا
+                    </span>
+                    <h3 id="vipBookingTitle" class="text-white fw-bold mb-0">حجز جلسة استشارية تنفيذية (VIP)</h3>
+                </div>
+                <button type="button" class="btn text-white-64 p-0 fs-3 lh-1 link" onclick="closeExecutiveBookingModal()" aria-label="إغلاق">&times;</button>
+            </div>
+
+            <p class="text-caption text-white-64 mb-4">
+                جلسة مغلقة مدتها 30 دقيقة مع الشركاء المؤسسين لمراجعة البنية التقنية لشركتك، خطط التكامل المالي، وفرص الأتمتة لخفض التكاليف ومضاعفة العوائد.
+            </p>
+
+            <form id="executiveBookingForm" onsubmit="dispatchVIPBooking(event)">
+                <div class="mb-4">
+                    <label class="form-label text-white fw-bold mb-2">اختر المستشار التنفيذي للجلسة:</label>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="advisor-select-card active" onclick="selectAdvisor('joint', this)">
+                                <div class="d-flex align-items-center gap-1">
+                                    <img src="./assets/founder-salim.png?v=color_v2" alt="م. سليم" class="advisor-avatar-dual-1">
+                                    <img src="./assets/founder-raed.png?v=color_v2" alt="أ. رائد" class="advisor-avatar-dual-2">
+                                </div>
+                                <div>
+                                    <div class="fw-bold text-white fs-6">جلسة مشتركة (S &amp; R)</div>
+                                    <div class="text-caption text-primary gold-accent">تقني + مالي وERP</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="advisor-select-card" onclick="selectAdvisor('salim', this)">
+                                <img src="./assets/founder-salim.png?v=color_v2" alt="م. محمد سليم" class="advisor-avatar-sm">
+                                <div>
+                                    <div class="fw-bold text-white fs-6">م. محمد سليم</div>
+                                    <div class="text-caption text-white-64">CTO // هندسة برمجيات وAI</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="advisor-select-card" onclick="selectAdvisor('raed', this)">
+                                <img src="./assets/founder-raed.png?v=color_v2" alt="أ. محمد رائد" class="advisor-avatar-sm">
+                                <div>
+                                    <div class="fw-bold text-white fs-6">أ. محمد رائد</div>
+                                    <div class="text-caption text-white-64">CFO // أنظمة ERP ومالية</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="selectedAdvisorInput" value="جلسة مشتركة (S & R - تقني ومالي)">
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label for="vipName" class="form-label text-white-64 text-caption mb-1">الاسم الكامل والمنصب *</label>
+                        <input type="text" id="vipName" class="tf-input w-100" placeholder="مثال: خالد العلي - المدير التنفيذي" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="vipCompany" class="form-label text-white-64 text-caption mb-1">اسم الشركة ومقرها *</label>
+                        <input type="text" id="vipCompany" class="tf-input w-100" placeholder="مثال: مؤسسة النخبة - هولندا / الرياض" required>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label for="vipPhone" class="form-label text-white-64 text-caption mb-1">رقم الواتساب أو الهاتف *</label>
+                        <input type="tel" id="vipPhone" class="tf-input w-100 font-latin" placeholder="+31 6 ..." required dir="ltr">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="vipPlatform" class="form-label text-white-64 text-caption mb-1">قناة الاجتماع المفضلة *</label>
+                        <select id="vipPlatform" class="tf-input w-100 form-select-dark">
+                            <option value="Google Meet">Google Meet (مرئي)</option>
+                            <option value="Zoom">Zoom Cloud (مرئي)</option>
+                            <option value="WhatsApp Call">مكالمة واتساب صوتية مباشرة</option>
+                            <option value="Phone Call">مكالمة هاتفية دولية</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label for="vipDate" class="form-label text-white-64 text-caption mb-1">اليوم المفضل *</label>
+                        <input type="date" id="vipDate" class="tf-input w-100" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="vipTime" class="form-label text-white-64 text-caption mb-1">التوقيت المفضل *</label>
+                        <select id="vipTime" class="tf-input w-100 form-select-dark">
+                            <option value="11:00 AM (توقيت أمستردام / CET)">11:00 صباحًا (توقيت أوروبا / أمستردام)</option>
+                            <option value="02:00 PM (توقيت أمستردام / CET)">02:00 ظهرًا (توقيت أوروبا / أمستردام)</option>
+                            <option value="05:00 PM (توقيت السعودية والخليج)">05:00 مساءً (توقيت الرياض والخليج)</option>
+                            <option value="08:00 PM (توقيت السعودية والخليج)">08:00 مساءً (توقيت الرياض والخليج)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-wrap gap-3 align-items-center justify-content-between pt-2">
+                    <button type="submit" class="tf-btn tf-btn-submit flex-grow-1 justify-content-center">
+                        <span>تأكيد الموعد وإرسال الطلب فورًا 📅</span>
+                    </button>
+                    <button type="button" class="btn text-white-64 link" onclick="closeExecutiveBookingModal()">
+                        إلغاء
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- نافذة بوابة العملاء وسيرفرات الدعم المباشرة (Client Portal & Infrastructure Hub Modal) -->
+    <div class="sr-portal-modal-overlay" id="clientPortalModal" role="dialog" aria-modal="true" aria-labelledby="clientPortalTitle" onclick="if(event.target === this) closeClientPortalModal()">
+        <div class="sr-portal-modal-card">
+            <!-- رأس النافذة -->
+            <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-secondary border-opacity-25">
+                <div>
+                    <span class="sr-logo-badge-pill mb-1 d-inline-flex">
+                        <span class="gold-dot"></span> بيئة العمل المؤسسية الآمنة
+                    </span>
+                    <h3 id="clientPortalTitle" class="text-white fw-bold mb-0">بوابة العملاء // Client Cloud Portal</h3>
+                </div>
+                <button type="button" class="btn text-white-64 p-0 fs-3 lh-1 link" onclick="closeClientPortalModal()" aria-label="إغلاق">&times;</button>
+            </div>
+
+            <!-- مؤشرات حالة السيرفرات الحية -->
+            <div class="portal-status-container">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="portal-status-dot"></span>
+                        <span class="text-white fw-bold fs-6">سيرفرات CoreSync السحابية تعمل بكفاءة 100%</span>
+                    </div>
+                    <div class="d-flex gap-3 text-caption text-white-64 font-latin">
+                        <span>DC: Amsterdam (AMS-01)</span>
+                        <span>Latency: 18ms</span>
+                        <span>Uptime: 99.98%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-4">
+                <div class="col-md-6">
+                    <div class="portal-box-card">
+                        <h5 class="text-white fw-bold mb-2">تسجيل دخول مساحة العمل</h5>
+                        <p class="text-caption text-white-64 mb-3">الدخول للوحة التحكم السحابية ونظام إدارة التذاكر الخاص بمؤسستك.</p>
+                        
+                        <form onsubmit="event.preventDefault(); simulatePortalLogin();">
+                            <div class="mb-3">
+                                <label for="portalUser" class="form-label text-caption text-white-64 mb-1">معرّف المؤسسة أو البريد</label>
+                                <input type="text" id="portalUser" class="tf-input w-100" placeholder="client@company.com" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="portalPass" class="form-label text-caption text-white-64 mb-1">كلمة المرور / مفتاح الدخول</label>
+                                <input type="password" id="portalPass" class="tf-input w-100" placeholder="••••••••" required>
+                            </div>
+                            <button type="submit" class="tf-btn w-100 justify-content-center">
+                                <span>دخول إلى لوحة التحكم 🔐</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="portal-box-card d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="text-white fw-bold mb-2">خدمات الدعم السريعة</h5>
+                            <p class="text-caption text-white-64 mb-3">روابط مباشرة مخصصة لعملاء العقود النشطة وباقات CoreCare.</p>
+
+                            <div class="d-flex flex-column gap-2">
+                                <a href="demo.html" class="call-opt-row text-decoration-none">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                        <span class="text-white">معاينة البيئة التجريبية (Live Demo)</span>
+                                    </div>
+                                    <span class="gold-accent">فتح ←</span>
+                                </a>
+
+                                <a href="https://wa.me/31612345678?text=مرحباً%20فريق%20الدعم%20الفني%20في%20CoreSync%20لدينا%20استفسار%20عاجل" target="_blank" rel="noopener noreferrer" class="call-opt-row text-decoration-none">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <svg viewBox="0 0 32 32" width="18" height="18" fill="currentColor"><path d="M16.02 3.2a12.7 12.7 0 0 0-10.95 19.14L3.2 28.8l6.62-1.74A12.8 12.8 0 1 0 16.02 3.2Zm0 23.24a10.48 10.48 0 0 1-5.35-1.46l-.38-.23-3.93 1.03 1.05-3.83-.25-.4a10.5 10.5 0 1 1 8.86 4.89Zm5.76-7.85c-.32-.16-1.9-.94-2.19-1.05-.3-.11-.51-.16-.73.16-.21.32-.83 1.05-1.02 1.26-.19.21-.38.24-.7.08a8.65 8.65 0 0 1-2.55-1.57 9.57 9.57 0 0 1-1.77-2.2c-.18-.32 0-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.54.1-.21.05-.4-.03-.56-.08-.16-.73-1.75-1-2.39-.26-.62-.53-.54-.73-.55h-.62c-.21 0-.56.08-.86.4-.3.32-1.13 1.1-1.13 2.69s1.16 3.13 1.32 3.35c.16.21 2.27 3.46 5.5 4.85.77.33 1.37.53 1.84.68.77.24 1.47.2 2.03.12.62-.09 1.9-.78 2.17-1.54.27-.75.27-1.4.19-1.54-.08-.13-.3-.21-.62-.37Z"/></svg>
+                                        <span class="text-white">طوارئ السيرفرات والأنظمة (24/7)</span>
+                                    </div>
+                                    <span class="gold-accent">اتصال ←</span>
+                                </a>
+
+                                <a href="mailto:support@coresync-solutions.com" class="call-opt-row text-decoration-none">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+                                        <span class="text-white">فتح تذكرة دعم فني جديدة</span>
+                                    </div>
+                                    <span class="gold-accent">إرسال ←</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-3 border-top border-secondary border-opacity-25 text-center">
+                            <span class="text-caption text-white-64">هل تحتاج مساحة عمل جديدة لشركتك؟ <a href="#contact" onclick="closeClientPortalModal()" class="gold-accent text-decoration-none fw-bold">تواصل لفتح حساب جديد</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- نافذة استعراض الشعار الرسمي الفاخر (S&R CoreSync Official Brandmark Lightbox) -->
     <div class="sr-logo-lightbox-overlay" id="brandLogoLightboxModal" role="dialog" aria-modal="true" aria-labelledby="brandLogoModalTitle" onclick="if(event.target === this) closeLogoLightbox()">
         <div class="sr-logo-modal-card">
