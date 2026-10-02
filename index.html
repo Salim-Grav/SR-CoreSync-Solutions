@@ -308,20 +308,33 @@
             -webkit-backdrop-filter: blur(12px);
             backdrop-filter: blur(12px);
             cursor: pointer;
-            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s ease, border-color 0.4s ease;
+            transition: transform 0.22s ease-out, box-shadow 0.35s ease, border-color 0.35s ease;
             user-select: none;
-            animation: badgeFloatGentle 6s ease-in-out infinite alternate;
+            transform-style: preserve-3d;
+            perspective: 800px;
+            will-change: transform;
         }
 
-        @keyframes badgeFloatGentle {
-            0% { transform: translateY(0px); }
-            100% { transform: translateY(-6px); }
+        /* وميض الانعكاس المعدني الديناميكي التفاعلي عند حركة الماوس */
+        .badge-sheen-glare {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            pointer-events: none;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.28) 0%, rgba(197, 168, 128, 0.12) 38%, transparent 68%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            mix-blend-mode: screen;
+            z-index: 3;
+        }
+
+        .about-animated-badge:hover .badge-sheen-glare {
+            opacity: 1;
         }
 
         .about-animated-badge:hover {
-            transform: translateY(-8px) scale(1.045);
-            box-shadow: 0 0 36px rgba(197, 168, 128, 0.35), 0 18px 40px rgba(0, 0, 0, 0.8), inset 0 0 22px rgba(197, 168, 128, 0.16);
-            border-color: rgba(197, 168, 128, 0.65);
+            box-shadow: 0 0 38px rgba(197, 168, 128, 0.38), 0 20px 42px rgba(0, 0, 0, 0.8), inset 0 0 22px rgba(197, 168, 128, 0.18);
+            border-color: rgba(197, 168, 128, 0.75);
         }
 
         .about-animated-badge img {
@@ -331,10 +344,11 @@
             object-fit: contain;
             filter: drop-shadow(0 0 12px rgba(197, 168, 128, 0.2));
             transition: filter 0.4s ease;
+            pointer-events: none;
         }
 
         .about-animated-badge:hover img {
-            filter: drop-shadow(0 0 18px rgba(197, 168, 128, 0.35));
+            filter: drop-shadow(0 0 18px rgba(197, 168, 128, 0.38));
         }
 
         /* تلميح التكبير عند التحويم فوق الشارة */
