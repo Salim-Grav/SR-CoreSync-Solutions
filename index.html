@@ -1351,6 +1351,19 @@
             margin-bottom: 0.85rem;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
             pointer-events: auto;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero-unified-badge span,
+        .hero-unified-title,
+        .hero-unified-desc {
+            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .hero-text-fading {
+            opacity: 0 !important;
+            transform: translateY(8px) !important;
         }
 
         .hero-unified-title {
@@ -1366,6 +1379,7 @@
         .hero-unified-title .accent {
             color: var(--primary-gold);
             text-shadow: 0 0 25px rgba(197, 168, 128, 0.5);
+            transition: color 0.35s ease;
         }
 
         .hero-unified-desc {
@@ -3549,17 +3563,17 @@
                 </div>
             </header>
 
-            <!-- المحتوى التحريري المركزي الموحد الثابت -->
+            <!-- المحتوى التحريري المركزي المتزامن مع القيادي الحالي (الخيار الأول: العرض التناوبي المزدوج المتكامل) -->
             <div class="hero-unified-content">
-                <div class="hero-unified-badge">
+                <div class="hero-unified-badge" id="heroUnifiedBadge">
                     <span class="gold-pulse-dot" aria-hidden="true"></span>
-                    <span>S&amp;R CoreSync Solutions • قيادة تقنية ومالية موحدة</span>
+                    <span id="heroBadgeText">متاحون لمشاريع 2026 • CTO &amp; كبير مهندسي السحابة والذكاء الاصطناعي</span>
                 </div>
-                <h1 class="hero-unified-title">
-                    <span>أنظمة برمجية سحابية</span> <span class="accent">وتكامل ERP مالي</span>
+                <h1 class="hero-unified-title" id="heroMainTitle">
+                    <span>أنظمة وبرمجيات سحابية ذكية</span> <span class="accent">تقود شركتك نحو القمة</span>
                 </h1>
-                <p class="hero-unified-desc">
-                    ندمج بين عبقرية هندسة البرمجيات السحابية والعمق الاستراتيجي للأنظمة المالية الأوروبية، لنبني لشركتك منظومة رقمية مؤتمتة تقودها نحو التوسع وتحقيق أقصى درجات الربحية.
+                <p class="hero-unified-desc" id="heroMainDesc">
+                    نبتكر حلولاً برمجية مخصصة، منصات ويب متقدمة، وأتمتة ذكاء اصطناعي لدعم نمو الشركات في أوروبا والشرق الأوسط.
                 </p>
 
                 <!-- أزرار الإجراءات الرئيسية الموحدة -->
