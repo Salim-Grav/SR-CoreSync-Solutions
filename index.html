@@ -161,6 +161,7 @@
             gap: clamp(1.2rem, 2.5vw, 2.2rem);
             align-items: stretch;
             width: 100%;
+            direction: rtl !important;
         }
 
         @media (max-width: 992px) {
@@ -186,6 +187,17 @@
             height: 100%;
             box-sizing: border-box;
             overflow: hidden;
+            direction: rtl !important;
+            text-align: right !important;
+        }
+
+        /* ترتيب البطاقتين: سليم عزيزة على اليمين، رائد كعكة على اليسار */
+        .founder-card--salim {
+            order: 1 !important;
+        }
+
+        .founder-card--raed {
+            order: 2 !important;
         }
 
         .founder-editorial-card:hover {
@@ -195,11 +207,13 @@
         }
 
         .founder-card-header {
-            display: flex;
+            display: flex !important;
+            flex-direction: row !important;
             align-items: center;
             gap: clamp(1rem, 2vw, 1.5rem);
             margin-bottom: 1.25rem;
             width: 100%;
+            direction: rtl !important;
         }
 
         .founder-card-titles {
@@ -283,15 +297,11 @@
             transform: none !important;
         }
 
-        /* عكس صورة الشريك رائد أفقياً نحو اليسار لتتناسب مع النص (البورتريه السينمائي فقط) */
-        .about-media--raed .video {
+        /* عكس صورة الشريك رائد أفقياً باتجاه النص (البورتريه والأفاتار) */
+        .about-media--raed .video,
+        .founder-card--raed .founder-avatar-img {
             -webkit-transform: scaleX(-1) !important;
             transform: scaleX(-1) !important;
-        }
-
-        .founder-card--raed .founder-avatar-img {
-            -webkit-transform: none !important;
-            transform: none !important;
         }
 
         /* شعار اللوغو الذهبي المتحرك المتموضع في المنتصف أعلى النص بتكبير ملكي فخم */
@@ -1367,7 +1377,11 @@
         }
 
         .founder-role-badge {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            direction: rtl !important;
+            unicode-bidi: isolate;
             background: rgba(197, 168, 128, 0.15);
             border: 1px solid rgba(197, 168, 128, 0.4);
             color: var(--primary-gold);
@@ -1387,7 +1401,8 @@
             line-height: 1.8;
             color: rgba(255, 255, 255, 0.82);
             margin: 1.1rem 0;
-            text-align: right;
+            text-align: right !important;
+            direction: rtl !important;
             flex: 1;
             width: 100%;
         }
@@ -1396,7 +1411,8 @@
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: flex-start !important;
+            direction: rtl !important;
             gap: 8px 10px;
             margin-top: auto;
             width: 100%;
@@ -1411,10 +1427,13 @@
             padding: 6px 12px;
             border-radius: 8px;
             transition: all 0.25s ease;
-            text-align: center;
+            text-align: right;
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            gap: 6px;
+            direction: rtl !important;
+            unicode-bidi: isolate;
             line-height: 1.35;
             max-width: 100%;
             word-break: normal;
@@ -3002,30 +3021,7 @@
 
                 <!-- بطاقتا الشريكين المؤسسين (S & R) - البيانات والصور الرسمية المعتمدة -->
                 <div class="founders-editorial-grid">
-                    <!-- الشريك المؤسس R: أ. محمد رائد كعكة -->
-                    <div class="founder-editorial-card founder-card--raed">
-                        <div class="founder-card-header">
-                            <div class="founder-avatar-img-wrap">
-                                <img src="./assets/founder-raed.png?v=color_v2" alt="أ. محمد رائد كعكة" class="founder-avatar-img" />
-                            </div>
-                            <div class="founder-card-titles">
-                                <h4 class="text-white fw-bold mb-1">أ. محمد رائد كعكة</h4>
-                                <span class="founder-role-badge">شريك مؤسس ومطور نظم محاسبة الشركات // CFO</span>
-                                <p class="text-caption text-white-64 mb-0 mt-1">كبير مطوري أنظمة الـ ERP والتشريعات المالية الأوروبية</p>
-                            </div>
-                        </div>
-                        <p class="text-body-2 text-white-64 mb-3">
-                            متخصص في تصميم وتطوير الأنظمة المحاسبية والمالية للشركات والمؤسسات (ERP)، وإدارة قواعد البيانات ودمج الحلول البرمجية مع الأنظمة والتشريعات المالية لمساعدة الشركات على إدارة حساباتها بدقة وسهولة متناهية وفق أعلى المعايير في هولندا وأوروبا والشرق الأوسط.
-                        </p>
-                        <div class="founder-tags-list">
-                            <span class="founder-tag-pill">تطوير البرمجيات والنظم المحاسبية (ERP)</span>
-                            <span class="founder-tag-pill">تطبيقات الهواتف الذكية (Android & iOS)</span>
-                            <span class="founder-tag-pill">إدارة قواعد البيانات وتكامل الـ APIs</span>
-                            <span class="founder-tag-pill">الامتثال الضريبي الهولندي والأوروبي (VAT)</span>
-                        </div>
-                    </div>
-
-                    <!-- الشريك المؤسس S: م. محمد سليم عزيزة -->
+                    <!-- الشريك المؤسس S: م. محمد سليم عزيزة (الجهة اليمنى) -->
                     <div class="founder-editorial-card founder-card--salim">
                         <div class="founder-card-header">
                             <div class="founder-avatar-img-wrap">
@@ -3033,7 +3029,7 @@
                             </div>
                             <div class="founder-card-titles">
                                 <h4 class="text-white fw-bold mb-1">م. محمد سليم عزيزة</h4>
-                                <span class="founder-role-badge">المسؤول التقني ومطور البرمجيات // CTO</span>
+                                <span class="founder-role-badge"><bdi>المسؤول التقني ومطور البرمجيات</bdi> <span class="badge-sep">//</span> <bdi dir="ltr">CTO</bdi></span>
                                 <p class="text-caption text-white-64 mb-0 mt-1">شريك مؤسس وكبير مهندسي البرمجيات والأنظمة الذكية</p>
                             </div>
                         </div>
@@ -3041,10 +3037,33 @@
                             المطور المسؤول عن بناء وتحديث المنظومات والحلول البرمجية المتكاملة لكبرى الشركات والمؤسسات. نعمل على تقديم بنية رقمية سحابية متقدمة تشمل تطبيقات الهواتف الذكية، المنصات الرقمية السريعة، وأنظمة الذكاء الاصطناعي المخصصة لمساعدة عملائنا في هولندا وأوروبا والشرق الأوسط على أتمتة العمليات وتحقيق الريادة الرقمية.
                         </p>
                         <div class="founder-tags-list">
-                            <span class="founder-tag-pill">مواقع الويب المتقدمة (React & Next.js)</span>
-                            <span class="founder-tag-pill">تطبيقات الهواتف الذكية (Android & iOS)</span>
-                            <span class="founder-tag-pill">حلول الذكاء الاصطناعي (RAG & Chatbots)</span>
-                            <span class="founder-tag-pill">هندسة السحابة والأتمتة الرقمية</span>
+                            <span class="founder-tag-pill"><bdi>مواقع الويب المتقدمة</bdi> <bdi dir="ltr">(React &amp; Next.js)</bdi></span>
+                            <span class="founder-tag-pill"><bdi>تطبيقات الهواتف الذكية</bdi> <bdi dir="ltr">(Android &amp; iOS)</bdi></span>
+                            <span class="founder-tag-pill"><bdi>حلول الذكاء الاصطناعي</bdi> <bdi dir="ltr">(RAG &amp; Chatbots)</bdi></span>
+                            <span class="founder-tag-pill"><bdi>هندسة السحابة والأتمتة الرقمية</bdi></span>
+                        </div>
+                    </div>
+
+                    <!-- الشريك المؤسس R: أ. محمد رائد كعكة (الجهة اليسرى) -->
+                    <div class="founder-editorial-card founder-card--raed">
+                        <div class="founder-card-header">
+                            <div class="founder-avatar-img-wrap">
+                                <img src="./assets/founder-raed.png?v=color_v2" alt="أ. محمد رائد كعكة" class="founder-avatar-img" />
+                            </div>
+                            <div class="founder-card-titles">
+                                <h4 class="text-white fw-bold mb-1">أ. محمد رائد كعكة</h4>
+                                <span class="founder-role-badge"><bdi>شريك مؤسس ومطور نظم محاسبة الشركات</bdi> <span class="badge-sep">//</span> <bdi dir="ltr">CFO</bdi></span>
+                                <p class="text-caption text-white-64 mb-0 mt-1">كبير مطوري أنظمة الـ ERP والتشريعات المالية الأوروبية</p>
+                            </div>
+                        </div>
+                        <p class="text-body-2 text-white-64 mb-3">
+                            متخصص في تصميم وتطوير الأنظمة المحاسبية والمالية للشركات والمؤسسات (ERP)، وإدارة قواعد البيانات ودمج الحلول البرمجية مع الأنظمة والتشريعات المالية لمساعدة الشركات على إدارة حساباتها بدقة وسهولة متناهية وفق أعلى المعايير في هولندا وأوروبا والشرق الأوسط.
+                        </p>
+                        <div class="founder-tags-list">
+                            <span class="founder-tag-pill"><bdi>تطوير البرمجيات والنظم المحاسبية</bdi> <bdi dir="ltr">(ERP)</bdi></span>
+                            <span class="founder-tag-pill"><bdi>تطبيقات الهواتف الذكية</bdi> <bdi dir="ltr">(Android &amp; iOS)</bdi></span>
+                            <span class="founder-tag-pill"><bdi>إدارة قواعد البيانات وتكامل الـ</bdi> <bdi dir="ltr">APIs</bdi></span>
+                            <span class="founder-tag-pill"><bdi>الامتثال الضريبي الهولندي والأوروبي</bdi> <bdi dir="ltr">(VAT)</bdi></span>
                         </div>
                     </div>
                 </div>
