@@ -1351,19 +1351,6 @@
             margin-bottom: 0.85rem;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
             pointer-events: auto;
-            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .hero-unified-badge span,
-        .hero-unified-title,
-        .hero-unified-desc {
-            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform;
-        }
-
-        .hero-text-fading {
-            opacity: 0 !important;
-            transform: translateY(8px) !important;
         }
 
         .hero-unified-title {
@@ -1379,7 +1366,6 @@
         .hero-unified-title .accent {
             color: var(--primary-gold);
             text-shadow: 0 0 25px rgba(197, 168, 128, 0.5);
-            transition: color 0.35s ease;
         }
 
         .hero-unified-desc {
@@ -3563,17 +3549,17 @@
                 </div>
             </header>
 
-            <!-- المحتوى التحريري المركزي المتزامن مع القيادي الحالي (الخيار الأول: العرض التناوبي المزدوج المتكامل) -->
+            <!-- المحتوى التحريري المركزي الموحد الثابت -->
             <div class="hero-unified-content">
-                <div class="hero-unified-badge" id="heroUnifiedBadge">
+                <div class="hero-unified-badge">
                     <span class="gold-pulse-dot" aria-hidden="true"></span>
-                    <span id="heroBadgeText">متاحون لمشاريع 2026 • CTO &amp; كبير مهندسي السحابة والذكاء الاصطناعي</span>
+                    <span>S&amp;R CoreSync Solutions • قيادة تقنية ومالية موحدة</span>
                 </div>
-                <h1 class="hero-unified-title" id="heroMainTitle">
-                    <span>أنظمة وبرمجيات سحابية ذكية</span> <span class="accent">تقود شركتك نحو القمة</span>
+                <h1 class="hero-unified-title">
+                    <span>أنظمة برمجية سحابية</span> <span class="accent">وتكامل ERP مالي</span>
                 </h1>
-                <p class="hero-unified-desc" id="heroMainDesc">
-                    نبتكر حلولاً برمجية مخصصة، منصات ويب متقدمة، وأتمتة ذكاء اصطناعي لدعم نمو الشركات في أوروبا والشرق الأوسط.
+                <p class="hero-unified-desc">
+                    ندمج بين عبقرية هندسة البرمجيات السحابية والعمق الاستراتيجي للأنظمة المالية الأوروبية، لنبني لشركتك منظومة رقمية مؤتمتة تقودها نحو التوسع وتحقيق أقصى درجات الربحية.
                 </p>
 
                 <!-- أزرار الإجراءات الرئيسية الموحدة -->
@@ -6118,26 +6104,18 @@
         }
 
         // ==========================================
-        // الخيار الأول: العرض التناوبي المزدوج المتكامل (Option 1: Synchronized Dual Founder Stage)
+        // الخيار الثالث: محرك منصة الخلفية المسرحية المتناوبة مع ثبات العنوان (Option 3 Stage Engine)
         // ==========================================
         const STAGE_FOUNDERS_DATA = {
             salim: {
                 role: 'المسؤول التقني // CTO',
                 name: 'م. محمد سليم عزيزة',
-                badge: 'متاحون لمشاريع 2026 • CTO & كبير مهندسي السحابة والذكاء الاصطناعي',
-                titleMain: 'أنظمة وبرمجيات سحابية ذكية',
-                titleAccent: 'تقود شركتك نحو القمة',
-                desc: 'نبتكر حلولاً برمجية مخصصة، منصات ويب متقدمة، وأتمتة ذكاء اصطناعي لدعم نمو الشركات في أوروبا والشرق الأوسط.',
                 bio: 'هندسة البرمجيات السحابية المتقدمة، تطبيقات الويب والهواتف الذكية، وأتمتة الذكاء الاصطناعي (AI & Cloud).',
                 sig: './assets/signature-neon.svg?v=dana_v2'
             },
             raed: {
                 role: 'المسؤول المالي // CFO',
                 name: 'أ. محمد رائد كعكة',
-                badge: 'متاحون لمشاريع 2026 • CFO & كبير مطوري أنظمة الـ ERP والمالية',
-                titleMain: 'حلول محاسبية متطورة',
-                titleAccent: 'وتكامل ERP يضمن الامتثال والربحية الكاملة',
-                desc: 'متخصصون في هندسة وتطوير أنظمة الـ ERP وإدارة قواعد البيانات والامتثال المالي والضريبي الهولندي والأوروبي (VAT).',
                 bio: 'تصميم وتطوير أنظمة الـ ERP، إدارة قواعد البيانات، والامتثال المحاسبي والضريبي الهولندي والأوروبي (VAT).',
                 sig: './assets/signature-neon-raed.svg?v=dana_v2'
             }
@@ -6147,7 +6125,7 @@
         let stageProgressInterval = null;
         let stageProgressPercent = 0;
         let isStageHovered = false;
-        const STAGE_CYCLE_DURATION = 7000; // 7 ثوانٍ بالضبط
+        const STAGE_CYCLE_DURATION = 6500; // 6.5 ثوانٍ
         const STAGE_STEP_MS = 50;
 
         function initStageEngine() {
@@ -6212,34 +6190,9 @@
                 if (pillRaed) { pillRaed.classList.add('active'); pillRaed.setAttribute('aria-selected', 'true'); }
             }
 
-            // 2. تزامن النصوص والشارات والعنوان الرئيسي مع القيادي (الخيار الأول)
+            // 2. تحديث نصوص وتوقيع البطاقة العائمة الذكية
             const data = STAGE_FOUNDERS_DATA[founder];
             if (data) {
-                const badgeText = document.getElementById('heroBadgeText');
-                const titleEl = document.getElementById('heroMainTitle');
-                const descEl = document.getElementById('heroMainDesc');
-
-                // تأثير تلاشي سينمائي سلس للنصوص
-                if (badgeText) badgeText.classList.add('hero-text-fading');
-                if (titleEl) titleEl.classList.add('hero-text-fading');
-                if (descEl) descEl.classList.add('hero-text-fading');
-
-                setTimeout(() => {
-                    if (badgeText) {
-                        badgeText.textContent = data.badge;
-                        badgeText.classList.remove('hero-text-fading');
-                    }
-                    if (titleEl) {
-                        titleEl.innerHTML = '<span>' + data.titleMain + '</span> <span class="accent">' + data.titleAccent + '</span>';
-                        titleEl.classList.remove('hero-text-fading');
-                    }
-                    if (descEl) {
-                        descEl.textContent = data.desc;
-                        descEl.classList.remove('hero-text-fading');
-                    }
-                }, 220);
-
-                // 3. تحديث نصوص وتوقيع البطاقة العائمة الذكية
                 const roleEl = document.getElementById('heroStageCardRoleText');
                 const nameEl = document.getElementById('heroStageCardName');
                 const bioEl = document.getElementById('heroStageCardBio');
