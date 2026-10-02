@@ -4553,15 +4553,20 @@
             }
         }
 
-        // إغلاق النافذة بزر Esc
+        // إغلاق النوافذ بزر Esc
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeLogoLightbox();
+                closeExecutiveBookingModal();
+                closeClientPortalModal();
+                closeInstallModal();
             }
         });
 
         // تفعيل النقر التلقائي على أي عنصر يحمل كلاس الشعار لفتح المعاينة وتفعيل فيزياء الميلان 3D
         document.addEventListener('DOMContentLoaded', () => {
+            updateROICalculator();
+
             document.querySelectorAll('.brand-logo-preview-trigger').forEach(el => {
                 el.addEventListener('click', (e) => {
                     openLogoLightbox(e);
@@ -4631,6 +4636,162 @@
             } else {
                 alert('لتثبيت التطبيق على جهازك:\n- في متصفح Chrome أو Edge على Windows: اضغط على أيقونة التثبيت ⊕ في شريط العنوان أعلى المتصفح.\n- على هواتف iPhone / iPad: اضغط على زر المشاركة ثم "إضافة إلى الشاشة الرئيسية (Add to Home Screen)".\n- على هواتف Android: اضغط على خيارات المتصفح (⋮) ثم "تثبيت التطبيق".');
             }
+        }
+
+        // ==========================================
+        // 1. حاسبة العائد على الاستثمار التفاعلية (ROI Calculator Engine)
+        // ==========================================
+        function updateROICalculator() {
+            const teamSizeInput = document.getElementById('roiCompanySize');
+            const manualHoursInput = document.getElementById('roiManualHours');
+            const avgSalaryInput = document.getElementById('roiAvgSalary');
+            const solutionTypeInput = document.getElementById('roiSolutionType');
+
+            if (!teamSizeInput || !manualHoursInput || !avgSalaryInput || !solutionTypeInput) return;
+
+            const teamSize = parseInt(teamSizeInput.value, 10);
+            const manualHours = parseInt(manualHoursInput.value, 10);
+            const avgSalary = parseFloat(avgSalaryInput.value);
+            const efficiencyFactor = parseFloat(solutionTypeInput.value);
+
+            // تحديث شارات القيم
+            const teamSizeVal = document.getElementById('roiCompanySizeVal');
+            const manualHoursVal = document.getElementById('roiManualHoursVal');
+            const avgSalaryVal = document.getElementById('roiAvgSalaryVal');
+
+            if (teamSizeVal) teamSizeVal.textContent = teamSize + ' موظف';
+            if (manualHoursVal) manualHoursVal.textContent = manualHours + ' ساعات / أسبوع';
+            if (avgSalaryVal) avgSalaryVal.textContent = '€' + avgSalary + ' / ساعة';
+
+            // حساب الساعات السنوية المهدرة = teamSize * manualHours * 52 أسابيع
+            const totalHoursPerYear = teamSize * manualHours * 52;
+            const hoursSaved = Math.round(totalHoursPerYear * efficiencyFactor);
+            
+            // حساب التكلفة السنوية الموفرة = hoursSaved * avgSalary
+            const annualSavings = Math.round(hoursSaved * avgSalary);
+
+            // حساب سرعة استرداد التكلفة (تقدير متوسط تكلفة النظام 4,500 يورو)
+            const estimatedDevCost = 4500;
+            const monthlySavings = annualSavings / 12;
+            const paybackMonths = monthlySavings > 0 ? (estimatedDevCost / monthlySavings).toFixed(1) : 1.5;
+
+            // تحديث النتائج في الشاشة
+            const annualSavingsEl = document.getElementById('roiAnnualSavings');
+            const paybackMonthsEl = document.getElementById('roiPaybackMonths');
+            const hoursSavedEl = document.getElementById('roiHoursSaved');
+            const efficiencyGainEl = document.getElementById('roiEfficiencyGain');
+
+            if (annualSavingsEl) {
+                annualSavingsEl.innerHTML = `<span>€</span>${annualSavings.toLocaleString('en-US')}`;
+            }
+            if (paybackMonthsEl) {
+                paybackMonthsEl.textContent = paybackMonths + ' شهر';
+            }
+            if (hoursSavedEl) {
+                hoursSavedEl.innerHTML = `${hoursSaved.toLocaleString('en-US')} <span>ساعة/سنة</span>`;
+            }
+            if (efficiencyGainEl) {
+                efficiencyGainEl.innerHTML = `+<span>${Math.round(efficiencyFactor * 100)}%</span>`;
+            }
+        }
+
+        // ==========================================
+        // 2. إدارة نافذة حجز الاستشارات التنفيذية VIP
+        // ==========================================
+        function openExecutiveBookingModal(source) {
+            const modal = document.getElementById('executiveBookingModal');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
+                
+                // تحديد تاريخ الغد كأقرب موعد تلقائي
+                const dateInput = document.getElementById('vipDate');
+                if (dateInput && !dateInput.value) {
+                    const tomorrow = new Date();
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    dateInput.value = tomorrow.toISOString().split('T')[0];
+                }
+            }
+        }
+
+        function closeExecutiveBookingModal() {
+            const modal = document.getElementById('executiveBookingModal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+                if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('close');
+            }
+        }
+
+        function selectAdvisor(type, el) {
+            document.querySelectorAll('.advisor-select-card').forEach(card => card.classList.remove('active'));
+            if (el) el.classList.add('active');
+
+            const hiddenInput = document.getElementById('selectedAdvisorInput');
+            if (hiddenInput) {
+                if (type === 'salim') {
+                    hiddenInput.value = 'م. محمد سليم عزيزة (CTO - تقني وAI)';
+                } else if (type === 'raed') {
+                    hiddenInput.value = 'أ. محمد رائد كعكة (CFO - مالي وERP)';
+                } else {
+                    hiddenInput.value = 'جلسة استشارية مشتركة (S & R - تقني ومالي)';
+                }
+            }
+            if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('switch');
+        }
+
+        function dispatchVIPBooking(event) {
+            event.preventDefault();
+            const advisor = document.getElementById('selectedAdvisorInput').value;
+            const name = document.getElementById('vipName').value;
+            const company = document.getElementById('vipCompany').value;
+            const phone = document.getElementById('vipPhone').value;
+            const platform = document.getElementById('vipPlatform').value;
+            const date = document.getElementById('vipDate').value;
+            const time = document.getElementById('vipTime').value;
+
+            const text = `*طلب حجز استشارة تنفيذية VIP - S%26R CoreSync*%0A%0A` +
+                         `*المستشار المطلوب:* ${encodeURIComponent(advisor)}%0A` +
+                         `*العميل:* ${encodeURIComponent(name)}%0A` +
+                         `*الشركة:* ${encodeURIComponent(company)}%0A` +
+                         `*الهاتف/واتساب:* ${encodeURIComponent(phone)}%0A` +
+                         `*قناة الاجتماع:* ${encodeURIComponent(platform)}%0A` +
+                         `*الموعد المقترح:* ${encodeURIComponent(date)} في ${encodeURIComponent(time)}%0A%0A` +
+                         `_تم إرسال الطلب عبر المنصة الرسمية._`;
+
+            if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
+            alert('تم تأكيد طلب الموعد بنجاح! سيتم تحويلك الآن إلى واتساب الإدارة التنفيذية لتأكيد تفاصيل الرابط.');
+            window.open(`https://wa.me/31612345678?text=${text}`, '_blank');
+            closeExecutiveBookingModal();
+        }
+
+        // ==========================================
+        // 3. إدارة نافذة بوابة العملاء (Client Portal Hub)
+        // ==========================================
+        function openClientPortalModal() {
+            const modal = document.getElementById('clientPortalModal');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
+            }
+        }
+
+        function closeClientPortalModal() {
+            const modal = document.getElementById('clientPortalModal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+                if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('close');
+            }
+        }
+
+        function simulatePortalLogin() {
+            const user = document.getElementById('portalUser').value;
+            if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
+            alert(`مرحباً بك (${user})!\nجارٍ تجهيز الاتصال الآمن مع خوادم CoreSync السحابية في أمستردام.\nسيتم تفعيل الرابط المباشر للوحة التذاكر المؤسسية الخاصة بحسابك.`);
+            closeClientPortalModal();
         }
 
         // ضمان تشغيل الفيديو بسلاسة على iOS Safari دون تحذيرات المعايير
