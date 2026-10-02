@@ -238,28 +238,49 @@
             transform: scaleX(-1);
         }
 
-        /* وضع شعار اللوغو المتحرك على يسار الصورة أعلى النص وتنسيق تموضع النص طردياً */
-        .section-about-me .col-left .badget {
-            right: auto !important;
-            left: -35px !important;
-            top: 22% !important;
-            transform: translateY(-50%) !important;
-            z-index: 10 !important;
+        /* شعار اللوغو الذهبي المتحرك المتموضع أعلى النص */
+        .about-logo-badge-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 1.8rem;
         }
 
-        @media (max-width: 991px) {
-            .section-about-me .col-left .badget {
-                left: 10px !important;
-                right: auto !important;
-                top: 18% !important;
-                transform: translateY(-50%) !important;
-            }
+        .about-animated-badge {
+            width: 108px;
+            height: 108px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(197, 168, 128, 0.18) 0%, rgba(1, 9, 7, 0.85) 100%);
+            border: 1px solid rgba(197, 168, 128, 0.38);
+            box-shadow: 0 0 30px rgba(197, 168, 128, 0.3), inset 0 0 15px rgba(197, 168, 128, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            position: relative;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
 
-        /* تنزيل النص قليلاً ليتناسب طرداً مع موقع الشعار والصورة */
+        .about-animated-badge:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 45px rgba(197, 168, 128, 0.5), inset 0 0 20px rgba(197, 168, 128, 0.25);
+            border-color: var(--primary-gold);
+        }
+
+        .about-animated-badge img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+            animation: spin 12s linear infinite;
+        }
+
+        /* ضبط النص في عمود النبذة ليتوازن بشكل متناسق بجانب الصورة السينمائية */
         @media (min-width: 992px) {
             .section-about-me .col-right {
-                padding-top: 3.5rem !important;
+                padding-top: 1.5rem !important;
             }
         }
 
@@ -1310,6 +1331,13 @@
                     <!-- النص والإحصائيات: تظهر في الجهة اليسرى على الشاشات الكبيرة -->
                     <div class="col-lg-6 order-2 order-lg-1">
                         <div class="col-right">
+                            <!-- شعار اللوغو المتحرك الذهبي أعلى النص ليتوازن بجانب الصورة -->
+                            <div class="about-logo-badge-wrapper">
+                                <div class="about-animated-badge" title="S&amp;R CoreSync Solutions">
+                                    <img loading="lazy" decoding="async" width="108" height="108" src="./assets/logo-neon-icon.svg" alt="S&amp;R CoreSync Solutions - شارة التميز والاعتماد">
+                                </div>
+                            </div>
+
                             <h6 class="mini-title text-caption text-white-64">
                                 نبذة عن الشركة والمؤسسين
                             </h6>
@@ -1352,9 +1380,6 @@
                             </div>
                             <div class="signature">
                                 <img loading="lazy" decoding="async" width="1000" height="252" src="./assets/signature-neon.svg?v=salim" alt="Mohammad Salim Aziza - التوقيع النيوني الذهبي">
-                            </div>
-                            <div class="badget">
-                                <img loading="lazy" decoding="async" width="156" height="156" src="./assets/logo-neon-icon.svg" alt="S&amp;R CoreSync Solutions - شارة التميز والاعتماد">
                             </div>
                         </div>
                     </div>
