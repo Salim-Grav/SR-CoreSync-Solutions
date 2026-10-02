@@ -502,17 +502,107 @@
             transform: rotate(90deg);
         }
 
+        /* شريط التبديل بين خلفيات استعراض الشعار */
+        .sr-stage-theme-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            width: 100%;
+            margin-bottom: 0.85rem;
+            flex-wrap: wrap;
+        }
+
+        .sr-stage-theme-label {
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.65);
+            font-weight: 600;
+        }
+
+        .sr-theme-pills {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 0, 0, 0.45);
+            padding: 3px 6px;
+            border-radius: 999px;
+            border: 1px solid rgba(197, 168, 128, 0.2);
+        }
+
+        .sr-theme-pill {
+            background: transparent;
+            border: 1px solid transparent;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.76rem;
+            font-weight: 700;
+            padding: 4px 11px;
+            border-radius: 999px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.25s ease;
+        }
+
+        .sr-theme-pill:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .sr-theme-pill.active {
+            background: rgba(197, 168, 128, 0.25);
+            color: #ffffff;
+            border-color: rgba(197, 168, 128, 0.55);
+            box-shadow: 0 0 10px rgba(197, 168, 128, 0.2);
+        }
+
+        .theme-color-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot-obsidian { background: #020705; border: 1.2px solid rgba(197, 168, 128, 0.7); }
+        .dot-emerald  { background: #04251b; border: 1.2px solid #10b981; }
+        .dot-navy     { background: #07172d; border: 1.2px solid #38bdf8; }
+        .dot-paper    { background: #f8f6f0; border: 1.2px solid #94a3b8; }
+
         .sr-logo-modal-stage {
             position: relative;
             background: radial-gradient(circle at 50% 50%, rgba(197, 168, 128, 0.04) 0%, rgba(2, 7, 5, 0.98) 90%);
             border: 1px solid rgba(197, 168, 128, 0.2);
             border-radius: 18px;
-            padding: clamp(1.5rem, 3.5vw, 2.4rem) clamp(1rem, 2.5vw, 2rem);
+            padding: clamp(1.4rem, 3.2vw, 2.2rem) clamp(1rem, 2.5vw, 2rem);
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 1.25rem;
             box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.7);
+            transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+            min-height: 230px;
+        }
+
+        .sr-logo-modal-stage[data-theme="emerald"] {
+            background: radial-gradient(circle at 50% 50%, rgba(197, 168, 128, 0.08) 0%, rgba(3, 30, 21, 0.98) 90%);
+            border-color: rgba(16, 185, 129, 0.35);
+            box-shadow: inset 0 0 50px rgba(2, 20, 14, 0.85);
+        }
+
+        .sr-logo-modal-stage[data-theme="navy"] {
+            background: radial-gradient(circle at 50% 50%, rgba(197, 168, 128, 0.08) 0%, rgba(5, 16, 34, 0.98) 90%);
+            border-color: rgba(56, 189, 248, 0.35);
+            box-shadow: inset 0 0 50px rgba(3, 10, 22, 0.85);
+        }
+
+        .sr-logo-modal-stage[data-theme="paper"] {
+            background: #f8f6f0;
+            border-color: rgba(197, 168, 128, 0.55);
+            box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .sr-logo-modal-stage[data-theme="paper"] .sr-logo-full-render {
+            filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.22)) contrast(1.15);
         }
 
         .sr-logo-full-render {
@@ -522,7 +612,7 @@
             max-height: 220px;
             display: block;
             filter: drop-shadow(0 0 16px rgba(197, 168, 128, 0.18));
-            transition: transform 0.4s ease;
+            transition: transform 0.4s ease, filter 0.4s ease;
         }
 
         .sr-logo-full-render:hover {
@@ -1908,7 +1998,8 @@
                         <div class="col-right">
                             <!-- شعار اللوغو المتحرك الذهبي الملكي أعلى النص ليتوسط الشريكين (انقر للاستعراض الكامل) -->
                             <div class="about-logo-badge-wrapper">
-                                <div class="about-animated-badge brand-logo-preview-trigger" role="button" tabindex="0" onclick="openLogoLightbox(event)" title="انقر لعرض شعار S&amp;R CoreSync Solutions الرسمي بدقة فائقة" aria-label="عرض شعار S&amp;R CoreSync Solutions الرسمي">
+                                <div class="about-animated-badge brand-logo-preview-trigger" id="founderCentralBadge" role="button" tabindex="0" onclick="openLogoLightbox(event)" title="انقر لعرض شعار S&amp;R CoreSync Solutions الرسمي بدقة فائقة" aria-label="عرض شعار S&amp;R CoreSync Solutions الرسمي">
+                                    <div class="badge-sheen-glare" aria-hidden="true"></div>
                                     <img loading="lazy" decoding="async" width="180" height="180" src="./assets/logo-neon-icon.svg?v=champagne" alt="S&amp;R CoreSync Solutions - شارة التميز والاعتماد">
                                     <span class="badge-zoom-hint" aria-hidden="true">
                                         <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
@@ -3478,8 +3569,30 @@
                 </button>
             </div>
 
+            <!-- شريط التحكم وتبديل سمات الخلفية -->
+            <div class="sr-stage-theme-bar">
+                <span class="sr-stage-theme-label">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-left: 4px;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    معاينة الشعار على بيئات وخلفيات مختلفة:
+                </span>
+                <div class="sr-theme-pills">
+                    <button type="button" class="sr-theme-pill active" data-theme="obsidian" onclick="switchStageTheme('obsidian', this)">
+                        <span class="theme-color-dot dot-obsidian"></span> أوبسيديان (داكن)
+                    </button>
+                    <button type="button" class="sr-theme-pill" data-theme="emerald" onclick="switchStageTheme('emerald', this)">
+                        <span class="theme-color-dot dot-emerald"></span> زمردي ملكي
+                    </button>
+                    <button type="button" class="sr-theme-pill" data-theme="navy" onclick="switchStageTheme('navy', this)">
+                        <span class="theme-color-dot dot-navy"></span> كحلي ليلي
+                    </button>
+                    <button type="button" class="sr-theme-pill" data-theme="paper" onclick="switchStageTheme('paper', this)">
+                        <span class="theme-color-dot dot-paper"></span> ورقي رسمي (طباعة)
+                    </button>
+                </div>
+            </div>
+
             <!-- مسرح عرض الشعار الفيكتوري الكامل عالي الدقة -->
-            <div class="sr-logo-modal-stage">
+            <div class="sr-logo-modal-stage" id="srLogoStage" data-theme="obsidian">
                 <img id="srLogoFullImg" src="./assets/logo-neon.svg?v=champagne" alt="S&amp;R CoreSync Solutions - الشعار الرسمي المتكامل" class="sr-logo-full-render">
             </div>
 
@@ -3514,6 +3627,10 @@
                         <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
                         <span>تحميل الأيقونة فقط (Emblem)</span>
                     </a>
+                    <a href="./assets/brand-kit-spec.svg" download="SR-CoreSync-Brand-Kit-Spec.svg" class="tf-btn sr-modal-btn-sub" title="تحميل دليل ومعايير الهوية">
+                        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                        <span>دليل ومعايير الهوية (Brand Kit)</span>
+                    </a>
                     <button type="button" class="tf-btn sr-modal-btn-sub" onclick="copyLogoAssetPath(this)">
                         <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                         <span id="copyAssetBtnText">نسخ مسار الفيكتور</span>
@@ -3529,6 +3646,77 @@
     <!-- سكريبت الـ Service Worker وإدارة التثبيت -->
     <script>
         // ==========================================
+        // مؤثرات صوتية فاخرة وخافتة (Subtle Luxury Audio Synthesizer)
+        // ==========================================
+        const LuxuryAudio = (function () {
+            let audioCtx = null;
+
+            function initContext() {
+                if (!audioCtx && (window.AudioContext || window.webkitAudioContext)) {
+                    const AudioCtor = window.AudioContext || window.webkitAudioContext;
+                    audioCtx = new AudioCtor();
+                }
+                if (audioCtx && audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                return audioCtx;
+            }
+
+            function play(type = 'open') {
+                try {
+                    const ctx = initContext();
+                    if (!ctx) return;
+                    const now = ctx.currentTime;
+
+                    if (type === 'open') {
+                        // رنين كريستالي دافئ وفاخر جداً (Chime)
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(587.33, now); // نغمة D5
+                        osc.frequency.exponentialRampToValueAtTime(880, now + 0.18); // نغمة A5
+                        gain.gain.setValueAtTime(0.035, now);
+                        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.55);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(now);
+                        osc.stop(now + 0.55);
+                    } else if (type === 'switch') {
+                        // نقرة ميكانيكية حريرية ناعمة لتبديل الثيمات
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(340, now);
+                        osc.frequency.exponentialRampToValueAtTime(160, now + 0.08);
+                        gain.gain.setValueAtTime(0.045, now);
+                        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.12);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(now);
+                        osc.stop(now + 0.12);
+                    } else if (type === 'close') {
+                        // نقرة إغلاق خافتة
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(420, now);
+                        osc.frequency.exponentialRampToValueAtTime(220, now + 0.12);
+                        gain.gain.setValueAtTime(0.025, now);
+                        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.15);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(now);
+                        osc.stop(now + 0.15);
+                    }
+                } catch (e) {
+                    // تجنب أي مقاطعة في حال منع المتصفح للصوت
+                }
+            }
+
+            return { play };
+        })();
+
+        // ==========================================
         // وظائف استعراض الشعار بدقة كاملة (Logo Lightbox)
         // ==========================================
         function openLogoLightbox(e) {
@@ -3540,19 +3728,32 @@
             if (modal) {
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
+                LuxuryAudio.play('open');
             }
         }
 
         function closeLogoLightbox() {
             const modal = document.getElementById('brandLogoLightboxModal');
-            if (modal) {
+            if (modal && modal.classList.contains('active')) {
                 modal.classList.remove('active');
                 document.body.style.overflow = '';
+                LuxuryAudio.play('close');
             }
+        }
+
+        function switchStageTheme(theme, btn) {
+            const stage = document.getElementById('srLogoStage');
+            if (stage) {
+                stage.setAttribute('data-theme', theme);
+            }
+            document.querySelectorAll('.sr-theme-pill').forEach(p => p.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            LuxuryAudio.play('switch');
         }
 
         function copyLogoAssetPath(btn) {
             const fullUrl = new URL('./assets/logo-neon.svg', window.location.href).href;
+            LuxuryAudio.play('switch');
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(fullUrl).then(() => {
                     const txt = document.getElementById('copyAssetBtnText');
@@ -3576,13 +3777,39 @@
             }
         });
 
-        // تفعيل النقر التلقائي على أي عنصر يحمل كلاس الشعار لفتح المعاينة
+        // تفعيل النقر التلقائي على أي عنصر يحمل كلاس الشعار لفتح المعاينة وتفعيل فيزياء الميلان 3D
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.brand-logo-preview-trigger').forEach(el => {
                 el.addEventListener('click', (e) => {
                     openLogoLightbox(e);
                 });
             });
+
+            // 3D Tilt الفيزيائي التفاعلي لشارة الشعار الدوارة
+            const centralBadge = document.getElementById('founderCentralBadge');
+            if (centralBadge) {
+                centralBadge.addEventListener('mousemove', (e) => {
+                    const rect = centralBadge.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    // حساب زوايا الميلان (بحد أقصى 15 درجة)
+                    const rotX = -((y - centerY) / centerY) * 14;
+                    const rotY = ((x - centerX) / centerX) * 14;
+
+                    centralBadge.style.transform = `perspective(800px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale3d(1.06, 1.06, 1.06)`;
+                    centralBadge.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
+                    centralBadge.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
+                });
+
+                centralBadge.addEventListener('mouseleave', () => {
+                    centralBadge.style.transform = '';
+                    centralBadge.style.removeProperty('--mouse-x');
+                    centralBadge.style.removeProperty('--mouse-y');
+                });
+            }
         });
 
         if ('serviceWorker' in navigator) {
