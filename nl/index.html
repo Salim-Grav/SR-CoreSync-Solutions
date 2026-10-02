@@ -14,7 +14,7 @@
     <meta property="og:site_name" content="S&R CoreSync Solutions">
     <meta property="og:title" content="S&R CoreSync Solutions | Geavanceerde Bedrijfssoftware, ERP & AI Systemen">
     <meta property="og:description" content="Wij ontwikkelen veerkrachtige cloudsystemen, mobiele apps en geautomatiseerde ERP-architecturen die bedrijfsgroei in Nederland en internationaal stimuleren.">
-    <meta property="og:image" content="https://dananajmah.com/assets/images/og/home.jpg">
+    <meta property="og:image" content="../assets/work-2.webp">
 
     <!-- دعم تثبيت التطبيق على الهواتف (Android / iOS) وأجهزة الكمبيوتر (Windows PC) -->
     <link rel="icon" type="image/svg+xml" href="../assets/logo-neon-icon.svg">
@@ -31,23 +31,30 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- حزمة الأنماط والتصميم الأصلية الكاملة لموقع دانا نجمة من الخادم المباشر -->
-    <link rel="stylesheet" href="https://dananajmah.com/assets/css/bundle/e33f1ce958.css?v=482a490b">
+    <!-- Lokale Bundel voor Snelle Paginalaadprestaties -->
+    <link rel="stylesheet" href="../css/dananajmah-bundle.min.css">
 
-    <!-- مكتبات CSS الإضافية -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/themes/odometer-theme-default.min.css">
-
-    <!-- مكتبات الجافاسكريبت والأيقونات -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- Prefetch voor Directe Paginanavigatie -->
+    <link rel="prefetch" href="../index.html">
+    <link rel="prefetch" href="../en/index.html">
+    <link rel="prefetch" href="../demo.html">
 
     <style>
         /* CoreSync Design Token */
+        
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+        /* Hardware acceleration to prevent scroll stutter and frame drops */
+        .hero-cinematic, .section-about-me, .section-selected-work, .section-pricing, .section-roi-calculator, .section-faq, .section-cta {
+            contain: content;
+        }
+        .cinematic-viewport, .about-media {
+            will-change: transform;
+            transform: translateZ(0);
+        }
+        
         :root {
             --primary-gold: #c5a880;
             --primary-gold-hover: #d8bc95;
@@ -2070,7 +2077,7 @@
         <div class="hero-editorial hero-cinematic" id="home" data-section>
             <div class="cinematic-viewport" aria-hidden="true">
                 <div class="cinematic-scene">
-                    <video class="cinematic-video cinematic-video--a" muted loop autoplay preload="auto" poster="./assets/hero-founder-poster.webp" src="../assets/hero-founder-cinematic.mp4" aria-hidden="true"></video>
+                    <video class="cinematic-video cinematic-video--a" muted loop autoplay preload="metadata" poster="./assets/hero-founder-poster.webp" src="../assets/hero-founder-cinematic.mp4" aria-hidden="true"></video>
                 </div>
             </div>
 
@@ -2101,7 +2108,7 @@
                                         <li class="menu-item"><a href="#roi-calculator" class="item-link link text-caption gold-accent"><span>05 /</span>ROI CALCULATOR</a></li>
                                         <li class="menu-item"><a href="#faq" class="item-link link text-caption"><span>06 /</span>FAQ</a></li>
                                         <li class="menu-item"><a href="#contact" class="item-link link text-caption"><span>07 /</span>CONTACT</a></li>
-                                        <li class="menu-item"><a href="demo.html" class="item-link link text-caption nav-item-demo-highlight"><span>08 /</span>LIVE DEMO</a></li>
+                                        <li class="menu-item"><a href="../demo.html" class="item-link link text-caption nav-item-demo-highlight"><span>08 /</span>LIVE DEMO</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -2156,9 +2163,9 @@
                                         </span>
                                     </summary>
                                     <div class="header-language__options">
-                                        <a class="language-switcher__button is-active" href="./index.html" hreflang="ar" lang="ar" aria-current="page">العربية</a>
-                                        <a class="language-switcher__button" href="./en/index.html" hreflang="en" lang="en">English</a>
-                                        <a class="language-switcher__button" href="./nl/index.html" hreflang="nl" lang="nl">Nederlands</a>
+                                        <a class="language-switcher__button is-active" href="./index.html" hreflang="nl" lang="nl" aria-current="page">Nederlands</a>
+                                        <a class="language-switcher__button" href="../en/index.html" hreflang="en" lang="en">English</a>
+                                        <a class="language-switcher__button" href="../index.html" hreflang="ar" lang="ar">العربية</a>
                                     </div>
                                 </details>
 
@@ -2200,7 +2207,7 @@
                                         <button type="button" class="tf-btn hero-reference__action hero-btn-install" onclick="openInstallModal()">
                                             <span>Installeer App (Windows & Mobiel)</span>
                                         </button>
-                                        <a href="demo.html" class="tf-btn hero-reference__action hero-btn-demo">
+                                        <a href="../demo.html" class="tf-btn hero-reference__action hero-btn-demo">
                                             <span>Live Systeem Demo (Live Demo)</span>
                                         </a>
                                         <a href="#pricing" class="tf-btn hero-reference__action hero-reference__package-btn"><span>BEKIJK PAKKETTEN</span></a>
@@ -2297,7 +2304,7 @@
         <!-- 3. قسم Projecten المختارة (Selected Work Section with Mountain Background) -->
         <div class="section-selected-work section-selected-work--original flat-spacing pb-0 flat-animate-tab" id="work" data-section dir="ltr">
             <div class="bg-img effectFade fadeUp">
-                <img loading="lazy" width="1440" height="720" src="https://dananajmah.com/assets/images/item/mountain.webp" alt="Berg Achtergrond">
+                <img loading="lazy" width="1440" height="720" src="../assets/mountain.webp" alt="Berg Achtergrond">
             </div>
             <div class="work-head">
                 <div class="container">
@@ -2363,7 +2370,7 @@
                                 <div class="col-md-8">
                                     <div class="col-right">
                                         <div class="image work-project-trigger main-mouse-hover effectFade fadeZoom cs-pointer work-card-media" id="work-main-card-trigger" onclick="openCurrentProjectModal()">
-                                            <img id="work-main-image" loading="lazy" width="1256" height="942" src="https://dananajmah.com/assets/images/section/work-3.webp" alt="Projectweergave" class="work-card-img">
+                                            <img id="work-main-image" loading="lazy" width="1256" height="942" src="../assets/work-3.webp" alt="Projectweergave" class="work-card-img">
                                             <div class="tf-mouse work-card-badge-gold" title="Klik om de volledige case study te openen">
                                                 <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                                             </div>
@@ -2410,7 +2417,7 @@
         <!-- 4. قسم الOver Ons والقيادة التأسيسية (About Us / Founders Section) -->
         <section class="section-about-me flat-spacing" id="about" data-section>
             <div class="s-img-bg">
-                <img loading="lazy" decoding="async" width="1440" height="906" src="https://dananajmah.com/assets/images/section/bg-about.webp" alt="Achtergrond">
+                <img loading="lazy" decoding="async" width="1440" height="906" src="../assets/bg-about.webp" alt="Achtergrond">
             </div>
             <div class="container-executive-about position-relative z-5">
                 <div class="executive-about-grid">
@@ -2418,7 +2425,7 @@
                     <div class="executive-grid-salim">
                         <div class="col-left mb-0">
                             <div class="about-media about-media--salim">
-                                <video class="video" muted loop autoplay preload="auto" poster="./assets/about-founder-poster.webp" src="../assets/about-founder-cinematic.mp4"></video>
+                                <video class="video" muted loop autoplay preload="metadata" poster="./assets/about-founder-poster.webp" src="../assets/about-founder-cinematic.mp4"></video>
                                 <div class="overlay v1"></div>
                                 <div class="overlay mark-1"></div>
                                 <div class="overlay mark-2"></div>
@@ -2623,7 +2630,7 @@
 
             <!-- شبكة الAchtergrond الفاخرة الأصلية -->
             <div class="bg-img-item">
-                <img loading="lazy" width="1440" height="800" src="https://dananajmah.com/assets/images/item/grid.png" alt="Technisch Raster">
+                <img loading="lazy" width="1440" height="800" src="../assets/grid.png" alt="Technisch Raster">
             </div>
         </section>
 
@@ -2636,20 +2643,20 @@
                 <div class="brand-marquee">
                     <div class="brand-marquee__track">
                         <div class="brand-marquee__set" aria-hidden="true">
-                            <div class="img-brand"><img loading="lazy" width="136" height="68" src="https://dananajmah.com/assets/images/section/google.webp" alt="Google Cloud"></div>
-                            <div class="img-brand"><img loading="lazy" width="136" height="68" src="https://dananajmah.com/assets/images/section/HOSTENGER.webp" alt="Hostinger"></div>
-                            <div class="img-brand"><img loading="lazy" width="136" height="68" src="https://dananajmah.com/assets/images/section/365%20SCHOON.webp" alt="365 Schoon"></div>
-                            <div class="img-brand"><img loading="lazy" width="136" height="68" src="https://dananajmah.com/assets/images/section/AWT.webp" alt="AWT"></div>
-                            <div class="img-brand"><img loading="lazy" width="136" height="68" src="https://dananajmah.com/assets/images/section/Buraq.webp" alt="Buraq"></div>
-                            <div class="img-brand"><img loading="lazy" width="176" height="88" src="https://dananajmah.com/assets/images/section/almarai.webp" alt="Almarai"></div>
+                            <div class="img-brand"><img loading="lazy" width="136" height="68" src="../assets/google.webp" alt="Google Cloud"></div>
+                            <div class="img-brand"><img loading="lazy" width="136" height="68" src="../assets/HOSTENGER.webp" alt="Hostinger"></div>
+                            <div class="img-brand"><img loading="lazy" width="136" height="68" src="../assets/365 SCHOON.webp" alt="365 Schoon"></div>
+                            <div class="img-brand"><img loading="lazy" width="136" height="68" src="../assets/AWT.webp" alt="AWT"></div>
+                            <div class="img-brand"><img loading="lazy" width="136" height="68" src="../assets/Buraq.webp" alt="Buraq"></div>
+                            <div class="img-brand"><img loading="lazy" width="176" height="88" src="../assets/almarai.webp" alt="Almarai"></div>
                         </div>
                         <div class="brand-marquee__set">
-                            <div class="img-brand"><img loading="lazy" width="136" height="68" src="https://dananajmah.com/assets/images/section/google.webp" alt="Google Cloud"></div>
-                            <div class="img-brand"><img loading="lazy" width="136" height="68" src="https://dananajmah.com/assets/images/section/HOSTENGER.webp" alt="Hostinger"></div>
-                            <div class="img-brand"><img loading="lazy" width="136" height="68" src="https://dananajmah.com/assets/images/section/365%20SCHOON.webp" alt="365 Schoon"></div>
-                            <div class="img-brand"><img loading="lazy" width="136" height="68" src="https://dananajmah.com/assets/images/section/AWT.webp" alt="AWT"></div>
-                            <div class="img-brand"><img loading="lazy" width="136" height="68" src="https://dananajmah.com/assets/images/section/Buraq.webp" alt="Buraq"></div>
-                            <div class="img-brand"><img loading="lazy" width="176" height="88" src="https://dananajmah.com/assets/images/section/almarai.webp" alt="Almarai"></div>
+                            <div class="img-brand"><img loading="lazy" width="136" height="68" src="../assets/google.webp" alt="Google Cloud"></div>
+                            <div class="img-brand"><img loading="lazy" width="136" height="68" src="../assets/HOSTENGER.webp" alt="Hostinger"></div>
+                            <div class="img-brand"><img loading="lazy" width="136" height="68" src="../assets/365 SCHOON.webp" alt="365 Schoon"></div>
+                            <div class="img-brand"><img loading="lazy" width="136" height="68" src="../assets/AWT.webp" alt="AWT"></div>
+                            <div class="img-brand"><img loading="lazy" width="136" height="68" src="../assets/Buraq.webp" alt="Buraq"></div>
+                            <div class="img-brand"><img loading="lazy" width="176" height="88" src="../assets/almarai.webp" alt="Almarai"></div>
                         </div>
                     </div>
                 </div>
@@ -2659,7 +2666,7 @@
         <!-- 7. قسم Tarieven والباقات (Section Pricing - 1:1 Replica) -->
         <section class="section-pricing flat-spacing flat-animate-tab" id="pricing" data-section>
             <div class="bg-img">
-                <img loading="lazy" decoding="async" width="1440" height="1081" src="https://dananajmah.com/assets/images/item/bg-4.png?v=2026-09-18" alt="Achtergrond Tarieven">
+                <img loading="lazy" decoding="async" width="1440" height="1081" src="../assets/bg-4.png" alt="Achtergrond Tarieven">
             </div>
             <div class="container">
                 <div class="s-header justify-content-center">
@@ -2734,7 +2741,7 @@
                                 </div>
                                 <div class="bg-img bg-img_1 d-xl-block"></div>
                                 <div class="bg-img bg-img_2">
-                                    <img loading="lazy" decoding="async" width="416" height="625" src="https://dananajmah.com/assets/images/item/bg-2-gold.png" alt="Gouden Ornament">
+                                    <img loading="lazy" decoding="async" width="416" height="625" src="../assets/bg-2-gold.png" alt="Gouden Ornament">
                                 </div>
                                 <div class="br-line bg-primary br-line-gold"></div>
                                 <p class="plan-name letter-space--1 fw-medium">Enterprise Growth</p>
@@ -2812,7 +2819,7 @@
 
                             <div class="wg-plan style-2">
                                 <div class="plan-badge">MEEST POPULAIR</div>
-                                <div class="bg-img bg-img_2"><img loading="lazy" width="416" height="625" src="https://dananajmah.com/assets/images/item/bg-2-gold.png" alt=""></div>
+                                <div class="bg-img bg-img_2"><img loading="lazy" width="416" height="625" src="../assets/bg-2-gold.png" alt=""></div>
                                 <div class="br-line bg-primary br-line-gold"></div>
                                 <p class="plan-name letter-space--1 fw-medium">Full ERP Sync</p>
                                 <h4 class="plan-price font-latin">
@@ -3090,7 +3097,7 @@
         <!-- 9. قسم Contact ونموذج الطلب (Section CTA) -->
         <section class="section-cta flat-spacing" id="contact" data-section>
             <div class="bg-img">
-                <img loading="lazy" width="1440" height="1081" src="https://dananajmah.com/assets/images/item/bg-3.png?v=2026-09-18" alt="Achtergrond Contact">
+                <img loading="lazy" width="1440" height="1081" src="../assets/bg-3.png" alt="Achtergrond Contact">
             </div>
             <div class="container">
                 <div class="s-header justify-content-center">
@@ -3257,8 +3264,8 @@
                                 <li><a href="#pricing" class="link letter-space--2 h5">Tarieven</a></li>
                                 <li><a href="#faq" class="link letter-space--2 h5">FAQ</a></li>
                                 <li><a href="#contact" class="link letter-space--2 h5">Contact</a></li>
-                                <li><a href="demo.html" class="link letter-space--2 h5">Live Systeem Demo</a></li>
-                                <li><a href="logo-studio.html" class="link letter-space--2 h5 gold-accent">Logo Studio</a></li>
+                                <li><a href="../demo.html" class="link letter-space--2 h5">Live Systeem Demo</a></li>
+                                <li><a href="../logo-studio.html" class="link letter-space--2 h5 gold-accent">Logo Studio</a></li>
                                 <li><a href="javascript:void(0)" onclick="openLogoLightbox(event)" class="link letter-space--2 h5 gold-accent">Huisstijl & Embleem 🔍</a></li>
                             </ul>
                         </div>
@@ -3510,7 +3517,7 @@
                     id: "sarlor",
                     name: "SARLOR",
                     subtitle: "Visuele Identiteit voor Syrisch Ambachtelijk Restaurant in Nederland",
-                    heroImg: "https://dananajmah.com/assets/images/section/work-3.webp",
+                    heroImg: "../assets/work-3.webp",
                     tags: ["Visuele Identiteit", "Logo Ontwerp", "Verpakkingsdesign"],
                     year: "2024",
                     client: "SARLOR",
@@ -3520,21 +3527,21 @@
                     desc: "Een verfijnde visuele identiteit ontwikkeld voor Sarlor, een ambachtelijke eetgelegenheid in Nederland gespecialiseerd in Midden-Oosterse broodjes, manakish en steenovenpizza's. Het logo combineert de letter 'O' als een pizzapunt met dynamische curven die snelle bezorging symboliseren, gecombineerd met diepe bordeaux-, amber- en crèmetinten afgestemd op de Europese markt.",
                     quote: "Een meesterlijk visueel systeem met krachtig ritme en blijvende herkenbaarheid.",
                     gallery: [
-                        "https://dananajmah.com/assets/images/section/work-3.webp",
-                        "https://dananajmah.com/assets/images/Project/sarlor/05-logo-symbols.jpg",
-                        "https://dananajmah.com/assets/images/Project/sarlor/4-logo-guide.jpg",
-                        "https://dananajmah.com/assets/images/Project/sarlor/2-presentation.webp",
-                        "https://dananajmah.com/assets/images/Project/sarlor/07-mockup.webp",
-                        "https://dananajmah.com/assets/images/Project/sarlor/08-mockup.webp",
-                        "https://dananajmah.com/assets/images/Project/sarlor/10-presentation.webp",
-                        "https://dananajmah.com/assets/images/Project/sarlor/11-presentation.webp"
+                        "../assets/work-3.webp",
+                        "../assets/work-3.webp",
+                        "../assets/work-1.webp",
+                        "../assets/work-2.webp",
+                        "../assets/work-3.webp",
+                        "../assets/work-1.webp",
+                        "../assets/work-2.webp",
+                        "../assets/work-3.webp"
                     ]
                 },
                 {
                     id: "oasis",
                     name: "Oasis",
                     subtitle: "Luxe Huisstijl & Uitgebreid Merkhandboek voor de Europese Markt",
-                    heroImg: "https://dananajmah.com/assets/images/Project/OASIS/1.webp",
+                    heroImg: "../assets/work-1.webp",
                     tags: ["Luxe Huisstijl", "Merkrichtlijnen", "Duurzame Verpakkingen"],
                     year: "2024",
                     client: "Oasis Studio",
@@ -3544,18 +3551,18 @@
                     desc: "Ontwikkeling van een hoogwaardige visuele identiteit die serene luxe en organische symmetrie uitstraalt. Inclusief complete merkrichtlijnen, digitale UI-componenten en duurzame verpakkingsconcepten voor het premiumsegment.",
                     quote: "Een identiteit die prestige vestigt met ingetogen elegantie en tijdloos vakmanschap.",
                     gallery: [
-                        "https://dananajmah.com/assets/images/Project/OASIS/1.webp",
-                        "https://dananajmah.com/assets/images/Project/OASIS/2.webp",
-                        "https://dananajmah.com/assets/images/Project/OASIS/3.webp",
-                        "https://dananajmah.com/assets/images/Project/OASIS/4.webp",
-                        "https://dananajmah.com/assets/images/Project/OASIS/5.webp"
+                        "../assets/work-2.webp",
+                        "../assets/work-3.webp",
+                        "../assets/work-1.webp",
+                        "../assets/work-2.webp",
+                        "../assets/work-3.webp"
                     ]
                 },
                 {
                     id: "toneh",
                     name: "Toneh",
                     subtitle: "Digital-First Branding & Cross-Platform Media Design",
-                    heroImg: "https://dananajmah.com/assets/images/Project/toneh/1.webp",
+                    heroImg: "../assets/work-1.webp",
                     tags: ["Digitale Identiteit", "Meertalige Typografie", "Media Branding"],
                     year: "2023",
                     client: "Toneh Media",
@@ -3565,17 +3572,17 @@
                     desc: "Een dynamisch merksysteem waarin krachtige eenvoud en harmonieuze Latijns-Arabische typografie samenkomen, specifiek geoptimaliseerd voor herkenbaarheid op streamingplatforms en mobiele apps.",
                     quote: "Een modern visueel ritme dat maximale impact genereert op alle digitale kanalen.",
                     gallery: [
-                        "https://dananajmah.com/assets/images/Project/toneh/1.webp",
-                        "https://dananajmah.com/assets/images/Project/toneh/2.webp",
-                        "https://dananajmah.com/assets/images/Project/toneh/3.webp",
-                        "https://dananajmah.com/assets/images/Project/toneh/4.webp"
+                        "../assets/work-2.webp",
+                        "../assets/work-3.webp",
+                        "../assets/work-1.webp",
+                        "../assets/work-2.webp"
                     ]
                 },
                 {
                     id: "lumina",
                     name: "Lumina Café",
                     subtitle: "Ambachtelijke Koffiebranderij Huisstijl & Duurzaam Verpakkingsontwerp",
-                    heroImg: "https://dananajmah.com/assets/images/section/work-1.webp",
+                    heroImg: "../assets/work-1.webp",
                     tags: ["Specialty Coffee", "Eco Verpakking", "Retail Identiteit"],
                     year: "2025",
                     client: "Lumina Coffee BV",
@@ -3585,10 +3592,10 @@
                     desc: "Creatie van een warme merkbeleving die Nederlands minimalisme verbindt met de rijke herkomst van single-origin koffiebonen. Uitgerust met tastbare verpakkingsontwerpen en natuurlijke aardetinten voor het Europese retailschap.",
                     quote: "Artistieke perfectie die koffie-ambacht verbindt met hedendaagse Europese esthetiek.",
                     gallery: [
-                        "https://dananajmah.com/assets/images/section/work-1.webp",
-                        "https://dananajmah.com/assets/images/Project/sarlor/08-mockup.webp",
-                        "https://dananajmah.com/assets/images/Project/OASIS/2.webp",
-                        "https://dananajmah.com/assets/images/Project/toneh/3.webp"
+                        "../assets/work-1.webp",
+                        "../assets/work-3.webp",
+                        "../assets/work-1.webp",
+                        "../assets/work-2.webp"
                     ]
                 }
             ],
@@ -3597,7 +3604,7 @@
                     id: "hintham",
                     name: "Shoarma Hintham",
                     subtitle: "Zelfstandig Bestel- en Bezorgplatform met iDEAL & Real-time Keukensysteem",
-                    heroImg: "https://dananajmah.com/assets/images/section/project-hintham.webp",
+                    heroImg: "../assets/work-3.webp",
                     tags: ["E-Commerce", "iDEAL Koppeling", "Keukenmanagementsysteem"],
                     year: "2024",
                     client: "Shoarma Hintham Restaurant",
@@ -3608,18 +3615,18 @@
                     desc: "Ontwerp en ontwikkeling van een direct bestelplatform met snelle checkout, automatische printorders in de keuken en iDEAL-betalingen, waardoor het restaurant volledig commissievrij kan opereren.",
                     quote: "Verhoogde het aandeel directe bestellingen met 45% en zorgde voor een soepele klantervaring.",
                     gallery: [
-                        "https://dananajmah.com/assets/images/section/project-hintham.webp",
-                        "https://dananajmah.com/assets/images/Project/project-hintham-pages-v1.webp",
-                        "https://dananajmah.com/assets/images/Project/project-hintham-mobile.webp",
-                        "https://dananajmah.com/assets/images/Project/project-hintham-checkout-ar-v1.webp",
-                        "https://dananajmah.com/assets/images/Project/project-hintham-cart-ar-v10.webp"
+                        "../assets/work-1.webp",
+                        "../assets/work-2.webp",
+                        "../assets/work-3.webp",
+                        "../assets/work-1.webp",
+                        "../assets/work-2.webp"
                     ]
                 },
                 {
                     id: "reinigung",
                     name: "NA Reinigung",
                     subtitle: "Geautomatiseerd Boekings- en Planningssysteem voor Schoonmaakdiensten",
-                    heroImg: "https://dananajmah.com/assets/images/section/work-1.webp",
+                    heroImg: "../assets/work-1.webp",
                     tags: ["Boekingsplatform", "Meertalige UX", "Zakelijke UI"],
                     year: "2025",
                     client: "NA Reinigung GmbH",
@@ -3630,16 +3637,16 @@
                     desc: "Ontwikkeling van een intuïtief offerte- en plansysteem voor zakelijke en particuliere schoonmaakklanten, compleet met automatische agenda-afstemming en facturatie conform de Duitse wetgeving.",
                     quote: "Een modern, betrouwbaar platform dat direct autoriteit uitstraalt naar zakelijke klanten.",
                     gallery: [
-                        "https://dananajmah.com/assets/images/section/work-1.webp",
-                        "https://dananajmah.com/assets/images/section/work-2.webp",
-                        "https://dananajmah.com/assets/images/Project/project-hintham-pages-v1.webp"
+                        "../assets/work-1.webp",
+                        "../assets/work-2.webp",
+                        "../assets/work-3.webp"
                     ]
                 },
                 {
                     id: "nordic",
                     name: "Nordic Haven",
                     subtitle: "Exclusief Vakantie- en Reserveringsportaal voor Europese Chalets",
-                    heroImg: "https://dananajmah.com/assets/images/section/work-2.webp",
+                    heroImg: "../assets/work-2.webp",
                     tags: ["Reserveringsportaal", "Interactieve Beschikbaarheid", "Internationale Betalingen"],
                     year: "2025",
                     client: "Nordic Hospitality Group",
@@ -3650,16 +3657,16 @@
                     desc: "Bouw van een sfeervol boekingssysteem met real-time beschikbaarheidskalender, 3D-virtuele tours en naadloze koppeling met internationale betalingssystemen zoals Stripe en iDEAL.",
                     quote: "Een luxueuze digitale gastervaring die directe boekingen verdubbelde en commissies met 60% reduceerde.",
                     gallery: [
-                        "https://dananajmah.com/assets/images/section/work-2.webp",
-                        "https://dananajmah.com/assets/images/section/work-1.webp",
-                        "https://dananajmah.com/assets/images/Project/OASIS/1.webp"
+                        "../assets/work-2.webp",
+                        "../assets/work-1.webp",
+                        "../assets/work-1.webp"
                     ]
                 },
                 {
                     id: "technova",
                     name: "TechNova Studio",
                     subtitle: "Interactieve 3D Webbeleving voor AI & Cloud Consultancy",
-                    heroImg: "https://dananajmah.com/assets/images/section/work-4.webp",
+                    heroImg: "../assets/work-1.webp",
                     tags: ["WebGL 3D", "Cloud Consultancy", "Dark Mode UI"],
                     year: "2025",
                     client: "TechNova Solutions Ltd",
@@ -3670,9 +3677,9 @@
                     desc: "Ontwikkeling van een razendsnelle zakelijke website met hardware-versnelde WebGL-effecten en dynamische interacties, ontworpen om technisch leiderschap en innovatiekracht te etaleren.",
                     quote: "Een buitengewone digitale aanwezigheid die veel waardering oogstte bij investeerders en enterprise-klanten.",
                     gallery: [
-                        "https://dananajmah.com/assets/images/section/work-4.webp",
-                        "https://dananajmah.com/assets/images/Project/project-hintham-mobile.webp",
-                        "https://dananajmah.com/assets/images/section/work-3.webp"
+                        "../assets/work-1.webp",
+                        "../assets/work-2.webp",
+                        "../assets/work-3.webp"
                     ]
                 }
             ],
@@ -3681,7 +3688,7 @@
                     id: "coresync",
                     name: "CoreSync Cloud ERP",
                     subtitle: "Alles-in-één Cloud ERP & Supply Chain Suite voor Bedrijven",
-                    heroImg: "https://dananajmah.com/assets/images/section/work-4.webp",
+                    heroImg: "../assets/work-1.webp",
                     tags: ["Cloud ERP", "Voorraadbeheer", "Procesautomatisering"],
                     year: "2026",
                     client: "Europese Logistieke Groep",
@@ -3691,16 +3698,16 @@
                     desc: "Een integraal cloudsysteem voor financiële administratie, multi-vestiging voorraadbeheer en geautomatiseerde facturatie. Volledig afgestemd op de Nederlandse btw-regelgeving en Europese normen.",
                     quote: "Echte digitale efficiëntie: factuurverwerkingstijd met 70% gereduceerd zonder handmatige invoerfouten.",
                     gallery: [
-                        "https://dananajmah.com/assets/images/section/work-4.webp",
-                        "https://dananajmah.com/assets/images/section/work-3.webp",
-                        "https://dananajmah.com/assets/images/section/work-2.webp"
+                        "../assets/work-1.webp",
+                        "../assets/work-3.webp",
+                        "../assets/work-2.webp"
                     ]
                 },
                 {
                     id: "finflow",
                     name: "FinFlow Analytics",
                     subtitle: "Financiële Audit- en Prognosesoftware voor Groeiende Bedrijven",
-                    heroImg: "https://dananajmah.com/assets/images/section/work-2.webp",
+                    heroImg: "../assets/work-2.webp",
                     tags: ["Business Intelligence", "Automatische Audit", "Executive Dashboards"],
                     year: "2025",
                     client: "Europese Investeringsmaatschappij",
@@ -3710,16 +3717,16 @@
                     desc: "Real-time webapplicatie voor kasstroomanalyses, geautomatiseerde bankafstemming en fiscale prognoses conform de Nederlandse en Europese boekhoudstandaarden.",
                     quote: "Kraakhelder financieel inzicht dat snelle, data-onderbouwde strategische beslissingen mogelijk maakt.",
                     gallery: [
-                        "https://dananajmah.com/assets/images/section/work-2.webp",
-                        "https://dananajmah.com/assets/images/section/work-1.webp",
-                        "https://dananajmah.com/assets/images/Project/project-hintham-pages-v1.webp"
+                        "../assets/work-2.webp",
+                        "../assets/work-1.webp",
+                        "../assets/work-3.webp"
                     ]
                 },
                 {
                     id: "omnilogix",
                     name: "OmniLogix WMS",
                     subtitle: "Warehouse Management & Barcode / RFID Logistiek Platform",
-                    heroImg: "https://dananajmah.com/assets/images/section/work-3.webp",
+                    heroImg: "../assets/work-3.webp",
                     tags: ["Supply Chain", "Warehouse Beheer", "RFID & Barcode"],
                     year: "2025",
                     client: "EuroLogistics Distributie",
@@ -3729,16 +3736,16 @@
                     desc: "Cloud-native magazijnbeheer met ondersteuning voor RFID-scanning, route-optimalisatie, chauffeurstelemetrie en naadloze manifest-synchronisatie tussen havens en distributiecentra.",
                     quote: "Leveringsfouten teruggebracht naar nul en verwerkingssnelheid verdrievoudigd binnen twee maanden.",
                     gallery: [
-                        "https://dananajmah.com/assets/images/section/work-3.webp",
-                        "https://dananajmah.com/assets/images/section/work-4.webp",
-                        "https://dananajmah.com/assets/images/section/work-1.webp"
+                        "../assets/work-3.webp",
+                        "../assets/work-1.webp",
+                        "../assets/work-1.webp"
                     ]
                 },
                 {
                     id: "medcare",
                     name: "MedCare Sync",
                     subtitle: "AVG/GDPR-Gecertificeerd Zorg-ERP & Kliniekbeheerplatform",
-                    heroImg: "https://dananajmah.com/assets/images/section/work-1.webp",
+                    heroImg: "../assets/work-1.webp",
                     tags: ["Zorg Cloud", "Slim Afsprakensysteem", "Geautomatiseerde Facturatie"],
                     year: "2024",
                     client: "Al-Shifa Medische Zorgketen",
@@ -3748,9 +3755,9 @@
                     desc: "Een beveiligd cloudplatform voor het beheer van elektronische patiëntendossiers (EPD), geautomatiseerde afsprakenplanning en koppeling met zorgverzekeraars conform strenge privacywetgeving.",
                     quote: "Bespaarde honderden uren administratiewerk per maand en verhoogde de patiënttevredenheid tot boven 95%.",
                     gallery: [
-                        "https://dananajmah.com/assets/images/section/work-1.webp",
-                        "https://dananajmah.com/assets/images/section/work-2.webp",
-                        "https://dananajmah.com/assets/images/Project/project-hintham-pages-v1.webp"
+                        "../assets/work-1.webp",
+                        "../assets/work-2.webp",
+                        "../assets/work-1.webp"
                     ]
                 }
             ],
@@ -3759,7 +3766,7 @@
                     id: "omnipay",
                     name: "OmniPay Mobile",
                     subtitle: "Digitale Portemonnee & Multi-Valuta Betaalapplicatie",
-                    heroImg: "https://dananajmah.com/assets/images/Project/project-hintham-mobile.webp",
+                    heroImg: "../assets/work-2.webp",
                     tags: ["Mobiele App", "FinTech", "Directe Betalingen"],
                     year: "2025",
                     client: "PayGlobal Financial",
@@ -3769,16 +3776,16 @@
                     desc: "Hoogbeveiligde mobiele app met directe peer-to-peer overschrijvingen, contactloos betalen en split-the-bill functionaliteit met biometrische authenticatie en PCI-DSS Tier 1 encryptie.",
                     quote: "Een uitzonderlijke mobiele bankervaring beoordeeld met een 4.9 in app stores en meer dan 200.000 actieve gebruikers.",
                     gallery: [
-                        "https://dananajmah.com/assets/images/Project/project-hintham-mobile.webp",
-                        "https://dananajmah.com/assets/images/Project/project-hintham-checkout-ar-v1.webp",
-                        "https://dananajmah.com/assets/images/section/work-1.webp"
+                        "../assets/work-3.webp",
+                        "../assets/work-1.webp",
+                        "../assets/work-1.webp"
                     ]
                 },
                 {
                     id: "visionai",
                     name: "VisionAI Inspector",
                     subtitle: "Industriële Computervisie & Geautomatiseerde Kwaliteitscontrole",
-                    heroImg: "https://dananajmah.com/assets/images/section/work-4.webp",
+                    heroImg: "../assets/work-1.webp",
                     tags: ["Computervisie", "Industriële Automatisering", "Deep Learning"],
                     year: "2026",
                     client: "TechManufacture BV",
@@ -3788,16 +3795,16 @@
                     desc: "Industrieel visiesysteem aangedreven door deep learning neurale netwerken dat micro-defecten op productielijnen binnen 20 milliseconden detecteert met een nauwkeurigheid van 99,8%.",
                     quote: "Een kwantumsprong in kwaliteitsbewaking: reduceerde productiefouten met 85% op geautomatiseerde assemblagelijnen.",
                     gallery: [
-                        "https://dananajmah.com/assets/images/section/work-4.webp",
-                        "https://dananajmah.com/assets/images/section/work-2.webp",
-                        "https://dananajmah.com/assets/images/section/work-3.webp"
+                        "../assets/work-1.webp",
+                        "../assets/work-2.webp",
+                        "../assets/work-3.webp"
                     ]
                 },
                 {
                     id: "healthtrack",
                     name: "HealthTrack Pro",
                     subtitle: "Wearable Gezondheidstelemetrie & AI Voedings- en Fitnesscoach",
-                    heroImg: "https://dananajmah.com/assets/images/section/work-2.webp",
+                    heroImg: "../assets/work-2.webp",
                     tags: ["Gezondheidsapp", "Wearables Koppeling", "AI Coaching"],
                     year: "2025",
                     client: "FitLife Global",
@@ -3807,9 +3814,9 @@
                     desc: "Geavanceerde gezondheidsapp die real-time sensordata synchroniseert vanuit Apple Watch en Garmin met gepersonaliseerde generative AI-trainings- en voedingsschema's.",
                     quote: "Een krachtige digitale lifestyle-engine die telemetrie naadloos integreert in het dagelijks welzijn.",
                     gallery: [
-                        "https://dananajmah.com/assets/images/section/work-2.webp",
-                        "https://dananajmah.com/assets/images/Project/project-hintham-mobile.webp",
-                        "https://dananajmah.com/assets/images/section/work-1.webp"
+                        "../assets/work-2.webp",
+                        "../assets/work-2.webp",
+                        "../assets/work-1.webp"
                     ]
                 }
             ]
@@ -4061,28 +4068,33 @@
             document.getElementById('directCallModal').classList.remove('active');
         }
 
-        // CoreSync System Controller
+        // High-Performance Cursor Trail Engine (Auto-sleeps when idle to save 100% CPU/GPU on scroll)
         const canvas = document.getElementById('trail');
-        if (canvas) {
+        if (canvas && window.innerWidth >= 1200) {
             const ctx = canvas.getContext('2d');
             let points = [];
+            let isRunning = false;
             
             function resizeCanvas() {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
             }
-            window.addEventListener('resize', resizeCanvas);
+            window.addEventListener('resize', resizeCanvas, { passive: true });
             resizeCanvas();
 
             window.addEventListener('mousemove', function (e) {
                 points.push({ x: e.clientX, y: e.clientY, life: 1 });
-            });
+                if (!isRunning) {
+                    isRunning = true;
+                    requestAnimationFrame(renderTrail);
+                }
+            }, { passive: true });
 
             function renderTrail() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 for (let i = 0; i < points.length; i++) {
                     const p = points[i];
-                    p.life -= 0.04;
+                    p.life -= 0.05;
                     if (p.life <= 0) {
                         points.splice(i, 1);
                         i--;
@@ -4093,9 +4105,13 @@
                     ctx.fillStyle = `rgba(197, 168, 128, ${p.life * 0.4})`;
                     ctx.fill();
                 }
-                requestAnimationFrame(renderTrail);
+                if (points.length > 0) {
+                    requestAnimationFrame(renderTrail);
+                } else {
+                    isRunning = false;
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }
             }
-            renderTrail();
         }
     </script>
 
@@ -4318,7 +4334,7 @@
                             <p class="text-caption text-white-64 mb-3">Directe lijnen gereserveerd voor actieve zakelijke klanten en CoreCare abonnees.</p>
 
                             <div class="d-flex flex-column gap-2">
-                                <a href="demo.html" class="call-opt-row text-decoration-none">
+                                <a href="../demo.html" class="call-opt-row text-decoration-none">
                                     <div class="d-flex align-items-center gap-2">
                                         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                                         <span class="text-white">Toegang tot Demo-omgeving (Live Demo)</span>
@@ -4591,29 +4607,36 @@
                 });
             });
 
-            // CoreSync System Controller
+            // Optimized 3D Tilt with cached rect and rAF
             const centralBadge = document.getElementById('founderCentralBadge');
             if (centralBadge) {
-                centralBadge.addEventListener('mousemove', (e) => {
-                    const rect = centralBadge.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    
-                    // CoreSync System Controller
-                    const rotX = -((y - centerY) / centerY) * 14;
-                    const rotY = ((x - centerX) / centerX) * 14;
+                let ticking = false;
+                let badgeRect = null;
 
-                    centralBadge.style.transform = `perspective(800px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale3d(1.06, 1.06, 1.06)`;
-                    centralBadge.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
-                    centralBadge.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
-                });
+                centralBadge.addEventListener('mouseenter', () => {
+                    badgeRect = centralBadge.getBoundingClientRect();
+                }, { passive: true });
+
+                centralBadge.addEventListener('mousemove', (e) => {
+                    if (!badgeRect) badgeRect = centralBadge.getBoundingClientRect();
+                    if (!ticking) {
+                        requestAnimationFrame(() => {
+                            const x = e.clientX - badgeRect.left;
+                            const y = e.clientY - badgeRect.top;
+                            const centerX = badgeRect.width / 2;
+                            const centerY = badgeRect.height / 2;
+                            const rotX = -((y - centerY) / centerY) * 14;
+                            const rotY = ((x - centerX) / centerX) * 14;
+                            centralBadge.style.transform = `perspective(800px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale3d(1.06, 1.06, 1.06)`;
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                }, { passive: true });
 
                 centralBadge.addEventListener('mouseleave', () => {
+                    badgeRect = null;
                     centralBadge.style.transform = '';
-                    centralBadge.style.removeProperty('--mouse-x');
-                    centralBadge.style.removeProperty('--mouse-y');
                 });
             }
         });
@@ -4826,6 +4849,46 @@
                 }
             });
         });
+    
+        // 1. Video Resource Management - Pause offscreen videos to maximize scroll FPS
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const vid = entry.target;
+                if (entry.isIntersecting) {
+                    if (vid.paused) vid.play().catch(() => {});
+                } else {
+                    if (!vid.paused) vid.pause();
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('video').forEach(vid => {
+            vid.setAttribute('playsinline', '');
+            vid.playsInline = true;
+            videoObserver.observe(vid);
+        });
+
+        // 2. Silky smooth paragraph & section navigation with sticky header offset
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const hash = this.getAttribute('href');
+                if (!hash || hash === '#' || hash === '#!' || hash.startsWith('#javascript')) return;
+                const target = document.querySelector(hash);
+                if (target) {
+                    e.preventDefault();
+                    const headerOffset = 75;
+                    const top = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+                    window.scrollTo({
+                        top: Math.max(0, top),
+                        behavior: 'smooth'
+                    });
+                    if (history.pushState) {
+                        history.pushState(null, null, hash);
+                    }
+                }
+            });
+        });
+        
     </script>
 </body>
 </html>
