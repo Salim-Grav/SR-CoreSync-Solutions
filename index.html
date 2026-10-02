@@ -1234,7 +1234,8 @@
             }
         }
         /* ================================================================
-           الخيار الثاني: المشهد السينمائي المقسّم تفاعلياً (Interactive Split Hero)
+           الخيار الثالث: منصة الخلفية المسرحية المتناوبة مع ثبات العنوان الموحد
+           (Option 3: Unified Central Hero with Cross-fading Founder Stage)
            ================================================================ */
         .hero-cinematic {
             position: relative;
@@ -1246,260 +1247,77 @@
             justify-content: space-between;
         }
 
-        .hero-split-viewport {
+        .hero-stage-viewport {
             position: absolute;
             inset: 0;
             width: 100%;
             height: 100%;
-            display: flex;
-            direction: rtl;
             z-index: 1;
             overflow: hidden;
             background: #010907;
         }
 
-        .hero-split-side {
-            position: relative;
-            flex: 1 1 50%;
+        .hero-stage-layer {
+            position: absolute;
+            inset: 0;
+            width: 100%;
             height: 100%;
-            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), visibility 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: scale(1.04);
             cursor: pointer;
-            transition: flex 0.65s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
         }
 
-        /* توسع الجانب عند وضع الفأرة (Interactive Expansion) */
-        .hero-split-viewport:hover .hero-split-side {
-            filter: brightness(0.65) grayscale(12%);
+        .hero-stage-layer.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+            z-index: 2;
         }
 
-        .hero-split-viewport .hero-split-side:hover {
-            flex: 1.35 1 58%;
-            filter: brightness(1.05) grayscale(0%);
-            z-index: 3;
-        }
-
-        .hero-split-side-img {
+        .hero-stage-img {
             position: absolute;
             inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center 20%;
+            object-position: center 22%;
             display: block;
-            transform: scale(1);
-            transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
-            animation: splitKenBurns 20s ease-in-out infinite alternate;
+            animation: stageKenBurns 20s ease-in-out infinite alternate;
         }
 
-        .hero-split-side:hover .hero-split-side-img {
-            transform: scale(1.06);
-        }
-
-        @keyframes splitKenBurns {
+        @keyframes stageKenBurns {
             0% { transform: scale(1) translateY(0); }
-            50% { transform: scale(1.04) translateY(-1.5%); }
-            100% { transform: scale(1.01) translateY(0.8%); }
+            50% { transform: scale(1.05) translateY(-1.2%); }
+            100% { transform: scale(1.02) translateY(0.8%); }
         }
 
-        /* فلاتر وتدرجات الإضاءة والظلال للدمج الفاخر */
-        .hero-split-vignette {
+        .hero-stage-vignette {
             position: absolute;
             inset: 0;
             background: 
-                linear-gradient(to top, rgba(1, 9, 7, 0.96) 0%, rgba(1, 9, 7, 0.6) 30%, transparent 65%),
-                linear-gradient(to bottom, rgba(1, 9, 7, 0.75) 0%, transparent 22%),
-                radial-gradient(circle at center, transparent 35%, rgba(1, 9, 7, 0.55) 100%);
+                linear-gradient(to top, rgba(1, 9, 7, 0.98) 0%, rgba(1, 9, 7, 0.72) 35%, rgba(1, 9, 7, 0.45) 70%, rgba(1, 9, 7, 0.85) 100%),
+                radial-gradient(circle at center 35%, transparent 20%, rgba(1, 9, 7, 0.78) 95%);
             pointer-events: none;
-            z-index: 2;
+            z-index: 3;
         }
 
-        /* الإضاءة النيونية المسرحية */
-        .hero-split-spotlight {
+        .hero-stage-spotlight {
             position: absolute;
             top: -15%;
             left: 50%;
             transform: translateX(-50%);
-            width: 100%;
-            height: 80%;
-            background: radial-gradient(ellipse at 50% 0%, rgba(197, 168, 128, 0.18) 0%, transparent 65%);
+            width: 90%;
+            height: 85%;
+            background: radial-gradient(ellipse at 50% 0%, rgba(197, 168, 128, 0.22) 0%, transparent 68%);
             pointer-events: none;
             mix-blend-mode: screen;
-            z-index: 3;
-            transition: opacity 0.5s ease;
-        }
-
-        .hero-split-side:hover .hero-split-spotlight {
-            background: radial-gradient(ellipse at 50% 0%, rgba(197, 168, 128, 0.28) 0%, transparent 70%);
-        }
-
-        /* الفاصل العمودي الذهبي بين الشريكين */
-        .hero-split-divider {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 1px;
-            background: linear-gradient(to bottom, 
-                transparent 0%, 
-                rgba(197, 168, 128, 0.25) 20%, 
-                var(--primary-gold) 50%, 
-                rgba(197, 168, 128, 0.25) 80%, 
-                transparent 100%
-            );
             z-index: 4;
-            pointer-events: none;
-            box-shadow: 0 0 12px rgba(197, 168, 128, 0.4);
         }
 
-        .hero-split-center-badge {
-            position: absolute;
-            top: auto !important;
-            bottom: clamp(55px, 8vh, 85px) !important;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 46px;
-            height: 46px;
-            border-radius: 50%;
-            background: rgba(1, 9, 7, 0.92);
-            border: 1.5px solid var(--primary-gold);
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-gold);
-            font-size: 0.84rem;
-            font-weight: 800;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            box-shadow: 0 0 24px rgba(197, 168, 128, 0.5), inset 0 0 10px rgba(197, 168, 128, 0.2);
-            z-index: 6;
-            pointer-events: none;
-        }
-
-        /* البطاقة العائمة لكل شريك في أسفل عموده */
-        .hero-split-card {
-            position: absolute;
-            bottom: clamp(100px, 14vh, 140px);
-            padding: clamp(1rem, 2vw, 1.4rem);
-            background: rgba(1, 9, 7, 0.82);
-            border: 1px solid rgba(197, 168, 128, 0.32);
-            -webkit-backdrop-filter: blur(16px);
-            backdrop-filter: blur(16px);
-            border-radius: 18px;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(197, 168, 128, 0.12);
-            z-index: 5;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            max-width: 420px;
-            box-sizing: border-box;
-            direction: rtl;
-            text-align: right;
-        }
-
-        .hero-split-side--salim .hero-split-card {
-            right: clamp(16px, 3.5vw, 60px);
-        }
-
-        .hero-split-side--raed .hero-split-card {
-            left: clamp(16px, 3.5vw, 60px);
-        }
-
-        .hero-split-side:hover .hero-split-card {
-            border-color: var(--primary-gold);
-            transform: translateY(-6px);
-            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.9), 0 0 28px rgba(197, 168, 128, 0.28);
-            background: rgba(1, 9, 7, 0.92);
-        }
-
-        .hero-split-card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 6px;
-        }
-
-        .hero-split-role-tag {
-            font-size: 0.72rem;
-            font-weight: 700;
-            color: var(--primary-gold);
-            background: rgba(197, 168, 128, 0.12);
-            border: 1px solid rgba(197, 168, 128, 0.28);
-            padding: 3px 10px;
-            border-radius: 999px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .hero-split-role-tag .gold-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--primary-gold);
-            box-shadow: 0 0 6px var(--primary-gold);
-        }
-
-        .hero-split-name {
-            font-size: clamp(1.2rem, 1.8vw, 1.45rem);
-            font-weight: 800;
-            color: #ffffff;
-            margin: 0 0 4px 0;
-            line-height: 1.25;
-        }
-
-        .hero-split-bio {
-            font-size: 0.8rem;
-            line-height: 1.5;
-            color: rgba(255, 255, 255, 0.72);
-            margin: 0 0 10px 0;
-        }
-
-        .hero-split-card-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            padding-top: 8px;
-            border-top: 1px solid rgba(197, 168, 128, 0.16);
-        }
-
-        .hero-split-signature {
-            height: 32px;
-            width: auto;
-            filter: drop-shadow(0 0 8px rgba(197, 168, 128, 0.5));
-            transition: filter 0.3s ease;
-        }
-
-        .hero-split-card:hover .hero-split-signature {
-            filter: drop-shadow(0 0 14px rgba(197, 168, 128, 0.85));
-        }
-
-        .hero-split-btn-cinema {
-            background: rgba(197, 168, 128, 0.14);
-            border: 1px solid rgba(197, 168, 128, 0.38);
-            color: #ffffff;
-            font-size: 0.74rem;
-            font-weight: 700;
-            padding: 5px 12px;
-            border-radius: 999px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            text-decoration: none !important;
-            flex-shrink: 0;
-        }
-
-        .hero-split-btn-cinema:hover {
-            background: var(--primary-gold);
-            color: #010907 !important;
-            box-shadow: 0 0 16px rgba(197, 168, 128, 0.45);
-        }
-
-        /* المحتوى المركزي التحريري للبانر */
-        .hero-split-top-content {
+        /* المحتوى المركزي التحريري الموحد الثابت */
+        .hero-unified-content {
             position: relative;
             z-index: 10;
             padding-top: clamp(100px, 14vh, 125px);
@@ -1513,7 +1331,7 @@
             box-sizing: border-box;
         }
 
-        .hero-split-badge-unified {
+        .hero-unified-badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -1531,7 +1349,7 @@
             pointer-events: auto;
         }
 
-        .hero-split-title-unified {
+        .hero-unified-title {
             font-size: clamp(1.8rem, 3.8vw, 3.2rem);
             font-weight: 800;
             color: #ffffff;
@@ -1541,12 +1359,12 @@
             text-shadow: 0 4px 20px rgba(0, 0, 0, 0.85);
         }
 
-        .hero-split-title-unified .accent {
+        .hero-unified-title .accent {
             color: var(--primary-gold);
             text-shadow: 0 0 25px rgba(197, 168, 128, 0.5);
         }
 
-        .hero-split-desc-unified {
+        .hero-unified-desc {
             font-size: clamp(0.88rem, 1.2vw, 1.05rem);
             color: rgba(255, 255, 255, 0.82);
             max-width: 720px;
@@ -1555,8 +1373,7 @@
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
         }
 
-        /* شريط الأزرار التفاعلي المركزي */
-        .hero-split-actions {
+        .hero-unified-actions {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1567,38 +1384,208 @@
             z-index: 10;
         }
 
+        /* البطاقة العائمة الذكية للشريك المتحدث حالياً (Corner Floating Card) */
+        .hero-stage-founder-card {
+            position: absolute;
+            bottom: clamp(25px, 4.5vh, 45px);
+            right: clamp(20px, 3.5vw, 60px);
+            padding: clamp(1rem, 1.8vw, 1.3rem);
+            background: rgba(1, 9, 7, 0.88);
+            border: 1px solid rgba(197, 168, 128, 0.38);
+            -webkit-backdrop-filter: blur(18px);
+            backdrop-filter: blur(18px);
+            border-radius: 20px;
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.85), 0 0 25px rgba(197, 168, 128, 0.18);
+            z-index: 12;
+            max-width: 380px;
+            box-sizing: border-box;
+            direction: rtl;
+            text-align: right;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: auto;
+        }
+
+        .hero-stage-founder-card:hover {
+            border-color: var(--primary-gold);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.92), 0 0 32px rgba(197, 168, 128, 0.3);
+        }
+
+        .hero-stage-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .hero-stage-role-tag {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            background: rgba(197, 168, 128, 0.12);
+            border: 1px solid rgba(197, 168, 128, 0.28);
+            padding: 3px 10px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .hero-stage-role-tag .gold-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--primary-gold);
+            box-shadow: 0 0 6px var(--primary-gold);
+        }
+
+        .hero-stage-card-name {
+            font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0 0 4px 0;
+            line-height: 1.25;
+            transition: opacity 0.3s ease;
+        }
+
+        .hero-stage-card-bio {
+            font-size: 0.78rem;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.75);
+            margin: 0 0 10px 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .hero-stage-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(197, 168, 128, 0.18);
+        }
+
+        .hero-stage-card-sig {
+            height: 30px;
+            width: auto;
+            filter: drop-shadow(0 0 8px rgba(197, 168, 128, 0.6));
+            transition: filter 0.3s ease, opacity 0.3s ease;
+        }
+
+        .hero-stage-btn-cinema {
+            background: rgba(197, 168, 128, 0.15);
+            border: 1px solid rgba(197, 168, 128, 0.4);
+            color: #ffffff;
+            font-size: 0.74rem;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none !important;
+            flex-shrink: 0;
+        }
+
+        .hero-stage-btn-cinema:hover {
+            background: var(--primary-gold);
+            color: #010907 !important;
+            box-shadow: 0 0 16px rgba(197, 168, 128, 0.5);
+        }
+
+        /* كبسولة التحكم والتبديل بين الشريكين في أسفل المنتصف */
+        .hero-stage-capsule-switcher {
+            position: absolute;
+            bottom: clamp(25px, 4.5vh, 45px);
+            left: 50%;
+            transform: translateX(-50%);
+            display: inline-flex;
+            align-items: center;
+            background: rgba(1, 9, 7, 0.88);
+            border: 1.5px solid rgba(197, 168, 128, 0.42);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            border-radius: 999px;
+            padding: 5px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(197, 168, 128, 0.18);
+            z-index: 12;
+            gap: 6px;
+            pointer-events: auto;
+        }
+
+        .hero-stage-pill {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-family: 'Alexandria', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 7px 16px;
+            border-radius: 999px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero-stage-pill.active {
+            background: linear-gradient(135deg, rgba(197, 168, 128, 0.3), rgba(197, 168, 128, 0.15));
+            border: 1px solid var(--primary-gold);
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(197, 168, 128, 0.35);
+        }
+
+        .hero-stage-pill .pill-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .hero-stage-pill.active .pill-dot {
+            background: var(--primary-gold);
+            box-shadow: 0 0 8px var(--primary-gold);
+        }
+
+        /* شريط التقدم الزمني النحيف */
+        .hero-stage-progress-track {
+            position: absolute;
+            bottom: -2px;
+            left: 15%;
+            right: 15%;
+            height: 2px;
+            background: rgba(197, 168, 128, 0.18);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .hero-stage-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--primary-gold);
+            box-shadow: 0 0 8px var(--primary-gold);
+            transition: width 0.05s linear;
+        }
+
         @media (max-width: 992px) {
-            .hero-split-viewport {
-                flex-direction: column;
-            }
-            .hero-split-side {
-                flex: 1 1 50%;
-                min-height: 48vh;
-            }
-            .hero-split-viewport:hover .hero-split-side {
-                filter: none;
-            }
-            .hero-split-viewport .hero-split-side:hover {
-                flex: 1 1 50%;
-            }
-            .hero-split-divider {
-                width: 100%;
-                height: 1px;
-                top: 50%;
-                bottom: auto;
-                left: 0;
-                transform: none;
-            }
-            .hero-split-card {
+            .hero-stage-founder-card {
                 position: relative;
                 bottom: auto;
-                right: auto !important;
-                left: auto !important;
-                margin: 12px;
-                max-width: 100%;
+                right: auto;
+                margin: 20px auto 0 auto;
+                max-width: 90%;
             }
-            .hero-split-top-content {
-                padding-top: 90px;
+            .hero-stage-capsule-switcher {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                transform: none;
+                margin: 15px auto 25px auto;
             }
         }
 
