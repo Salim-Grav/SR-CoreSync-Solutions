@@ -231,6 +231,13 @@
             display: block;
         }
 
+        /* عكس جهة صورة الشخص لتنظر وتتجه نحو اليسار */
+        .about-media .video,
+        .founder-editorial-card:first-child .founder-avatar-img {
+            -webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
+        }
+
         .founder-badge-company {
             display: inline-flex;
             align-items: center;
