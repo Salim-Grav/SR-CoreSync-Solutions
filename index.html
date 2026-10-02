@@ -763,6 +763,478 @@
         }
 
         /* ================================================================
+           نافذة العرض السينمائي المكبر للشريكين المؤسسين (Executive Cinema Lightbox)
+           ================================================================ */
+        .about-media {
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+        }
+
+        .about-media:hover {
+            transform: translateY(-4px) scale(1.015);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 28px rgba(197, 168, 128, 0.35);
+        }
+
+        .founder-cinema-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(1, 9, 7, 0.82);
+            border: 1px solid rgba(197, 168, 128, 0.45);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            color: #ffffff;
+            padding: 7px 14px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 8;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+        }
+
+        .founder-cinema-badge svg {
+            color: var(--primary-gold);
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .about-media:hover .founder-cinema-badge {
+            background: rgba(197, 168, 128, 0.25);
+            border-color: var(--primary-gold);
+            transform: scale(1.05);
+            box-shadow: 0 0 22px rgba(197, 168, 128, 0.45);
+        }
+
+        .about-media:hover .founder-cinema-badge svg {
+            transform: scale(1.2);
+        }
+
+        .founder-avatar-img-wrap {
+            cursor: pointer;
+        }
+
+        /* نافذة العرض السينمائي المكبر */
+        .sr-cinema-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100002;
+            background: rgba(1, 8, 6, 0.9);
+            -webkit-backdrop-filter: blur(24px);
+            backdrop-filter: blur(24px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(12px, 2vw, 24px);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease;
+        }
+
+        .sr-cinema-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .sr-cinema-modal-card {
+            position: relative;
+            max-width: 1060px;
+            width: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(197, 168, 128, 0.1) 0%, rgba(3, 11, 9, 0.98) 75%);
+            border: 1.5px solid rgba(197, 168, 128, 0.38);
+            border-radius: 26px;
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95), 0 0 50px rgba(197, 168, 128, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            padding: clamp(1.2rem, 2.2vw, 2rem);
+            transform: scale(0.92) translateY(24px);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            color: #ffffff;
+            direction: rtl;
+            text-align: right;
+            max-height: 94vh;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+
+        .sr-cinema-modal-overlay.active .sr-cinema-modal-card {
+            transform: scale(1) translateY(0);
+        }
+
+        .sr-cinema-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-bottom: 1.1rem;
+            border-bottom: 1px solid rgba(197, 168, 128, 0.2);
+            margin-bottom: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .sr-cinema-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(197, 168, 128, 0.12);
+            border: 1px solid rgba(197, 168, 128, 0.3);
+            color: var(--primary-gold);
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 0.76rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .gold-pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary-gold);
+            box-shadow: 0 0 10px var(--primary-gold);
+            animation: cinemaPulse 1.8s infinite ease-in-out;
+        }
+
+        @keyframes cinemaPulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.4); opacity: 1; }
+        }
+
+        .sr-cinema-modal-name {
+            font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0;
+            line-height: 1.25;
+        }
+
+        .sr-cinema-modal-role {
+            font-size: clamp(0.82rem, 1.1vw, 0.92rem);
+            color: rgba(255, 255, 255, 0.68);
+            margin: 4px 0 0 0;
+        }
+
+        .sr-cinema-header-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sr-founder-switch-group {
+            display: inline-flex;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(197, 168, 128, 0.25);
+            border-radius: 999px;
+            padding: 3px;
+            gap: 4px;
+        }
+
+        .sr-founder-switch-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 999px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.25s ease;
+        }
+
+        .sr-founder-switch-btn:hover {
+            color: #ffffff;
+            background: rgba(197, 168, 128, 0.12);
+        }
+
+        .sr-founder-switch-btn.active {
+            background: var(--primary-gold);
+            color: #010907;
+            box-shadow: 0 0 16px rgba(197, 168, 128, 0.45);
+        }
+
+        .founder-btn-avatar {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: inline-block;
+            border: 1px solid currentColor;
+            flex-shrink: 0;
+        }
+
+        .founder-btn-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .sr-cinema-close-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(197, 168, 128, 0.28);
+            color: rgba(255, 255, 255, 0.85);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            line-height: 1;
+        }
+
+        .sr-cinema-close-btn:hover {
+            background: rgba(235, 87, 87, 0.2);
+            border-color: #eb5757;
+            color: #ffffff;
+            transform: rotate(90deg) scale(1.08);
+        }
+
+        /* مسرح العرض الحي */
+        .sr-cinema-stage-wrapper {
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .sr-cinema-stage {
+            position: relative;
+            width: 100%;
+            height: clamp(340px, 52vh, 480px);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1.5px solid rgba(197, 168, 128, 0.32);
+            background: #010907;
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.85), inset 0 0 35px rgba(0, 0, 0, 0.9);
+        }
+
+        .sr-cinema-media-pane {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #010907;
+        }
+
+        .sr-cinema-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            background: #010907;
+        }
+
+        /* لوحة العرض الحي للشريك رائد (Living Motion Engine) */
+        .sr-cinema-living-portrait {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #010907;
+        }
+
+        .sr-cinema-img-living {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            -webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
+            animation: livingCinematicMotion 14s ease-in-out infinite alternate;
+            transform-origin: center center;
+        }
+
+        @keyframes livingCinematicMotion {
+            0% {
+                transform: scaleX(-1) scale(1) translateY(0);
+            }
+            50% {
+                transform: scaleX(-1) scale(1.07) translateY(-2%);
+            }
+            100% {
+                transform: scaleX(-1) scale(1.02) translateY(1%);
+            }
+        }
+
+        .cinema-light-sweep {
+            position: absolute;
+            inset: -50%;
+            background: radial-gradient(circle at 40% 40%, rgba(197, 168, 128, 0.28) 0%, rgba(197, 168, 128, 0.08) 35%, transparent 65%);
+            pointer-events: none;
+            mix-blend-mode: screen;
+            animation: cinemaSpotlightSweep 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes cinemaSpotlightSweep {
+            0% {
+                transform: translate(-10%, -10%) scale(0.9);
+                opacity: 0.35;
+            }
+            50% {
+                transform: translate(15%, 10%) scale(1.15);
+                opacity: 0.65;
+            }
+            100% {
+                transform: translate(-5%, 15%) scale(1);
+                opacity: 0.4;
+            }
+        }
+
+        .cinema-vignette-overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 40%, rgba(1, 9, 7, 0.6) 80%, rgba(1, 9, 7, 0.95) 100%),
+                        linear-gradient(to top, rgba(1, 9, 7, 0.85) 0%, transparent 35%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .cinema-ambient-glow {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            box-shadow: inset 0 0 40px rgba(197, 168, 128, 0.2);
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        /* أدوات التحكم بالمسرح */
+        .cinema-media-controls {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 5;
+            background: rgba(1, 9, 7, 0.72);
+            border: 1px solid rgba(197, 168, 128, 0.35);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            padding: 6px 12px;
+            border-radius: 999px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .cinema-control-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.85);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .cinema-control-btn:hover {
+            color: var(--primary-gold);
+            background: rgba(197, 168, 128, 0.18);
+            transform: scale(1.1);
+        }
+
+        /* شريط أسفل المسرح */
+        .sr-cinema-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            padding-top: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .sr-cinema-signature-wrap {
+            height: 48px;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .sr-cinema-signature {
+            max-height: 44px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 12px rgba(197, 168, 128, 0.5));
+        }
+
+        .sr-cinema-desc-wrap {
+            flex: 1;
+            min-width: 240px;
+        }
+
+        .sr-cinema-bio {
+            font-size: 0.84rem;
+            line-height: 1.65;
+            color: rgba(255, 255, 255, 0.78);
+            margin: 0;
+        }
+
+        .sr-cinema-actions {
+            flex-shrink: 0;
+        }
+
+        .sr-cinema-btn-primary {
+            background: linear-gradient(135deg, var(--primary-gold) 0%, #e6d4b9 100%);
+            color: #010907 !important;
+            font-weight: 800;
+            font-size: 0.84rem;
+            padding: 10px 22px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 18px rgba(197, 168, 128, 0.35);
+            transition: all 0.25s ease;
+        }
+
+        .sr-cinema-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 26px rgba(197, 168, 128, 0.5);
+            filter: brightness(1.06);
+        }
+
+        @media (max-width: 768px) {
+            .sr-cinema-stage {
+                height: 300px;
+            }
+            .sr-cinema-footer {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 1rem;
+            }
+            .sr-cinema-bio {
+                text-align: center;
+            }
+            .sr-cinema-modal-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .sr-cinema-header-controls {
+                width: 100%;
+                justify-content: space-between;
+                margin-top: 8px;
+            }
+        }
+
+        /* ================================================================
            1. حاسبة العائد على الاستثمار التفاعلية (ROI & Cost-Savings Calculator)
            ================================================================ */
         .section-roi-calculator {
