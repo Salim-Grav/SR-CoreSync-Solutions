@@ -2033,6 +2033,439 @@
             color: #ffffff !important;
             font-weight: 600;
         }
+    
+        /* ===================================================================
+           S&R CORESYNC - LUXURY REFINED HEADER & NAVIGATION ARCHITECTURE
+           Eliminates word overlapping, establishes robust flex layout hierarchy,
+           and guarantees seamless 1:1 luxury responsiveness on all screens.
+           =================================================================== */
+
+        .tf-header {
+            position: relative;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .tf-header.header-sticky {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            z-index: 1100 !important;
+            background: rgba(1, 9, 7, 0.92) !important;
+            -webkit-backdrop-filter: blur(20px) saturate(140%) !important;
+            backdrop-filter: blur(20px) saturate(140%) !important;
+            border-bottom: 1px solid rgba(197, 168, 128, 0.22) !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
+        }
+
+        .tf-header .header-inner {
+            padding: 14px 0 !important;
+        }
+
+        .tf-header .container {
+            max-width: 1600px !important;
+            width: 100% !important;
+            padding-left: clamp(16px, 2.5vw, 36px) !important;
+            padding-right: clamp(16px, 2.5vw, 36px) !important;
+        }
+
+        /* Reset and override any conflicting CSS grid / nth-child rules from external bundles */
+        .tf-header .header-inner .row,
+        .tf-header.header-refined .header-inner .row {
+            display: flex !important;
+            flex-wrap: nowrap !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            gap: clamp(12px, 1.5vw, 28px) !important;
+            grid-template-columns: none !important;
+            direction: inherit !important;
+            margin: 0 !important;
+        }
+
+        .tf-header .header-inner .row > div {
+            padding: 0 !important;
+            margin: 0 !important;
+            grid-column: auto !important;
+            grid-row: auto !important;
+            max-width: none !important;
+        }
+
+        /* 1. Zone 1: Brand & Emblem */
+        .header-col-brand {
+            flex: 0 0 auto !important;
+            display: flex !important;
+            align-items: center !important;
+            z-index: 2;
+        }
+
+        .brand-logo-site {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            text-decoration: none !important;
+        }
+
+        .brand-emblem-img {
+            width: 42px !important;
+            height: 42px !important;
+            object-fit: contain !important;
+            filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.45)) !important;
+            transition: transform 0.3s ease, filter 0.3s ease !important;
+        }
+
+        .brand-emblem-img:hover {
+            transform: scale(1.08) !important;
+            filter: drop-shadow(0 0 16px rgba(250, 204, 21, 0.75)) !important;
+        }
+
+        .brand-sr-text {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-weight: 800 !important;
+            font-size: 1.18rem !important;
+            color: var(--primary-gold) !important;
+            letter-spacing: -0.5px !important;
+        }
+
+        .brand-sub-text {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-weight: 700 !important;
+            font-size: 1.18rem !important;
+            color: #ffffff !important;
+            letter-spacing: -0.5px !important;
+            margin-right: 4px;
+        }
+        html:not([lang="ar"]) .brand-sub-text {
+            margin-right: 0;
+            margin-left: 4px;
+        }
+
+        /* 2. Zone 2: Desktop Navigation Bar */
+        .header-col-nav {
+            flex: 1 1 auto !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            min-width: 0 !important;
+        }
+
+        .box-navigation {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 100% !important;
+        }
+
+        .nav-menu-main {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: clamp(6px, 0.9vw, 16px) !important;
+            list-style: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            flex-wrap: nowrap !important;
+        }
+
+        .nav-menu-main .menu-item {
+            flex: 0 0 auto !important;
+            list-style: none !important;
+        }
+
+        .nav-menu-main .item-link {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 4px !important;
+            padding: 5px 8px !important;
+            font-size: clamp(0.72rem, 0.8vw, 0.84rem) !important;
+            font-weight: 600 !important;
+            color: rgba(255, 255, 255, 0.78) !important;
+            text-decoration: none !important;
+            white-space: nowrap !important;
+            border-radius: 8px !important;
+            transition: all 0.22s ease !important;
+        }
+
+        .nav-menu-main .item-link span {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-size: 0.68rem !important;
+            color: var(--primary-gold) !important;
+            opacity: 0.85 !important;
+            font-weight: 700 !important;
+        }
+
+        .nav-menu-main .item-link:hover {
+            color: #ffffff !important;
+            background: rgba(255, 255, 255, 0.07) !important;
+        }
+
+        .nav-menu-main .item-link.gold-accent {
+            color: var(--primary-gold) !important;
+        }
+
+        .nav-item-demo-highlight {
+            background: rgba(197, 168, 128, 0.12) !important;
+            border: 1px solid rgba(197, 168, 128, 0.28) !important;
+            color: var(--primary-gold) !important;
+        }
+
+        .nav-item-demo-highlight:hover {
+            background: rgba(197, 168, 128, 0.25) !important;
+            border-color: var(--primary-gold) !important;
+            color: #ffffff !important;
+        }
+
+        /* 3. Zone 3: Actions, Portal, VIP & Language */
+        .header-col-actions {
+            flex: 0 0 auto !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: flex-end !important;
+            gap: clamp(6px, 0.8vw, 12px) !important;
+            white-space: nowrap !important;
+            z-index: 2;
+        }
+
+        .btn-portal-header {
+            background: rgba(197, 168, 128, 0.08) !important;
+            border: 1px solid rgba(197, 168, 128, 0.35) !important;
+            color: #e6ca9f !important;
+            padding: 6px 13px !important;
+            border-radius: 999px !important;
+            font-size: 0.8rem !important;
+            font-weight: 700 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+            cursor: pointer !important;
+            transition: all 0.25s ease !important;
+            white-space: nowrap !important;
+            line-height: 1.2 !important;
+        }
+
+        .btn-portal-header:hover {
+            background: rgba(197, 168, 128, 0.22) !important;
+            border-color: var(--primary-gold) !important;
+            color: #ffffff !important;
+            transform: translateY(-1px) !important;
+        }
+
+        .btn-vip-header {
+            background: linear-gradient(135deg, rgba(197, 168, 128, 0.24), rgba(197, 168, 128, 0.08)) !important;
+            border: 1px solid rgba(197, 168, 128, 0.55) !important;
+            color: #ffffff !important;
+            padding: 6px 14px !important;
+            border-radius: 999px !important;
+            font-size: 0.8rem !important;
+            font-weight: 700 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+            cursor: pointer !important;
+            transition: all 0.25s ease !important;
+            white-space: nowrap !important;
+            line-height: 1.2 !important;
+        }
+
+        .btn-vip-header:hover {
+            background: var(--primary-gold) !important;
+            border-color: var(--primary-gold) !important;
+            color: #010907 !important;
+            transform: translateY(-1px) !important;
+            box-shadow: 0 4px 15px rgba(197, 168, 128, 0.35) !important;
+        }
+
+        .header-whatsapp-btn {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 7px !important;
+            padding: 6px 14px !important;
+            border: 1px solid rgba(255, 255, 255, 0.35) !important;
+            border-radius: 10px !important;
+            background: rgba(0, 0, 0, 0.3) !important;
+            color: #ffffff !important;
+            font-size: 0.82rem !important;
+            font-weight: 600 !important;
+            text-decoration: none !important;
+            transition: all 0.25s ease !important;
+            white-space: nowrap !important;
+            line-height: 1.2 !important;
+        }
+
+        .header-whatsapp-btn:hover {
+            border-color: #ffffff !important;
+            background: rgba(255, 255, 255, 0.12) !important;
+            color: #ffffff !important;
+            transform: translateY(-1px) !important;
+        }
+
+        /* زر القائمة للهواتف والشاشات الصغيرة */
+        .btn-mobile-menu {
+            display: none !important;
+            align-items: center !important;
+            gap: 6px !important;
+            background: rgba(255, 255, 255, 0.06) !important;
+            border: 1px solid rgba(197, 168, 128, 0.35) !important;
+            border-radius: 10px !important;
+            padding: 6px 12px !important;
+            color: #ffffff !important;
+            font-size: 0.85rem !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
+            transition: all 0.25s ease !important;
+            line-height: 1.2 !important;
+        }
+
+        .btn-mobile-menu:hover {
+            background: rgba(197, 168, 128, 0.2) !important;
+            border-color: var(--primary-gold) !important;
+            color: var(--primary-gold) !important;
+        }
+
+        /* 4. Responsive Breakpoints - Zero Overlap Guarantee */
+        @media (max-width: 1279px) {
+            .header-col-nav {
+                display: none !important;
+            }
+            .btn-mobile-menu {
+                display: inline-flex !important;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .btn-portal-header,
+            .btn-vip-header {
+                display: none !important;
+            }
+            .header-whatsapp-btn span:last-child {
+                display: none !important;
+            }
+            .header-whatsapp-btn {
+                padding: 7px !important;
+                border-radius: 50% !important;
+                min-width: 36px !important;
+                justify-content: center !important;
+            }
+        }
+
+        /* 5. Luxury Full-Screen Off-Canvas Mobile Menu (Fixes Image 3 horizontal text completely) */
+        .offcanvas-menu {
+            position: fixed !important;
+            inset: 0 !important;
+            background: #010907 !important;
+            background: radial-gradient(circle at 80% 20%, rgba(197, 168, 128, 0.12) 0%, #010907 70%) !important;
+            z-index: 999999 !important;
+            display: none;
+            padding: clamp(1.5rem, 4vw, 3rem) !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+        }
+
+        .offcanvas-menu.active {
+            display: flex !important;
+            flex-direction: column !important;
+            animation: fadeInMenu 0.3s ease forwards;
+        }
+
+        @keyframes fadeInMenu {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .offcanvas-menu-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            width: 100% !important;
+            padding-bottom: 1.5rem !important;
+            border-bottom: 1px solid rgba(197, 168, 128, 0.2) !important;
+            margin-bottom: 1.5rem !important;
+        }
+
+        .mobile-menu-close-btn {
+            width: 44px !important;
+            height: 44px !important;
+            border-radius: 50% !important;
+            background: rgba(255, 255, 255, 0.06) !important;
+            border: 1px solid rgba(197, 168, 128, 0.3) !important;
+            color: #ffffff !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 1.25rem !important;
+            cursor: pointer !important;
+            transition: all 0.25s ease !important;
+        }
+
+        .mobile-menu-close-btn:hover {
+            background: rgba(197, 168, 128, 0.25) !important;
+            border-color: var(--primary-gold) !important;
+            color: var(--primary-gold) !important;
+            transform: rotate(90deg) !important;
+        }
+
+        .nav-menu-mobile {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 0.85rem !important;
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 1rem 0 2rem 0 !important;
+            width: 100% !important;
+        }
+
+        html[lang="ar"] .nav-menu-mobile {
+            align-items: flex-start !important;
+            text-align: right !important;
+        }
+
+        .nav-menu-mobile li {
+            width: 100% !important;
+            display: block !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+            padding-bottom: 0.75rem !important;
+        }
+
+        .nav-menu-mobile li a {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            font-size: clamp(1.2rem, 2.4vw, 1.65rem) !important;
+            font-weight: 700 !important;
+            color: #ffffff !important;
+            text-decoration: none !important;
+            transition: all 0.25s ease !important;
+            line-height: 1.3 !important;
+        }
+
+        .nav-menu-mobile li a:hover {
+            color: var(--primary-gold) !important;
+            transform: translateX(-6px) !important;
+        }
+
+        html:not([lang="ar"]) .nav-menu-mobile li a:hover {
+            transform: translateX(6px) !important;
+        }
+
+        .nav-menu-mobile .mobile-menu-num {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-size: 0.88rem !important;
+            font-weight: 600 !important;
+            color: var(--primary-gold) !important;
+            opacity: 0.85 !important;
+        }
+
+        .offcanvas-actions-footer {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 0.85rem !important;
+            width: 100% !important;
+            margin-top: auto !important;
+            padding-top: 1.5rem !important;
+            border-top: 1px solid rgba(197, 168, 128, 0.15) !important;
+        }
+
     </style>
 </head>
 
@@ -2082,13 +2515,14 @@
             </div>
 
             <!-- شريط التنقل العلوي (Header Refined) -->
+            <!-- Luxury Refined Top Navigation Bar (Header Refined) -->
             <header class="tf-header header-refined">
                 <div class="header-inner">
                     <div class="container">
                         <div class="row align-items-center">
-                            <!-- الشعار الرسمي للشركة -->
-                            <div class="col-6 col-md-3">
-                                <a href="./index.html" class="brand-logo-site brand-logo-preview-trigger" onclick="openLogoLightbox(event)" title="S&R CoreSync Solutions - Click to view full brand identity and emblem" aria-label="View S&R CoreSync Solutions brandmark in high resolution">
+                            <!-- 1. Brand & Emblem -->
+                            <div class="header-col-brand">
+                                <a href="./index.html" class="brand-logo-site brand-logo-preview-trigger" onclick="openLogoLightbox(event)" title="S&R CoreSync Solutions - Click to view full brand identity" aria-label="S&R CoreSync Solutions Official Brandmark">
                                     <img src="../assets/logo-neon-icon.svg?v=champagne" alt="S&R CoreSync Official Emblem" class="brand-emblem-img" />
                                     <div class="brand-logo-site-logo brand-logo-flex">
                                         <span class="brand-sr-text">S&amp;R</span>
@@ -2097,8 +2531,8 @@
                                 </a>
                             </div>
 
-                            <!-- روابط Menu الرئيسية -->
-                            <div class="col-6 col-md-5 d-none d-md-block text-center">
+                            <!-- 2. Desktop Navigation Menu -->
+                            <div class="header-col-nav">
                                 <div class="box-navigation">
                                     <ul class="nav-menu-main">
                                         <li class="menu-item"><a href="#work" class="item-link link text-caption"><span>01 /</span>PROJECTS</a></li>
@@ -2113,53 +2547,31 @@
                                 </div>
                             </div>
 
-                            <!-- أدوات الاتصال السريع وتغيير اللغة (مطابقة 1:1 لموقع دانا نجمة) -->
-                            <div class="col-3 col-md-4 d-none d-sm-block">
-                                <div class="header-contact d-flex align-items-center justify-content-end gap-2 gap-lg-3">
-                                    <button type="button" class="btn-portal-header" onclick="openClientPortalModal()" title="Secure Client Portal">
-                                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                                        <span>Client Portal</span>
-                                    </button>
+                            <!-- 3. Executive Actions & Language -->
+                            <div class="header-col-actions">
+                                <button type="button" class="btn-portal-header" onclick="openClientPortalModal()" title="Secure Client Portal">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                    <span>Client Portal</span>
+                                </button>
 
-                                    <button type="button" class="btn-vip-header" onclick="openExecutiveBookingModal()" title="Book VIP Executive Consultation">
-                                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                                        <span>Book VIP</span>
-                                    </button>
+                                <button type="button" class="btn-vip-header" onclick="openExecutiveBookingModal()" title="Book VIP Executive Consultation">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                    <span>Book VIP</span>
+                                </button>
 
-                                    <a href="https://wa.me/31612345678" target="_blank" rel="noopener noreferrer" class="tf-btn header-whatsapp-btn" aria-label="Contact via WhatsApp">
-                                        <span class="header-contact-icon" aria-hidden="true"><svg viewBox="0 0 32 32" focusable="false" width="16" height="16"><path d="M16.02 3.2a12.7 12.7 0 0 0-10.95 19.14L3.2 28.8l6.62-1.74A12.8 12.8 0 1 0 16.02 3.2Zm0 23.24a10.48 10.48 0 0 1-5.35-1.46l-.38-.23-3.93 1.03 1.05-3.83-.25-.4a10.5 10.5 0 1 1 8.86 4.89Zm5.76-7.85c-.32-.16-1.9-.94-2.19-1.05-.3-.11-.51-.16-.73.16-.21.32-.83 1.05-1.02 1.26-.19.21-.38.24-.7.08a8.65 8.65 0 0 1-2.55-1.57 9.57 9.57 0 0 1-1.77-2.2c-.18-.32 0-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.54.1-.21.05-.4-.03-.56-.08-.16-.73-1.75-1-2.39-.26-.62-.53-.54-.73-.55h-.62c-.21 0-.56.08-.86.4-.3.32-1.13 1.1-1.13 2.69s1.16 3.13 1.32 3.35c.16.21 2.27 3.46 5.5 4.85.77.33 1.37.53 1.84.68.77.24 1.47.2 2.03.12.62-.09 1.9-.78 2.17-1.54.27-.75.27-1.4.19-1.54-.08-.13-.3-.21-.62-.37Z" fill="currentColor"/></svg></span>
-                                        <span>Get In Touch</span>
-                                    </a>
+                                <a href="https://wa.me/31612345678" target="_blank" rel="noopener noreferrer" class="tf-btn header-whatsapp-btn" aria-label="Contact via WhatsApp">
+                                    <span class="header-contact-icon" aria-hidden="true"><svg viewBox="0 0 32 32" focusable="false" width="15" height="15"><path d="M16.02 3.2a12.7 12.7 0 0 0-10.95 19.14L3.2 28.8l6.62-1.74A12.8 12.8 0 1 0 16.02 3.2Zm0 23.24a10.48 10.48 0 0 1-5.35-1.46l-.38-.23-3.93 1.03 1.05-3.83-.25-.4a10.5 10.5 0 1 1 8.86 4.89Zm5.76-7.85c-.32-.16-1.9-.94-2.19-1.05-.3-.11-.51-.16-.73.16-.21.32-.83 1.05-1.02 1.26-.19.21-.38.24-.7.08a8.65 8.65 0 0 1-2.55-1.57 9.57 9.57 0 0 1-1.77-2.2c-.18-.32 0-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.54.1-.21.05-.4-.03-.56-.08-.16-.73-1.75-1-2.39-.26-.62-.53-.54-.73-.55h-.62c-.21 0-.56.08-.86.4-.3.32-1.13 1.1-1.13 2.69s1.16 3.13 1.32 3.35c.16.21 2.27 3.46 5.5 4.85.77.33 1.37.53 1.84.68.77.24 1.47.2 2.03.12.62-.09 1.9-.78 2.17-1.54.27-.75.27-1.4.19-1.54-.08-.13-.3-.21-.62-.37Z" fill="currentColor"/></svg></span>
+                                    <span>Get In Touch</span>
+                                </a>
 
-                                    <details class="language-switcher notranslate header-language" translate="no">
-                                        <summary aria-label="Select Language">
-                                            <span class="header-language__current">
-                                                <svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16"><circle cx="12" cy="12" r="8.5"></circle><path d="M3.8 12h16.4M12 3.5c2.2 2.3 3.4 5.1 3.4 8.5S14.2 18.2 12 20.5M12 3.5C9.8 5.8 8.6 8.6 8.6 12s1.2 6.2 3.4 8.5"></path></svg>
-                                                <span>EN</span>
-                                            </span>
-                                            <span class="header-language__chevron" aria-hidden="true">
-                                                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                                            </span>
-                                        </summary>
-                                        <div class="header-language__options">
-                                            <a class="language-switcher__button is-active" href="./index.html" hreflang="en" lang="en" aria-current="page">English</a>
-                                            <a class="language-switcher__button" href="../nl/index.html" hreflang="nl" lang="nl">Nederlands</a>
-                                            <a class="language-switcher__button" href="../index.html" hreflang="ar" lang="ar">العربية</a>
-                                        </div>
-                                    </details>
-                                </div>
-                            </div>
-
-                            <!-- زر Menu وتغيير اللغة للجوال -->
-                            <div class="col-6 col-sm-3 col-md-2 d-flex d-md-none justify-content-end align-items-center header-mobile-actions gap-2">
-                                <details class="language-switcher language-switcher--mobile notranslate header-language" translate="no">
+                                <details class="language-switcher notranslate header-language" translate="no">
                                     <summary aria-label="Select Language">
                                         <span class="header-language__current">
-                                            <svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16"><circle cx="12" cy="12" r="8.5"></circle><path d="M3.8 12h16.4M12 3.5c2.2 2.3 3.4 5.1 3.4 8.5S14.2 18.2 12 20.5M12 3.5C9.8 5.8 8.6 8.6 8.6 12s1.2 6.2 3.4 8.5"></path></svg>
+                                            <svg viewBox="0 0 24 24" aria-hidden="true" width="15" height="15"><circle cx="12" cy="12" r="8.5"></circle><path d="M3.8 12h16.4M12 3.5c2.2 2.3 3.4 5.1 3.4 8.5S14.2 18.2 12 20.5M12 3.5C9.8 5.8 8.6 8.6 8.6 12s1.2 6.2 3.4 8.5"></path></svg>
                                             <span>EN</span>
                                         </span>
                                         <span class="header-language__chevron" aria-hidden="true">
-                                            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                                         </span>
                                     </summary>
                                     <div class="header-language__options">
@@ -2169,9 +2581,10 @@
                                     </div>
                                 </details>
 
-                                <button type="button" class="btn-mobile-menu open-mb-menu text-caption text-white link" onclick="document.querySelector('.offcanvas-menu').classList.add('active');">
-                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-                                    Menu
+                                <!-- Mobile / Tablet Menu Button -->
+                                <button type="button" class="btn-mobile-menu" onclick="openMobileMenu()" aria-label="Open Navigation Menu">
+                                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                                    <span>Menu</span>
                                 </button>
                             </div>
                         </div>
@@ -3441,30 +3854,39 @@
     </div>
 
     <!-- Menu الجانبية للجوال (Mobile Menu) -->
-    <div class="offcanvas-menu" id="mobileMenu">
-        <div class="d-flex justify-content-between align-items-center mb-5">
-            <div class="brand-logo-site brand-logo-preview-trigger d-flex align-items-center gap-3" onclick="openLogoLightbox(event)" role="button" tabindex="0" title="S&amp;R CoreSync Solutions - Click to view full emblem in high resolution">
+    <!-- Luxury Off-Canvas Mobile & Tablet Navigation Menu -->
+    <div class="offcanvas-menu" id="mobileMenu" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="offcanvas-menu-header">
+            <div class="brand-logo-site brand-logo-preview-trigger" onclick="closeMobileMenu(); openLogoLightbox(event)" role="button" tabindex="0" title="S&amp;R CoreSync Solutions">
                 <img src="../assets/logo-neon-icon.svg?v=champagne" alt="S&amp;R CoreSync Logo" class="brand-emblem-img-sm" />
-                <div class="logo-text-title"><span>S&R</span> CORESYNC</div>
+                <div class="logo-text-title"><span>S&amp;R</span> CORESYNC</div>
             </div>
-            <button type="button" class="btn text-white link" onclick="closeMobileMenu()">
-                Close ✕
+            <button type="button" class="mobile-menu-close-btn" onclick="closeMobileMenu()" aria-label="Close Menu" title="Close">
+                ✕
             </button>
         </div>
-        <ul class="nav-menu-main list-unstyled d-flex flex-column gap-4 text-display-2 nav-menu-mobile">
-            <li><a href="#work" class="text-white text-decoration-none" onclick="closeMobileMenu()">Selected Works</a></li>
-            <li><a href="#service" class="text-white text-decoration-none" onclick="closeMobileMenu()">Services</a></li>
-            <li><a href="#about" class="text-white text-decoration-none" onclick="closeMobileMenu()">About Us</a></li>
-            <li><a href="#pricing" class="text-white text-decoration-none" onclick="closeMobileMenu()">Pricing Packages</a></li>
-            <li><a href="#roi-calculator" class="text-white text-decoration-none gold-accent" onclick="closeMobileMenu()">ROI Calculator</a></li>
-            <li><a href="#faq" class="text-white text-decoration-none" onclick="closeMobileMenu()">FAQ</a></li>
-            <li><a href="#contact" class="text-white text-decoration-none" onclick="closeMobileMenu()">Contact Us</a></li>
-            <li><a href="javascript:void(0)" class="text-white text-decoration-none gold-accent" onclick="closeMobileMenu(); openExecutiveBookingModal();">REQUEST VIP SESSION 👔</a></li>
-            <li><a href="javascript:void(0)" class="text-white text-decoration-none" onclick="closeMobileMenu(); openClientPortalModal();">Portal 🔐</a></li>
+        <ul class="nav-menu-mobile">
+            <li><a href="#work" onclick="closeMobileMenu()"><span class="menu-label">Selected Works</span><span class="mobile-menu-num">01 /</span></a></li>
+            <li><a href="#service" onclick="closeMobileMenu()"><span class="menu-label">Services</span><span class="mobile-menu-num">02 /</span></a></li>
+            <li><a href="#about" onclick="closeMobileMenu()"><span class="menu-label">About Us</span><span class="mobile-menu-num">03 /</span></a></li>
+            <li><a href="#pricing" onclick="closeMobileMenu()"><span class="menu-label">Pricing Packages</span><span class="mobile-menu-num">04 /</span></a></li>
+            <li><a href="#roi-calculator" class="gold-accent" onclick="closeMobileMenu()"><span class="menu-label">ROI Calculator</span><span class="mobile-menu-num">05 /</span></a></li>
+            <li><a href="#faq" onclick="closeMobileMenu()"><span class="menu-label">FAQ</span><span class="mobile-menu-num">06 /</span></a></li>
+            <li><a href="#contact" onclick="closeMobileMenu()"><span class="menu-label">Contact Us</span><span class="mobile-menu-num">07 /</span></a></li>
+            <li><a href="../demo.html" class="gold-accent" onclick="closeMobileMenu()"><span class="menu-label">Live System Demo</span><span class="mobile-menu-num">08 /</span></a></li>
         </ul>
-    </div>
-
-    <!-- سكريبتات التحكم والتفاعلية 1:1 -->
+        <div class="offcanvas-actions-footer">
+            <button type="button" class="tf-btn btn-vip-header w-100 justify-content-center py-2" onclick="closeMobileMenu(); openExecutiveBookingModal();">
+                <span>REQUEST VIP SESSION 👔</span>
+            </button>
+            <button type="button" class="tf-btn btn-portal-header w-100 justify-content-center py-2" onclick="closeMobileMenu(); openClientPortalModal();">
+                <span>Secure Client Portal 🔐</span>
+            </button>
+            <a href="https://wa.me/31612345678" target="_blank" rel="noopener noreferrer" class="tf-btn header-whatsapp-btn w-100 justify-content-center py-2">
+                <span>Contact via WhatsApp</span>
+            </a>
+        </div>
+    </div><!-- سكريبتات التحكم والتفاعلية 1:1 -->
     <script>
         // CoreSync System Controller
         let testimonialSwiper;
@@ -4039,9 +4461,20 @@
         }
 
         // CoreSync System Controller
+        // إدارة فتح وإغلاق القائمة الجانبية الفاخرة للهواتف والشاشات الصغيرة
+        function openMobileMenu() {
+            const m = document.getElementById('mobileMenu');
+            if (m) {
+                m.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
         function closeMobileMenu() {
             const m = document.getElementById('mobileMenu');
-            if (m) m.classList.remove('active');
+            if (m) {
+                m.classList.remove('active');
+                document.body.style.overflow = '';
+            }
         }
 
         // CoreSync System Controller
