@@ -2860,6 +2860,119 @@
             </div>
         </section>
 
+        <!-- 7.5. حاسبة العائد على الاستثمار والوفر المالي التفاعلية (Section ROI Calculator) -->
+        <section class="section-roi-calculator flat-spacing" id="roi-calculator" data-section>
+            <div class="container">
+                <div class="s-header d-block text-center mb-5">
+                    <span class="sr-logo-badge-pill mb-3 d-inline-flex">
+                        <span class="gold-dot"></span>
+                        حاسبة الجدوى الاستثمارية والوفر المؤسسي // Smart ROI Engine
+                    </span>
+                    <h2 class="text-display-2 letter-space--3 text-white">
+                        احسب كم ستوفّر شركتك سنويًا مع <span class="gold-accent">CoreSync</span>
+                    </h2>
+                    <p class="text-white-64 max-w-700 mx-auto mt-2">
+                        اكتشف حجم الوفر المالي وساعات العمل المهدرة التي ستستردها عند أتمتة دورات العمل وربط الأنظمة المحاسبية والـ ERP مع مهندسينا.
+                    </p>
+                </div>
+
+                <div class="row align-items-stretch g-4">
+                    <div class="col-lg-7">
+                        <div class="roi-card-wrapper h-100">
+                            <div class="roi-inputs-pane">
+                                <div class="roi-field-group">
+                                    <label for="roiCompanySize" class="roi-label">
+                                        <span>حجم الفريق أو الموظفين:</span>
+                                        <span class="roi-label-badge" id="roiCompanySizeVal">15 موظف</span>
+                                    </label>
+                                    <input type="range" class="roi-range-slider" id="roiCompanySize" min="3" max="150" value="15" step="1" oninput="updateROICalculator()">
+                                    <div class="d-flex justify-content-between text-caption text-white-64">
+                                        <span>3 موظفين</span>
+                                        <span>75 موظف</span>
+                                        <span>150+ موظف</span>
+                                    </div>
+                                </div>
+
+                                <div class="roi-field-group">
+                                    <label for="roiManualHours" class="roi-label">
+                                        <span>ساعات العمل اليدوي الروتينية / أسبوعياً لكل موظف:</span>
+                                        <span class="roi-label-badge" id="roiManualHoursVal">8 ساعات / أسبوع</span>
+                                    </label>
+                                    <input type="range" class="roi-range-slider" id="roiManualHours" min="2" max="25" value="8" step="1" oninput="updateROICalculator()">
+                                    <div class="d-flex justify-content-between text-caption text-white-64">
+                                        <span>2 ساعة (بسيط)</span>
+                                        <span>12 ساعة (متوسط)</span>
+                                        <span>25 ساعة (معقد)</span>
+                                    </div>
+                                </div>
+
+                                <div class="roi-field-group">
+                                    <label for="roiAvgSalary" class="roi-label">
+                                        <span>متوسط تكلفة ساعة العمل التقديرية (€):</span>
+                                        <span class="roi-label-badge" id="roiAvgSalaryVal">€28 / ساعة</span>
+                                    </label>
+                                    <input type="range" class="roi-range-slider" id="roiAvgSalary" min="15" max="80" value="28" step="1" oninput="updateROICalculator()">
+                                    <div class="d-flex justify-content-between text-caption text-white-64">
+                                        <span>€15</span>
+                                        <span>€45</span>
+                                        <span>€80+</span>
+                                    </div>
+                                </div>
+
+                                <div class="roi-field-group">
+                                    <label for="roiSolutionType" class="roi-label">
+                                        <span>نوع الحل المنشود تطبيقه:</span>
+                                    </label>
+                                    <select class="roi-select-custom w-100" id="roiSolutionType" onchange="updateROICalculator()">
+                                        <option value="0.75" selected>تكامل ERP كامل + أتمتة محاسبية (وفر حتى 75%)</option>
+                                        <option value="0.60">نظام سحابي مخصص + لوحات قيادة (وفر 60%)</option>
+                                        <option value="0.85">أتمتة ذكاء اصطناعي شاملة + ربط عمليات (وفر حتى 85%)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="roi-results-pane">
+                            <div>
+                                <span class="sr-logo-badge-pill mb-3 d-inline-flex">
+                                    <span class="gold-dot"></span> تقدير الوفر التشغيلي
+                                </span>
+                                <p class="text-caption text-white-64 mb-1">صافي الوفر المالي السنوي المتوقع لشركتك:</p>
+                                <div class="roi-metric-highlight" id="roiAnnualSavings">
+                                    <span>€</span>131,040
+                                </div>
+                                <p class="text-caption text-white-64">
+                                    استرداد كامل لتكلفة التطوير خلال <strong class="gold-accent" id="roiPaybackMonths">1.5 شهر</strong> فقط بعد الإطلاق.
+                                </p>
+                            </div>
+
+                            <div class="roi-stats-mini-grid">
+                                <div class="roi-stat-mini">
+                                    <div class="roi-stat-mini-label">ساعات مهدرة تستردها:</div>
+                                    <div class="roi-stat-mini-val" id="roiHoursSaved">4,680 <span>ساعة/سنة</span></div>
+                                </div>
+                                <div class="roi-stat-mini">
+                                    <div class="roi-stat-mini-label">زيادة كفاءة وسرعة:</div>
+                                    <div class="roi-stat-mini-val" id="roiEfficiencyGain">+<span>75%</span></div>
+                                </div>
+                            </div>
+
+                            <div class="mt-3">
+                                <button type="button" class="tf-btn w-100 justify-content-center" onclick="openExecutiveBookingModal('roi')">
+                                    <span>احجز جلسة مراجعة مالية وتقنية مجانية ←</span>
+                                </button>
+                                <p class="text-center text-caption text-white-64 mt-2 mb-0">
+                                    دراسة جدوى مجانية مخصصة يقدمها الشريكان المؤسسان (Salim &amp; Raed)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- 8. قسم الأسئلة الشائعة (FAQ Accordion Section) -->
         <section class="section-faq flat-spacing" id="faq" data-section>
             <div class="container">
