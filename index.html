@@ -3425,13 +3425,17 @@
                     <!-- 1. الشريك المؤسس م. محمد سليم عزيزة (الجهة اليمنى) -->
                     <div class="executive-grid-salim">
                         <div class="col-left mb-0">
-                            <div class="about-media about-media--salim">
+                            <div class="about-media about-media--salim" role="button" tabindex="0" onclick="openFounderCinema('salim')" title="انقر لتكبير الشاشة والعرض السينمائي المباشر لم. محمد سليم عزيزة" aria-label="عرض سينمائي حي لم. محمد سليم عزيزة">
+                                <div class="founder-cinema-badge" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"/></svg>
+                                    <span>عرض سينمائي حي مكبّر</span>
+                                </div>
                                 <video class="video" muted loop autoplay preload="metadata" poster="./assets/about-founder-poster.webp" src="./assets/about-founder-cinematic.mp4"></video>
                                 <div class="overlay v1"></div>
                                 <div class="overlay mark-1"></div>
                                 <div class="overlay mark-2"></div>
                             </div>
-                            <div class="signature">
+                            <div class="signature cs-pointer" onclick="openFounderCinema('salim')" title="انقر للعرض السينمائي المكبر">
                                 <img loading="lazy" decoding="async" width="1000" height="252" src="./assets/signature-neon.svg?v=dana_v2" alt="Mohammad Salim Aziza - التوقيع النيوني الذهبي">
                             </div>
                         </div>
