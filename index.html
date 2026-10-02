@@ -1288,13 +1288,27 @@
             object-fit: cover;
             object-position: center 22%;
             display: block;
-            animation: stageKenBurns 20s ease-in-out infinite alternate;
+            animation: stageKenBurnsA 14s ease-in-out infinite alternate;
         }
 
-        @keyframes stageKenBurns {
-            0% { transform: scale(1) translateY(0); }
-            50% { transform: scale(1.05) translateY(-1.2%); }
-            100% { transform: scale(1.02) translateY(0.8%); }
+        /* Ken Burns A — تكبير ناعم نحو اليسار العلوي */
+        @keyframes stageKenBurnsA {
+            0%   { transform: scale(1)     translate(0%, 0%);       }
+            33%  { transform: scale(1.06)  translate(-1.2%, -0.8%); }
+            66%  { transform: scale(1.04)  translate(1.0%, -1.4%);  }
+            100% { transform: scale(1.08)  translate(-0.6%, 0.6%);  }
+        }
+
+        /* Ken Burns B — تكبير ناعم نحو اليمين السفلي */
+        @keyframes stageKenBurnsB {
+            0%   { transform: scale(1)     translate(0%, 0%);      }
+            33%  { transform: scale(1.07)  translate(1.4%, -0.6%); }
+            66%  { transform: scale(1.05)  translate(-0.8%, 1.2%); }
+            100% { transform: scale(1.09)  translate(0.4%, -0.8%); }
+        }
+
+        #heroStageLayerRaed .hero-stage-img {
+            animation-name: stageKenBurnsB;
         }
 
         .hero-stage-vignette {
@@ -1351,6 +1365,7 @@
             margin-bottom: 0.85rem;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
             pointer-events: auto;
+            transition: opacity 0.4s ease;
         }
 
         .hero-unified-title {
@@ -1361,6 +1376,7 @@
             line-height: 1.2;
             letter-spacing: -1px;
             text-shadow: 0 4px 20px rgba(0, 0, 0, 0.85);
+            transition: opacity 0.4s ease;
         }
 
         .hero-unified-title .accent {
@@ -1375,6 +1391,7 @@
             margin: 0 auto 1.5rem auto;
             line-height: 1.6;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+            transition: opacity 0.4s ease;
         }
 
         .hero-unified-actions {
@@ -3549,17 +3566,17 @@
                 </div>
             </header>
 
-            <!-- المحتوى التحريري المركزي الموحد الثابت -->
+            <!-- المحتوى التحريري المركزي الديناميكي المتزامن مع الشريك الحالي (Option 1) -->
             <div class="hero-unified-content">
-                <div class="hero-unified-badge">
+                <div class="hero-unified-badge" id="heroDynBadge">
                     <span class="gold-pulse-dot" aria-hidden="true"></span>
-                    <span>S&amp;R CoreSync Solutions • قيادة تقنية ومالية موحدة</span>
+                    <span id="heroDynBadgeText">متاحون لمشاريع 2026 • CTO &amp; كبير مهندسي السحابة والذكاء الاصطناعي</span>
                 </div>
-                <h1 class="hero-unified-title">
-                    <span>أنظمة برمجية سحابية</span> <span class="accent">وتكامل ERP مالي</span>
+                <h1 class="hero-unified-title" id="heroDynTitle">
+                    <span id="heroDynTitleText">أنظمة وبرمجيات سحابية ذكية</span> <span class="accent" id="heroDynTitleAccent">تقود شركتك نحو القمة</span>
                 </h1>
-                <p class="hero-unified-desc">
-                    ندمج بين عبقرية هندسة البرمجيات السحابية والعمق الاستراتيجي للأنظمة المالية الأوروبية، لنبني لشركتك منظومة رقمية مؤتمتة تقودها نحو التوسع وتحقيق أقصى درجات الربحية.
+                <p class="hero-unified-desc" id="heroDynDesc">
+                    نبتكر حلولاً برمجية مخصصة، منصات ويب متقدمة، وأتمتة ذكاء اصطناعي لدعم نمو الشركات في أوروبا والشرق الأوسط.
                 </p>
 
                 <!-- أزرار الإجراءات الرئيسية الموحدة -->
@@ -6111,13 +6128,23 @@
                 role: 'المسؤول التقني // CTO',
                 name: 'م. محمد سليم عزيزة',
                 bio: 'هندسة البرمجيات السحابية المتقدمة، تطبيقات الويب والهواتف الذكية، وأتمتة الذكاء الاصطناعي (AI & Cloud).',
-                sig: './assets/signature-neon.svg?v=dana_v2'
+                sig: './assets/signature-neon.svg?v=dana_v2',
+                // نصوص البطل الديناميكية (Option 1)
+                badge: 'متاحون لمشاريع 2026 • CTO & كبير مهندسي السحابة والذكاء الاصطناعي',
+                titleMain: 'أنظمة وبرمجيات سحابية ذكية',
+                titleAccent: 'تقود شركتك نحو القمة',
+                desc: 'نبتكر حلولاً برمجية مخصصة، منصات ويب متقدمة، وأتمتة ذكاء اصطناعي لدعم نمو الشركات في أوروبا والشرق الأوسط.'
             },
             raed: {
                 role: 'المسؤول المالي // CFO',
                 name: 'أ. محمد رائد كعكة',
                 bio: 'تصميم وتطوير أنظمة الـ ERP، إدارة قواعد البيانات، والامتثال المحاسبي والضريبي الهولندي والأوروبي (VAT).',
-                sig: './assets/signature-neon-raed.svg?v=dana_v2'
+                sig: './assets/signature-neon-raed.svg?v=dana_v2',
+                // نصوص البطل الديناميكية (Option 1)
+                badge: 'متاحون لمشاريع 2026 • CFO & كبير مطوري أنظمة الـ ERP والمالية',
+                titleMain: 'حلول محاسبية متطورة وتكامل ERP',
+                titleAccent: 'يضمن الامتثال والربحية الكاملة',
+                desc: 'متخصصون في هندسة وتطوير أنظمة الـ ERP وإدارة قواعد البيانات والامتثال المالي والضريبي الهولندي والأوروبي (VAT).'
             }
         };
 
@@ -6125,7 +6152,7 @@
         let stageProgressInterval = null;
         let stageProgressPercent = 0;
         let isStageHovered = false;
-        const STAGE_CYCLE_DURATION = 6500; // 6.5 ثوانٍ
+        const STAGE_CYCLE_DURATION = 7000; // 7 ثوانٍ
         const STAGE_STEP_MS = 50;
 
         function initStageEngine() {
@@ -6190,39 +6217,52 @@
                 if (pillRaed) { pillRaed.classList.add('active'); pillRaed.setAttribute('aria-selected', 'true'); }
             }
 
-            // 2. تحديث نصوص وتوقيع البطاقة العائمة الذكية
+            // 2. تحديث نصوص وتوقيع البطاقة العائمة الذكية + نصوص البطل الرئيسية
             const data = STAGE_FOUNDERS_DATA[founder];
             if (data) {
-                const roleEl = document.getElementById('heroStageCardRoleText');
-                const nameEl = document.getElementById('heroStageCardName');
-                const bioEl = document.getElementById('heroStageCardBio');
-                const sigEl = document.getElementById('heroStageCardSig');
+                const roleEl  = document.getElementById('heroStageCardRoleText');
+                const nameEl  = document.getElementById('heroStageCardName');
+                const bioEl   = document.getElementById('heroStageCardBio');
+                const sigEl   = document.getElementById('heroStageCardSig');
+                // عناصر البطل الديناميكية
+                const badgeEl       = document.getElementById('heroDynBadge');
+                const badgeTextEl   = document.getElementById('heroDynBadgeText');
+                const titleEl       = document.getElementById('heroDynTitle');
+                const titleMainEl   = document.getElementById('heroDynTitleText');
+                const titleAccentEl = document.getElementById('heroDynTitleAccent');
+                const descEl        = document.getElementById('heroDynDesc');
+
+                const FADE_DELAY = 180; // ms
 
                 if (nameEl) {
                     nameEl.style.opacity = '0';
-                    setTimeout(() => {
-                        nameEl.textContent = data.name;
-                        nameEl.style.opacity = '1';
-                    }, 200);
+                    setTimeout(() => { nameEl.textContent = data.name; nameEl.style.opacity = '1'; }, FADE_DELAY);
                 }
-                if (roleEl) {
-                    roleEl.textContent = data.role;
-                }
+                if (roleEl) { roleEl.textContent = data.role; }
                 if (bioEl) {
                     bioEl.style.opacity = '0';
-                    setTimeout(() => {
-                        bioEl.textContent = data.bio;
-                        bioEl.style.opacity = '1';
-                    }, 200);
+                    setTimeout(() => { bioEl.textContent = data.bio; bioEl.style.opacity = '1'; }, FADE_DELAY);
                 }
                 if (sigEl) {
                     sigEl.style.opacity = '0';
-                    setTimeout(() => {
-                        sigEl.src = data.sig;
-                        sigEl.alt = data.name;
-                        sigEl.style.opacity = '1';
-                    }, 200);
+                    setTimeout(() => { sigEl.src = data.sig; sigEl.alt = data.name; sigEl.style.opacity = '1'; }, FADE_DELAY);
                 }
+
+                // تحريك نصوص البطل الرئيسية
+                if (badgeEl)  { badgeEl.style.opacity  = '0'; }
+                if (titleEl)  { titleEl.style.opacity  = '0'; }
+                if (descEl)   { descEl.style.opacity   = '0'; }
+
+                setTimeout(() => {
+                    if (badgeTextEl && data.badge)        { badgeTextEl.textContent   = data.badge; }
+                    if (titleMainEl && data.titleMain)    { titleMainEl.textContent   = data.titleMain; }
+                    if (titleAccentEl && data.titleAccent){ titleAccentEl.textContent = data.titleAccent; }
+                    if (descEl && data.desc)              { descEl.textContent        = data.desc; }
+
+                    if (badgeEl)  { badgeEl.style.opacity  = '1'; }
+                    if (titleEl)  { titleEl.style.opacity  = '1'; }
+                    if (descEl)   { descEl.style.opacity   = '1'; }
+                }, FADE_DELAY + 50);
             }
         }
 
