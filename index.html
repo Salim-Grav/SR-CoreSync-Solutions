@@ -2127,8 +2127,49 @@
             justify-content: space-between !important;
             gap: clamp(12px, 1.5vw, 28px) !important;
             grid-template-columns: none !important;
-            direction: inherit !important;
             margin: 0 !important;
+        }
+
+        /* ضبط الاتجاه RTL للنسخة العربية: الشعار باليمين، القائمة بالوسط، والإجراءات باليسار */
+        html[lang="ar"] .tf-header .header-inner .row,
+        html[lang="ar"] .tf-header.header-refined .header-inner .row {
+            direction: rtl !important;
+        }
+
+        html[lang="ar"] .header-col-brand {
+            order: 1 !important; /* طرف اليمين */
+        }
+
+        html[lang="ar"] .header-col-nav {
+            order: 2 !important; /* الوسط */
+            direction: rtl !important;
+        }
+
+        html[lang="ar"] .header-col-actions {
+            order: 3 !important; /* طرف اليسار */
+            direction: rtl !important;
+            justify-content: flex-start !important;
+        }
+
+        /* ضبط الاتجاه LTR للنسخ الأجنبية */
+        html:not([lang="ar"]) .tf-header .header-inner .row,
+        html:not([lang="ar"]) .tf-header.header-refined .header-inner .row {
+            direction: ltr !important;
+        }
+
+        html:not([lang="ar"]) .header-col-brand {
+            order: 1 !important;
+        }
+
+        html:not([lang="ar"]) .header-col-nav {
+            order: 2 !important;
+            direction: ltr !important;
+        }
+
+        html:not([lang="ar"]) .header-col-actions {
+            order: 3 !important;
+            direction: ltr !important;
+            justify-content: flex-end !important;
         }
 
         .tf-header .header-inner .row > div {
