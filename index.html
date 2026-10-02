@@ -3490,13 +3490,17 @@
                     <!-- 3. الشريك المؤسس أ. محمد رائد كعكة (الجهة اليسرى) -->
                     <div class="executive-grid-raed">
                         <div class="col-left mb-0">
-                            <div class="about-media about-media--raed">
+                            <div class="about-media about-media--raed" role="button" tabindex="0" onclick="openFounderCinema('raed')" title="انقر لتكبير الشاشة والعرض السينمائي المباشر لأ. محمد رائد كعكة" aria-label="عرض سينمائي حي لأ. محمد رائد كعكة">
+                                <div class="founder-cinema-badge" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"/></svg>
+                                    <span>عرض سينمائي حي مكبّر</span>
+                                </div>
                                 <img class="video" loading="eager" decoding="async" src="./assets/about-founder-raed.jpg" alt="أ. محمد رائد كعكة - شريك مؤسس ومطور نظم محاسبة الشركات CFO">
                                 <div class="overlay v1"></div>
                                 <div class="overlay mark-1"></div>
                                 <div class="overlay mark-2"></div>
                             </div>
-                            <div class="signature">
+                            <div class="signature cs-pointer" onclick="openFounderCinema('raed')" title="انقر للعرض السينمائي المكبر">
                                 <img loading="lazy" decoding="async" width="1000" height="252" src="./assets/signature-neon-raed.svg?v=dana_v2" alt="Mohammad Raed Kaakeh - التوقيع النيوني الذهبي">
                             </div>
                         </div>
@@ -3508,7 +3512,7 @@
                     <!-- الشريك المؤسس S: م. محمد سليم عزيزة (الجهة اليمنى - الصورة يميناً والنصوص بالوسط) -->
                     <div class="founder-editorial-card founder-card--salim">
                         <div class="founder-card-header">
-                            <div class="founder-avatar-img-wrap">
+                            <div class="founder-avatar-img-wrap" role="button" tabindex="0" onclick="openFounderCinema('salim')" title="انقر للتكبير والعرض السينمائي المباشر">
                                 <img src="./assets/founder-salim.png?v=color_v2" alt="م. محمد سليم عزيزة" class="founder-avatar-img" />
                             </div>
                             <div class="founder-card-titles">
@@ -3538,7 +3542,7 @@
                                 <span class="founder-role-badge"><bdi>شريك مؤسس ومطور نظم محاسبة الشركات</bdi> <span class="badge-sep">//</span> <bdi dir="ltr">CFO</bdi></span>
                                 <p class="text-caption text-white-64 mb-0 mt-1">كبير مطوري أنظمة الـ ERP والتشريعات المالية الأوروبية</p>
                             </div>
-                            <div class="founder-avatar-img-wrap">
+                            <div class="founder-avatar-img-wrap" role="button" tabindex="0" onclick="openFounderCinema('raed')" title="انقر للتكبير والعرض السينمائي المباشر">
                                 <img src="./assets/founder-raed.png?v=color_v2" alt="أ. محمد رائد كعكة" class="founder-avatar-img" />
                             </div>
                         </div>
@@ -5478,6 +5482,105 @@
         </div>
     </div>
 
+    <!-- ================================================================ -->
+    <!-- نافذة العرض السينمائي المكبر للشريكين المؤسسين (Executive Cinema Lightbox) -->
+    <!-- ================================================================ -->
+    <div id="founderCinemaModal" class="sr-cinema-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="cinemaFounderName" onclick="if(event.target===this) closeFounderCinema()">
+        <div class="sr-cinema-modal-card">
+            <!-- رأس النافذة -->
+            <div class="sr-cinema-modal-header">
+                <div>
+                    <div class="sr-cinema-badge-pill">
+                        <span class="gold-pulse-dot" aria-hidden="true"></span>
+                        <span id="cinemaLiveStatus">استعراض سينمائي عالي الدقة • دقة 4K فائقة</span>
+                    </div>
+                    <h3 class="sr-cinema-modal-name" id="cinemaFounderName">م. محمد سليم عزيزة</h3>
+                    <p class="sr-cinema-modal-role" id="cinemaFounderRole">المسؤول التقني ومطور البرمجيات // CTO</p>
+                </div>
+
+                <div class="sr-cinema-header-controls">
+                    <!-- مفتاح التبديل الفوري بين الشريكين -->
+                    <div class="sr-founder-switch-group" role="tablist" aria-label="تبديل الشريك">
+                        <button type="button" class="sr-founder-switch-btn active" id="cinemaSwitchSalim" onclick="switchFounderCinema('salim')" role="tab" aria-selected="true">
+                            <span class="founder-btn-avatar"><img src="./assets/founder-salim.png?v=color_v2" alt="سليم"></span>
+                            <span>م. سليم عزيزة</span>
+                        </button>
+                        <button type="button" class="sr-founder-switch-btn" id="cinemaSwitchRaed" onclick="switchFounderCinema('raed')" role="tab" aria-selected="false">
+                            <span class="founder-btn-avatar"><img src="./assets/founder-raed.png?v=color_v2" alt="رائد"></span>
+                            <span>أ. رائد كعكة</span>
+                        </button>
+                    </div>
+
+                    <!-- زر الإغلاق -->
+                    <button type="button" class="sr-cinema-close-btn" onclick="closeFounderCinema()" title="إغلاق النافذة (Esc)" aria-label="إغلاق">
+                        &times;
+                    </button>
+                </div>
+            </div>
+
+            <!-- مسرح العرض الحي المباشر -->
+            <div class="sr-cinema-stage-wrapper">
+                <div class="sr-cinema-stage" id="cinemaStage">
+                    <!-- شاشة سليم (فيديو سينمائي حي) -->
+                    <div class="sr-cinema-media-pane" id="cinemaPaneSalim">
+                        <video id="cinemaVideoSalim" class="sr-cinema-video" muted loop playsinline preload="auto" poster="./assets/about-founder-poster.webp" src="./assets/about-founder-cinematic.mp4"></video>
+                        <div class="cinema-vignette-overlay" aria-hidden="true"></div>
+                        <div class="cinema-ambient-glow" aria-hidden="true"></div>
+                        <!-- عناصر التحكم بالفيديو -->
+                        <div class="cinema-media-controls">
+                            <button type="button" class="cinema-control-btn" id="cinemaVideoPlayBtn" onclick="toggleCinemaVideoPlay()" title="إيقاف / تشغيل مؤقت" aria-label="إيقاف / تشغيل">
+                                <svg id="cinemaPlayIcon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                            </button>
+                            <button type="button" class="cinema-control-btn" id="cinemaVideoSoundBtn" onclick="toggleCinemaVideoSound()" title="كتم / تشغيل الصوت" aria-label="كتم / تشغيل الصوت">
+                                <svg id="cinemaSoundIcon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                            </button>
+                            <button type="button" class="cinema-control-btn" onclick="toggleStageFullscreen()" title="ملء الشاشة بالكامل" aria-label="ملء الشاشة">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- شاشة رائد (Living Motion Engine مع مؤثرات إضاءة سينمائية حية) -->
+                    <div class="sr-cinema-media-pane" id="cinemaPaneRaed" style="display: none;">
+                        <div class="sr-cinema-living-portrait">
+                            <img id="cinemaImgRaed" class="sr-cinema-img-living" src="./assets/about-founder-raed.jpg" alt="أ. محمد رائد كعكة">
+                            <div class="cinema-light-sweep" aria-hidden="true"></div>
+                            <div class="cinema-vignette-overlay" aria-hidden="true"></div>
+                            <div class="cinema-ambient-glow" aria-hidden="true"></div>
+                        </div>
+                        <!-- عناصر التحكم للشاشة الحية -->
+                        <div class="cinema-media-controls">
+                            <button type="button" class="cinema-control-btn" id="cinemaMotionToggleBtn" onclick="toggleLivingMotion()" title="إيقاف / تشغيل الحركة الحية" aria-label="إيقاف / تشغيل الحركة">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+                            </button>
+                            <button type="button" class="cinema-control-btn" onclick="toggleStageFullscreen()" title="ملء الشاشة بالكامل" aria-label="ملء الشاشة">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- تذييل النافذة: النبذة والتوقيع النيوني وزر التواصل المباشر -->
+                <div class="sr-cinema-footer">
+                    <div class="sr-cinema-signature-wrap">
+                        <img id="cinemaSignature" class="sr-cinema-signature" src="./assets/signature-neon.svg?v=dana_v2" alt="التوقيع الرسمي">
+                    </div>
+                    <div class="sr-cinema-desc-wrap">
+                        <p class="sr-cinema-bio" id="cinemaBioText">
+                            المطور المسؤول عن بناء وتحديث المنظومات والحلول البرمجية المتكاملة لكبرى الشركات والمؤسسات. نعمل على تقديم بنية رقمية سحابية متقدمة تشمل تطبيقات الهواتف الذكية، المنصات الرقمية السريعة، وأنظمة الذكاء الاصطناعي المخصصة لمساعدة عملائنا على تحقيق أقصى كفاءة تشغيلية.
+                        </p>
+                    </div>
+                    <div class="sr-cinema-actions">
+                        <a href="https://wa.me/31687764998" target="_blank" rel="noopener" class="sr-cinema-btn-primary" id="cinemaContactBtn">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+                            <span>تواصل تنفيذي مباشر</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- سكريبت الـ Service Worker وإدارة التثبيت -->
     <script>
         // ==========================================
@@ -5605,9 +5708,173 @@
             }
         }
 
+        // ==========================================
+        // وظائف نافذة العرض السينمائي المكبر للشريكين المؤسسين (Executive Cinema Lightbox)
+        // ==========================================
+        const FOUNDER_CINEMA_DATA = {
+            salim: {
+                name: 'م. محمد سليم عزيزة',
+                role: 'المسؤول التقني ومطور البرمجيات // CTO',
+                status: 'بث سينمائي مباشر • هندسة النظم والذكاء الاصطناعي',
+                bio: 'المطور المسؤول عن بناء وتحديث المنظومات والحلول البرمجية المتكاملة لكبرى الشركات والمؤسسات. نعمل على تقديم بنية رقمية سحابية متقدمة تشمل تطبيقات الهواتف الذكية، المنصات الرقمية السريعة، وأنظمة الذكاء الاصطناعي المخصصة لمساعدة عملائنا على تحقيق أقصى كفاءة تشغيلية.',
+                signature: './assets/signature-neon.svg?v=dana_v2',
+                contactUrl: 'https://wa.me/31687764998?text=' + encodeURIComponent('مرحباً م. سليم عزيزة، أود مناقشة مشروع برمجيات وحلول سحابية/ذكاء اصطناعي لشركتنا.')
+            },
+            raed: {
+                name: 'أ. محمد رائد كعكة',
+                role: 'شريك مؤسس ومطور نظم محاسبة الشركات // CFO',
+                status: 'عرض بصري حي عالي الدقة • الأنظمة المحاسبية والـ ERP والضرائب',
+                bio: 'متخصص في تصميم وتطوير الأنظمة المحاسبية والمالية للشركات والمؤسسات (ERP)، وإدارة قواعد البيانات ودمج الحلول البرمجية مع الأنظمة والتشريعات المالية لمساعدة الشركات على إدارة حساباتها بدقة وسهولة متناهية وفق أعلى المعايير في هولندا وأوروبا والشرق الأوسط.',
+                signature: './assets/signature-neon-raed.svg?v=dana_v2',
+                contactUrl: 'https://wa.me/31687764998?text=' + encodeURIComponent('مرحباً أ. رائد كعكة، أود استشارة حول الأنظمة المحاسبية ERP والتشريعات المالية.')
+            }
+        };
+
+        let currentCinemaFounder = 'salim';
+
+        function openFounderCinema(founder = 'salim') {
+            const modal = document.getElementById('founderCinemaModal');
+            if (!modal) return;
+            currentCinemaFounder = founder;
+            applyFounderCinemaData(founder);
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            LuxuryAudio.play('open');
+
+            if (founder === 'salim') {
+                const vid = document.getElementById('cinemaVideoSalim');
+                if (vid) {
+                    vid.currentTime = 0;
+                    vid.play().catch(() => {});
+                }
+            }
+        }
+
+        function closeFounderCinema() {
+            const modal = document.getElementById('founderCinemaModal');
+            if (modal && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+                LuxuryAudio.play('close');
+                const vid = document.getElementById('cinemaVideoSalim');
+                if (vid) {
+                    vid.pause();
+                }
+            }
+        }
+
+        function switchFounderCinema(founder) {
+            if (founder === currentCinemaFounder) return;
+            currentCinemaFounder = founder;
+            LuxuryAudio.play('switch');
+            applyFounderCinemaData(founder);
+        }
+
+        function applyFounderCinemaData(founder) {
+            const data = FOUNDER_CINEMA_DATA[founder];
+            if (!data) return;
+
+            const nameEl = document.getElementById('cinemaFounderName');
+            const roleEl = document.getElementById('cinemaFounderRole');
+            const statusEl = document.getElementById('cinemaLiveStatus');
+            const bioEl = document.getElementById('cinemaBioText');
+            const sigEl = document.getElementById('cinemaSignature');
+            const contactBtn = document.getElementById('cinemaContactBtn');
+
+            if (nameEl) nameEl.textContent = data.name;
+            if (roleEl) roleEl.textContent = data.role;
+            if (statusEl) statusEl.textContent = data.status;
+            if (bioEl) bioEl.textContent = data.bio;
+            if (sigEl) {
+                sigEl.src = data.signature;
+                sigEl.alt = data.name;
+            }
+            if (contactBtn) contactBtn.href = data.contactUrl;
+
+            const btnSalim = document.getElementById('cinemaSwitchSalim');
+            const btnRaed = document.getElementById('cinemaSwitchRaed');
+            const paneSalim = document.getElementById('cinemaPaneSalim');
+            const paneRaed = document.getElementById('cinemaPaneRaed');
+            const vid = document.getElementById('cinemaVideoSalim');
+
+            if (founder === 'salim') {
+                if (btnSalim) btnSalim.classList.add('active');
+                if (btnRaed) btnRaed.classList.remove('active');
+                if (paneSalim) paneSalim.style.display = 'block';
+                if (paneRaed) paneRaed.style.display = 'none';
+                if (vid) {
+                    vid.play().catch(() => {});
+                }
+            } else {
+                if (btnSalim) btnSalim.classList.remove('active');
+                if (btnRaed) btnRaed.classList.add('active');
+                if (paneSalim) paneSalim.style.display = 'none';
+                if (paneRaed) paneRaed.style.display = 'block';
+                if (vid) {
+                    vid.pause();
+                }
+            }
+        }
+
+        function toggleCinemaVideoPlay() {
+            const vid = document.getElementById('cinemaVideoSalim');
+            const icon = document.getElementById('cinemaPlayIcon');
+            if (!vid) return;
+            LuxuryAudio.play('switch');
+            if (vid.paused) {
+                vid.play().catch(() => {});
+                if (icon) icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+            } else {
+                vid.pause();
+                if (icon) icon.innerHTML = '<polygon points="5,3 19,12 5,21"/>';
+            }
+        }
+
+        function toggleCinemaVideoSound() {
+            const vid = document.getElementById('cinemaVideoSalim');
+            const icon = document.getElementById('cinemaSoundIcon');
+            if (!vid) return;
+            LuxuryAudio.play('switch');
+            vid.muted = !vid.muted;
+            if (icon) {
+                if (vid.muted) {
+                    icon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
+                } else {
+                    icon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>';
+                }
+            }
+        }
+
+        let isRaedMotionActive = true;
+        function toggleLivingMotion() {
+            const img = document.getElementById('cinemaImgRaed');
+            if (!img) return;
+            LuxuryAudio.play('switch');
+            isRaedMotionActive = !isRaedMotionActive;
+            img.style.animationPlayState = isRaedMotionActive ? 'running' : 'paused';
+        }
+
+        function toggleStageFullscreen() {
+            const stage = document.getElementById('cinemaStage');
+            if (!stage) return;
+            LuxuryAudio.play('switch');
+            if (!document.fullscreenElement) {
+                if (stage.requestFullscreen) {
+                    stage.requestFullscreen();
+                } else if (stage.webkitRequestFullscreen) {
+                    stage.webkitRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
         // إغلاق النوافذ بزر Esc
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
+                closeFounderCinema();
                 closeLogoLightbox();
                 closeExecutiveBookingModal();
                 closeClientPortalModal();
