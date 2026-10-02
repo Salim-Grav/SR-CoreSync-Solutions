@@ -231,11 +231,18 @@
             display: block;
         }
 
-        /* توجيه صورة المؤسس بشكل طبيعي نحو اليمين */
-        .about-media .video,
+        /* توجيه صورة المؤسس سليم بشكل طبيعي نحو اليمين */
+        .about-media--salim .video,
         .founder-card--salim .founder-avatar-img {
             -webkit-transform: none !important;
             transform: none !important;
+        }
+
+        /* عكس صورة الشريك رائد أفقياً نحو اليسار لتتناسب مع النص */
+        .about-media--raed .video,
+        .founder-card--raed .founder-avatar-img {
+            -webkit-transform: scaleX(-1) !important;
+            transform: scaleX(-1) !important;
         }
 
         /* شعار اللوغو الذهبي المتحرك المتموضع في المنتصف أعلى النص بتكبير ملكي فخم */
@@ -299,18 +306,22 @@
 
         @media (min-width: 992px) {
             .executive-about-grid {
+                display: grid;
                 grid-template-columns: minmax(280px, 350px) 1fr minmax(280px, 350px);
+                grid-template-areas: "col-raed-left col-vision-center col-salim-right";
+                direction: ltr !important;
                 gap: clamp(1.8rem, 2.5vw, 3.2rem);
                 align-items: center;
             }
-            .executive-grid-salim {
-                order: 1;
+            .executive-grid-raed {
+                grid-area: col-raed-left; /* أ. محمد رائد كعكة: أقصى يسار الشاشة */
             }
             .executive-grid-center {
-                order: 2;
+                grid-area: col-vision-center; /* الشعار والنص والرؤية: منتصف الشاشة */
+                direction: rtl !important;
             }
-            .executive-grid-raed {
-                order: 3;
+            .executive-grid-salim {
+                grid-area: col-salim-right; /* م. محمد سليم عزيزة: أقصى يمين الشاشة */
             }
         }
 
