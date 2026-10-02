@@ -365,31 +365,385 @@
         .tf-btn-submit { min-width: 260px; }
         .offcanvas-menu { position: fixed; inset: 0; background: #010907; z-index: 999999; display: none; padding: 2rem; overflow-y: auto; }
         .offcanvas-menu.active { display: block !important; }
-        .project-modal { position: fixed; inset: 0; z-index: 10000; display: none; align-items: center; justify-content: center; padding: 1.5rem; }
-        .project-modal.active { display: flex !important; }
-        .nav-menu-mobile { font-size: 1.8rem; }
-        .brand-logo-flex { display: flex; align-items: center; gap: 8px; }
-        .brand-sr-text { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 900; letter-spacing: 1px; color: var(--primary-gold); }
-        .brand-sub-text { font-size: 0.85rem; font-weight: 600; color: #fff; }
-        .nav-item-demo-highlight { color: var(--primary-gold) !important; font-weight: 700; }
-        .header-btn-demo-gold { background: rgba(197, 168, 128, 0.2); border-color: var(--primary-gold); color: #fff; }
-        .hero-btn-install { background: linear-gradient(135deg, rgba(197, 168, 128, 0.4), rgba(1, 9, 7, 0.9)); border: 1px solid var(--primary-gold); color: #fff; }
-        .hero-btn-demo { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(197, 168, 128, 0.4); color: var(--primary-gold); }
-        .gold-accent { color: var(--primary-gold) !important; }
-        .br-line-gold { background-color: var(--primary-gold) !important; }
-        .form-select-dark { background: transparent; color: #fff; }
-        .form-option-dark { background: #010907; }
-        .work-card-media { border-radius: 20px; overflow: hidden; position: relative; }
-        .work-card-img { width: 100%; height: auto; display: block; border-radius: 20px; }
-        .work-card-badge-gold { position: absolute; bottom: 20px; right: 20px; background: rgba(197, 168, 128, 0.95); padding: 12px; border-radius: 50%; color: #010907; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); }
-        .modal-btn-close { position: absolute; top: 1.5rem; left: 1.5rem; background: transparent; border: none; color: #fff; cursor: pointer; }
-        .modal-btn-close-sm { position: absolute; top: 1.2rem; left: 1.2rem; background: transparent; border: none; color: #fff; cursor: pointer; }
-        .project-modal-backdrop { position: absolute; inset: 0; }
-        .project-modal-panel { position: relative; background: #06110d; border: 1px solid var(--primary-gold); border-radius: 24px; max-width: 800px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 2.5rem; z-index: 10; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9); }
-        .project-modal-media-wrap { border-radius: 16px; overflow: hidden; }
-        .project-modal-img { width: 100%; height: auto; display: block; border-radius: 16px; }
-        .project-meta-grid { grid-template-columns: repeat(2, 1fr); }
-        .project-quote-styled { border-right: 3px solid var(--primary-gold); padding-right: 1rem; color: var(--primary-gold); font-style: italic; }
+        .project-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 100000;
+            display: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease;
+            background: rgba(1, 9, 7, 0.94);
+            -webkit-backdrop-filter: blur(24px) saturate(140%);
+            backdrop-filter: blur(24px) saturate(140%);
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+
+        .project-modal.active {
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        .project-modal__backdrop {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        .project-modal__close {
+            position: fixed;
+            top: 24px;
+            right: 32px;
+            z-index: 1000005;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-modal__close:hover {
+            background: rgba(197, 168, 128, 0.25);
+            border-color: var(--primary-gold);
+            color: var(--primary-gold);
+            transform: rotate(90deg) scale(1.08);
+        }
+
+        .project-modal__expand-btn {
+            position: fixed;
+            bottom: 24px;
+            left: 32px;
+            z-index: 1000005;
+            background: rgba(14, 24, 20, 0.85);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(197, 168, 128, 0.35);
+            border-radius: 999px;
+            padding: 10px 22px;
+            color: #ffffff;
+            font-size: 0.88rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            font-family: 'Alexandria', sans-serif;
+        }
+
+        .project-modal__expand-btn:hover {
+            background: var(--primary-gold);
+            color: #010907;
+            border-color: var(--primary-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(197, 168, 128, 0.35);
+        }
+
+        .project-modal__panel {
+            position: relative;
+            z-index: 2;
+            max-width: 1440px;
+            width: 100%;
+            height: 100vh;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: row-reverse;
+            gap: 50px;
+            padding: 40px 48px 80px 48px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .project-modal__details {
+            width: 380px;
+            flex-shrink: 0;
+            text-align: right;
+            transition: all 0.35s ease;
+        }
+
+        .project-details-sticky {
+            position: sticky;
+            top: 40px;
+        }
+
+        .project-modal-title {
+            font-size: clamp(2rem, 2.8vw, 2.75rem);
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            margin-bottom: 1.25rem;
+            line-height: 1.15;
+            font-family: 'Alexandria', sans-serif;
+        }
+
+        .project-modal-desc {
+            font-size: 0.95rem;
+            line-height: 1.85;
+            color: rgba(255, 255, 255, 0.72);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .project-modal__meta {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0;
+        }
+
+        .meta-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .meta-dt {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 0.88rem;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .meta-dt svg {
+            color: var(--primary-gold);
+            flex-shrink: 0;
+        }
+
+        .meta-dd {
+            color: #ffffff;
+            font-size: 0.92rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .preview-link {
+            color: var(--primary-gold) !important;
+            text-decoration: underline !important;
+            transition: color 0.2s ease;
+        }
+
+        .preview-link:hover {
+            color: #ffffff !important;
+        }
+
+        .project-quote-styled {
+            border-right: 3px solid var(--primary-gold);
+            background: rgba(197, 168, 128, 0.05);
+            border-radius: 0 14px 14px 0;
+            padding: 18px 22px;
+            color: #ffffff;
+            font-size: 1.05rem;
+            font-weight: 600;
+            line-height: 1.65;
+            margin: 0 0 1.5rem 0;
+            font-style: italic;
+        }
+
+        .project-modal-order-btn {
+            background: linear-gradient(135deg, rgba(197, 168, 128, 0.25), rgba(197, 168, 128, 0.1));
+            border: 1px solid var(--primary-gold);
+            color: var(--primary-gold);
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-weight: 600;
+            text-decoration: none !important;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .project-modal-order-btn:hover {
+            background: var(--primary-gold);
+            color: #010907;
+            box-shadow: 0 8px 25px rgba(197, 168, 128, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .project-modal__media {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .project-modal__gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .project-gallery-item {
+            width: 100%;
+            border-radius: 18px;
+            overflow: hidden;
+            background: rgba(10, 18, 14, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .project-gallery-item:hover {
+            border-color: rgba(197, 168, 128, 0.35);
+        }
+
+        .project-gallery-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .project-modal.is-wide .project-modal__details {
+            display: none;
+        }
+
+        .project-modal.is-wide .project-modal__media {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 991px) {
+            .project-modal__panel {
+                flex-direction: column;
+                padding: 80px 20px 40px 20px;
+                gap: 36px;
+            }
+
+            .project-modal__details {
+                width: 100%;
+            }
+
+            .project-details-sticky {
+                position: static;
+            }
+
+            .project-modal__close {
+                top: 16px;
+                right: 16px;
+                width: 40px;
+                height: 40px;
+            }
+
+            .project-modal__expand-btn {
+                bottom: 16px;
+                left: 16px;
+                padding: 8px 16px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* تنسيقات عرض المشاريع داخل قسم أعمال مختارة */
+        .work-card-media {
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(197, 168, 128, 0.15);
+            transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .work-card-media:hover {
+            transform: translateY(-6px) scale(1.01);
+            border-color: var(--primary-gold);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.85), 0 0 30px rgba(197, 168, 128, 0.2);
+        }
+
+        .work-card-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 20px;
+            transition: transform 0.6s ease;
+        }
+
+        .work-card-media:hover .work-card-img {
+            transform: scale(1.03);
+        }
+
+        .work-card-badge-gold {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: rgba(1, 9, 7, 0.75);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1.5px solid var(--primary-gold);
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            color: var(--primary-gold);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(197, 168, 128, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.9;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .work-card-media:hover .work-card-badge-gold {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: var(--primary-gold);
+            color: #010907;
+            opacity: 1;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(197, 168, 128, 0.6);
+        }
+
+        .work-project-list-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .work-project-nav-item {
+            font-size: 1.85rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.35);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: right;
+            user-select: none;
+            line-height: 1.2;
+        }
+
+        .work-project-nav-item:hover {
+            color: rgba(255, 255, 255, 0.75);
+            transform: translateX(-5px);
+        }
+
+        .work-project-nav-item.active {
+            color: #ffffff;
+            font-size: 2.2rem;
+            font-weight: 800;
+            transform: translateX(-8px);
+        }
+
+        .work-project-nav-item.active::before {
+            content: "•";
+            color: var(--primary-gold);
+            margin-left: 8px;
+        }
+
         .modal-icon-badge { width: 56px; height: 56px; border-radius: 50%; background: rgba(197, 168, 128, 0.2); border: 1px solid var(--primary-gold); color: var(--primary-gold); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
         .modal-icon-badge-sq { width: 56px; height: 56px; border-radius: 16px; background: rgba(197, 168, 128, 0.2); border: 1px solid var(--primary-gold); color: var(--primary-gold); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; box-shadow: 0 0 25px rgba(197, 168, 128, 0.25); }
         .install-guide-card { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-glass); border-radius: 16px; padding: 1.2rem; margin-bottom: 1.4rem; }
@@ -814,43 +1168,64 @@
                     </div>
                     <ul class="pricing-tab_btn work-tab_btn effectFade fadeUp" role="tablist" aria-label="نوع الأعمال">
                         <li class="nav-tab-item" role="presentation">
-                            <button type="button" role="tab" aria-selected="true" class="tf-btn-tab fw-medium letter-space--1 active" onclick="switchWorkTab('websites', this)">
+                            <button type="button" role="tab" id="tab-btn-identity" aria-selected="true" class="tf-btn-tab fw-medium letter-space--1 active" onclick="switchWorkTab('identity', this)">
                                 <span class="dot-active" aria-hidden="true"></span>
-                                <svg class="pricing-tab__icon" viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
-                                أنظمة وبرمجيات سحابية
+                                <svg class="pricing-tab__icon" viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><path d="M15.707 21.293a1 1 0 0 1-1.414 0l-1.586-1.586a1 1 0 0 1 0-1.414l5.586-5.586a1 1 0 0 1 1.414 0l1.586 1.586a1 1 0 0 1 0 1.414z"/><path d="m18 13-1.375-6.874a1 1 0 0 0-.746-.776L3.235 2.028a1 1 0 0 0-1.207 1.207L5.35 15.879a1 1 0 0 0 .776.746L13 18"/><path d="m2.3 2.3 7.286 7.286"/><circle cx="11" cy="11" r="2"/></svg>
+                                هويات بصرية
                             </button>
                         </li>
                         <li class="nav-tab-item" role="presentation">
-                            <button type="button" role="tab" aria-selected="false" class="tf-btn-tab fw-medium letter-space--1" onclick="switchWorkTab('identity', this)">
+                            <button type="button" role="tab" id="tab-btn-websites" aria-selected="false" class="tf-btn-tab fw-medium letter-space--1" onclick="switchWorkTab('websites', this)">
+                                <span class="dot-active" aria-hidden="true"></span>
+                                <svg class="pricing-tab__icon" viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+                                مواقع الويب
+                            </button>
+                        </li>
+                        <li class="nav-tab-item" role="presentation">
+                            <button type="button" role="tab" id="tab-btn-erp" aria-selected="false" class="tf-btn-tab fw-medium letter-space--1" onclick="switchWorkTab('erp', this)">
                                 <span class="dot-active" aria-hidden="true"></span>
                                 <svg class="pricing-tab__icon" viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                                حلول ERP والربط المالي
+                                أنظمة سحابية وERP
+                            </button>
+                        </li>
+                        <li class="nav-tab-item" role="presentation">
+                            <button type="button" role="tab" id="tab-btn-apps" aria-selected="false" class="tf-btn-tab fw-medium letter-space--1" onclick="switchWorkTab('apps', this)">
+                                <span class="dot-active" aria-hidden="true"></span>
+                                <svg class="pricing-tab__icon" viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+                                تطبيقات ذكية وAI
                             </button>
                         </li>
                     </ul>
                 </div>
             </div>
 
-            <!-- محتوى تاب 1: أنظمة وبرمجيات سحابية -->
+            <!-- عرض المشروع التفاعلي الديناميكي -->
             <div class="tab-content">
-                <div class="tab-pane fade active show work-pane" id="work-pane-websites">
+                <div class="tab-pane fade active show work-pane" id="work-dynamic-pane">
                     <div class="content-wrap-1 wrap-list-btn">
                         <div class="container">
                             <div class="row align-items-center">
+                                <!-- القائمة الجانبية اليسرى للمشاريع (أو اليمنى في RTL) -->
                                 <div class="col-md-4">
                                     <div class="col-left mb-md-0">
                                         <div class="position-relative effectFade fadeUp">
-                                            <p class="text-slide text-display-2 fw-semibold text-white mb-2" id="project-title-label">CoreSync Cloud ERP</p>
-                                            <p class="text-caption text-white-64">منصة إدارة سلاسل الإمداد والربط المحاسبي السحابي للشركات الأوروبية</p>
+                                            <!-- أسماء مشاريع القسم النشط للاختيار المباشر بالضغط عليها -->
+                                            <div class="work-project-list-nav" id="work-project-names-nav">
+                                                <!-- يتم تعبئتها برمجياً: e.g. Oasis, SARLOR, Toneh -->
+                                            </div>
+                                            <p class="text-caption text-white-64" id="project-subtitle-label">
+                                                هوية بصرية لمطعم وفطائر سورية في هولندا
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- كرت صورة المشروع الرئيسي -->
                                 <div class="col-md-8">
                                     <div class="col-right">
-                                        <div class="image work-project-trigger main-mouse-hover effectFade fadeZoom cs-pointer work-card-media" onclick="openProjectModal('erp')">
-                                            <img loading="lazy" width="1256" height="942" src="https://dananajmah.com/assets/images/section/project-hintham.webp" alt="نظام CoreSync ERP" class="work-card-img">
-                                            <div class="tf-mouse work-card-badge-gold">
-                                                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                        <div class="image work-project-trigger main-mouse-hover effectFade fadeZoom cs-pointer work-card-media" id="work-main-card-trigger" onclick="openCurrentProjectModal()">
+                                            <img id="work-main-image" loading="lazy" width="1256" height="942" src="https://dananajmah.com/assets/images/section/work-3.webp" alt="معاينة العمل" class="work-card-img">
+                                            <div class="tf-mouse work-card-badge-gold" title="انقر لفتح دراسة الحالة الكاملة">
+                                                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                                             </div>
                                         </div>
                                     </div>
@@ -861,76 +1236,28 @@
                     <div class="content-wrap-2">
                         <div class="container position-relative z-5">
                             <div class="row align-items-center">
+                                <!-- التاجات والتصنيفات -->
                                 <div class="col-md-4">
-                                    <div class="group-btn d-flex gap-2">
-                                        <span class="tf-btn style-2">أنظمة سحابية</span>
-                                        <span class="tf-btn style-2">ربط مالي ومحاسبي</span>
+                                    <div class="group-btn d-flex gap-2 flex-wrap" id="work-project-tags">
+                                        <span class="tf-btn style-2">الهوية البصرية</span>
+                                        <span class="tf-btn style-2">تصميم الشعار</span>
                                     </div>
                                 </div>
+                                <!-- أزرار التنقل بين مشاريع القسم -->
                                 <div class="col-6 col-md-4 text-center">
                                     <div class="group-btn-slider d-inline-flex gap-3">
-                                        <button type="button" class="btn-nav-swiper cs-pointer text-caption fw-medium link" onclick="cycleProject(-1)">
+                                        <button type="button" class="btn-nav-swiper cs-pointer text-caption fw-medium link" onclick="cycleProject(-1)" aria-label="المشروع السابق">
                                             السابق
                                         </button>
-                                        <button type="button" class="btn-nav-swiper cs-pointer text-caption fw-medium link" onclick="cycleProject(1)">
+                                        <button type="button" class="btn-nav-swiper cs-pointer text-caption fw-medium link" onclick="cycleProject(1)" aria-label="المشروع التالي">
                                             التالي
                                         </button>
                                     </div>
                                 </div>
+                                <!-- سنة الإنجاز -->
                                 <div class="col-6 col-md-4 text-end">
-                                    <p class="text-display-2 letter-space--3 fw-semibold work-year font-latin mb-0">
-                                        20<span class="gold-accent">26</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- محتوى تاب 2: حلول ERP والربط المالي -->
-                <div class="tab-pane fade work-pane pane-hidden" id="work-pane-identity">
-                    <div class="content-wrap-1 wrap-list-btn">
-                        <div class="container">
-                            <div class="row align-items-center">
-                                <div class="col-md-4">
-                                    <div class="col-left mb-md-0">
-                                        <div class="position-relative effectFade fadeUp">
-                                            <p class="text-slide text-display-2 fw-semibold text-white mb-2">FinFlow Analytics</p>
-                                            <p class="text-caption text-white-64">محرك الذكاء المالي وحوكمة التدفقات النقدية اللحظية للمجموعات التجارية</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="col-right">
-                                        <div class="image work-project-trigger main-mouse-hover effectFade fadeZoom cs-pointer work-card-media" onclick="openProjectModal('finflow')">
-                                            <img loading="lazy" width="860" height="645" src="https://dananajmah.com/assets/images/section/work-1.webp" alt="منصة FinFlow" class="work-card-img">
-                                            <div class="tf-mouse work-card-badge-gold">
-                                                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="content-wrap-2">
-                        <div class="container position-relative z-5">
-                            <div class="row align-items-center">
-                                <div class="col-md-4">
-                                    <div class="group-btn d-flex gap-2">
-                                        <span class="tf-btn style-2">ذكاء اصطناعي مالي</span>
-                                        <span class="tf-btn style-2">لوحات قيادة ERP</span>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-4 text-center">
-                                    <div class="group-btn-slider d-inline-flex gap-3">
-                                        <button type="button" class="btn-nav-swiper cs-pointer text-caption fw-medium link" onclick="switchWorkTab('websites')">السابق</button>
-                                        <button type="button" class="btn-nav-swiper cs-pointer text-caption fw-medium link" onclick="switchWorkTab('websites')">التالي</button>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-4 text-end">
-                                    <p class="text-display-2 letter-space--3 fw-semibold work-year font-latin mb-0">
-                                        20<span class="gold-accent">25</span>
+                                    <p class="text-display-2 letter-space--3 fw-semibold work-year font-latin mb-0" id="work-project-year">
+                                        20<span class="gold-accent">24</span>
                                     </p>
                                 </div>
                             </div>
@@ -1650,30 +1977,90 @@
         </footer>
     </main>
 
-    <!-- نافذة تفاصيل المشروع المنبثقة (Project Modal - Exact Dana Najmah Structure) -->
-    <div class="project-modal" id="projectModal" aria-hidden="true" role="dialog" aria-modal="true">
-        <div class="project-modal__backdrop project-modal-backdrop" onclick="closeProjectModal()"></div>
-        <div class="project-modal__panel project-modal-panel" role="document">
-            <button type="button" onclick="closeProjectModal()" aria-label="إغلاق تفاصيل المشروع" title="إغلاق" class="modal-btn-close">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
-            <div class="project-modal__media mb-4 project-modal-media-wrap">
-                <img id="projectModalImage" src="https://dananajmah.com/assets/images/section/project-hintham.webp" alt="معاينة المشروع" class="project-modal-img">
+    <!-- نافذة تفاصيل دراسة الحالة والمشاريع المنبثقة (Project Case Study Modal - 1:1 Matching Dana Najmah) -->
+    <div class="project-modal" id="projectModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
+        <div class="project-modal__backdrop" onclick="closeProjectModal()"></div>
+        
+        <!-- زر الإغلاق الدائري الفاخر -->
+        <button type="button" class="project-modal__close" onclick="closeProjectModal()" aria-label="إغلاق تفاصيل المشروع" title="إغلاق">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+
+        <!-- زر التوسيع / العرض الأوسع في الزاوية السفلية (كما في موقع دانا نجمة والصورة) -->
+        <button type="button" class="project-modal__expand-btn" id="projectModalExpandBtn" onclick="toggleWideView()" aria-label="تبديل العرض الأوسع">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+            <span id="projectModalExpandText">عرض أوسع</span>
+        </button>
+
+        <div class="project-modal__panel" role="document">
+            <!-- عمود معرض الصور العمودي المتدفق (Scrollable Presentation Gallery) -->
+            <div class="project-modal__media">
+                <div class="project-modal__gallery" id="projectModalGallery">
+                    <!-- يتم توليد صور المعرض عالية الدقة ديناميكياً هنا -->
+                </div>
             </div>
-            <div class="project-modal__details text-right">
-                <h2 id="projectModalTitle" class="text-white fw-bold mb-2">منصة CoreSync Cloud ERP</h2>
-                <p id="projectModalDescription" class="text-white-64 mb-4">
-                    نظام إدارة سحابي متقدم مصمم لسلاسل الإمداد والتوريد والربط المحاسبي المباشر مع البنوك الهولندية والأوروبية وفق أعلى معايير الحوكمة المالية.
-                </p>
-                <dl class="project-modal__meta d-grid gap-2 text-white-64 mb-4 project-meta-grid">
-                    <div><strong class="text-white">العميل:</strong> <span id="projectModalClient">مجموعة لوجستية هولندية</span></div>
-                    <div><strong class="text-white">النوع:</strong> <span id="projectModalType">منصة سحابية وERP</span></div>
-                    <div><strong class="text-white">السنة:</strong> <span id="projectModalYear">2026</span></div>
-                    <div><strong class="text-white">المقر:</strong> <span id="projectModalLoc">أمستردام، هولندا</span></div>
-                </dl>
-                <blockquote id="projectModalQuote" class="project-quote-styled">
-                    "تحول رقمي خفّض زمن معالجة الفواتير بنسبة 70% وضمن دقة مالية مطلقة."
-                </blockquote>
+
+            <!-- عمود تفاصيل ومعلومات المشروع الثابت (Sticky Sidebar in RTL) -->
+            <div class="project-modal__details">
+                <div class="project-details-sticky">
+                    <h2 id="projectModalTitle" class="project-modal-title">SARLOR</h2>
+                    <p id="projectModalDescription" class="project-modal-desc">
+                        صممت الهوية البصرية لمطعم Sarlor السوري في هولندا والمتخصص في الفطائر والمناقيش والبيتزا الشرق أوسطية...
+                    </p>
+
+                    <dl class="project-modal__meta">
+                        <div class="meta-row">
+                            <dt class="meta-dt">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 20c.4-4.3 2.7-6.5 7-6.5s6.6 2.2 7 6.5z"></path></svg>
+                                <span>العميل:</span>
+                            </dt>
+                            <dd class="meta-dd" id="projectModalClient">SARLOR</dd>
+                        </div>
+                        <div class="meta-row">
+                            <dt class="meta-dt">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3.5h7l4 4V20.5H7z"></path><path d="M14 3.5v4h4M10 12h5M10 16h5"></path></svg>
+                                <span>النوع:</span>
+                            </dt>
+                            <dd class="meta-dd" id="projectModalType">هوية بصرية</dd>
+                        </div>
+                        <div class="meta-row">
+                            <dt class="meta-dt">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5.5" width="16" height="15" rx="1"></rect><path d="M8 3v5M16 3v5M4 10h16"></path></svg>
+                                <span>السنة:</span>
+                            </dt>
+                            <dd class="meta-dd" id="projectModalYear">2024</dd>
+                        </div>
+                        <div class="meta-row">
+                            <dt class="meta-dt">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span>الموقع:</span>
+                            </dt>
+                            <dd class="meta-dd" id="projectModalLoc">هولندا</dd>
+                        </div>
+                        <div class="meta-row" id="projectModalPreviewRow">
+                            <dt class="meta-dt">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                <span>المعاينة:</span>
+                            </dt>
+                            <dd class="meta-dd"><a id="projectModalPreview" href="#" target="_blank" rel="noopener noreferrer" class="preview-link">shoarma-hintham.com</a></dd>
+                        </div>
+                    </dl>
+
+                    <blockquote id="projectModalQuote" class="project-quote-styled">
+                        "نظام بصري متقن بإيقاع قوي وصور معبرة وتجربة لا تُنسى."
+                    </blockquote>
+
+                    <div class="project-modal-cta mt-4">
+                        <a href="#contact" onclick="closeProjectModal()" class="tf-btn w-100 justify-content-center project-modal-order-btn">
+                            <span>طلب مشروع مماثل</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1794,78 +2181,519 @@
             }
         });
 
-        // تبديل تبويبات الأعمال
-        function switchWorkTab(type, btn) {
-            document.querySelectorAll('.work-tab_btn .tf-btn-tab').forEach(b => b.classList.remove('active'));
-            if (btn) btn.classList.add('active');
+        // قاعدة بيانات الأعمال والمشاريع المختارة (Selected Work Database - عروض ومشاريع نموذجية)
+        const projectsDB = {
+            identity: [
+                {
+                    id: "sarlor",
+                    name: "SARLOR",
+                    subtitle: "هوية بصرية لمطعم وفطائر سورية في هولندا",
+                    heroImg: "https://dananajmah.com/assets/images/section/work-3.webp",
+                    tags: ["الهوية البصرية", "تصميم الشعار", "تصميم العبوات والتغليف"],
+                    year: "2024",
+                    client: "SARLOR",
+                    type: "هوية بصرية",
+                    loc: "هولندا",
+                    preview: null,
+                    desc: "صممت الهوية البصرية لمطعم Sarlor السوري في هولندا والمتخصص في الفطائر والمناقيش والبيتزا الشرق أوسطية. يتضمن الشعار حرف O مصمماً على هيئة شريحة بيتزا مع خطوط منحنية ترمز إلى السرعة والحركة لتعكس خدمة التوصيل السريع، وتمنح ألوان الأحمر والأصفر والكريمي إحساساً بالدفء والشهية وهوية عصرية وأصيلة تناسب السوق الأوروبية.",
+                    quote: "نظام بصري متقن بإيقاع قوي وصور معبرة وتجربة لا تُنسى.",
+                    gallery: [
+                        "https://dananajmah.com/assets/images/section/work-3.webp",
+                        "https://dananajmah.com/assets/images/Project/sarlor/05-logo-symbols.jpg",
+                        "https://dananajmah.com/assets/images/Project/sarlor/4-logo-guide.jpg",
+                        "https://dananajmah.com/assets/images/Project/sarlor/2-presentation.webp",
+                        "https://dananajmah.com/assets/images/Project/sarlor/07-mockup.webp",
+                        "https://dananajmah.com/assets/images/Project/sarlor/08-mockup.webp",
+                        "https://dananajmah.com/assets/images/Project/sarlor/10-presentation.webp",
+                        "https://dananajmah.com/assets/images/Project/sarlor/11-presentation.webp"
+                    ]
+                },
+                {
+                    id: "oasis",
+                    name: "Oasis",
+                    subtitle: "تصميم هوية بصرية فاخرة وأدلة العلامة التجارية",
+                    heroImg: "https://dananajmah.com/assets/images/Project/OASIS/1.webp",
+                    tags: ["هوية فاخرة", "شعار", "تغليف مخصص"],
+                    year: "2024",
+                    client: "Oasis Studio",
+                    type: "هوية بصرية متكاملة",
+                    loc: "أمستردام، هولندا",
+                    preview: null,
+                    desc: "بناء وتطوير هوية بصرية عصرية راقية تعكس الهدوء والفخامة والتوازن الطبيعي، مع أدلة متكاملة للعلامة التجارية وتطبيقات التغليف الرقمية والورقية الموجهة للسوق الأوروبي الممتاز.",
+                    quote: "هوية بصرية ترسخ مكانة العلامة بأناقة استثنائية وانطباع فخم يدوم طويلاً.",
+                    gallery: [
+                        "https://dananajmah.com/assets/images/Project/OASIS/1.webp",
+                        "https://dananajmah.com/assets/images/Project/OASIS/2.webp",
+                        "https://dananajmah.com/assets/images/Project/OASIS/3.webp",
+                        "https://dananajmah.com/assets/images/Project/OASIS/4.webp",
+                        "https://dananajmah.com/assets/images/Project/OASIS/5.webp"
+                    ]
+                },
+                {
+                    id: "toneh",
+                    name: "Toneh",
+                    subtitle: "هوية رقمية وتصميم علامة تجارية متعددة الوسائط",
+                    heroImg: "https://dananajmah.com/assets/images/Project/toneh/1.webp",
+                    tags: ["هوية رقمية", "تايبوغرافي عربي ولاتيني", "براندنج"],
+                    year: "2023",
+                    client: "Toneh Media",
+                    type: "هوية بصرية وعلامة تجارية",
+                    loc: "دبي، الإمارات",
+                    preview: null,
+                    desc: "تطوير هوية ديناميكية تجمع بين البساطة والجرأة، مع خطوط عربية ولاتينية متناغمة تلائم وسائط التواصل الرقمية والتطبيقات الحديثة بأعلى معايير الإخراج الجمالي.",
+                    quote: "إيقاع بصري فريد ينبض بالعصرية والتجدد والتميز في الفضاء الرقمي.",
+                    gallery: [
+                        "https://dananajmah.com/assets/images/Project/toneh/1.webp",
+                        "https://dananajmah.com/assets/images/Project/toneh/2.webp",
+                        "https://dananajmah.com/assets/images/Project/toneh/3.webp",
+                        "https://dananajmah.com/assets/images/Project/toneh/4.webp"
+                    ]
+                },
+                {
+                    id: "lumina",
+                    name: "Lumina Café",
+                    subtitle: "هوية بصرية فاخرة لمحمصة وقهوة مختصة في أمستردام",
+                    heroImg: "https://dananajmah.com/assets/images/section/work-1.webp",
+                    tags: ["قهوة مختصة", "تغليف صديق للبيئة", "هوية تجارية"],
+                    year: "2025",
+                    client: "Lumina Coffee BV",
+                    type: "هوية بصرية وعلامة تجارية",
+                    loc: "أمستردام، هولندا",
+                    preview: null,
+                    desc: "ابتكار هوية بصرية دافئة تجمع بين الحداثة الأوروبية وأصالة تحميص البن الأثيوبي والكولومبي، مع خطوط طباعية نقية، وألوان ترابية مستوحاة من الطبيعة، وتصاميم أكياس تغليف مبتكرة تدعم الاستدامة.",
+                    quote: "تصميم فني استثنائي يربط أصالة القهوة بالطابع الأوروبي الحديث ويعزز ولاء العملاء منذ اللحظة الأولى.",
+                    gallery: [
+                        "https://dananajmah.com/assets/images/section/work-1.webp",
+                        "https://dananajmah.com/assets/images/Project/sarlor/08-mockup.webp",
+                        "https://dananajmah.com/assets/images/Project/OASIS/2.webp",
+                        "https://dananajmah.com/assets/images/Project/toneh/3.webp"
+                    ]
+                }
+            ],
+            websites: [
+                {
+                    id: "hintham",
+                    name: "Shoarma Hintham",
+                    subtitle: "متجر إلكتروني متكامل ومنظومة طلبات وتوصيل سريعة بهولندا",
+                    heroImg: "https://dananajmah.com/assets/images/section/project-hintham.webp",
+                    tags: ["موقع إلكتروني", "متجر وتوصيل", "بوابة دفع iDEAL"],
+                    year: "2024",
+                    client: "Shoarma Hintham Restaurant",
+                    type: "موقع وتطبيق ويب للتوصيل",
+                    loc: "سيرتوخيمبوس، هولندا",
+                    preview: "https://shoarma-hintham.com",
+                    previewLabel: "shoarma-hintham.com",
+                    desc: "تصميم وتطوير موقع إلكتروني ومنظومة طلبات طعام سريعة مع تكامل الدفع عبر iDEAL وبطاقات الائتمان، ونظام إدارة مطبخ ذكي ولوحة تحكم فورية للطلبات بدون عمولات المنصات الخارجية.",
+                    quote: "رفع نسبة الطلبات المباشرة بنسبة 45% وحقق تجربة مستخدم فورية وسلسة للعملاء.",
+                    gallery: [
+                        "https://dananajmah.com/assets/images/section/project-hintham.webp",
+                        "https://dananajmah.com/assets/images/Project/project-hintham-pages-v1.webp",
+                        "https://dananajmah.com/assets/images/Project/project-hintham-mobile.webp",
+                        "https://dananajmah.com/assets/images/Project/project-hintham-checkout-ar-v1.webp",
+                        "https://dananajmah.com/assets/images/Project/project-hintham-cart-ar-v10.webp"
+                    ]
+                },
+                {
+                    id: "reinigung",
+                    name: "NA Reinigung",
+                    subtitle: "منصة حجز خدمات تنظيف احترافية في ألمانيا",
+                    heroImg: "https://dananajmah.com/assets/images/section/work-1.webp",
+                    tags: ["منصة حجز إلكتروني", "موقع متعدد اللغات", "UI/UX فاخر"],
+                    year: "2025",
+                    client: "NA Reinigung GmbH",
+                    type: "موقع وحجز إلكتروني",
+                    loc: "فرانكفورت، ألمانيا",
+                    preview: "https://na-reinigung.de",
+                    previewLabel: "na-reinigung.de",
+                    desc: "موقع تعريفي ونظام حجز وجدولة ذكي لخدمات التنظيف السكنية والتجارية، يتيح حساب التكلفة فوراً وحجز المواعيد وأتمتة تأكيدات الحجز عبر البريد والواتساب مع واجهة أنيقة باللغة الألمانية.",
+                    quote: "منصة سلسة وتصميم عصري يبعث على الثقة والاحترافية المطلقة لدى العملاء الأوروبيين.",
+                    gallery: [
+                        "https://dananajmah.com/assets/images/section/work-1.webp",
+                        "https://dananajmah.com/assets/images/section/work-2.webp",
+                        "https://dananajmah.com/assets/images/Project/project-hintham-pages-v1.webp"
+                    ]
+                },
+                {
+                    id: "nordic",
+                    name: "Nordic Haven",
+                    subtitle: "بوابة حجز فلل وشاليهات سياحية فاخرة في أوروبا",
+                    heroImg: "https://dananajmah.com/assets/images/section/work-2.webp",
+                    tags: ["بوابة حجز سياحية", "تقويم تفاعلي", "محرك دفع دولي"],
+                    year: "2025",
+                    client: "Nordic Hospitality Group",
+                    type: "منصة سياحية وتطبيق ويب",
+                    loc: "أوسلو، النرويج",
+                    preview: "https://nordic-haven.example.com",
+                    previewLabel: "nordic-haven.com",
+                    desc: "بناء منصة حجز فندقية راقية تتيح للمسافرين استكشاف وحجز الشاليهات والمنتجعات مع تقويم حجز ذكي لحظي، وجولات افتراضية بالصور ثلاثية الأبعاد، وتكامل كامل مع بوابات الدفع Stripe وiDEAL.",
+                    quote: "تجربة حجز رقمية فاخرة ضاعفت الإشغال المباشر وقلّصت عمولات المنصات الوسيطة بنسبة 60%.",
+                    gallery: [
+                        "https://dananajmah.com/assets/images/section/work-2.webp",
+                        "https://dananajmah.com/assets/images/section/work-1.webp",
+                        "https://dananajmah.com/assets/images/Project/OASIS/1.webp"
+                    ]
+                },
+                {
+                    id: "technova",
+                    name: "TechNova Studio",
+                    subtitle: "موقع تفاعلي لشركة استشارات وذكاء اصطناعي",
+                    heroImg: "https://dananajmah.com/assets/images/section/work-4.webp",
+                    tags: ["موقع 3D WebGL", "استشارات تقنية", "تصميم Dark Mode"],
+                    year: "2025",
+                    client: "TechNova Solutions Ltd",
+                    type: "موقع مؤسسي تفاعلي",
+                    loc: "لندن، المملكة المتحدة",
+                    preview: "https://technova.example.com",
+                    previewLabel: "technova-studio.com",
+                    desc: "تطوير موقع مؤسسي فائق السرعة والأداء للشركات التقنية، مزود بمؤثرات بصرية ثلاثية الأبعاد وواجهات مستخدم متقدمة تعزز موثوقية الشركة وتجذب كبرى العقود الاستثمارية.",
+                    quote: "حضور رقمي استثنائي نال إشادة المستثمرين الأوروبيين ورسخ الريادة التقنية في السوق.",
+                    gallery: [
+                        "https://dananajmah.com/assets/images/section/work-4.webp",
+                        "https://dananajmah.com/assets/images/Project/project-hintham-mobile.webp",
+                        "https://dananajmah.com/assets/images/section/work-3.webp"
+                    ]
+                }
+            ],
+            erp: [
+                {
+                    id: "coresync",
+                    name: "CoreSync Cloud ERP",
+                    subtitle: "نظام إدارة الموارد وتتبع العمليات وسلاسل الإمداد السحابي",
+                    heroImg: "https://dananajmah.com/assets/images/section/work-4.webp",
+                    tags: ["نظام ERP سحابي", "إدارة سلاسل التوريد", "أتمتة الأعمال"],
+                    year: "2026",
+                    client: "مجموعة تجارية لوجستية",
+                    type: "نظام سحابي وERP",
+                    loc: "أمستردام، هولندا",
+                    preview: null,
+                    desc: "منظومة سحابية متكاملة للربط المالي والمحاسبي، وإدارة المخزون ونقاط البيع المتعددة، مع لوحات تحكم فورية لتحليل هوامش الربح والأداء اليومي متوافقة مع المتطلبات الضريبية الأوروبية.",
+                    quote: "تحول رقمي حقيقي خفّض زمن معالجة الفواتير بنسبة 70% وحقق دقة مالية مطلقة بدون أخطاء بشرية.",
+                    gallery: [
+                        "https://dananajmah.com/assets/images/section/work-4.webp",
+                        "https://dananajmah.com/assets/images/section/work-3.webp",
+                        "https://dananajmah.com/assets/images/section/work-2.webp"
+                    ]
+                },
+                {
+                    id: "finflow",
+                    name: "FinFlow Analytics",
+                    subtitle: "منصة التدقيق والتحليل المالي المتقدم للشركات الناشئة",
+                    heroImg: "https://dananajmah.com/assets/images/section/work-2.webp",
+                    tags: ["ذكاء أعمال", "تدقيق مالي مؤتمت", "لوحات تحكم Dashboard"],
+                    year: "2025",
+                    client: "شركات استثمارية أوروبية",
+                    type: "لوحة تحليلات مالية",
+                    loc: "روتردام، هولندا",
+                    preview: null,
+                    desc: "تطبيق ويب تفاعلي لتحليل التدفقات النقدية والتنبؤ المالي وربط الحسابات المصرفية مع معايير الضرائب واللوائح الهولندية مع لوحات بيانية لحظية بالغة الدقة.",
+                    quote: "رؤية مالية واضحة وقرارات استراتيجية مبنية على بيانات دقيقة وموثوقة لحظة بلحظة.",
+                    gallery: [
+                        "https://dananajmah.com/assets/images/section/work-2.webp",
+                        "https://dananajmah.com/assets/images/section/work-1.webp",
+                        "https://dananajmah.com/assets/images/Project/project-hintham-pages-v1.webp"
+                    ]
+                },
+                {
+                    id: "omnilogix",
+                    name: "OmniLogix WMS",
+                    subtitle: "نظام إدارة المستودعات وسلاسل التوريد والباركود الذكي",
+                    heroImg: "https://dananajmah.com/assets/images/section/work-3.webp",
+                    tags: ["سلاسل إمداد", "إدارة مستودعات", "باركود وتتبع RFID"],
+                    year: "2025",
+                    client: "يورو لوجستيكس للتوزيع",
+                    type: "نظام سحابي ولوجستي",
+                    loc: "روتردام، هولندا",
+                    preview: null,
+                    desc: "نظام إدارة مستودعات سحابي متطور يدعم مسح الباركود وRFID وإدارة حركة البضائع لحظة بلحظة، مع لوحات تحكم لتتبع أداء السائقين وتوزيع الشحنات بدقة 100% بين الموانئ والمستودعات.",
+                    quote: "تقليص أخطاء الشحن إلى الصفر وتسريع وتيرة تجهيز وتوزيع الطلبيات بمقدار 3 أضعاف.",
+                    gallery: [
+                        "https://dananajmah.com/assets/images/section/work-3.webp",
+                        "https://dananajmah.com/assets/images/section/work-4.webp",
+                        "https://dananajmah.com/assets/images/section/work-1.webp"
+                    ]
+                },
+                {
+                    id: "medcare",
+                    name: "MedCare Sync",
+                    subtitle: "منظومة سحابية متكاملة للمراكز الطبية والعيادات التخصصية",
+                    heroImg: "https://dananajmah.com/assets/images/section/work-1.webp",
+                    tags: ["أنظمة طبية", "إدارة مواعيد", "فوترة وتأمين صحي"],
+                    year: "2024",
+                    client: "شبكة مراكز الشفاء الطبية",
+                    type: "نظام ERP طبي وسحابي",
+                    loc: "الرياض، السعودية",
+                    preview: null,
+                    desc: "منظومة سحابية شاملة لإدارة سجلات المرضى الإلكترونية، وحجز المواعيد الآلي، والتكامل مع شركات التأمين الصحي والفوترة الإلكترونية المتوافقة مع هيئة الزكاة والضريبة والجمارك.",
+                    quote: "نظام متكامل وفّر مئات ساعات العمل الإداري ورفع مؤشر رضا المرضى إلى أكثر من 95%.",
+                    gallery: [
+                        "https://dananajmah.com/assets/images/section/work-1.webp",
+                        "https://dananajmah.com/assets/images/section/work-2.webp",
+                        "https://dananajmah.com/assets/images/Project/project-hintham-pages-v1.webp"
+                    ]
+                }
+            ],
+            apps: [
+                {
+                    id: "omnipay",
+                    name: "OmniPay Mobile",
+                    subtitle: "تطبيق المحفظة الرقمية وحلول الدفع الفوري متعدد العملات",
+                    heroImg: "https://dananajmah.com/assets/images/Project/project-hintham-mobile.webp",
+                    tags: ["تطبيق جوال", "تقنية مالية FinTech", "بوابات دفع سريعة"],
+                    year: "2025",
+                    client: "PayGlobal Financial",
+                    type: "تطبيق iOS & Android",
+                    loc: "دبي، الإمارات",
+                    preview: null,
+                    desc: "تطبيق هاتف ذكي فائق الأمان يدعم التحويل المالي الفوري، والمدفوعات اللاتلامسية، وتقسيم الفواتير مع حماية بايومترية وتشفير بنكي عالي المستوى متوافق مع معايير PCI-DSS الدولية.",
+                    quote: "تجربة مصرفية رقمية استثنائية حصدت تقييم 4.9 في متاجر التطبيقات وأكثر من 200 ألف مستخدم نشط.",
+                    gallery: [
+                        "https://dananajmah.com/assets/images/Project/project-hintham-mobile.webp",
+                        "https://dananajmah.com/assets/images/Project/project-hintham-checkout-ar-v1.webp",
+                        "https://dananajmah.com/assets/images/section/work-1.webp"
+                    ]
+                },
+                {
+                    id: "visionai",
+                    name: "VisionAI Inspector",
+                    subtitle: "نظام الرؤية الحاسوبية وفحص جودة خطوط الإنتاج بالذكاء الاصطناعي",
+                    heroImg: "https://dananajmah.com/assets/images/section/work-4.webp",
+                    tags: ["ذكاء اصطناعي", "رؤية حاسوبية", "أتمتة صناعية"],
+                    year: "2026",
+                    client: "TechManufacture BV",
+                    type: "برمجيات الذكاء الاصطناعي الصناعي",
+                    loc: "آيندهوفن، هولندا",
+                    preview: null,
+                    desc: "منظومة ذكاء اصطناعي تعتمد على كاميرات عالية السرعة وخوارزميات التعلم العميق لاكتشاف العيوب التصنيعية في أجزاء من الثانية بدقة 99.8%، مع لوحات تحليل بياني لحظية وتنبيهات فورية لمديري الخطوط.",
+                    quote: "قفزة نوعية في كفاءة مراقبة الجودة خفّضت نسبة المنتجات المعيبة بنسبة 85% وضمنت أعلى معايير الجودة الأوروبية.",
+                    gallery: [
+                        "https://dananajmah.com/assets/images/section/work-4.webp",
+                        "https://dananajmah.com/assets/images/section/work-2.webp",
+                        "https://dananajmah.com/assets/images/section/work-3.webp"
+                    ]
+                },
+                {
+                    id: "healthtrack",
+                    name: "HealthTrack Pro",
+                    subtitle: "تطبيق الرعاية الصحية الرياضية ومتابعة اللياقة البدنية الذكي",
+                    heroImg: "https://dananajmah.com/assets/images/section/work-2.webp",
+                    tags: ["تطبيق صحي", "أجهزة ذكية Wearables", "تغذية وتمارين"],
+                    year: "2025",
+                    client: "FitLife Global",
+                    type: "تطبيق جوال وذكاء اصطناعي",
+                    loc: "أمستردام، هولندا",
+                    preview: null,
+                    desc: "تطبيق متكامل لمتابعة الأنشطة البدنية والمؤشرات الحيوية عبر الساعات الذكية (Apple Watch وGarmin)، مع خطط غذائية وتدريبية مخصصة مدعومة بنماذج الذكاء الاصطناعي التوليدي.",
+                    quote: "منظومة رياضية محفزة دمجت التكنولوجيا المتقدمة في الروتين الصحي اليومي للآلاف من المستخدمين.",
+                    gallery: [
+                        "https://dananajmah.com/assets/images/section/work-2.webp",
+                        "https://dananajmah.com/assets/images/Project/project-hintham-mobile.webp",
+                        "https://dananajmah.com/assets/images/section/work-1.webp"
+                    ]
+                }
+            ]
+        };
 
-            const paneWebsites = document.getElementById('work-pane-websites');
-            const paneIdentity = document.getElementById('work-pane-identity');
+        let currentWorkCategory = 'identity';
+        let currentWorkProjectIdx = 0;
 
-            if (type === 'websites') {
-                paneWebsites.classList.remove('pane-hidden');
-                paneWebsites.classList.add('active', 'show');
-                paneIdentity.classList.add('pane-hidden');
-                paneIdentity.classList.remove('active', 'show');
+        // تبديل تبويب الأعمال وتحديث البيانات
+        function switchWorkTab(category, btn) {
+            currentWorkCategory = category;
+            currentWorkProjectIdx = 0;
+
+            // تحديث حالة الأزرار
+            document.querySelectorAll('.work-tab_btn .tf-btn-tab').forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-selected', 'false');
+            });
+
+            if (btn) {
+                btn.classList.add('active');
+                btn.setAttribute('aria-selected', 'true');
             } else {
-                paneWebsites.classList.add('pane-hidden');
-                paneWebsites.classList.remove('active', 'show');
-                paneIdentity.classList.remove('pane-hidden');
-                paneIdentity.classList.add('active', 'show');
+                const targetBtn = document.getElementById('tab-btn-' + category);
+                if (targetBtn) {
+                    targetBtn.classList.add('active');
+                    targetBtn.setAttribute('aria-selected', 'true');
+                }
+            }
+
+            renderActiveWork();
+        }
+
+        // عرض تفاصيل المشروع النشط في الواجهة الرئيسية لقسم الأعمال
+        function renderActiveWork() {
+            const list = projectsDB[currentWorkCategory] || [];
+            if (!list.length) return;
+
+            if (currentWorkProjectIdx >= list.length) currentWorkProjectIdx = 0;
+            if (currentWorkProjectIdx < 0) currentWorkProjectIdx = list.length - 1;
+
+            const activeProject = list[currentWorkProjectIdx];
+
+            // 1. تحديث قائمة أسماء المشاريع في الجانب
+            const navContainer = document.getElementById('work-project-names-nav');
+            if (navContainer) {
+                navContainer.innerHTML = '';
+                list.forEach((p, idx) => {
+                    const itemBtn = document.createElement('div');
+                    itemBtn.className = 'work-project-nav-item' + (idx === currentWorkProjectIdx ? ' active' : '');
+                    itemBtn.textContent = p.name;
+                    itemBtn.onclick = function() {
+                        currentWorkProjectIdx = idx;
+                        renderActiveWork();
+                    };
+                    navContainer.appendChild(itemBtn);
+                });
+            }
+
+            // 2. تحديث الوصف الفرعي
+            const subLabel = document.getElementById('project-subtitle-label');
+            if (subLabel) subLabel.textContent = activeProject.subtitle;
+
+            // 3. تحديث صورة الكرت الرئيسي
+            const mainImg = document.getElementById('work-main-image');
+            if (mainImg) {
+                mainImg.src = activeProject.heroImg;
+                mainImg.alt = activeProject.name;
+            }
+
+            // 4. تحديث التاجات
+            const tagsContainer = document.getElementById('work-project-tags');
+            if (tagsContainer) {
+                tagsContainer.innerHTML = '';
+                activeProject.tags.forEach(t => {
+                    const tagEl = document.createElement('span');
+                    tagEl.className = 'tf-btn style-2';
+                    tagEl.textContent = t;
+                    tagsContainer.appendChild(tagEl);
+                });
+            }
+
+            // 5. تحديث السنة
+            const yearEl = document.getElementById('work-project-year');
+            if (yearEl && activeProject.year) {
+                const y = String(activeProject.year);
+                if (y.length === 4) {
+                    yearEl.innerHTML = `${y.substring(0, 2)}<span class="gold-accent">${y.substring(2)}</span>`;
+                } else {
+                    yearEl.textContent = y;
+                }
             }
         }
 
-        // تدوير المشاريع المعروضة
-        const projectsList = [
-            {
-                title: "منصة CoreSync Cloud ERP",
-                desc: "نظام إدارة سلاسل الإمداد والتوريد والربط المحاسبي السحابي للشركات الأوروبية",
-                client: "مجموعة لوجستية هولندية",
-                type: "منصة سحابية وERP",
-                year: "2026",
-                loc: "أمستردام، هولندا",
-                quote: "تحول رقمي خفّض زمن معالجة الفواتير بنسبة 70% وضمن دقة مالية مطلقة.",
-                img: "https://dananajmah.com/assets/images/section/project-hintham.webp"
-            },
-            {
-                title: "تطبيق OmniPay للربط المالي",
-                desc: "تطبيق جوال ونظام دفع متعدد العملات لإدارة الفواتير والتحصيلات في الخليج",
-                client: "شركة تقنية مالية (FinTech)",
-                type: "تطبيق جوال وبوابة دفع",
-                year: "2025",
-                loc: "الرياض، السعودية",
-                quote: "أداء فائق مع استقرار 100% في مواسم الضغط وحركات الشراء اليومية.",
-                img: "https://dananajmah.com/assets/images/section/work-1.webp"
-            }
-        ];
-        let currentProjectIdx = 0;
-
+        // التنقل بين المشاريع داخل نفس التبويب (السابق / التالي)
         function cycleProject(step) {
-            currentProjectIdx = (currentProjectIdx + step + projectsList.length) % projectsList.length;
-            const p = projectsList[currentProjectIdx];
-            document.getElementById('project-title-label').innerText = p.title;
+            const list = projectsDB[currentWorkCategory] || [];
+            if (!list.length) return;
+            currentWorkProjectIdx = (currentWorkProjectIdx + step + list.length) % list.length;
+            renderActiveWork();
         }
 
-        // نافذة تفاصيل المشروع
-        function openProjectModal(key) {
-            const p = (key === 'finflow') ? projectsList[1] : projectsList[0];
-            document.getElementById('projectModalTitle').innerText = p.title;
-            document.getElementById('projectModalDescription').innerText = p.desc;
-            document.getElementById('projectModalClient').innerText = p.client;
-            document.getElementById('projectModalType').innerText = p.type;
-            document.getElementById('projectModalYear').innerText = p.year;
-            document.getElementById('projectModalLoc').innerText = p.loc;
-            document.getElementById('projectModalQuote').innerText = `"${p.quote}"`;
-            document.getElementById('projectModalImage').src = p.img;
-            
+        // فتح نافذة دراسة الحالة للمشروع النشط حالياً
+        function openCurrentProjectModal() {
+            const list = projectsDB[currentWorkCategory] || [];
+            const p = list[currentWorkProjectIdx] || list[0];
+            if (p) openProjectModalWithData(p);
+        }
+
+        // فتح نافذة المشروع وتعبئة كافة البيانات ومعرض الصور العمودي
+        function openProjectModalWithData(p) {
+            if (!p) return;
+
+            // تعبئة النصوص والمعلومات
+            document.getElementById('projectModalTitle').textContent = p.name;
+            document.getElementById('projectModalDescription').textContent = p.desc;
+            document.getElementById('projectModalClient').textContent = p.client;
+            document.getElementById('projectModalType').textContent = p.type;
+            document.getElementById('projectModalYear').textContent = p.year;
+            document.getElementById('projectModalLoc').textContent = p.loc;
+            document.getElementById('projectModalQuote').textContent = `"${p.quote}"`;
+
+            // المعاينة ورابط الموقع الحي إن وُجد
+            const previewRow = document.getElementById('projectModalPreviewRow');
+            const previewLink = document.getElementById('projectModalPreview');
+            if (previewRow && previewLink) {
+                if (p.preview) {
+                    previewRow.style.display = 'flex';
+                    previewLink.href = p.preview;
+                    previewLink.textContent = p.previewLabel || p.preview;
+                } else {
+                    previewRow.style.display = 'none';
+                }
+            }
+
+            // تعبئة معرض الصور العمودي المتدفق (Presentation Gallery)
+            const galleryContainer = document.getElementById('projectModalGallery');
+            if (galleryContainer) {
+                galleryContainer.innerHTML = '';
+                const imgs = p.gallery && p.gallery.length ? p.gallery : [p.heroImg];
+                imgs.forEach((imgUrl, i) => {
+                    const item = document.createElement('div');
+                    item.className = 'project-gallery-item';
+                    item.innerHTML = `<img loading="lazy" decoding="async" src="${imgUrl}" alt="${p.name} - لقطة المعرض ${i + 1}" />`;
+                    galleryContainer.appendChild(item);
+                });
+                // إعادة التمرير للأعلى في المعرض
+                const mediaPanel = document.querySelector('.project-modal__media');
+                if (mediaPanel) mediaPanel.scrollTop = 0;
+            }
+
             const modal = document.getElementById('projectModal');
-            if (modal) modal.classList.add('active');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
         }
 
+        // دعم الاستدعاء القديم للمشروع بالاسم
+        function openProjectModal(key) {
+            for (const cat in projectsDB) {
+                const found = projectsDB[cat].find(x => x.id === key || x.name.toLowerCase() === (key || '').toLowerCase());
+                if (found) {
+                    openProjectModalWithData(found);
+                    return;
+                }
+            }
+            openCurrentProjectModal();
+        }
+
+        // إغلاق النافذة المنبثقة
         function closeProjectModal() {
             const modal = document.getElementById('projectModal');
-            if (modal) modal.classList.remove('active');
+            if (modal) {
+                modal.classList.remove('active');
+                modal.classList.remove('is-wide');
+                document.body.style.overflow = '';
+                const expandText = document.getElementById('projectModalExpandText');
+                if (expandText) expandText.textContent = 'عرض أوسع';
+            }
         }
+
+        // تبديل وضع العرض الأوسع (Wide View)
+        function toggleWideView() {
+            const modal = document.getElementById('projectModal');
+            const expandText = document.getElementById('projectModalExpandText');
+            if (!modal) return;
+
+            const isWide = modal.classList.toggle('is-wide');
+            if (expandText) {
+                expandText.textContent = isWide ? 'إظهار التفاصيل' : 'عرض أوسع';
+            }
+        }
+
+        // إغلاق النافذة بزر الهروب Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeProjectModal();
+                if (typeof closeDirectCallModal === 'function') closeDirectCallModal();
+            }
+        });
+
+        // تهيئة التبويب الافتراضي لقسم الأعمال عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            switchWorkTab('identity');
+        });
 
         // تبديل تبويبات الأسعار
         function switchPricingTab(category, btn) {
