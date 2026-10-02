@@ -221,8 +221,8 @@
             min-width: 0;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
-            text-align: right;
+            align-items: center !important;
+            text-align: center !important;
         }
 
         .founder-card-titles h4 {
@@ -232,6 +232,7 @@
             line-height: 1.3;
             color: #ffffff;
             width: 100%;
+            text-align: center !important;
             word-break: normal;
             overflow-wrap: break-word;
         }
@@ -241,10 +242,14 @@
             line-height: 1.45;
             color: rgba(255, 255, 255, 0.64);
             margin-top: 5px;
+            text-align: center !important;
         }
 
         .founder-header-spacer {
-            display: none !important;
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+            display: block;
         }
 
         .founder-avatar-box {
@@ -1401,7 +1406,7 @@
             line-height: 1.8;
             color: rgba(255, 255, 255, 0.82);
             margin: 1.1rem 0;
-            text-align: right !important;
+            text-align: center !important;
             direction: rtl !important;
             flex: 1;
             width: 100%;
@@ -1411,7 +1416,7 @@
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            justify-content: flex-start !important;
+            justify-content: center !important;
             direction: rtl !important;
             gap: 8px 10px;
             margin-top: auto;
@@ -1449,6 +1454,9 @@
         }
 
         @media (max-width: 640px) {
+            .founder-header-spacer {
+                display: none !important;
+            }
             .founder-card-header {
                 flex-direction: column !important;
                 text-align: center !important;
@@ -3021,7 +3029,7 @@
 
                 <!-- بطاقتا الشريكين المؤسسين (S & R) - البيانات والصور الرسمية المعتمدة -->
                 <div class="founders-editorial-grid">
-                    <!-- الشريك المؤسس S: م. محمد سليم عزيزة (الجهة اليمنى) -->
+                    <!-- الشريك المؤسس S: م. محمد سليم عزيزة (الجهة اليمنى - الصورة يميناً والنصوص بالوسط) -->
                     <div class="founder-editorial-card founder-card--salim">
                         <div class="founder-card-header">
                             <div class="founder-avatar-img-wrap">
@@ -3032,6 +3040,7 @@
                                 <span class="founder-role-badge"><bdi>المسؤول التقني ومطور البرمجيات</bdi> <span class="badge-sep">//</span> <bdi dir="ltr">CTO</bdi></span>
                                 <p class="text-caption text-white-64 mb-0 mt-1">شريك مؤسس وكبير مهندسي البرمجيات والأنظمة الذكية</p>
                             </div>
+                            <div class="founder-header-spacer" aria-hidden="true"></div>
                         </div>
                         <p class="text-body-2 text-white-64 mb-3">
                             المطور المسؤول عن بناء وتحديث المنظومات والحلول البرمجية المتكاملة لكبرى الشركات والمؤسسات. نعمل على تقديم بنية رقمية سحابية متقدمة تشمل تطبيقات الهواتف الذكية، المنصات الرقمية السريعة، وأنظمة الذكاء الاصطناعي المخصصة لمساعدة عملائنا في هولندا وأوروبا والشرق الأوسط على أتمتة العمليات وتحقيق الريادة الرقمية.
@@ -3044,16 +3053,17 @@
                         </div>
                     </div>
 
-                    <!-- الشريك المؤسس R: أ. محمد رائد كعكة (الجهة اليسرى) -->
+                    <!-- الشريك المؤسس R: أ. محمد رائد كعكة (الجهة اليسرى - الصورة يساراً والنصوص بالوسط) -->
                     <div class="founder-editorial-card founder-card--raed">
                         <div class="founder-card-header">
-                            <div class="founder-avatar-img-wrap">
-                                <img src="./assets/founder-raed.png?v=color_v2" alt="أ. محمد رائد كعكة" class="founder-avatar-img" />
-                            </div>
+                            <div class="founder-header-spacer" aria-hidden="true"></div>
                             <div class="founder-card-titles">
                                 <h4 class="text-white fw-bold mb-1">أ. محمد رائد كعكة</h4>
                                 <span class="founder-role-badge"><bdi>شريك مؤسس ومطور نظم محاسبة الشركات</bdi> <span class="badge-sep">//</span> <bdi dir="ltr">CFO</bdi></span>
                                 <p class="text-caption text-white-64 mb-0 mt-1">كبير مطوري أنظمة الـ ERP والتشريعات المالية الأوروبية</p>
+                            </div>
+                            <div class="founder-avatar-img-wrap">
+                                <img src="./assets/founder-raed.png?v=color_v2" alt="أ. محمد رائد كعكة" class="founder-avatar-img" />
                             </div>
                         </div>
                         <p class="text-body-2 text-white-64 mb-3">
