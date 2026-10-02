@@ -1137,62 +1137,73 @@
             margin-left: auto;
             margin-right: auto;
             padding-left: clamp(15px, 2vw, 36px);
-            padding-right: clamp(15px, 2vw, 36px);
+        /* Centered and balanced 3-column executive layout */
+        .container-executive-about {
+            max-width: 1600px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: clamp(15px, 2.5vw, 40px);
+            padding-right: clamp(15px, 2.5vw, 40px);
         }
 
-        /* CoreSync Design Token */
+        /* 3-Column Grid for Executive Leadership */
         .executive-about-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 2.5rem;
+            grid-template-columns: minmax(220px, 340px) 1fr minmax(220px, 340px);
+            gap: clamp(1.2rem, 2.2vw, 3rem);
             align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .executive-grid-salim {
+            order: 1 !important;
+            width: 100%;
+        }
+        .executive-grid-center {
+            order: 2 !important;
+            width: 100%;
+            text-align: center;
+        }
+        .executive-grid-raed {
+            order: 3 !important;
             width: 100%;
         }
 
-        @media (min-width: 992px) {
-            .executive-about-grid {
-                display: grid;
-                grid-template-columns: minmax(280px, 350px) 1fr minmax(280px, 350px);
-                grid-template-areas: "col-raed-left col-vision-center col-salim-right";
-                direction: ltr !important;
-                gap: clamp(1.8rem, 2.5vw, 3.2rem);
-                align-items: center;
-            }
-            .executive-grid-raed {
-                grid-area: col-raed-left;
-            }
-            .executive-grid-center {
-                grid-area: col-vision-center;
-                direction: ltr !important;
-                text-align: left;
-            }
-            .executive-grid-salim {
-                grid-area: col-salim-right;
-            }
-        }
-
-        @media (max-width: 991px) {
+        @media (max-width: 820px) {
             .executive-about-grid {
                 display: flex;
                 flex-direction: column;
-                gap: 2rem;
+                gap: 2.5rem;
+                align-items: center;
             }
             .executive-grid-center {
-                order: 1;
+                order: 1 !important;
                 width: 100%;
-                text-align: left;
-                direction: ltr !important;
+                max-width: 650px;
+                margin: 0 auto;
             }
-            /* Hide bulky portrait media on mobile devices for auto-containment and sleek layout */
-            .executive-grid-salim,
+            .executive-grid-salim {
+                order: 2 !important;
+                width: 100%;
+                max-width: 320px;
+                margin: 0 auto;
+            }
             .executive-grid-raed {
-                display: none !important;
+                order: 3 !important;
+                width: 100%;
+                max-width: 320px;
+                margin: 0 auto;
             }
         }
 
         .section-about-me .col-left {
             position: relative;
             width: 100%;
+            max-width: 350px;
+            margin: 0 auto;
         }
 
         .section-about-me .about-media {
@@ -1203,6 +1214,11 @@
             border: 1px solid rgba(197, 168, 128, 0.28);
             box-shadow: 0 16px 45px rgba(0, 0, 0, 0.75), 0 0 32px rgba(197, 168, 128, 0.12);
             transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            width: 100%;
+            max-width: 350px;
+            margin: 0 auto;
+            aspect-ratio: 0.82;
+            background: #040907;
         }
 
         .section-about-me .about-media:hover {
@@ -2909,7 +2925,7 @@
                     <div class="executive-grid-raed">
                         <div class="col-left mb-0">
                             <div class="about-media about-media--raed">
-                                <img class="video" loading="lazy" decoding="async" src="../assets/about-founder-raed.jpg" alt="Dhr. Mohammad Raed Kaakeh - Medeoprichter & CFO">
+                                <img class="video" loading="eager" decoding="async" src="../assets/about-founder-raed.jpg" alt="Dhr. Mohammad Raed Kaakeh - Medeoprichter & CFO">
                                 <div class="overlay v1"></div>
                                 <div class="overlay mark-1"></div>
                                 <div class="overlay mark-2"></div>

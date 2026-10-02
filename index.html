@@ -1141,67 +1141,98 @@
         }
 
         /* ضبط ومحاذاة النص في المنتصف ليتوازن بشكل كامل ومتناسق مع الصورتين السينمائيتين */
+        /* ضبط ومحاذاة النص في المنتصف ليتوازن بشكل كامل ومتناسق مع الصورتين السينمائيتين */
         .container-executive-about {
-            max-width: 1560px;
+            max-width: 1600px;
             width: 100%;
             margin-left: auto;
             margin-right: auto;
-            padding-left: clamp(15px, 2vw, 36px);
-            padding-right: clamp(15px, 2vw, 36px);
+            padding-left: clamp(15px, 2.5vw, 40px);
+            padding-right: clamp(15px, 2.5vw, 40px);
         }
 
         /* شبكة الأعمدة الثلاثية للقسم القيادي للمؤسسين (سليم يمين - الرؤية وسط - رائد يسار) */
         .executive-about-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 2.5rem;
+            grid-template-columns: minmax(220px, 340px) 1fr minmax(220px, 340px);
+            gap: clamp(1.2rem, 2.2vw, 3rem);
             align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* الترتيب الثابت لصفحة اللغة العربية RTL: سليم باليمين - الرؤية بالوسط - رائد باليسار */
+        html[lang="ar"] .executive-about-grid {
+            direction: rtl !important;
+        }
+        html[lang="ar"] .executive-grid-salim {
+            order: 1 !important; /* الطرف اليمين */
+            width: 100%;
+        }
+        html[lang="ar"] .executive-grid-center {
+            order: 2 !important; /* المنتصف */
+            width: 100%;
+            direction: rtl !important;
+            text-align: center;
+        }
+        html[lang="ar"] .executive-grid-raed {
+            order: 3 !important; /* الطرف اليسار */
             width: 100%;
         }
 
-        @media (min-width: 992px) {
-            .executive-about-grid {
-                display: grid;
-                grid-template-columns: minmax(280px, 350px) 1fr minmax(280px, 350px);
-                grid-template-areas: "col-raed-left col-vision-center col-salim-right";
-                direction: ltr !important;
-                gap: clamp(1.8rem, 2.5vw, 3.2rem);
-                align-items: center;
-            }
-            .executive-grid-raed {
-                grid-area: col-raed-left; /* أ. محمد رائد كعكة: أقصى يسار الشاشة */
-            }
-            .executive-grid-center {
-                grid-area: col-vision-center; /* الشعار والنص والرؤية: منتصف الشاشة */
-                direction: rtl !important;
-            }
-            .executive-grid-salim {
-                grid-area: col-salim-right; /* م. محمد سليم عزيزة: أقصى يمين الشاشة */
-            }
+        /* الترتيب لصفحات اللغات الأجنبية LTR */
+        html:not([lang="ar"]) .executive-about-grid {
+            direction: ltr !important;
+        }
+        html:not([lang="ar"]) .executive-grid-salim {
+            order: 1 !important;
+            width: 100%;
+        }
+        html:not([lang="ar"]) .executive-grid-center {
+            order: 2 !important;
+            width: 100%;
+            direction: ltr !important;
+            text-align: center;
+        }
+        html:not([lang="ar"]) .executive-grid-raed {
+            order: 3 !important;
+            width: 100%;
         }
 
-        @media (max-width: 991px) {
+        /* استجابة سلسة للأجهزة اللوحية والمحمولة (أقل من 820px) */
+        @media (max-width: 820px) {
             .executive-about-grid {
                 display: flex;
                 flex-direction: column;
-                gap: 2rem;
+                gap: 2.5rem;
+                align-items: center;
             }
             .executive-grid-center {
-                order: 1;
+                order: 1 !important;
                 width: 100%;
-                direction: rtl !important;
-                text-align: right;
+                max-width: 650px;
+                margin: 0 auto;
             }
-            /* إخفاء الصورتين الضخمتين على الجوال حسب الطلب لتوفير المساحة وسرعة التحميل واستقرار الشاشة */
-            .executive-grid-salim,
+            .executive-grid-salim {
+                order: 2 !important;
+                width: 100%;
+                max-width: 320px;
+                margin: 0 auto;
+            }
             .executive-grid-raed {
-                display: none !important;
+                order: 3 !important;
+                width: 100%;
+                max-width: 320px;
+                margin: 0 auto;
             }
         }
 
         .section-about-me .col-left {
             position: relative;
             width: 100%;
+            max-width: 350px;
+            margin: 0 auto;
         }
 
         .section-about-me .about-media {
@@ -1212,6 +1243,11 @@
             border: 1px solid rgba(197, 168, 128, 0.28);
             box-shadow: 0 16px 45px rgba(0, 0, 0, 0.75), 0 0 32px rgba(197, 168, 128, 0.12);
             transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            width: 100%;
+            max-width: 350px;
+            margin: 0 auto;
+            aspect-ratio: 0.82;
+            background: #040907;
         }
 
         .section-about-me .about-media:hover {
@@ -2910,7 +2946,7 @@
                     <div class="executive-grid-raed">
                         <div class="col-left mb-0">
                             <div class="about-media about-media--raed">
-                                <img class="video" loading="lazy" decoding="async" src="./assets/about-founder-raed.jpg" alt="أ. محمد رائد كعكة - شريك مؤسس ومطور نظم محاسبة الشركات CFO">
+                                <img class="video" loading="eager" decoding="async" src="./assets/about-founder-raed.jpg" alt="أ. محمد رائد كعكة - شريك مؤسس ومطور نظم محاسبة الشركات CFO">
                                 <div class="overlay v1"></div>
                                 <div class="overlay mark-1"></div>
                                 <div class="overlay mark-2"></div>
