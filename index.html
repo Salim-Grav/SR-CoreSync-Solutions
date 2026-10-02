@@ -394,10 +394,24 @@
         }
 
         .section-about-me .col-left .signature img {
-            width: clamp(140px, 15vw, 210px);
+            width: clamp(160px, 20vw, 240px);
             max-width: 92%;
             height: auto;
-            filter: drop-shadow(0 0 8px rgba(197, 168, 128, 0.8)) drop-shadow(0 0 20px rgba(197, 168, 128, 0.4));
+            filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.95))
+                    drop-shadow(0 0 6px rgba(251, 191, 36, 0.85))
+                    drop-shadow(0 0 14px rgba(217, 119, 6, 0.6))
+                    drop-shadow(0 0 25px rgba(197, 168, 128, 0.35));
+            opacity: 0.95;
+            transition: all 0.4s ease;
+        }
+
+        .section-about-me .col-left:hover .signature img {
+            filter: drop-shadow(0 0 3px rgba(255, 255, 255, 1))
+                    drop-shadow(0 0 10px rgba(251, 191, 36, 1))
+                    drop-shadow(0 0 20px rgba(217, 119, 6, 0.75))
+                    drop-shadow(0 0 35px rgba(197, 168, 128, 0.5));
+            opacity: 1;
+            transform: scale(1.02);
         }
 
         .section-about-me .col-right {
@@ -1518,7 +1532,7 @@
                                 <div class="overlay mark-2"></div>
                             </div>
                             <div class="signature">
-                                <img loading="lazy" decoding="async" width="1000" height="252" src="./assets/signature-neon.svg?v=salim" alt="Mohammad Salim Aziza - التوقيع النيوني الذهبي">
+                                <img loading="lazy" decoding="async" width="1000" height="252" src="./assets/signature-neon.svg?v=dana_v2" alt="Mohammad Salim Aziza - التوقيع النيوني الذهبي">
                             </div>
                         </div>
                     </div>
@@ -1574,7 +1588,7 @@
                                 <div class="overlay mark-2"></div>
                             </div>
                             <div class="signature">
-                                <img loading="lazy" decoding="async" width="1000" height="252" src="./assets/signature-neon-raed.svg" alt="Mohammad Raed Kaakeh - التوقيع النيوني الذهبي">
+                                <img loading="lazy" decoding="async" width="1000" height="252" src="./assets/signature-neon-raed.svg?v=dana_v2" alt="Mohammad Raed Kaakeh - التوقيع النيوني الذهبي">
                             </div>
                         </div>
                     </div>
