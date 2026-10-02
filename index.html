@@ -6321,19 +6321,23 @@
             const paneRaed = document.getElementById('cinemaPaneRaed');
             const vid = document.getElementById('cinemaVideoSalim');
 
+            if (vid && !vid.playsInline) {
+                vid.playsInline = true;
+            }
+
             if (founder === 'salim') {
                 if (btnSalim) btnSalim.classList.add('active');
                 if (btnRaed) btnRaed.classList.remove('active');
-                if (paneSalim) paneSalim.style.display = 'block';
-                if (paneRaed) paneRaed.style.display = 'none';
+                if (paneSalim) paneSalim.classList.remove('sr-cinema-pane-hidden');
+                if (paneRaed) paneRaed.classList.add('sr-cinema-pane-hidden');
                 if (vid) {
                     vid.play().catch(() => {});
                 }
             } else {
                 if (btnSalim) btnSalim.classList.remove('active');
                 if (btnRaed) btnRaed.classList.add('active');
-                if (paneSalim) paneSalim.style.display = 'none';
-                if (paneRaed) paneRaed.style.display = 'block';
+                if (paneSalim) paneSalim.classList.add('sr-cinema-pane-hidden');
+                if (paneRaed) paneRaed.classList.remove('sr-cinema-pane-hidden');
                 if (vid) {
                     vid.pause();
                 }
