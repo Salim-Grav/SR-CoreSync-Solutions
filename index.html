@@ -1232,6 +1232,315 @@
                 justify-content: space-between;
                 margin-top: 8px;
             }
+        /* ================================================================
+           نظام العرض السينمائي التناوبي المزدوج للشاشة الرئيسية (Dynamic Duo Hero Slider)
+           ================================================================ */
+        .hero-cinematic {
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+            background: #010907;
+        }
+
+        .hero-duo-viewport {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+            pointer-events: auto;
+        }
+
+        .hero-duo-slide {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s ease;
+            cursor: pointer;
+        }
+
+        .hero-duo-slide.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 2;
+        }
+
+        .hero-duo-slide-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
+            transform: scale(1);
+            animation: heroKenBurns 18s ease-in-out infinite alternate;
+            transform-origin: center 30%;
+        }
+
+        @keyframes heroKenBurns {
+            0% {
+                transform: scale(1) translateY(0);
+            }
+            50% {
+                transform: scale(1.06) translateY(-1.5%);
+            }
+            100% {
+                transform: scale(1.02) translateY(0.8%);
+            }
+        }
+
+        /* مؤثرات الإضاءة والظلال للدمج الفاخر مع خلفية الموقع الداكنة */
+        .hero-duo-vignette {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 50% 25%, transparent 35%, rgba(1, 9, 7, 0.72) 75%, rgba(1, 9, 7, 0.98) 100%),
+                linear-gradient(to bottom, rgba(1, 9, 7, 0.6) 0%, transparent 20%, transparent 65%, rgba(1, 9, 7, 0.98) 100%),
+                linear-gradient(to right, rgba(1, 9, 7, 0.9) 0%, rgba(1, 9, 7, 0.6) 30%, transparent 60%);
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        /* وميض الضوء الذهبي الخافت المسرحي */
+        .hero-duo-spotlight {
+            position: absolute;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: clamp(600px, 80vw, 1200px);
+            height: clamp(600px, 80vw, 1200px);
+            background: radial-gradient(circle, rgba(197, 168, 128, 0.15) 0%, rgba(197, 168, 128, 0.04) 40%, transparent 70%);
+            pointer-events: none;
+            mix-blend-mode: screen;
+            z-index: 4;
+            animation: heroSpotlightPulse 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroSpotlightPulse {
+            0% { opacity: 0.6; transform: translateX(-50%) scale(0.95); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1.08); }
+        }
+
+        /* بطاقة الشريك العائمة / شارة التخصص التفاعلية */
+        .hero-founder-tag-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(1, 9, 7, 0.85);
+            border: 1px solid rgba(197, 168, 128, 0.4);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            padding: 8px 18px;
+            border-radius: 999px;
+            color: #ffffff;
+            font-size: 0.82rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7), 0 0 16px rgba(197, 168, 128, 0.2);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            direction: rtl;
+        }
+
+        .hero-founder-tag-pill .gold-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary-gold);
+            box-shadow: 0 0 10px var(--primary-gold);
+            animation: cinemaPulse 1.8s infinite ease-in-out;
+            flex-shrink: 0;
+        }
+
+        /* عناصر التحكم بالتبديل التناوبي والشريط الذهبي للتقدم */
+        .hero-duo-controls-wrap {
+            margin-top: 1.5rem;
+            display: inline-flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 10;
+            width: 100%;
+            max-width: 440px;
+        }
+
+        .hero-duo-pills {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(1, 9, 7, 0.82);
+            border: 1.2px solid rgba(197, 168, 128, 0.35);
+            border-radius: 999px;
+            padding: 4px;
+            gap: 6px;
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+            direction: rtl;
+            width: fit-content;
+        }
+
+        .hero-duo-pill {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.75);
+            padding: 6px 14px;
+            border-radius: 999px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            direction: rtl;
+        }
+
+        .hero-duo-pill:hover {
+            color: #ffffff;
+            background: rgba(197, 168, 128, 0.12);
+        }
+
+        .hero-duo-pill.active {
+            background: linear-gradient(135deg, var(--primary-gold) 0%, #e6d4b9 100%);
+            color: #010907 !important;
+            box-shadow: 0 0 18px rgba(197, 168, 128, 0.5);
+        }
+
+        .hero-duo-pill.active .duo-pill-role {
+            background: rgba(1, 9, 7, 0.18);
+            color: #010907;
+        }
+
+        .duo-pill-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 1px solid currentColor;
+            flex-shrink: 0;
+        }
+
+        .duo-pill-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .duo-pill-role {
+            font-size: 0.7rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 7px;
+            border-radius: 999px;
+            color: rgba(255, 255, 255, 0.85);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+        }
+
+        /* شريط التقدم الذهبي التناوبي (7 ثوانٍ) */
+        .hero-progress-track {
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 999px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--primary-gold), #fff);
+            box-shadow: 0 0 8px var(--primary-gold);
+            border-radius: 999px;
+            transition: width 0.1s linear;
+        }
+
+        /* شارة التوقيع النيوني العائمة أسفل البانر */
+        .hero-signature-preview {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-signature-preview:hover {
+            transform: scale(1.04);
+        }
+
+        .hero-signature-preview img {
+            height: 36px;
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(197, 168, 128, 0.5));
+            transition: filter 0.3s ease;
+        }
+
+        .hero-signature-preview:hover img {
+            filter: drop-shadow(0 0 16px rgba(197, 168, 128, 0.8));
+        }
+
+        .hero-signature-hint {
+            font-size: 0.72rem;
+            color: rgba(197, 168, 128, 0.8);
+            border: 1px dashed rgba(197, 168, 128, 0.3);
+            padding: 3px 10px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* تلميح التكبير السينمائي */
+        .hero-cinema-expand-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(1, 9, 7, 0.75);
+            border: 1px solid rgba(197, 168, 128, 0.35);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            padding: 7px 16px;
+            border-radius: 999px;
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 10;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-cinema-expand-hint:hover {
+            background: rgba(197, 168, 128, 0.25);
+            border-color: var(--primary-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(197, 168, 128, 0.4);
+        }
+
+        .hero-cinema-expand-hint svg {
+            color: var(--primary-gold);
+        }
+
+        @media (max-width: 768px) {
+            .hero-cinema-expand-hint {
+                bottom: 16px;
+                left: 16px;
+                padding: 6px 12px;
+                font-size: 0.7rem;
+            }
+            .hero-duo-pills {
+                width: 100%;
+                justify-content: center;
+            }
+            .hero-duo-slide-img {
+                object-position: center 20%;
+            }
         }
 
         /* ================================================================
@@ -3096,13 +3405,29 @@
 
         <!-- 1. البانر الترحيبي والسينمائي (Hero Cinematic Section) -->
         <div class="hero-editorial hero-cinematic" id="home" data-section>
-            <div class="cinematic-viewport" aria-hidden="true">
-                <div class="cinematic-scene">
-                    <video class="cinematic-video cinematic-video--a" muted loop autoplay preload="metadata" poster="./assets/hero-founder-poster.webp" src="./assets/hero-founder-cinematic.mp4" aria-hidden="true"></video>
+            <!-- مسرح الخلفية السينمائي التناوبي المزدوج (Dynamic Duo Hero Viewport) -->
+            <div class="hero-duo-viewport" aria-label="عرض سينمائي للشريكين المؤسسين">
+                <!-- مشهد م. سليم عزيزة -->
+                <div class="hero-duo-slide active" id="heroSlideSalim" onclick="openFounderCinema('salim')" title="انقر لفتح المسرح السينمائي المكبر لم. سليم عزيزة">
+                    <img class="hero-duo-slide-img" src="./assets/hero-founder-salim-chair.jpg" alt="م. محمد سليم عزيزة - CTO & كبير مهندسي البرمجيات والذكاء الاصطناعي">
+                    <div class="hero-duo-vignette" aria-hidden="true"></div>
+                    <div class="hero-duo-spotlight" aria-hidden="true"></div>
+                </div>
+
+                <!-- مشهد أ. رائد كعكة -->
+                <div class="hero-duo-slide" id="heroSlideRaed" onclick="openFounderCinema('raed')" title="انقر لفتح المسرح السينمائي المكبر لأ. رائد كعكة">
+                    <img class="hero-duo-slide-img" src="./assets/hero-founder-raed-chair.jpg" alt="أ. محمد رائد كعكة - CFO & كبير مطوري أنظمة الـ ERP والربط المالي">
+                    <div class="hero-duo-vignette" aria-hidden="true"></div>
+                    <div class="hero-duo-spotlight" aria-hidden="true"></div>
                 </div>
             </div>
 
-            <!-- شريط التنقل العلوي (Header Refined) -->
+            <!-- زر تلميح التكبير السينمائي للشاشة الرئيسية -->
+            <button type="button" class="hero-cinema-expand-hint" onclick="openFounderCinema(currentHeroSlide)" title="عرض سينمائي حي ومكبر للشريك المعروض">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"/></svg>
+                <span id="heroCinemaExpandText">عرض سينمائي مكبّر 4K</span>
+            </button>
+
             <!-- شريط التنقل العلوي الملكي (Header Refined) -->
             <header class="tf-header header-refined">
                 <div class="header-inner">
@@ -3187,17 +3512,43 @@
                     <div class="container">
                         <div class="hero-reference__grid">
                             <div class="hero-reference__copy">
-                                <p class="hero-availability hero-intro">
-                                    <span class="hero-availability__dot"></span>
-                                    متاحون لقبول مشاريع وأنظمة جديدة لعام 2026
-                                </p>
-                                <h1 class="hero-reference__title">
-                                    <span class="hero-title-line"><span class="hero-title-line__text">أنظمة وبرمجيات</span></span>
-                                    <span class="hero-title-line"><span class="hero-title-line__text"><span class="hero-title-accent">ذكية</span> لنمو أعمالك</span></span>
+                                <div class="hero-founder-tag-pill" id="heroFounderTagPill">
+                                    <span class="gold-dot" aria-hidden="true"></span>
+                                    <span id="heroFounderTagText"><bdi>متاحون لمشاريع 2026</bdi> // <bdi>م. محمد سليم عزيزة</bdi> • <bdi dir="ltr">CTO</bdi></span>
+                                </div>
+                                <h1 class="hero-reference__title" id="heroMainTitle">
+                                    <span class="hero-title-line"><span class="hero-title-line__text" id="heroTitleLine1">أنظمة وبرمجيات سحابية</span></span>
+                                    <span class="hero-title-line"><span class="hero-title-line__text"><span class="hero-title-accent" id="heroTitleAccent">ذكية</span> <span id="heroTitleLine2">لنمو أعمالك وريادتها</span></span></span>
                                 </h1>
                                 <div class="hero-reference__bottom hero-intro">
-                                    <p>نبتكر حلولاً برمجية مخصصة، تطبيقات سحابية، وتكامل أنظمة الـ ERP والمحاسبة وأتمتة الذكاء الاصطناعي لمساعدة الشركات في أوروبا والشرق الأوسط على التوسع والريادة.</p>
-                                    <div class="hero-reference__actions d-flex flex-wrap gap-2">
+                                    <p id="heroMainDesc">نبتكر حلولاً برمجية مخصصة، تطبيقات سحابية فائقة السرعة، ومنصات ذكاء اصطناعي لمساعدة كبرى الشركات في هولندا والشرق الأوسط على أتمتة أعمالها والتوسع عالمياً.</p>
+
+                                    <!-- شريط التحكم التناوبي المزدوج والمؤشر الزمني (7 ثوانٍ) -->
+                                    <div class="hero-duo-controls-wrap">
+                                        <div class="hero-duo-pills" role="tablist" aria-label="تبديل الشريك في الشاشة الرئيسية">
+                                            <button type="button" class="hero-duo-pill active" id="heroDuoPillSalim" onclick="switchHeroDuoSlide('salim')" role="tab" aria-selected="true">
+                                                <span class="duo-pill-avatar"><img src="./assets/founder-salim.png?v=color_v2" alt="سليم"></span>
+                                                <span>م. سليم عزيزة</span>
+                                                <span class="duo-pill-role">CTO</span>
+                                            </button>
+                                            <button type="button" class="hero-duo-pill" id="heroDuoPillRaed" onclick="switchHeroDuoSlide('raed')" role="tab" aria-selected="false">
+                                                <span class="duo-pill-avatar"><img src="./assets/founder-raed.png?v=color_v2" alt="رائد"></span>
+                                                <span>أ. رائد كعكة</span>
+                                                <span class="duo-pill-role">CFO</span>
+                                            </button>
+                                        </div>
+                                        <div class="hero-progress-track" title="المؤقت الزمني للتبديل التلقائي (يتوقف تلقائياً عند وضع الماوس)">
+                                            <div class="hero-progress-bar" id="heroProgressBar"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- التوقيع النيوني الذهبي للشريك المعروض -->
+                                    <div class="hero-signature-preview" id="heroSignaturePreview" onclick="openFounderCinema(currentHeroSlide)" title="انقر لفتح المسرح السينمائي المكبر">
+                                        <img id="heroSignatureImg" src="./assets/signature-neon.svg?v=dana_v2" alt="التوقيع النيوني الذهبي">
+                                        <span class="hero-signature-hint">عرض سينمائي ↗</span>
+                                    </div>
+
+                                    <div class="hero-reference__actions d-flex flex-wrap gap-2 mt-3">
                                         <a href="#contact" class="tf-btn hero-reference__action">تواصـــل معنا</a>
                                         <button type="button" class="tf-btn hero-reference__action hero-btn-vip" onclick="openExecutiveBookingModal()">
                                             <span>حجز استشارة VIP 👔</span>
