@@ -367,6 +367,437 @@
             line-height: 1;
             margin: 2rem 0;
         }
+        /* ================================================================
+           Interactive ROI & Cost-Savings Calculator (LTR)
+           ================================================================ */
+        .section-roi-calculator {
+            position: relative;
+            padding: 5rem 0;
+            background: radial-gradient(circle at 50% 30%, rgba(197, 168, 128, 0.05) 0%, rgba(1, 9, 7, 0.98) 80%);
+            border-top: 1px solid rgba(197, 168, 128, 0.15);
+            border-bottom: 1px solid rgba(197, 168, 128, 0.15);
+            overflow: hidden;
+        }
+
+        .roi-card-wrapper {
+            background: radial-gradient(circle at 50% 0%, rgba(197, 168, 128, 0.08) 0%, rgba(5, 15, 12, 0.85) 75%);
+            border: 1.5px solid rgba(197, 168, 128, 0.3);
+            border-radius: 28px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            padding: clamp(1.8rem, 4vw, 3.5rem);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+        }
+
+        .roi-inputs-pane {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .roi-field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .roi-label {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .roi-label-badge {
+            color: #e6ca9f;
+            font-weight: 800;
+            font-size: 0.92rem;
+            background: rgba(197, 168, 128, 0.12);
+            padding: 2px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(197, 168, 128, 0.25);
+        }
+
+        .roi-range-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            transition: background 0.2s;
+        }
+
+        .roi-range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fdf6e9, #c5a880);
+            cursor: pointer;
+            box-shadow: 0 0 12px rgba(197, 168, 128, 0.6);
+            border: 2px solid #010907;
+            transition: transform 0.15s ease;
+        }
+
+        .roi-range-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .roi-select-custom {
+            background: rgba(2, 9, 7, 0.85);
+            border: 1px solid rgba(197, 168, 128, 0.3);
+            border-radius: 12px;
+            color: #ffffff;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.25s ease;
+        }
+
+        .roi-select-custom:focus {
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 15px rgba(197, 168, 128, 0.25);
+        }
+
+        .roi-results-pane {
+            background: radial-gradient(circle at 50% 50%, rgba(197, 168, 128, 0.08) 0%, rgba(2, 8, 6, 0.95) 85%);
+            border: 1.5px solid rgba(197, 168, 128, 0.35);
+            border-radius: 20px;
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.6);
+        }
+
+        .roi-metric-highlight {
+            font-size: clamp(2rem, 3.8vw, 3.2rem);
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin: 0.35rem 0 1rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .roi-metric-highlight span {
+            color: #c5a880;
+        }
+
+        .roi-stats-mini-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.25rem 0 1.75rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid rgba(197, 168, 128, 0.2);
+        }
+
+        .roi-stat-mini {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(197, 168, 128, 0.15);
+            border-radius: 14px;
+            padding: 0.85rem 1rem;
+        }
+
+        .roi-stat-mini-label {
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .roi-stat-mini-val {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-top: 4px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .roi-stat-mini-val span {
+            color: #c5a880;
+        }
+
+        /* ================================================================
+           Compliance & Trust Ribbon (LTR)
+           ================================================================ */
+        .section-compliance-ribbon {
+            position: relative;
+            padding: 3.5rem 0;
+            background: rgba(2, 7, 5, 0.94);
+            border-top: 1px solid rgba(197, 168, 128, 0.18);
+            border-bottom: 1px solid rgba(197, 168, 128, 0.18);
+        }
+
+        .compliance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .compliance-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(197, 168, 128, 0.18);
+            border-radius: 16px;
+            padding: 1.25rem 1.4rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .compliance-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(197, 168, 128, 0.5);
+            background: rgba(197, 168, 128, 0.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .compliance-icon-wrap {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(197, 168, 128, 0.12);
+            border: 1px solid rgba(197, 168, 128, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: #c5a880;
+        }
+
+        .compliance-title {
+            font-size: 0.98rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .compliance-desc {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.62);
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        /* ================================================================
+           Modals (VIP Booking & Client Portal) (LTR)
+           ================================================================ */
+        .sr-booking-modal-overlay,
+        .sr-portal-modal-overlay,
+        .sr-logo-lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100060;
+            background: rgba(1, 6, 5, 0.9);
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(1rem, 3vw, 2.5rem);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease;
+        }
+
+        .sr-booking-modal-overlay.active,
+        .sr-portal-modal-overlay.active,
+        .sr-logo-lightbox-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .sr-booking-modal-card,
+        .sr-portal-modal-card,
+        .sr-logo-modal-card {
+            position: relative;
+            max-width: 780px;
+            width: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(197, 168, 128, 0.1) 0%, rgba(4, 12, 10, 0.98) 75%);
+            border: 1.5px solid rgba(197, 168, 128, 0.35);
+            border-radius: 24px;
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.9), 0 0 50px rgba(197, 168, 128, 0.15);
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            transform: scale(0.92) translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            color: #ffffff;
+            direction: ltr;
+            text-align: left;
+            max-height: 94vh;
+            overflow-y: auto;
+        }
+
+        .sr-booking-modal-overlay.active .sr-booking-modal-card,
+        .sr-portal-modal-overlay.active .sr-portal-modal-card,
+        .sr-logo-lightbox-overlay.active .sr-logo-modal-card {
+            transform: scale(1) translateY(0);
+        }
+
+        .advisor-select-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1.5px solid rgba(197, 168, 128, 0.2);
+            border-radius: 16px;
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-align: left;
+        }
+
+        .advisor-select-card.active,
+        .advisor-select-card:hover {
+            border-color: var(--primary-gold);
+            background: rgba(197, 168, 128, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .advisor-avatar-sm {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(197, 168, 128, 0.4);
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .advisor-avatar-dual-1 {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(197, 168, 128, 0.5);
+            object-fit: cover;
+        }
+
+        .advisor-avatar-dual-2 {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(197, 168, 128, 0.5);
+            object-fit: cover;
+            margin-left: -12px;
+        }
+
+        .portal-status-container {
+            background: rgba(2, 20, 14, 0.7);
+            border: 1px solid rgba(197, 168, 128, 0.25);
+            border-radius: 14px;
+            padding: 0.9rem 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .portal-status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 10px #22c55e;
+            display: inline-block;
+        }
+
+        .portal-box-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(197, 168, 128, 0.2);
+            border-radius: 18px;
+            padding: 1.5rem;
+            height: 100%;
+        }
+
+        .btn-portal-header {
+            background: rgba(197, 168, 128, 0.1);
+            border: 1px solid rgba(197, 168, 128, 0.35);
+            color: #e6ca9f !important;
+            padding: 7px 15px;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .btn-portal-header:hover {
+            background: rgba(197, 168, 128, 0.22);
+            border-color: var(--primary-gold);
+            color: #ffffff !important;
+            transform: translateY(-1px);
+        }
+
+        .btn-vip-header {
+            background: linear-gradient(135deg, rgba(197, 168, 128, 0.22), rgba(197, 168, 128, 0.06));
+            border: 1px solid rgba(197, 168, 128, 0.5);
+            color: #ffffff !important;
+            padding: 7px 16px;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .btn-vip-header:hover {
+            background: var(--primary-gold);
+            border-color: var(--primary-gold);
+            color: #010907 !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(197, 168, 128, 0.35);
+        }
+
+        .sr-logo-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #e6ca9f;
+            background: rgba(197, 168, 128, 0.12);
+            border: 1px solid rgba(197, 168, 128, 0.28);
+            border-radius: 999px;
+            padding: 4px 14px;
+        }
+
+        .gold-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--primary-gold);
+            box-shadow: 0 0 8px var(--primary-gold);
+        }
+
+        .call-opt-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.9rem 1.1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(197, 168, 128, 0.18);
+            border-radius: 14px;
+            color: #ffffff;
+            transition: all 0.25s ease;
+        }
+
+        .call-opt-row:hover {
+            border-color: var(--primary-gold);
+            background: rgba(197, 168, 128, 0.08);
+            transform: translateX(3px);
+            color: #ffffff;
+        }
     </style>
 </head>
 
@@ -438,19 +869,30 @@
                                         <li class="menu-item"><a href="#service" class="item-link link text-caption"><span>02 /</span>SERVICES</a></li>
                                         <li class="menu-item"><a href="#about" class="item-link link text-caption"><span>03 /</span>ABOUT</a></li>
                                         <li class="menu-item"><a href="#pricing" class="item-link link text-caption"><span>04 /</span>PRICING</a></li>
-                                        <li class="menu-item"><a href="#faq" class="item-link link text-caption"><span>05 /</span>FAQ</a></li>
-                                        <li class="menu-item"><a href="#contact" class="item-link link text-caption"><span>06 /</span>CONTACT</a></li>
-                                        <li class="menu-item"><a href="../demo.html" class="item-link link text-caption nav-item-demo-highlight"><span>07 /</span>LIVE DEMO</a></li>
+                                        <li class="menu-item"><a href="#roi-calculator" class="item-link link text-caption gold-accent"><span>05 /</span>ROI CALCULATOR</a></li>
+                                        <li class="menu-item"><a href="#faq" class="item-link link text-caption"><span>06 /</span>FAQ</a></li>
+                                        <li class="menu-item"><a href="#contact" class="item-link link text-caption"><span>07 /</span>CONTACT</a></li>
+                                        <li class="menu-item"><a href="../demo.html" class="item-link link text-caption nav-item-demo-highlight"><span>08 /</span>LIVE DEMO</a></li>
                                     </ul>
                                 </div>
                             </div>
 
                             <!-- Header Actions -->
                             <div class="col-3 col-md-4 d-none d-sm-block">
-                                <div class="header-contact d-flex align-items-center justify-content-end gap-3">
+                                <div class="header-contact d-flex align-items-center justify-content-end gap-2 gap-lg-3">
+                                    <button type="button" class="btn-portal-header" onclick="openClientPortalModal()" title="Client Cloud Portal">
+                                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                        <span>Portal</span>
+                                    </button>
+
+                                    <button type="button" class="btn-vip-header" onclick="openExecutiveBookingModal()" title="VIP Executive Consultation">
+                                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                        <span>Book VIP</span>
+                                    </button>
+
                                     <a href="https://wa.me/31612345678" target="_blank" rel="noopener noreferrer" class="tf-btn header-whatsapp-btn" aria-label="Contact via WhatsApp">
                                         <span class="header-contact-icon" aria-hidden="true"><svg viewBox="0 0 32 32" focusable="false" width="16" height="16"><path d="M16.02 3.2a12.7 12.7 0 0 0-10.95 19.14L3.2 28.8l6.62-1.74A12.8 12.8 0 1 0 16.02 3.2Zm0 23.24a10.48 10.48 0 0 1-5.35-1.46l-.38-.23-3.93 1.03 1.05-3.83-.25-.4a10.5 10.5 0 1 1 8.86 4.89Zm5.76-7.85c-.32-.16-1.9-.94-2.19-1.05-.3-.11-.51-.16-.73.16-.21.32-.83 1.05-1.02 1.26-.19.21-.38.24-.7.08a8.65 8.65 0 0 1-2.55-1.57 9.57 9.57 0 0 1-1.77-2.2c-.18-.32 0-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.54.1-.21.05-.4-.03-.56-.08-.16-.73-1.75-1-2.39-.26-.62-.53-.54-.73-.55h-.62c-.21 0-.56.08-.86.4-.3.32-1.13 1.1-1.13 2.69s1.16 3.13 1.32 3.35c.16.21 2.27 3.46 5.5 4.85.77.33 1.37.53 1.84.68.77.24 1.47.2 2.03.12.62-.09 1.9-.78 2.17-1.54.27-.75.27-1.4.19-1.54-.08-.13-.3-.21-.62-.37Z" fill="currentColor"/></svg></span>
-                                        <span>Contact me</span>
+                                        <span>WhatsApp</span>
                                     </a>
 
                                     <details class="language-switcher notranslate header-language" translate="no">
@@ -519,6 +961,12 @@
                                     <p>We craft tailored cloud platforms, automated ERP integrations, financial engines, and AI systems empowering ambitious enterprises across Europe and the Middle East to scale with precision.</p>
                                     <div class="hero-reference__actions d-flex flex-wrap gap-2">
                                         <a href="#contact" class="tf-btn hero-reference__action">CONTACT US</a>
+                                        <button type="button" class="tf-btn hero-reference__action hero-btn-vip" onclick="openExecutiveBookingModal()">
+                                            <span>BOOK VIP SESSION 👔</span>
+                                        </button>
+                                        <a href="#roi-calculator" class="tf-btn hero-reference__action hero-btn-roi">
+                                            <span>ROI CALCULATOR 📊</span>
+                                        </a>
                                         <a href="../demo.html" class="tf-btn hero-reference__action hero-btn-demo">
                                             <span>LIVE SYSTEM DEMO</span>
                                         </a>
@@ -664,6 +1112,119 @@
             </div>
         </section>
 
+        <!-- 4.5. ROI & Cost-Savings Calculator Section -->
+        <section class="section-roi-calculator flat-spacing" id="roi-calculator" data-section>
+            <div class="container">
+                <div class="s-header d-block text-center mb-5">
+                    <span class="sr-logo-badge-pill mb-3 d-inline-flex">
+                        <span class="gold-dot"></span>
+                        Enterprise Feasibility &amp; ROI Engine
+                    </span>
+                    <h2 class="text-display-2 text-white">
+                        Calculate How Much Your Enterprise Saves with <span class="gold-accent">CoreSync</span>
+                    </h2>
+                    <p class="text-white-64 max-w-700 mx-auto mt-2">
+                        Discover annual cash savings and recovered labor hours when automating business operations and integrating unified ERP with our engineers.
+                    </p>
+                </div>
+
+                <div class="row align-items-stretch g-4">
+                    <div class="col-lg-7">
+                        <div class="roi-card-wrapper h-100">
+                            <div class="roi-inputs-pane">
+                                <div class="roi-field-group">
+                                    <label for="roiCompanySize" class="roi-label">
+                                        <span>Team or Employee Size:</span>
+                                        <span class="roi-label-badge" id="roiCompanySizeVal">15 employees</span>
+                                    </label>
+                                    <input type="range" class="roi-range-slider" id="roiCompanySize" min="3" max="150" value="15" step="1" oninput="updateROICalculator()">
+                                    <div class="d-flex justify-content-between text-caption text-white-64">
+                                        <span>3 people</span>
+                                        <span>75 people</span>
+                                        <span>150+ people</span>
+                                    </div>
+                                </div>
+
+                                <div class="roi-field-group">
+                                    <label for="roiManualHours" class="roi-label">
+                                        <span>Repetitive Manual Hours / Week per Person:</span>
+                                        <span class="roi-label-badge" id="roiManualHoursVal">8 hours / week</span>
+                                    </label>
+                                    <input type="range" class="roi-range-slider" id="roiManualHours" min="2" max="25" value="8" step="1" oninput="updateROICalculator()">
+                                    <div class="d-flex justify-content-between text-caption text-white-64">
+                                        <span>2 hrs (Low)</span>
+                                        <span>12 hrs (Med)</span>
+                                        <span>25 hrs (High)</span>
+                                    </div>
+                                </div>
+
+                                <div class="roi-field-group">
+                                    <label for="roiAvgSalary" class="roi-label">
+                                        <span>Average Estimated Hourly Cost (€):</span>
+                                        <span class="roi-label-badge" id="roiAvgSalaryVal">€28 / hr</span>
+                                    </label>
+                                    <input type="range" class="roi-range-slider" id="roiAvgSalary" min="15" max="80" value="28" step="1" oninput="updateROICalculator()">
+                                    <div class="d-flex justify-content-between text-caption text-white-64">
+                                        <span>€15</span>
+                                        <span>€45</span>
+                                        <span>€80+</span>
+                                    </div>
+                                </div>
+
+                                <div class="roi-field-group">
+                                    <label for="roiSolutionType" class="roi-label">
+                                        <span>Target Solution Architecture:</span>
+                                    </label>
+                                    <select class="roi-select-custom w-100" id="roiSolutionType" onchange="updateROICalculator()">
+                                        <option value="0.75" selected>Full ERP Integration + Accounting Automation (75% savings)</option>
+                                        <option value="0.60">Custom Cloud Platform + Executive Dashboards (60% savings)</option>
+                                        <option value="0.85">Enterprise AI Agents + End-to-End Automation (85% savings)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="roi-results-pane">
+                            <div>
+                                <span class="sr-logo-badge-pill mb-3 d-inline-flex">
+                                    <span class="gold-dot"></span> Operational Savings Projection
+                                </span>
+                                <p class="text-caption text-white-64 mb-1">Projected Annual Net Savings:</p>
+                                <div class="roi-metric-highlight" id="roiAnnualSavings">
+                                    <span>€</span>131,040
+                                </div>
+                                <p class="text-caption text-white-64">
+                                    Full development cost payback estimated within <strong class="gold-accent" id="roiPaybackMonths">1.5 months</strong> post launch.
+                                </p>
+                            </div>
+
+                            <div class="roi-stats-mini-grid">
+                                <div class="roi-stat-mini">
+                                    <div class="roi-stat-mini-label">Recovered Wasted Hours:</div>
+                                    <div class="roi-stat-mini-val" id="roiHoursSaved">4,680 <span>hrs/year</span></div>
+                                </div>
+                                <div class="roi-stat-mini">
+                                    <div class="roi-stat-mini-label">Efficiency Gain:</div>
+                                    <div class="roi-stat-mini-val" id="roiEfficiencyGain">+<span>75%</span></div>
+                                </div>
+                            </div>
+
+                            <div class="mt-3">
+                                <button type="button" class="tf-btn w-100 justify-content-center" onclick="openExecutiveBookingModal('roi')">
+                                    <span>Schedule Technical &amp; Financial Review →</span>
+                                </button>
+                                <p class="text-center text-caption text-white-64 mt-2 mb-0">
+                                    Complimentary roadmap session directly with Founders (Salim &amp; Raed)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- 5. FAQ Section -->
         <div id="faq" data-section class="section-scroll-anchor" aria-hidden="true"></div>
         <section class="flat-spacing pb-5">
@@ -727,9 +1288,260 @@
             </div>
         </section>
 
+        <!-- 6.5. Enterprise Compliance & Trust Ribbon -->
+        <section class="section-compliance-ribbon" id="compliance" data-section>
+            <div class="container">
+                <div class="compliance-grid">
+                    <div class="compliance-card">
+                        <div class="compliance-icon-wrap" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <div>
+                            <div class="compliance-title">EU GDPR Compliant</div>
+                            <p class="compliance-desc">Strict data privacy governance, encrypted communication, and full European GDPR regulatory compliance.</p>
+                        </div>
+                    </div>
+
+                    <div class="compliance-card">
+                        <div class="compliance-icon-wrap" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        </div>
+                        <div>
+                            <div class="compliance-title">Dutch Chamber of Commerce</div>
+                            <p class="compliance-desc">Registered Dutch enterprise under official business registry accreditation KVK: 84920183.</p>
+                        </div>
+                    </div>
+
+                    <div class="compliance-card">
+                        <div class="compliance-icon-wrap" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        </div>
+                        <div>
+                            <div class="compliance-title">Bank-Grade Encryption</div>
+                            <p class="compliance-desc">AES-256 protocols, automated audit trails, and financial integrations conforming to ISO &amp; SOC2 standards.</p>
+                        </div>
+                    </div>
+
+                    <div class="compliance-card">
+                        <div class="compliance-icon-wrap" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                        </div>
+                        <div>
+                            <div class="compliance-title">99.9% Uptime Guarantee</div>
+                            <p class="compliance-desc">Carrier-grade cloud reliability with 24/7 proactive telemetry, automatic failover, and zero downtime updates.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Watermark -->
         <div class="footer-watermark-agency">CORESYNC</div>
     </main>
+
+    <!-- Executive VIP Consultation Booking Modal (EN) -->
+    <div class="sr-booking-modal-overlay" id="executiveBookingModal" role="dialog" aria-modal="true" aria-labelledby="vipBookingTitleEn" onclick="if(event.target === this) closeExecutiveBookingModal()">
+        <div class="sr-booking-modal-card">
+            <!-- Modal Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-secondary border-opacity-25">
+                <div>
+                    <span class="sr-logo-badge-pill mb-1 d-inline-flex">
+                        <span class="gold-dot"></span> Direct Leadership Session
+                    </span>
+                    <h3 id="vipBookingTitleEn" class="text-white fw-bold mb-0">Book Executive Consultation (VIP)</h3>
+                </div>
+                <button type="button" class="btn text-white-64 p-0 fs-3 lh-1 link" onclick="closeExecutiveBookingModal()" aria-label="Close">&times;</button>
+            </div>
+
+            <p class="text-caption text-white-64 mb-4">
+                A 30-minute private briefing with Founding Partners to review your enterprise architecture, accounting sync roadmaps, and automation opportunities to cut costs and maximize ROI.
+            </p>
+
+            <form id="executiveBookingFormEn" onsubmit="dispatchVIPBooking(event)">
+                <div class="mb-4">
+                    <label class="form-label text-white fw-bold mb-2">Select Your Consultation Partner:</label>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="advisor-select-card active" onclick="selectAdvisor('joint', this)">
+                                <div class="d-flex align-items-center gap-1">
+                                    <img src="../assets/founder-salim.png" alt="Salim" class="advisor-avatar-dual-1">
+                                    <img src="../assets/founder-raed.png" alt="Raed" class="advisor-avatar-dual-2">
+                                </div>
+                                <div>
+                                    <div class="fw-bold text-white fs-6">Joint Session (S &amp; R)</div>
+                                    <div class="text-caption text-primary gold-accent">Tech + CFO &amp; ERP</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="advisor-select-card" onclick="selectAdvisor('salim', this)">
+                                <img src="../assets/founder-salim.png" alt="Salim Aziza" class="advisor-avatar-sm">
+                                <div>
+                                    <div class="fw-bold text-white fs-6">Eng. Salim Aziza</div>
+                                    <div class="text-caption text-white-64">CTO // Systems &amp; AI</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="advisor-select-card" onclick="selectAdvisor('raed', this)">
+                                <img src="../assets/founder-raed.png" alt="Raed Kaakeh" class="advisor-avatar-sm">
+                                <div>
+                                    <div class="fw-bold text-white fs-6">M. Raed Kaakeh</div>
+                                    <div class="text-caption text-white-64">CFO // ERP &amp; Finance</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="selectedAdvisorInput" value="Joint Session (S & R - Tech & Finance)">
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label for="vipName" class="form-label text-white-64 text-caption mb-1">Full Name &amp; Title *</label>
+                        <input type="text" id="vipName" class="form-control bg-transparent text-white border-secondary p-3" placeholder="e.g. John Doe - Managing Director" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="vipCompany" class="form-label text-white-64 text-caption mb-1">Company Name &amp; Location *</label>
+                        <input type="text" id="vipCompany" class="form-control bg-transparent text-white border-secondary p-3" placeholder="e.g. Apex Logistics B.V. - Amsterdam" required>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label for="vipPhone" class="form-label text-white-64 text-caption mb-1">WhatsApp or Mobile *</label>
+                        <input type="tel" id="vipPhone" class="form-control bg-transparent text-white border-secondary p-3" placeholder="+31 6 ..." required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="vipPlatform" class="form-label text-white-64 text-caption mb-1">Preferred Meeting Platform *</label>
+                        <select id="vipPlatform" class="form-control bg-dark text-white border-secondary p-3">
+                            <option value="Google Meet">Google Meet (Video)</option>
+                            <option value="Zoom">Zoom Cloud (Video)</option>
+                            <option value="WhatsApp Call">WhatsApp Voice Call</option>
+                            <option value="Phone Call">Direct International Phone</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label for="vipDate" class="form-label text-white-64 text-caption mb-1">Preferred Date *</label>
+                        <input type="date" id="vipDate" class="form-control bg-transparent text-white border-secondary p-3" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="vipTime" class="form-label text-white-64 text-caption mb-1">Preferred Timezone Slot *</label>
+                        <select id="vipTime" class="form-control bg-dark text-white border-secondary p-3">
+                            <option value="11:00 AM CET">11:00 AM (Amsterdam / CET)</option>
+                            <option value="02:00 PM CET">02:00 PM (Amsterdam / CET)</option>
+                            <option value="05:00 PM GST">05:00 PM (Dubai / Riyadh)</option>
+                            <option value="08:00 PM GST">08:00 PM (Dubai / Riyadh)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-wrap gap-3 align-items-center justify-content-between pt-2">
+                    <button type="submit" class="tf-btn tf-btn-submit flex-grow-1 justify-content-center btn-gold-submit">
+                        <span>CONFIRM VIP BRIEFING 📅</span>
+                    </button>
+                    <button type="button" class="btn text-white-64 link" onclick="closeExecutiveBookingModal()">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Client Portal Modal (EN) -->
+    <div class="sr-portal-modal-overlay" id="clientPortalModal" role="dialog" aria-modal="true" aria-labelledby="clientPortalTitleEn" onclick="if(event.target === this) closeClientPortalModal()">
+        <div class="sr-portal-modal-card">
+            <!-- Modal Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-secondary border-opacity-25">
+                <div>
+                    <span class="sr-logo-badge-pill mb-1 d-inline-flex">
+                        <span class="gold-dot"></span> Secure Client Environment
+                    </span>
+                    <h3 id="clientPortalTitleEn" class="text-white fw-bold mb-0">Client Cloud Portal</h3>
+                </div>
+                <button type="button" class="btn text-white-64 p-0 fs-3 lh-1 link" onclick="closeClientPortalModal()" aria-label="Close">&times;</button>
+            </div>
+
+            <!-- Server Status Banner -->
+            <div class="portal-status-container">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="portal-status-dot"></span>
+                        <span class="text-white fw-bold fs-6">CoreSync Cloud Systems Operational 100%</span>
+                    </div>
+                    <div class="d-flex gap-3 text-caption text-white-64 font-latin">
+                        <span>DC: Amsterdam (AMS-01)</span>
+                        <span>Latency: 18ms</span>
+                        <span>Uptime: 99.98%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-4">
+                <div class="col-md-6">
+                    <div class="portal-box-card">
+                        <h5 class="text-white fw-bold mb-2">Workspace Sign In</h5>
+                        <p class="text-caption text-white-64 mb-3">Access your enterprise dashboard, repositories, and active tickets.</p>
+                        
+                        <form onsubmit="event.preventDefault(); simulatePortalLogin();">
+                            <div class="mb-3">
+                                <label for="portalUser" class="form-label text-caption text-white-64 mb-1">Company Email or ID</label>
+                                <input type="text" id="portalUser" class="form-control bg-transparent text-white border-secondary p-3" placeholder="client@company.com" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="portalPass" class="form-label text-caption text-white-64 mb-1">Access Token / Password</label>
+                                <input type="password" id="portalPass" class="form-control bg-transparent text-white border-secondary p-3" placeholder="••••••••" required>
+                            </div>
+                            <button type="submit" class="tf-btn w-100 justify-content-center btn-gold-action">
+                                <span>SIGN IN TO WORKSPACE 🔐</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="portal-box-card d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="text-white fw-bold mb-2">Express Support Hub</h5>
+                            <p class="text-caption text-white-64 mb-3">Dedicated direct channels for active SLA &amp; CoreCare clients.</p>
+
+                            <div class="d-flex flex-column gap-2">
+                                <a href="../demo.html" class="call-opt-row text-decoration-none">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                        <span class="text-white">Interactive Live System Demo</span>
+                                    </div>
+                                    <span class="gold-accent">Open →</span>
+                                </a>
+
+                                <a href="https://wa.me/31612345678?text=Hello%20CoreSync%20Support%2C%20we%20have%20an%20urgent%20inquiry" target="_blank" rel="noopener noreferrer" class="call-opt-row text-decoration-none">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <svg viewBox="0 0 32 32" width="18" height="18" fill="currentColor"><path d="M16.02 3.2a12.7 12.7 0 0 0-10.95 19.14L3.2 28.8l6.62-1.74A12.8 12.8 0 1 0 16.02 3.2Zm0 23.24a10.48 10.48 0 0 1-5.35-1.46l-.38-.23-3.93 1.03 1.05-3.83-.25-.4a10.5 10.5 0 1 1 8.86 4.89Zm5.76-7.85c-.32-.16-1.9-.94-2.19-1.05-.3-.11-.51-.16-.73.16-.21.32-.83 1.05-1.02 1.26-.19.21-.38.24-.7.08a8.65 8.65 0 0 1-2.55-1.57 9.57 9.57 0 0 1-1.77-2.2c-.18-.32 0-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.54.1-.21.05-.4-.03-.56-.08-.16-.73-1.75-1-2.39-.26-.62-.53-.54-.73-.55h-.62c-.21 0-.56.08-.86.4-.3.32-1.13 1.1-1.13 2.69s1.16 3.13 1.32 3.35c.16.21 2.27 3.46 5.5 4.85.77.33 1.37.53 1.84.68.77.24 1.47.2 2.03.12.62-.09 1.9-.78 2.17-1.54.27-.75.27-1.4.19-1.54-.08-.13-.3-.21-.62-.37Z"/></svg>
+                                        <span class="text-white">Emergency Server Hotline (24/7)</span>
+                                    </div>
+                                    <span class="gold-accent">Call →</span>
+                                </a>
+
+                                <a href="mailto:support@coresync-solutions.com" class="call-opt-row text-decoration-none">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+                                        <span class="text-white">Open Dedicated Support Ticket</span>
+                                    </div>
+                                    <span class="gold-accent">Send →</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-3 border-top border-secondary border-opacity-25 text-center">
+                            <span class="text-caption text-white-64">Need a new enterprise account? <a href="#contact" onclick="closeClientPortalModal()" class="gold-accent text-decoration-none fw-bold">Contact us to initialize</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Offcanvas Mobile Menu -->
     <div class="offcanvas-menu">
@@ -742,13 +1554,174 @@
             <li class="mb-3"><a href="#service" class="text-white text-decoration-none" onclick="document.querySelector('.offcanvas-menu').classList.remove('active');">Services</a></li>
             <li class="mb-3"><a href="#about" class="text-white text-decoration-none" onclick="document.querySelector('.offcanvas-menu').classList.remove('active');">About</a></li>
             <li class="mb-3"><a href="#pricing" class="text-white text-decoration-none" onclick="document.querySelector('.offcanvas-menu').classList.remove('active');">Pricing</a></li>
+            <li class="mb-3"><a href="#roi-calculator" class="text-white text-decoration-none gold-accent" onclick="document.querySelector('.offcanvas-menu').classList.remove('active');">ROI Calculator 📊</a></li>
             <li class="mb-3"><a href="#faq" class="text-white text-decoration-none" onclick="document.querySelector('.offcanvas-menu').classList.remove('active');">FAQ</a></li>
             <li class="mb-3"><a href="#contact" class="text-white text-decoration-none" onclick="document.querySelector('.offcanvas-menu').classList.remove('active');">Contact</a></li>
+            <li class="mb-3"><a href="javascript:void(0)" class="text-white text-decoration-none gold-accent" onclick="document.querySelector('.offcanvas-menu').classList.remove('active'); openExecutiveBookingModal();">Book VIP Session 👔</a></li>
+            <li class="mb-3"><a href="javascript:void(0)" class="text-white text-decoration-none" onclick="document.querySelector('.offcanvas-menu').classList.remove('active'); openClientPortalModal();">Client Portal 🔐</a></li>
             <li class="mb-3"><a href="../demo.html" class="gold-accent text-decoration-none">Live Demo</a></li>
         </ul>
     </div>
 
     <script>
+        // ==========================================
+        // 1. Interactive ROI & Cost-Savings Calculator Engine
+        // ==========================================
+        function updateROICalculator() {
+            const teamSizeInput = document.getElementById('roiCompanySize');
+            const manualHoursInput = document.getElementById('roiManualHours');
+            const avgSalaryInput = document.getElementById('roiAvgSalary');
+            const solutionTypeInput = document.getElementById('roiSolutionType');
+
+            if (!teamSizeInput || !manualHoursInput || !avgSalaryInput || !solutionTypeInput) return;
+
+            const teamSize = parseInt(teamSizeInput.value, 10);
+            const manualHours = parseInt(manualHoursInput.value, 10);
+            const avgSalary = parseFloat(avgSalaryInput.value);
+            const efficiencyFactor = parseFloat(solutionTypeInput.value);
+
+            // Update badges
+            const teamSizeVal = document.getElementById('roiCompanySizeVal');
+            const manualHoursVal = document.getElementById('roiManualHoursVal');
+            const avgSalaryVal = document.getElementById('roiAvgSalaryVal');
+
+            if (teamSizeVal) teamSizeVal.textContent = teamSize + ' members';
+            if (manualHoursVal) manualHoursVal.textContent = manualHours + ' hours / week';
+            if (avgSalaryVal) avgSalaryVal.textContent = '€' + avgSalary + ' / hr';
+
+            // Calculate annual savings
+            const totalHoursPerYear = teamSize * manualHours * 52;
+            const hoursSaved = Math.round(totalHoursPerYear * efficiencyFactor);
+            const annualSavings = Math.round(hoursSaved * avgSalary);
+
+            const estimatedDevCost = 4500;
+            const monthlySavings = annualSavings / 12;
+            const paybackMonths = monthlySavings > 0 ? (estimatedDevCost / monthlySavings).toFixed(1) : 1.5;
+
+            const annualSavingsEl = document.getElementById('roiAnnualSavings');
+            const paybackMonthsEl = document.getElementById('roiPaybackMonths');
+            const hoursSavedEl = document.getElementById('roiHoursSaved');
+            const efficiencyGainEl = document.getElementById('roiEfficiencyGain');
+
+            if (annualSavingsEl) {
+                annualSavingsEl.innerHTML = `<span>€</span>${annualSavings.toLocaleString('en-US')}`;
+            }
+            if (paybackMonthsEl) {
+                paybackMonthsEl.textContent = paybackMonths + ' months';
+            }
+            if (hoursSavedEl) {
+                hoursSavedEl.innerHTML = `${hoursSaved.toLocaleString('en-US')} <span>hrs/year</span>`;
+            }
+            if (efficiencyGainEl) {
+                efficiencyGainEl.innerHTML = `+<span>${Math.round(efficiencyFactor * 100)}%</span>`;
+            }
+        }
+
+        // ==========================================
+        // 2. Executive VIP Consultation Booking Modal
+        // ==========================================
+        function openExecutiveBookingModal(source) {
+            const modal = document.getElementById('executiveBookingModal');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+
+                const dateInput = document.getElementById('vipDate');
+                if (dateInput && !dateInput.value) {
+                    const tomorrow = new Date();
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    dateInput.value = tomorrow.toISOString().split('T')[0];
+                }
+            }
+        }
+
+        function closeExecutiveBookingModal() {
+            const modal = document.getElementById('executiveBookingModal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function selectAdvisor(type, el) {
+            document.querySelectorAll('.advisor-select-card').forEach(card => card.classList.remove('active'));
+            if (el) el.classList.add('active');
+
+            const hiddenInput = document.getElementById('selectedAdvisorInput');
+            if (hiddenInput) {
+                if (type === 'salim') {
+                    hiddenInput.value = 'Eng. Mohammad Salim Aziza (CTO - Tech & AI)';
+                } else if (type === 'raed') {
+                    hiddenInput.value = 'Mr. Mohammad Raed Kaakeh (CFO - Finance & ERP)';
+                } else {
+                    hiddenInput.value = 'Joint Board Consultation (Salim & Raed)';
+                }
+            }
+        }
+
+        function dispatchVIPBooking(event) {
+            event.preventDefault();
+            const advisor = document.getElementById('selectedAdvisorInput').value;
+            const name = document.getElementById('vipName').value;
+            const company = document.getElementById('vipCompany').value;
+            const phone = document.getElementById('vipPhone').value;
+            const platform = document.getElementById('vipPlatform').value;
+            const date = document.getElementById('vipDate').value;
+            const time = document.getElementById('vipTime').value;
+
+            const text = `*VIP Executive Consultation Request - S%26R CoreSync*%0A%0A` +
+                         `*Target Advisor:* ${encodeURIComponent(advisor)}%0A` +
+                         `*Executive Name:* ${encodeURIComponent(name)}%0A` +
+                         `*Company:* ${encodeURIComponent(company)}%0A` +
+                         `*Phone/WhatsApp:* ${encodeURIComponent(phone)}%0A` +
+                         `*Preferred Platform:* ${encodeURIComponent(platform)}%0A` +
+                         `*Proposed Slot:* ${encodeURIComponent(date)} at ${encodeURIComponent(time)}%0A%0A` +
+                         `_Dispatched via CoreSync Official Enterprise Portal._`;
+
+            alert('Consultation request confirmed! You will now be redirected to WhatsApp to confirm meeting room details with Executive Management.');
+            window.open(`https://wa.me/31612345678?text=${text}`, '_blank');
+            closeExecutiveBookingModal();
+        }
+
+        // ==========================================
+        // 3. Client Portal Modal
+        // ==========================================
+        function openClientPortalModal() {
+            const modal = document.getElementById('clientPortalModal');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeClientPortalModal() {
+            const modal = document.getElementById('clientPortalModal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function simulatePortalLogin() {
+            const user = document.getElementById('portalUser').value;
+            alert(`Welcome (${user})!\nInitializing encrypted session with CoreSync Cloud AMS-01 (Amsterdam).\nYour enterprise ticket desk and project environment are active.`);
+            closeClientPortalModal();
+        }
+
+        // Keyboard shortcuts & listeners
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeExecutiveBookingModal();
+                closeClientPortalModal();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof updateROICalculator === 'function') {
+                updateROICalculator();
+            }
+        });
+
         // Ensure iOS Safari plays inline without HTML validation warning
         document.querySelectorAll('video').forEach(v => {
             v.setAttribute('playsinline', '');
