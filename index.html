@@ -282,35 +282,46 @@
         }
 
         /* شعار اللوغو الذهبي المتحرك المتموضع في المنتصف أعلى النص بتكبير ملكي فخم */
+        /* ==========================================
+           شارة الشعار الدوارة الملكية بالقسم التعريفي
+           ========================================== */
         .about-logo-badge-wrapper {
             display: flex;
             align-items: center;
             justify-content: center !important;
-            margin-bottom: 2rem;
+            margin-bottom: 2.2rem;
             width: 100%;
         }
 
         .about-animated-badge {
-            width: 138px;
-            height: 138px;
+            width: clamp(170px, 16vw, 195px);
+            height: clamp(170px, 16vw, 195px);
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(197, 168, 128, 0.22) 0%, rgba(1, 9, 7, 0.9) 100%);
-            border: 1.5px solid rgba(197, 168, 128, 0.45);
-            box-shadow: 0 0 38px rgba(197, 168, 128, 0.35), inset 0 0 20px rgba(197, 168, 128, 0.2);
+            background: radial-gradient(circle at 45% 45%, rgba(197, 168, 128, 0.08) 0%, rgba(2, 9, 7, 0.94) 85%);
+            border: 1.5px solid rgba(197, 168, 128, 0.32);
+            box-shadow: 0 0 22px rgba(197, 168, 128, 0.16), 0 14px 34px rgba(0, 0, 0, 0.65), inset 0 0 16px rgba(197, 168, 128, 0.08);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 14px;
+            padding: 16px;
             position: relative;
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            cursor: pointer;
+            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s ease, border-color 0.4s ease;
+            user-select: none;
+            animation: badgeFloatGentle 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes badgeFloatGentle {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-6px); }
         }
 
         .about-animated-badge:hover {
-            transform: scale(1.08);
-            box-shadow: 0 0 55px rgba(197, 168, 128, 0.6), inset 0 0 25px rgba(197, 168, 128, 0.3);
-            border-color: var(--primary-gold);
+            transform: translateY(-8px) scale(1.045);
+            box-shadow: 0 0 36px rgba(197, 168, 128, 0.35), 0 18px 40px rgba(0, 0, 0, 0.8), inset 0 0 22px rgba(197, 168, 128, 0.16);
+            border-color: rgba(197, 168, 128, 0.65);
         }
 
         .about-animated-badge img {
@@ -318,7 +329,299 @@
             height: 100%;
             display: block;
             object-fit: contain;
-            animation: spin 12s linear infinite;
+            filter: drop-shadow(0 0 12px rgba(197, 168, 128, 0.2));
+            transition: filter 0.4s ease;
+        }
+
+        .about-animated-badge:hover img {
+            filter: drop-shadow(0 0 18px rgba(197, 168, 128, 0.35));
+        }
+
+        /* تلميح التكبير عند التحويم فوق الشارة */
+        .badge-zoom-hint {
+            position: absolute;
+            bottom: -10px;
+            right: 50%;
+            transform: translateX(50%) translateY(4px);
+            background: rgba(3, 12, 9, 0.92);
+            border: 1px solid rgba(197, 168, 128, 0.35);
+            color: #e6ca9f;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.6);
+            white-space: nowrap;
+            z-index: 5;
+        }
+
+        .about-animated-badge:hover .badge-zoom-hint {
+            opacity: 1;
+            transform: translateX(50%) translateY(0);
+        }
+
+        /* تمييز مؤشر الفأرة على شعارات الموقع لتوضيح إمكانية النقر */
+        .brand-logo-preview-trigger {
+            cursor: pointer !important;
+            transition: transform 0.25s ease, opacity 0.25s ease;
+        }
+
+        .brand-logo-preview-trigger:hover {
+            transform: scale(1.02);
+            opacity: 0.95;
+        }
+
+        /* ================================================================
+           نافذة استعراض الشعار بدقة فائقة (Luxury Logo Lightbox Modal)
+           ================================================================ */
+        .sr-logo-lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100050;
+            background: rgba(1, 6, 5, 0.88);
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(1rem, 3vw, 2.5rem);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease;
+        }
+
+        .sr-logo-lightbox-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .sr-logo-modal-card {
+            position: relative;
+            max-width: 960px;
+            width: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(197, 168, 128, 0.08) 0%, rgba(4, 12, 10, 0.98) 75%);
+            border: 1.5px solid rgba(197, 168, 128, 0.32);
+            border-radius: 22px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.85), 0 0 50px rgba(197, 168, 128, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            padding: clamp(1.2rem, 2.5vw, 2rem);
+            transform: scale(0.92) translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            color: #ffffff;
+            direction: rtl;
+            text-align: right;
+            max-height: 94vh;
+            overflow-y: auto;
+        }
+
+        .sr-logo-lightbox-overlay.active .sr-logo-modal-card {
+            transform: scale(1) translateY(0);
+        }
+
+        .sr-logo-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(197, 168, 128, 0.18);
+            margin-bottom: 1.25rem;
+        }
+
+        .sr-logo-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 999px;
+            background: rgba(197, 168, 128, 0.1);
+            border: 1px solid rgba(197, 168, 128, 0.25);
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #e6ca9f;
+            margin-bottom: 4px;
+        }
+
+        .sr-logo-badge-pill .gold-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--primary-gold);
+            box-shadow: 0 0 8px var(--primary-gold);
+            display: inline-block;
+        }
+
+        .sr-logo-modal-title {
+            font-size: clamp(1.25rem, 2.2vw, 1.7rem);
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0;
+        }
+
+        .sr-logo-modal-close {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(197, 168, 128, 0.25);
+            color: #ffffff;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .sr-logo-modal-close:hover {
+            background: rgba(197, 168, 128, 0.2);
+            border-color: var(--primary-gold);
+            color: var(--primary-gold);
+            transform: rotate(90deg);
+        }
+
+        .sr-logo-modal-stage {
+            position: relative;
+            background: radial-gradient(circle at 50% 50%, rgba(197, 168, 128, 0.04) 0%, rgba(2, 7, 5, 0.98) 90%);
+            border: 1px solid rgba(197, 168, 128, 0.2);
+            border-radius: 18px;
+            padding: clamp(1.5rem, 3.5vw, 2.4rem) clamp(1rem, 2.5vw, 2rem);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.7);
+        }
+
+        .sr-logo-full-render {
+            max-width: 100%;
+            width: 700px;
+            height: auto;
+            max-height: 220px;
+            display: block;
+            filter: drop-shadow(0 0 16px rgba(197, 168, 128, 0.18));
+            transition: transform 0.4s ease;
+        }
+
+        .sr-logo-full-render:hover {
+            transform: scale(1.02);
+        }
+
+        .sr-logo-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.85rem;
+            margin-bottom: 1.25rem;
+        }
+
+        @media (max-width: 991px) {
+            .sr-logo-meta-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 540px) {
+            .sr-logo-meta-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .sr-logo-meta-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(197, 168, 128, 0.15);
+            border-radius: 12px;
+            padding: 0.75rem 0.95rem;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .sr-logo-meta-item .meta-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .sr-logo-meta-item .meta-val {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #e6ca9f;
+            line-height: 1.4;
+        }
+
+        .sr-logo-modal-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid rgba(197, 168, 128, 0.15);
+        }
+
+        .sr-modal-btn-gold {
+            background: linear-gradient(135deg, #c5a880 0%, #9a7d52 100%) !important;
+            color: #020705 !important;
+            font-weight: 800 !important;
+            border: none !important;
+            box-shadow: 0 4px 18px rgba(197, 168, 128, 0.3) !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 999px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .sr-modal-btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(197, 168, 128, 0.45) !important;
+            filter: brightness(1.08);
+        }
+
+        .sr-modal-btn-sub {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(197, 168, 128, 0.25);
+            color: #ffffff;
+            font-size: 0.88rem;
+            font-weight: 700;
+            padding: 10px 18px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .sr-modal-btn-sub:hover {
+            background: rgba(197, 168, 128, 0.15);
+            border-color: var(--primary-gold);
+            color: var(--primary-gold);
+        }
+
+        .sr-modal-btn-dismiss {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 8px 14px;
+            transition: color 0.2s ease;
+        }
+
+        .sr-modal-btn-dismiss:hover {
+            color: #ffffff;
+            text-decoration: underline;
         }
 
         /* ضبط ومحاذاة النص في المنتصف ليتوازن بشكل كامل ومتناسق مع الصورتين السينمائيتين */
@@ -1253,10 +1556,10 @@
                 <div class="header-inner">
                     <div class="container">
                         <div class="row align-items-center">
-                            <!-- الشعار -->
+                            <!-- الشعار الرسمي للشركة -->
                             <div class="col-6 col-md-3">
-                                <a href="./index.html" class="brand-logo-site" title="S&R CoreSync Solutions">
-                                    <img src="./assets/logo-neon-icon.svg" alt="S&R CoreSync Official Emblem" class="brand-emblem-img" />
+                                <a href="./index.html" class="brand-logo-site brand-logo-preview-trigger" onclick="openLogoLightbox(event)" title="S&R CoreSync Solutions - انقر لعرض الهوية البصرية والشعار بالكامل" aria-label="عرض شعار S&R CoreSync Solutions بدقة فائقة">
+                                    <img src="./assets/logo-neon-icon.svg?v=champagne" alt="S&R CoreSync Official Emblem" class="brand-emblem-img" />
                                     <div class="brand-logo-site-logo brand-logo-flex">
                                         <span class="brand-sr-text">S&amp;R</span>
                                         <span class="brand-sub-text">CoreSync</span>
@@ -1589,10 +1892,14 @@
                     <!-- 2. قلب القسم: الشعار الذهبي الدوار ونبذة الشركة والإحصائيات (المنتصف) -->
                     <div class="executive-grid-center">
                         <div class="col-right">
-                            <!-- شعار اللوغو المتحرك الذهبي أعلى النص ليتوسط الشريكين -->
+                            <!-- شعار اللوغو المتحرك الذهبي الملكي أعلى النص ليتوسط الشريكين (انقر للاستعراض الكامل) -->
                             <div class="about-logo-badge-wrapper">
-                                <div class="about-animated-badge" title="S&amp;R CoreSync Solutions">
-                                    <img loading="lazy" decoding="async" width="138" height="138" src="./assets/logo-neon-icon.svg" alt="S&amp;R CoreSync Solutions - شارة التميز والاعتماد">
+                                <div class="about-animated-badge brand-logo-preview-trigger" role="button" tabindex="0" onclick="openLogoLightbox(event)" title="انقر لعرض شعار S&amp;R CoreSync Solutions الرسمي بدقة فائقة" aria-label="عرض شعار S&amp;R CoreSync Solutions الرسمي">
+                                    <img loading="lazy" decoding="async" width="180" height="180" src="./assets/logo-neon-icon.svg?v=champagne" alt="S&amp;R CoreSync Solutions - شارة التميز والاعتماد">
+                                    <span class="badge-zoom-hint" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                                        انقر لعرض الشعار بالكامل
+                                    </span>
                                 </div>
                             </div>
 
@@ -2253,6 +2560,7 @@
                                 <li><a href="#contact" class="link letter-space--2 h5">التواصل</a></li>
                                 <li><a href="demo.html" class="link letter-space--2 h5">النظام التجريبي</a></li>
                                 <li><a href="logo-studio.html" class="link letter-space--2 h5 gold-accent">استوديو الشعار</a></li>
+                                <li><a href="javascript:void(0)" onclick="openLogoLightbox(event)" class="link letter-space--2 h5 gold-accent">الهوية والشعار الرسمي 🔍</a></li>
                             </ul>
                         </div>
                         <div class="col-12 col-md-4 footer-col">
@@ -2429,8 +2737,8 @@
     <!-- القائمة الجانبية للجوال (Mobile Menu) -->
     <div class="offcanvas-menu" id="mobileMenu">
         <div class="d-flex justify-content-between align-items-center mb-5">
-            <div class="brand-logo-site d-flex align-items-center gap-3">
-                <img src="./assets/logo-neon-icon.svg" alt="S&R CoreSync Logo" class="brand-emblem-img-sm" />
+            <div class="brand-logo-site brand-logo-preview-trigger d-flex align-items-center gap-3" onclick="openLogoLightbox(event)" role="button" tabindex="0" title="S&amp;R CoreSync Solutions - انقر لعرض الشعار بالكامل">
+                <img src="./assets/logo-neon-icon.svg?v=champagne" alt="S&amp;R CoreSync Logo" class="brand-emblem-img-sm" />
                 <div class="logo-text-title"><span>S&R</span> CORESYNC</div>
             </div>
             <button type="button" class="btn text-white link" onclick="closeMobileMenu()">
@@ -3139,8 +3447,130 @@
         </div>
     </div>
 
+    <!-- نافذة استعراض الشعار الرسمي الفاخر (S&R CoreSync Official Brandmark Lightbox) -->
+    <div class="sr-logo-lightbox-overlay" id="brandLogoLightboxModal" role="dialog" aria-modal="true" aria-labelledby="brandLogoModalTitle" onclick="if(event.target === this) closeLogoLightbox()">
+        <div class="sr-logo-modal-card">
+            <!-- رأس النافذة -->
+            <div class="sr-logo-modal-header">
+                <div>
+                    <span class="sr-logo-badge-pill">
+                        <span class="gold-dot"></span>
+                        الهوية البصرية الرسمية المعتمدة // Official Brandmark
+                    </span>
+                    <h3 id="brandLogoModalTitle" class="sr-logo-modal-title">شعار S&amp;R CoreSync Solutions</h3>
+                </div>
+                <button type="button" class="sr-logo-modal-close" onclick="closeLogoLightbox()" aria-label="إغلاق النافذة" title="إغلاق (Esc)">
+                    &times;
+                </button>
+            </div>
+
+            <!-- مسرح عرض الشعار الفيكتوري الكامل عالي الدقة -->
+            <div class="sr-logo-modal-stage">
+                <img id="srLogoFullImg" src="./assets/logo-neon.svg?v=champagne" alt="S&amp;R CoreSync Solutions - الشعار الرسمي المتكامل" class="sr-logo-full-render">
+            </div>
+
+            <!-- بطاقات المواصفات والاعتماد للهوية المؤسسية -->
+            <div class="sr-logo-meta-grid">
+                <div class="sr-logo-meta-item">
+                    <span class="meta-label">الرمز الكمي والمدارات</span>
+                    <span class="meta-val">تزامن الأنظمة البرمجية وهندسة الـ ERP</span>
+                </div>
+                <div class="sr-logo-meta-item">
+                    <span class="meta-label">اللوحة اللونية</span>
+                    <span class="meta-val">الذهب الملكي الشامباني (#C5A880) والزمردي الداكن</span>
+                </div>
+                <div class="sr-logo-meta-item">
+                    <span class="meta-label">التنسيق والوضوح</span>
+                    <span class="meta-val">Scalable Vector Graphics (SVG) دقة لا نهائية</span>
+                </div>
+                <div class="sr-logo-meta-item">
+                    <span class="meta-label">الترخيص والحماية</span>
+                    <span class="meta-val">مسجل ومعتمد لشركة S&amp;R CoreSync Solutions</span>
+                </div>
+            </div>
+
+            <!-- أزرار الإجراءات والتحميل والتفاعل -->
+            <div class="sr-logo-modal-actions">
+                <div class="d-flex flex-wrap gap-2 align-items-center">
+                    <a href="./assets/logo-neon.svg" download="SR-CoreSync-Solutions-Official-Logo.svg" class="tf-btn sr-modal-btn-gold">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        <span>تحميل الشعار بصيغة فيكتور (SVG)</span>
+                    </a>
+                    <a href="./assets/logo-neon-icon.svg" download="SR-CoreSync-Emblem-Icon.svg" class="tf-btn sr-modal-btn-sub">
+                        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+                        <span>تحميل الأيقونة فقط (Emblem)</span>
+                    </a>
+                    <button type="button" class="tf-btn sr-modal-btn-sub" onclick="copyLogoAssetPath(this)">
+                        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        <span id="copyAssetBtnText">نسخ مسار الفيكتور</span>
+                    </button>
+                </div>
+                <button type="button" class="sr-modal-btn-dismiss" onclick="closeLogoLightbox()">
+                    إغلاق (Esc)
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- سكريبت الـ Service Worker وإدارة التثبيت -->
     <script>
+        // ==========================================
+        // وظائف استعراض الشعار بدقة كاملة (Logo Lightbox)
+        // ==========================================
+        function openLogoLightbox(e) {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            const modal = document.getElementById('brandLogoLightboxModal');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeLogoLightbox() {
+            const modal = document.getElementById('brandLogoLightboxModal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function copyLogoAssetPath(btn) {
+            const fullUrl = new URL('./assets/logo-neon.svg', window.location.href).href;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(fullUrl).then(() => {
+                    const txt = document.getElementById('copyAssetBtnText');
+                    if (txt) {
+                        const oldText = txt.textContent;
+                        txt.textContent = 'تم نسخ رابط الفيكتور ✓';
+                        setTimeout(() => { txt.textContent = oldText; }, 2200);
+                    }
+                }).catch(() => {
+                    prompt('انسخ رابط الشعار:', fullUrl);
+                });
+            } else {
+                prompt('انسخ رابط الشعار:', fullUrl);
+            }
+        }
+
+        // إغلاق النافذة بزر Esc
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLogoLightbox();
+            }
+        });
+
+        // تفعيل النقر التلقائي على أي عنصر يحمل كلاس الشعار لفتح المعاينة
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.brand-logo-preview-trigger').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    openLogoLightbox(e);
+                });
+            });
+        });
+
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')

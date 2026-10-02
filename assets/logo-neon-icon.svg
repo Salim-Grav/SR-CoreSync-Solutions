@@ -11,10 +11,10 @@
       .sr-amp-neon {
         font-family: 'Playfair Display', 'Times New Roman', serif;
         font-weight: 800;
-        fill: #facc15;
+        fill: #c5a880;
       }
 
-      /* حركات ومؤثرات الشعار النيوني الذهبي الملكي */
+      /* حركات ومؤثرات الشعار النيوني الذهبي الملكي الناعم والراقي */
       @keyframes orbitRotateSlow {
         from { transform: rotate(0deg); }
         to { transform: rotate(360deg); }
@@ -27,31 +27,26 @@
 
       @keyframes neonTubePulse {
         0%, 100% {
-          filter: drop-shadow(0 0 4px #ffffff) drop-shadow(0 0 12px #facc15) drop-shadow(0 0 30px rgba(245, 158, 11, 0.7));
+          filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.75)) drop-shadow(0 0 8px rgba(197, 168, 128, 0.5)) drop-shadow(0 0 16px rgba(197, 168, 128, 0.22));
           opacity: 1;
         }
         50% {
-          filter: drop-shadow(0 0 2px #ffffff) drop-shadow(0 0 7px #eab308) drop-shadow(0 0 18px rgba(202, 138, 4, 0.45));
-          opacity: 0.92;
+          filter: drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.55)) drop-shadow(0 0 5px rgba(197, 168, 128, 0.35)) drop-shadow(0 0 10px rgba(197, 168, 128, 0.12));
+          opacity: 0.94;
         }
       }
 
       @keyframes starTwinkleGlint {
         0%, 100% {
           transform: scale(1) rotate(0deg);
-          opacity: 1;
-          filter: drop-shadow(0 0 3px #ffffff) drop-shadow(0 0 10px #fde047);
+          opacity: 0.9;
+          filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 6px rgba(197, 168, 128, 0.6));
         }
         50% {
-          transform: scale(1.35) rotate(45deg);
-          opacity: 0.82;
-          filter: drop-shadow(0 0 6px #ffffff) drop-shadow(0 0 18px #f59e0b) drop-shadow(0 0 32px #eab308);
+          transform: scale(1.18) rotate(45deg);
+          opacity: 1;
+          filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 10px rgba(197, 168, 128, 0.85));
         }
-      }
-
-      @keyframes dashFlow {
-        from { stroke-dashoffset: 800; }
-        to { stroke-dashoffset: 0; }
       }
 
       .animated-orbit-ring {
@@ -75,40 +70,40 @@
       }
 
       .neon-glow-core {
-        animation: neonTubePulse 3.2s ease-in-out infinite;
+        animation: neonTubePulse 3.6s ease-in-out infinite;
       }
 
       .star-sparkle-center {
         transform-origin: 0 -72px;
-        animation: starTwinkleGlint 2.4s ease-in-out infinite;
+        animation: starTwinkleGlint 2.8s ease-in-out infinite;
       }
     </style>
 
-    <!-- تدرجات الإضاءة النيونية الذهبية والكهربائية الفاخرة -->
+    <!-- تدرجات الإضاءة النيونية الذهبية الشامبانية الراقية والمهدأة -->
     <radialGradient id="neonOrbSphere" cx="45%" cy="38%" r="65%">
-      <stop offset="0%" stop-color="#3d2700" stop-opacity="0.95" />
-      <stop offset="45%" stop-color="#1c1102" stop-opacity="0.98" />
-      <stop offset="85%" stop-color="#080501" stop-opacity="1" />
-      <stop offset="100%" stop-color="#000000" stop-opacity="1" />
+      <stop offset="0%" stop-color="#1f180d" stop-opacity="0.95" />
+      <stop offset="50%" stop-color="#0e0f0d" stop-opacity="0.98" />
+      <stop offset="85%" stop-color="#040807" stop-opacity="1" />
+      <stop offset="100%" stop-color="#010504" stop-opacity="1" />
     </radialGradient>
 
     <linearGradient id="neonGoldTubeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fef08a" />
-      <stop offset="50%" stop-color="#facc15" />
-      <stop offset="100%" stop-color="#d97706" />
+      <stop offset="0%" stop-color="#fdf6e9" />
+      <stop offset="50%" stop-color="#c5a880" />
+      <stop offset="100%" stop-color="#8c6f47" />
     </linearGradient>
 
     <radialGradient id="neonNodeGrad" cx="35%" cy="35%" r="65%">
       <stop offset="0%" stop-color="#ffffff" />
-      <stop offset="40%" stop-color="#fde047" />
-      <stop offset="100%" stop-color="#eab308" />
+      <stop offset="45%" stop-color="#e8d5bc" />
+      <stop offset="100%" stop-color="#c5a880" />
     </radialGradient>
 
-    <!-- فيلاتر التوهج النيوني العميق -->
-    <filter id="neonIconBloom" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="3" result="b1" />
-      <feGaussianBlur stdDeviation="8" result="b2" />
-      <feGaussianBlur stdDeviation="20" result="b3" />
+    <!-- فيلاتر التوهج الذهبي الناعم الهادئ -->
+    <filter id="neonIconBloom" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="2.5" result="b1" />
+      <feGaussianBlur stdDeviation="6" result="b2" />
+      <feGaussianBlur stdDeviation="11" result="b3" />
       <feMerge>
         <feMergeNode in="b3" />
         <feMergeNode in="b2" />
@@ -117,70 +112,70 @@
       </feMerge>
     </filter>
 
-    <filter id="nodeHaloFilter" x="-60%" y="-60%" width="220%" height="220%">
-      <feGaussianBlur stdDeviation="6" result="blur" />
+    <filter id="nodeHaloFilter" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4.5" result="blur" />
       <feComposite in="SourceGraphic" in2="blur" operator="over" />
     </filter>
   </defs>
 
   <g transform="translate(250, 250)">
-    <!-- هالة توهج محيطية خارجية -->
-    <circle cx="0" cy="0" r="235" fill="none" stroke="#facc15" stroke-opacity="0.12" stroke-width="1.5" stroke-dasharray="6 8" />
-    <circle cx="0" cy="0" r="218" fill="#eab308" fill-opacity="0.04" filter="url(#neonIconBloom)" />
+    <!-- هالة توهج محيطية خارجية رقيقة وهادئة -->
+    <circle cx="0" cy="0" r="235" fill="none" stroke="#c5a880" stroke-opacity="0.1" stroke-width="1.2" stroke-dasharray="5 8" />
+    <circle cx="0" cy="0" r="218" fill="#c5a880" fill-opacity="0.02" filter="url(#neonIconBloom)" />
 
     <!-- المدارات التزامنية المائلة الدوارة (Kinetic Ellipses) -->
     <g class="animated-ellipse-1">
-      <ellipse cx="0" cy="0" rx="196" ry="84" fill="none" stroke="#facc15" stroke-opacity="0.25" stroke-width="1.8" />
-      <ellipse cx="0" cy="0" rx="196" ry="84" fill="none" stroke="#ffffff" stroke-opacity="0.65" stroke-width="0.8" stroke-dasharray="14 180" />
+      <ellipse cx="0" cy="0" rx="196" ry="84" fill="none" stroke="#c5a880" stroke-opacity="0.2" stroke-width="1.5" />
+      <ellipse cx="0" cy="0" rx="196" ry="84" fill="none" stroke="#ffffff" stroke-opacity="0.55" stroke-width="0.8" stroke-dasharray="14 180" />
     </g>
 
     <g class="animated-ellipse-2">
-      <ellipse cx="0" cy="0" rx="84" ry="196" fill="none" stroke="#f59e0b" stroke-opacity="0.28" stroke-width="1.8" />
-      <ellipse cx="0" cy="0" rx="84" ry="196" fill="none" stroke="#ffffff" stroke-opacity="0.65" stroke-width="0.8" stroke-dasharray="14 180" />
+      <ellipse cx="0" cy="0" rx="84" ry="196" fill="none" stroke="#c5a880" stroke-opacity="0.22" stroke-width="1.5" />
+      <ellipse cx="0" cy="0" rx="84" ry="196" fill="none" stroke="#ffffff" stroke-opacity="0.55" stroke-width="0.8" stroke-dasharray="14 180" />
     </g>
 
     <!-- الحلقة المدارية الخارجية الدقيقة مع الأقمار الدوارة -->
-    <circle cx="0" cy="0" r="198" fill="none" stroke="url(#neonGoldTubeGrad)" stroke-opacity="0.75" stroke-width="2.2" filter="url(#neonIconBloom)" />
+    <circle cx="0" cy="0" r="198" fill="none" stroke="url(#neonGoldTubeGrad)" stroke-opacity="0.65" stroke-width="1.8" filter="url(#neonIconBloom)" />
     
     <!-- الأقمار الصناعية الدوارة في المدار الخارجي (Satellites) -->
     <g class="animated-satellites">
       <g transform="rotate(0) translate(198, 0)">
-        <circle cx="0" cy="0" r="16" fill="#facc15" fill-opacity="0.35" filter="url(#nodeHaloFilter)" />
-        <circle cx="0" cy="0" r="9" fill="url(#neonNodeGrad)" stroke="#ffffff" stroke-width="1.5" />
+        <circle cx="0" cy="0" r="14" fill="#c5a880" fill-opacity="0.25" filter="url(#nodeHaloFilter)" />
+        <circle cx="0" cy="0" r="8" fill="url(#neonNodeGrad)" stroke="#ffffff" stroke-width="1.2" />
       </g>
       <g transform="rotate(180) translate(198, 0)">
-        <circle cx="0" cy="0" r="16" fill="#facc15" fill-opacity="0.35" filter="url(#nodeHaloFilter)" />
-        <circle cx="0" cy="0" r="9" fill="url(#neonNodeGrad)" stroke="#ffffff" stroke-width="1.5" />
+        <circle cx="0" cy="0" r="14" fill="#c5a880" fill-opacity="0.25" filter="url(#nodeHaloFilter)" />
+        <circle cx="0" cy="0" r="8" fill="url(#neonNodeGrad)" stroke="#ffffff" stroke-width="1.2" />
       </g>
     </g>
 
-    <!-- الكرة المركزية النيونية الداكنة الفاخرة ذات الإطار الذهبي المتوهج -->
+    <!-- الكرة المركزية النيونية الداكنة الفاخرة ذات الإطار الذهبي الهادئ -->
     <g class="neon-glow-core">
-      <circle cx="0" cy="0" r="152" fill="url(#neonOrbSphere)" stroke="#facc15" stroke-width="3" filter="url(#neonIconBloom)" />
-      <circle cx="0" cy="0" r="150" fill="none" stroke="#ffffff" stroke-width="1" stroke-opacity="0.9" />
-      <circle cx="0" cy="0" r="142" fill="none" stroke="#f59e0b" stroke-opacity="0.2" stroke-width="1" />
+      <circle cx="0" cy="0" r="152" fill="url(#neonOrbSphere)" stroke="#c5a880" stroke-width="2.2" filter="url(#neonIconBloom)" />
+      <circle cx="0" cy="0" r="150" fill="none" stroke="#ffffff" stroke-width="0.8" stroke-opacity="0.75" />
+      <circle cx="0" cy="0" r="142" fill="none" stroke="#c5a880" stroke-opacity="0.15" stroke-width="0.9" />
     </g>
 
-    <!-- حروف S&R بالوهج النيوني الذهبي المشع -->
+    <!-- حروف S&R بالوهج الملكي الناعم غير المؤذي للعين -->
     <g text-anchor="middle" dominant-baseline="central" class="neon-glow-core">
-      <!-- طبقة الظل والتشتت النيوني للحروف -->
+      <!-- طبقة الظل والتشتت النيوني الهادئ للحروف -->
       <g filter="url(#neonIconBloom)">
-        <text x="-64" y="-3" font-size="132" class="sr-serif-neon" fill="#ffffff" stroke="#facc15" stroke-width="3">S</text>
-        <text x="-7" y="10" font-size="65" class="sr-amp-neon" fill="#ffffff" stroke="#eab308" stroke-width="2">&amp;</text>
-        <text x="58" y="-3" font-size="132" class="sr-serif-neon" fill="#ffffff" stroke="#facc15" stroke-width="3">R</text>
+        <text x="-64" y="-3" font-size="132" class="sr-serif-neon" fill="#ffffff" stroke="#c5a880" stroke-width="2">S</text>
+        <text x="-7" y="10" font-size="65" class="sr-amp-neon" fill="#ffffff" stroke="#c5a880" stroke-width="1.5">&amp;</text>
+        <text x="58" y="-3" font-size="132" class="sr-serif-neon" fill="#ffffff" stroke="#c5a880" stroke-width="2">R</text>
       </g>
       <!-- الطبقة الناصعة فوق التشتت لضمان الحدة الفائقة -->
       <text x="-64" y="-3" font-size="132" class="sr-serif-neon" fill="#ffffff">S</text>
-      <text x="-7" y="10" font-size="65" class="sr-amp-neon" fill="#facc15">&amp;</text>
+      <text x="-7" y="10" font-size="65" class="sr-amp-neon" fill="#c5a880">&amp;</text>
       <text x="58" y="-3" font-size="132" class="sr-serif-neon" fill="#ffffff">R</text>
     </g>
 
-    <!-- النجمة النيونية الذهبية المتلألئة في أعلى تاج الرمز (مثل نجمة دانا نجمة) -->
+    <!-- النجمة النيونية الذهبية المتلألئة في أعلى تاج الرمز -->
     <g class="star-sparkle-center">
       <path d="M 0,-85 L 3.8,-74.5 L 14,-74 L 6.2,-67.5 L 8.8,-57.5 L 0,-63 L -8.8,-57.5 L -6.2,-67.5 L -14,-74 L -3.8,-74.5 Z" 
-            fill="#ffffff" stroke="#facc15" stroke-width="1.8" filter="url(#neonIconBloom)" />
-      <line x1="0" y1="-95" x2="0" y2="-45" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" opacity="0.9" />
-      <line x1="-25" y1="-70" x2="25" y2="-70" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" opacity="0.9" />
+            fill="#ffffff" stroke="#c5a880" stroke-width="1.4" filter="url(#neonIconBloom)" />
+      <line x1="0" y1="-95" x2="0" y2="-45" stroke="#ffffff" stroke-width="1" stroke-linecap="round" opacity="0.85" />
+      <line x1="-25" y1="-70" x2="25" y2="-70" stroke="#ffffff" stroke-width="1" stroke-linecap="round" opacity="0.85" />
     </g>
   </g>
 </svg>
