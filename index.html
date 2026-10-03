@@ -6421,7 +6421,9 @@
                 desc: 'نبتكر حلولاً برمجية مخصصة، منصات ويب متقدمة، وأتمتة ذكاء اصطناعي لدعم نمو الشركات في أوروبا والشرق الأوسط.',
                 cardRole: 'المسؤول التقني // CTO',
                 cardName: 'م. محمد سليم عزيزة',
-                cardBio: 'هندسة البرمجيات السحابية المتقدمة، تطبيقات الويب والهواتف الذكية، وأتمتة الذكاء الاصطناعي (AI & Cloud).'
+                cardBio: 'هندسة البرمجيات السحابية المتقدمة، تطبيقات الويب والهواتف الذكية، وأتمتة الذكاء الاصطناعي (AI & Cloud).',
+                assuranceRole: 'بنية سحابية معتمدة وأتمتة AI',
+                assuranceVal: 'استشارات قيادية مباشرة مع المؤسسين'
             },
             raed: {
                 badge: 'كبير مستشاري الأنظمة المالية والـ ERP & CFO • متاحون لمشاريع 2026',
@@ -6429,7 +6431,9 @@
                 desc: 'تكامل مالي دقيق، ربط محاسبي مؤتمت، وتطوير أنظمة إدارة موارد الشركات الممتثلة للأنظمة الأوروبية والخليجية.',
                 cardRole: 'المستشار المالي والـ ERP // CFO',
                 cardName: 'أ. محمد رائد كعكة',
-                cardBio: 'هندسة الأنظمة المحاسبية والـ ERP المتكاملة، التحول المالي الرقمي، وحوكمة وتدقيق حسابات الأعمال والشركات.'
+                cardBio: 'هندسة الأنظمة المحاسبية والـ ERP المتكاملة، التحول المالي الرقمي، وحوكمة وتدقيق حسابات الأعمال والشركات.',
+                assuranceRole: 'حوكمة وتدقيق محاسبي وأنظمة ERP',
+                assuranceVal: 'امتثال مالي كامل للأنظمة الأوروبية والخليجية'
             }
         };
 
@@ -6450,6 +6454,8 @@
             const cardRole = document.getElementById('execCardRole');
             const cardName = document.getElementById('execCardName');
             const cardBio = document.getElementById('execCardBio');
+            const assuranceRole = document.getElementById('execAssuranceRole');
+            const assuranceVal = document.getElementById('execAssuranceVal');
 
             if (layerSalim && layerRaed) {
                 if (target === 'salim') {
@@ -6482,6 +6488,8 @@
                     if (cardRole) cardRole.textContent = data.cardRole;
                     if (cardName) cardName.textContent = data.cardName;
                     if (cardBio) cardBio.textContent = data.cardBio;
+                    if (assuranceRole && data.assuranceRole) assuranceRole.textContent = data.assuranceRole;
+                    if (assuranceVal && data.assuranceVal) assuranceVal.textContent = data.assuranceVal;
                     titleEl.style.opacity = '1';
                     descEl.style.opacity = '1';
                 }, 180);
