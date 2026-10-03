@@ -545,6 +545,8 @@
                     cardRole.textContent = data.cardRole;
                     cardName.textContent = data.cardName;
                     cardBio.textContent = data.cardBio;
+                    if (assuranceRole && data.assuranceRole) assuranceRole.textContent = data.assuranceRole;
+                    if (assuranceVal && data.assuranceVal) assuranceVal.textContent = data.assuranceVal;
                     titleEl.style.opacity = '1';
                     descEl.style.opacity = '1';
                 }, 180);
