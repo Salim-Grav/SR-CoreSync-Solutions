@@ -3083,6 +3083,8 @@
            =================================================================== */
         .section-executive-stage {
             position: relative;
+            z-index: 10;
+            clear: both;
             width: 100%;
             min-height: 94vh;
             display: flex;
@@ -3092,7 +3094,9 @@
             background: #010907;
             border-top: 1px solid rgba(197, 168, 128, 0.18);
             border-bottom: 1px solid rgba(197, 168, 128, 0.18);
-            padding: clamp(4rem, 8vh, 6.5rem) 1.5rem;
+            padding: clamp(5rem, 9vh, 7.5rem) 1.5rem;
+            margin-top: clamp(35px, 5vh, 65px);
+            scroll-margin-top: 90px;
         }
 
         .section-executive-stage .exec-stage-layers {
@@ -3616,7 +3620,7 @@
         </section>
 
         <!-- 3. قسم الأعمال المختارة (Selected Work Section with Mountain Background) -->
-        <div class="section-selected-work section-selected-work--original flat-spacing pb-0 flat-animate-tab" id="work" data-section dir="ltr">
+        <div class="section-selected-work section-selected-work--original flat-spacing flat-animate-tab" id="work" data-section dir="ltr" style="padding-bottom: clamp(65px, 8vh, 105px) !important;">
             <div class="bg-img effectFade fadeUp">
                 <img loading="lazy" width="1440" height="720" src="./assets/mountain.webp" alt="خلفية الجبل">
             </div>
