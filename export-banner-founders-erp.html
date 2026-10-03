@@ -440,23 +440,37 @@
                 <a href="#demo" class="hero-stage-btn hero-stage-btn-glass">النظام التجريبي (Live Demo)</a>
             </div>
 
-            <!-- كبسولة التبديل بين الشريكين -->
-            <div class="hero-stage-founder-switch-capsule" role="tablist" aria-label="تبديل عرض الشركاء">
-                <button type="button" class="hero-stage-switch-item active" id="btnSwitchSalim" onclick="switchStage('salim')">
-                    <span class="hero-stage-switch-indicator"></span>
-                    <span>م. سليم S</span>
-                </button>
-                <button type="button" class="hero-stage-switch-item" id="btnSwitchRaed" onclick="switchStage('raed')">
-                    <span class="hero-stage-switch-indicator"></span>
-                    <span>أ. رائد R</span>
-                </button>
-            </div>
+            <!-- رصيف القيادة التنفيذية السفلي المتناسق طرداً مع عرض الشاشة -->
+            <div class="hero-stage-dock">
+                <!-- الجناح الأيمن: كرت التعريف بالشريك التنفيذي النشط -->
+                <div class="hero-stage-profile-dock" id="stageFloatingCard">
+                    <div class="hero-stage-card-tag" id="stageCardRole">المسؤول التقني // CTO</div>
+                    <div class="hero-stage-card-name" id="stageCardName">م. محمد سليم عزيزة</div>
+                    <div class="hero-stage-card-bio" id="stageCardBio">هندسة البرمجيات السحابية المتقدمة، تطبيقات الويب والهواتف الذكية، وأتمتة الذكاء الاصطناعي (AI & Cloud).</div>
+                </div>
 
-            <!-- كرت التعريف العائم -->
-            <div class="hero-stage-founder-floating-card" id="stageFloatingCard">
-                <div class="hero-stage-card-tag" id="stageCardRole">المسؤول التقني // CTO</div>
-                <div class="hero-stage-card-name" id="stageCardName">م. محمد سليم عزيزة</div>
-                <div class="hero-stage-card-bio" id="stageCardBio">هندسة البرمجيات السحابية المتقدمة، تطبيقات الويب والهواتف الذكية، وأتمتة الذكاء الاصطناعي (AI & Cloud).</div>
+                <!-- المنتصف: كبسولة التبديل بين الشريكين -->
+                <div class="hero-stage-founder-switch-capsule" role="tablist" aria-label="تبديل عرض الشركاء">
+                    <button type="button" class="hero-stage-switch-item active" id="btnSwitchSalim" onclick="switchStage('salim')">
+                        <span class="hero-stage-switch-indicator"></span>
+                        <span>م. سليم S</span>
+                    </button>
+                    <button type="button" class="hero-stage-switch-item" id="btnSwitchRaed" onclick="switchStage('raed')">
+                        <span class="hero-stage-switch-indicator"></span>
+                        <span>أ. رائد R</span>
+                    </button>
+                </div>
+
+                <!-- الجناح الأيسر: شارة الاعتمادية والضمان (توازن بصري ملكي) -->
+                <div class="hero-stage-assurance-dock">
+                    <div class="hero-stage-assurance-pill">
+                        <span class="hero-stage-assurance-dot"></span>
+                        <div class="hero-stage-assurance-body">
+                            <span class="hero-stage-assurance-role" id="stageAssuranceRole">بنية سحابية معتمدة وأتمتة AI</span>
+                            <span class="hero-stage-assurance-val" id="stageAssuranceVal">استشارات قيادية مباشرة مع المؤسسين</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -472,7 +486,9 @@
                 desc: 'نبتكر حلولاً برمجية مخصصة، منصات ويب متقدمة، وأتمتة ذكاء اصطناعي لدعم نمو الشركات في أوروبا والشرق الأوسط.',
                 cardRole: 'المسؤول التقني // CTO',
                 cardName: 'م. محمد سليم عزيزة',
-                cardBio: 'هندسة البرمجيات السحابية المتقدمة، تطبيقات الويب والهواتف الذكية، وأتمتة الذكاء الاصطناعي (AI & Cloud).'
+                cardBio: 'هندسة البرمجيات السحابية المتقدمة، تطبيقات الويب والهواتف الذكية، وأتمتة الذكاء الاصطناعي (AI & Cloud).',
+                assuranceRole: 'بنية سحابية معتمدة وأتمتة AI',
+                assuranceVal: 'استشارات قيادية مباشرة مع المؤسسين'
             },
             raed: {
                 badge: 'كبير مستشاري الأنظمة المالية والـ ERP & CFO • متاحون لمشاريع 2026',
@@ -480,7 +496,9 @@
                 desc: 'تكامل مالي دقيق، ربط محاسبي مؤتمت، وتطوير أنظمة إدارة موارد الشركات الممتثلة للأنظمة الأوروبية والخليجية.',
                 cardRole: 'المستشار المالي والـ ERP // CFO',
                 cardName: 'أ. محمد رائد كعكة',
-                cardBio: 'هندسة الأنظمة المحاسبية والـ ERP المتكاملة، التحول المالي الرقمي، وحوكمة وتدقيق حسابات الأعمال والشركات.'
+                cardBio: 'هندسة الأنظمة المحاسبية والـ ERP المتكاملة، التحول المالي الرقمي، وحوكمة وتدقيق حسابات الأعمال والشركات.',
+                assuranceRole: 'حوكمة وتدقيق محاسبي وأنظمة ERP',
+                assuranceVal: 'امتثال مالي كامل للأنظمة الأوروبية والخليجية'
             }
         };
 
@@ -501,6 +519,8 @@
             const cardRole = document.getElementById('stageCardRole');
             const cardName = document.getElementById('stageCardName');
             const cardBio = document.getElementById('stageCardBio');
+            const assuranceRole = document.getElementById('stageAssuranceRole');
+            const assuranceVal = document.getElementById('stageAssuranceVal');
 
             if (target === 'salim') {
                 layerSalim.classList.add('active');
