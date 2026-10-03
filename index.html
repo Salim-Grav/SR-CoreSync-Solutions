@@ -1369,6 +1369,12 @@
             transition: opacity 0.4s ease;
         }
 
+        .badge-bullet {
+            margin: 0 5px;
+            color: var(--primary-gold);
+            opacity: 0.9;
+        }
+
         .hero-unified-title {
             font-size: clamp(1.8rem, 3.8vw, 3.2rem);
             font-weight: 800;
@@ -3573,7 +3579,7 @@
             <div class="hero-unified-content">
                 <div class="hero-unified-badge" id="heroDynBadge">
                     <span class="gold-pulse-dot" aria-hidden="true"></span>
-                    <span id="heroDynBadgeText">متاحون لمشاريع 2026 • CTO &amp; كبير مهندسي السحابة والذكاء الاصطناعي</span>
+                    <span id="heroDynBadgeText"><bdi>متاحون لمشاريع 2026</bdi> <span class="badge-bullet">•</span> <bdi>CTO &amp; كبير مهندسي السحابة والذكاء الاصطناعي</bdi></span>
                 </div>
                 <h1 class="hero-unified-title" id="heroDynTitle">
                     <span id="heroDynTitleText">أنظمة وبرمجيات سحابية ذكية</span> <span class="accent" id="heroDynTitleAccent">تقود شركتك نحو القمة</span>
@@ -6133,6 +6139,7 @@
                 bio: 'هندسة البرمجيات السحابية المتقدمة، تطبيقات الويب والهواتف الذكية، وأتمتة الذكاء الاصطناعي (AI & Cloud).',
                 sig: './assets/signature-neon.svg?v=dana_v2',
                 // نصوص البطل الديناميكية (Option 1)
+                badgeHtml: '<bdi>متاحون لمشاريع 2026</bdi> <span class="badge-bullet">•</span> <bdi>CTO &amp; كبير مهندسي السحابة والذكاء الاصطناعي</bdi>',
                 badge: 'متاحون لمشاريع 2026 • CTO & كبير مهندسي السحابة والذكاء الاصطناعي',
                 titleMain: 'أنظمة وبرمجيات سحابية ذكية',
                 titleAccent: 'تقود شركتك نحو القمة',
@@ -6144,6 +6151,7 @@
                 bio: 'تصميم وتطوير أنظمة الـ ERP، إدارة قواعد البيانات، والامتثال المحاسبي والضريبي الهولندي والأوروبي (VAT).',
                 sig: './assets/signature-neon-raed.svg?v=dana_v2',
                 // نصوص البطل الديناميكية (Option 1)
+                badgeHtml: '<bdi>متاحون لمشاريع 2026</bdi> <span class="badge-bullet">•</span> <bdi>CFO &amp; كبير مطوري أنظمة الـ ERP والمالية</bdi>',
                 badge: 'متاحون لمشاريع 2026 • CFO & كبير مطوري أنظمة الـ ERP والمالية',
                 titleMain: 'حلول محاسبية متطورة وتكامل ERP',
                 titleAccent: 'يضمن الامتثال والربحية الكاملة',
@@ -6266,7 +6274,13 @@
                 if (descEl)   { descEl.style.opacity   = '0'; }
 
                 setTimeout(() => {
-                    if (badgeTextEl && data.badge)        { badgeTextEl.textContent   = data.badge; }
+                    if (badgeTextEl) {
+                        if (data.badgeHtml) {
+                            badgeTextEl.innerHTML = data.badgeHtml;
+                        } else if (data.badge) {
+                            badgeTextEl.textContent = data.badge;
+                        }
+                    }
                     if (titleMainEl && data.titleMain)    { titleMainEl.textContent   = data.titleMain; }
                     if (titleAccentEl && data.titleAccent){ titleAccentEl.textContent = data.titleAccent; }
                     if (descEl && data.desc)              { descEl.textContent        = data.desc; }
