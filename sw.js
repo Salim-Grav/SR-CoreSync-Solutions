@@ -1,5 +1,5 @@
 // S&R CoreSync Solutions - Ultra-Fast Service Worker for PWA
-const CACHE_NAME = 'coresync-cache-v3';
+const CACHE_NAME = 'coresync-cache-v4';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -20,6 +20,8 @@ const ASSETS_TO_CACHE = [
   './assets/bg-4.png',
   './assets/bg-2-gold.png',
   './assets/bg-3.png',
+  './assets/hero-founder-salim-chair.jpg',
+  './assets/hero-founder-raed-chair.jpg',
   './assets/founder-salim.png',
   './assets/founder-raed.png',
   './assets/about-founder-raed.jpg',
@@ -55,10 +57,28 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+  const isHtml = event.request.headers.get('accept')?.includes('text/html');
+
+  if (isHtml) {
+    // Network-First for HTML to guarantee instant updates
+    event.respondWith(
+      fetch(event.request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const clone = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          }
+          return networkResponse;
+        })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
+  // Cache-First for static assets
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
-        // Return cache instantly, update in background if online
         fetch(event.request).then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
             caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse));
@@ -72,13 +92,6 @@ self.addEventListener('fetch', (event) => {
           caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseToCache));
         }
         return networkResponse;
-      }).catch(() => {
-        const accept = event.request.headers.get('accept') || '';
-        if (accept.includes('text/html')) {
-          if (event.request.url.includes('/en/')) return caches.match('./en/index.html');
-          if (event.request.url.includes('/nl/')) return caches.match('./nl/index.html');
-          return caches.match('./index.html');
-        }
       });
     })
   );
