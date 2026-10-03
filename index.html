@@ -1282,29 +1282,30 @@
 
         .hero-stage-img {
             position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
+            inset: -4%;
+            width: 108%;
+            height: 108%;
             object-fit: cover;
             object-position: center 22%;
             display: block;
+            will-change: transform;
             animation: stageKenBurnsA 14s ease-in-out infinite alternate;
         }
 
         /* Ken Burns A — تكبير ناعم نحو اليسار العلوي */
         @keyframes stageKenBurnsA {
-            0%   { transform: scale(1)     translate(0%, 0%);       }
-            33%  { transform: scale(1.06)  translate(-1.2%, -0.8%); }
-            66%  { transform: scale(1.04)  translate(1.0%, -1.4%);  }
-            100% { transform: scale(1.08)  translate(-0.6%, 0.6%);  }
+            0%   { transform: scale(1.04) translate(0%, 0%);       }
+            33%  { transform: scale(1.09) translate(-1.2%, -0.8%); }
+            66%  { transform: scale(1.07) translate(1.0%, -1.4%);  }
+            100% { transform: scale(1.12) translate(-0.6%, 0.6%);  }
         }
 
         /* Ken Burns B — تكبير ناعم نحو اليمين السفلي */
         @keyframes stageKenBurnsB {
-            0%   { transform: scale(1)     translate(0%, 0%);      }
-            33%  { transform: scale(1.07)  translate(1.4%, -0.6%); }
-            66%  { transform: scale(1.05)  translate(-0.8%, 1.2%); }
-            100% { transform: scale(1.09)  translate(0.4%, -0.8%); }
+            0%   { transform: scale(1.04) translate(0%, 0%);       }
+            33%  { transform: scale(1.10) translate(1.4%, -0.6%);  }
+            66%  { transform: scale(1.07) translate(-0.8%, 1.2%);  }
+            100% { transform: scale(1.13) translate(0.4%, -0.8%);  }
         }
 
         #heroStageLayerRaed .hero-stage-img {
@@ -1451,6 +1452,7 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
+            transition: opacity 0.3s ease;
         }
 
         .hero-stage-role-tag .gold-dot {
@@ -1488,10 +1490,10 @@
         }
 
         .hero-stage-card-sig {
-            height: 30px;
+            height: 36px;
             width: auto;
-            filter: drop-shadow(0 0 8px rgba(197, 168, 128, 0.6));
-            transition: filter 0.3s ease, opacity 0.3s ease;
+            filter: drop-shadow(0 0 8px rgba(197, 168, 128, 0.85)) drop-shadow(0 0 2px rgba(255, 235, 195, 0.95));
+            transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
         }
 
         .hero-stage-btn-cinema {
@@ -1573,24 +1575,25 @@
             box-shadow: 0 0 8px var(--primary-gold);
         }
 
-        /* شريط التقدم الزمني النحيف */
+        /* شريط التقدم الزمني النحيف الذهبي */
         .hero-stage-progress-track {
             position: absolute;
             bottom: -2px;
-            left: 15%;
-            right: 15%;
-            height: 2px;
-            background: rgba(197, 168, 128, 0.18);
-            border-radius: 2px;
+            left: 12%;
+            right: 12%;
+            height: 3px;
+            background: rgba(197, 168, 128, 0.25);
+            border-radius: 999px;
             overflow: hidden;
         }
 
         .hero-stage-progress-bar {
             height: 100%;
             width: 0%;
-            background: var(--primary-gold);
-            box-shadow: 0 0 8px var(--primary-gold);
+            background: linear-gradient(90deg, #c5a880, #f8e5c8, #c5a880);
+            box-shadow: 0 0 10px rgba(197, 168, 128, 0.95);
             transition: width 0.05s linear;
+            border-radius: 999px;
         }
 
         @media (max-width: 992px) {
@@ -6158,11 +6161,14 @@
         function initStageEngine() {
             startStageTimer();
 
-            const heroSec = document.getElementById('home');
-            if (heroSec) {
-                heroSec.addEventListener('mouseenter', () => { isStageHovered = true; });
-                heroSec.addEventListener('mouseleave', () => { isStageHovered = false; });
-            }
+            const capsule = document.querySelector('.hero-stage-capsule-switcher');
+            const card = document.getElementById('heroStageCard');
+            [capsule, card].forEach(el => {
+                if (el) {
+                    el.addEventListener('mouseenter', () => { isStageHovered = true; });
+                    el.addEventListener('mouseleave', () => { isStageHovered = false; });
+                }
+            });
         }
 
         function startStageTimer() {
@@ -6195,8 +6201,11 @@
             stageProgressPercent = 0;
             updateStageProgressBar(0);
 
-            if (playAudio && typeof LuxuryAudio !== 'undefined') {
-                LuxuryAudio.play('switch');
+            if (playAudio) {
+                startStageTimer(); // إعادة ضبط العد التنازلي لمدة 7 ثوانٍ كاملة عند التبديل اليدوي
+                if (typeof LuxuryAudio !== 'undefined') {
+                    LuxuryAudio.play('switch');
+                }
             }
 
             // 1. تبديل طبقات الخلفية المسرحية
@@ -6238,7 +6247,10 @@
                     nameEl.style.opacity = '0';
                     setTimeout(() => { nameEl.textContent = data.name; nameEl.style.opacity = '1'; }, FADE_DELAY);
                 }
-                if (roleEl) { roleEl.textContent = data.role; }
+                if (roleEl) {
+                    roleEl.style.opacity = '0';
+                    setTimeout(() => { roleEl.textContent = data.role; roleEl.style.opacity = '1'; }, FADE_DELAY);
+                }
                 if (bioEl) {
                     bioEl.style.opacity = '0';
                     setTimeout(() => { bioEl.textContent = data.bio; bioEl.style.opacity = '1'; }, FADE_DELAY);
