@@ -3865,23 +3865,37 @@
                     </a>
                 </div>
 
-                <!-- كبسولة التبديل التفاعلية السفلية بين الشريكين -->
-                <div class="exec-stage-capsule" role="tablist" aria-label="تبديل عرض القيادة التنفيذية">
-                    <button type="button" class="exec-stage-tab active" id="execBtnSalim" onclick="switchExecStage('salim')">
-                        <span class="exec-stage-tab-dot"></span>
-                        <span>م. سليم S</span>
-                    </button>
-                    <button type="button" class="exec-stage-tab" id="execBtnRaed" onclick="switchExecStage('raed')">
-                        <span class="exec-stage-tab-dot"></span>
-                        <span>أ. رائد R</span>
-                    </button>
-                </div>
+                <!-- رصيف القيادة التنفيذية السفلي المتناسق طرداً مع عرض الشاشة -->
+                <div class="exec-stage-dock">
+                    <!-- الجناح الأيمن: كرت التعريف بالشريك التنفيذي النشط -->
+                    <div class="exec-stage-profile-dock" id="execStageCard">
+                        <div class="exec-stage-card-tag" id="execCardRole">المسؤول التقني // CTO</div>
+                        <div class="exec-stage-card-name" id="execCardName">م. محمد سليم عزيزة</div>
+                        <div class="exec-stage-card-bio" id="execCardBio">هندسة البرمجيات السحابية المتقدمة، تطبيقات الويب والهواتف الذكية، وأتمتة الذكاء الاصطناعي (AI & Cloud).</div>
+                    </div>
 
-                <!-- كرت التعريف التنفيذي العائم في الزاوية -->
-                <div class="exec-stage-corner-card" id="execStageCard">
-                    <div class="exec-stage-card-tag" id="execCardRole">المسؤول التقني // CTO</div>
-                    <div class="exec-stage-card-name" id="execCardName">م. محمد سليم عزيزة</div>
-                    <div class="exec-stage-card-bio" id="execCardBio">هندسة البرمجيات السحابية المتقدمة، تطبيقات الويب والهواتف الذكية، وأتمتة الذكاء الاصطناعي (AI & Cloud).</div>
+                    <!-- المنتصف: كبسولة التبديل بين الشريكين -->
+                    <div class="exec-stage-capsule" role="tablist" aria-label="تبديل عرض القيادة التنفيذية">
+                        <button type="button" class="exec-stage-tab active" id="execBtnSalim" onclick="switchExecStage('salim')">
+                            <span class="exec-stage-tab-dot"></span>
+                            <span>م. سليم S</span>
+                        </button>
+                        <button type="button" class="exec-stage-tab" id="execBtnRaed" onclick="switchExecStage('raed')">
+                            <span class="exec-stage-tab-dot"></span>
+                            <span>أ. رائد R</span>
+                        </button>
+                    </div>
+
+                    <!-- الجناح الأيسر: شارة الاعتمادية والضمان (توازن بصري ملكي) -->
+                    <div class="exec-stage-assurance-dock">
+                        <div class="exec-stage-assurance-pill">
+                            <span class="exec-stage-assurance-dot"></span>
+                            <div class="exec-stage-assurance-body">
+                                <span class="exec-stage-assurance-role" id="execAssuranceRole">بنية سحابية معتمدة وأتمتة AI</span>
+                                <span class="exec-stage-assurance-val" id="execAssuranceVal">استشارات قيادية مباشرة مع المؤسسين</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
