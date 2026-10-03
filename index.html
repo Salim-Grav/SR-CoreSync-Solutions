@@ -3081,12 +3081,21 @@
            Showcases Eng. Salim (CTO & AI/Cloud) & Mr. Raed (CFO & ERP/Finance)
            in director's chairs with atmospheric lighting & interactive toggle
            =================================================================== */
+        /* ===================================================================
+           S&R CORESYNC - EXECUTIVE LEADERSHIP & SOLUTIONS STAGE (DOWN SECTION)
+           Two-Column Asymmetric Executive Showcase (Split-Focus Harmony)
+           Right Column: Executive Command Center (Title, CTAs, Console)
+           Left Column: Cinematic Director's Throne Spotlight (Crisp, Unobstructed)
+           =================================================================== */
         .section-executive-stage {
+            --stage-gold: #c5a880;
+            --stage-gold-bright: #f3dfba;
+            --stage-gold-glow: rgba(197, 168, 128, 0.35);
             position: relative;
             z-index: 10;
             clear: both;
             width: 100%;
-            min-height: 94vh;
+            min-height: 88vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -3094,78 +3103,65 @@
             background: #010907;
             border-top: 1px solid rgba(197, 168, 128, 0.18);
             border-bottom: 1px solid rgba(197, 168, 128, 0.18);
-            padding: clamp(5rem, 9vh, 7.5rem) 1.5rem;
+            padding: clamp(3.5rem, 6vh, 5.5rem) 1.5rem;
             margin-top: clamp(35px, 5vh, 65px);
             scroll-margin-top: 0;
+            direction: rtl !important;
+            text-align: right !important;
         }
 
-        .section-executive-stage .exec-stage-layers {
+        /* خلفية الهالة السينمائية المحيطة */
+        .section-executive-stage .exec-stage-ambient-glow {
             position: absolute;
             inset: 0;
-            width: 100%;
-            height: 100%;
+            pointer-events: none;
             z-index: 1;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .section-executive-stage .exec-stage-layer {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center 25%;
-            background-repeat: no-repeat;
-            opacity: 0;
-            transform: scale(1.04);
-            transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform;
-        }
-
-        .section-executive-stage .exec-stage-layer.active {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .section-executive-stage .exec-stage-vignette {
-            position: absolute;
-            inset: 0;
-            z-index: 2;
-            pointer-events: none;
             background: 
-                radial-gradient(ellipse at 50% 40%, rgba(1, 9, 7, 0.12) 0%, rgba(1, 9, 7, 0.72) 65%, #010907 98%),
-                linear-gradient(to bottom, rgba(1, 9, 7, 0.85) 0%, transparent 20%, transparent 75%, #010907 100%),
-                linear-gradient(to right, rgba(1, 9, 7, 0.85) 0%, rgba(1, 9, 7, 0.38) 35%, transparent 65%, rgba(1, 9, 7, 0.85) 100%);
+                radial-gradient(circle at 25% 45%, rgba(197, 168, 128, 0.08) 0%, transparent 60%),
+                radial-gradient(circle at 80% 30%, rgba(1, 40, 30, 0.25) 0%, transparent 70%);
         }
 
-        .section-executive-stage .exec-stage-content {
+        .section-executive-stage .exec-stage-container {
             position: relative;
             z-index: 5;
             width: 100%;
-            max-width: 1360px;
+            max-width: 1400px;
             margin: 0 auto;
+        }
+
+        /* الشبكة التنفيذية الثنائية: اليمين للمحتوى واليسار للمسرح البصري */
+        .section-executive-stage .exec-stage-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            align-items: center;
+            gap: clamp(2rem, 4vw, 4.5rem);
+            direction: rtl !important;
+        }
+
+        /* العمود الأيمن: مركز القيادة التحريري */
+        .section-executive-stage .exec-stage-content {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            text-align: center;
+            align-items: flex-start;
+            text-align: right;
+            direction: rtl !important;
         }
 
         .section-executive-stage .exec-stage-badge {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 8px 24px;
-            background: rgba(1, 14, 11, 0.85);
+            padding: 8px 22px;
+            background: rgba(10, 18, 14, 0.85);
             border: 1px solid rgba(197, 168, 128, 0.35);
             border-radius: 999px;
-            font-size: clamp(0.85rem, 1.1vw, 0.98rem);
+            font-size: clamp(0.82rem, 1vw, 0.94rem);
             font-weight: 600;
             color: #ffffff;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 20px rgba(197, 168, 128, 0.15);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 18px rgba(197, 168, 128, 0.15);
             transition: all 0.4s ease;
         }
 
@@ -3175,57 +3171,60 @@
             border-radius: 50%;
             background: #e2c8a2;
             box-shadow: 0 0 10px #e2c8a2;
+            animation: pulse-dot 2.2s infinite ease-in-out;
+            flex-shrink: 0;
         }
 
         .section-executive-stage .exec-stage-title {
-            font-size: clamp(2rem, 4.4vw, 4.1rem);
+            font-size: clamp(2rem, 3.4vw, 3.4rem);
             font-weight: 800;
-            line-height: 1.25;
+            line-height: 1.3;
             color: #ffffff;
-            max-width: 1050px;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.2rem;
             letter-spacing: -0.02em;
-            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.85);
+            text-shadow: 0 4px 28px rgba(0, 0, 0, 0.9);
             transition: opacity 0.35s ease, transform 0.35s ease;
         }
 
-        .section-executive-stage .exec-stage-title span.gold-gradient {
-            background: linear-gradient(135deg, #ffffff 15%, var(--primary-gold-bright) 65%, var(--primary-gold) 100%);
+        /* نص التدرج الذهبي الفاخر المضمون 100% بدون أي اختفاء */
+        .section-executive-stage .exec-gold-accent {
+            color: #f3dfba; /* لون أساسي مضمون الظهور */
+            background: linear-gradient(135deg, #ffffff 10%, #f6e2c2 50%, #c5a880 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            display: inline-block;
         }
 
         .section-executive-stage .exec-stage-desc {
-            font-size: clamp(0.98rem, 1.35vw, 1.2rem);
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.85);
-            max-width: 820px;
-            margin-bottom: 2.2rem;
+            font-size: clamp(0.98rem, 1.2vw, 1.15rem);
+            line-height: 1.85;
+            color: rgba(255, 255, 255, 0.84);
+            max-width: 660px;
+            margin-bottom: 2rem;
             font-weight: 400;
-            text-shadow: 0 2px 14px rgba(0, 0, 0, 0.9);
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
             transition: opacity 0.35s ease;
         }
 
+        /* صف أزرار الإجراءات التنفيذية مرتبة من اليمين لليسار */
         .section-executive-stage .exec-stage-actions {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            justify-content: center;
-            gap: clamp(10px, 1.2vw, 16px);
-            margin-bottom: 0;
+            justify-content: flex-start;
+            gap: 12px;
+            margin-bottom: 2.2rem;
             width: 100%;
-            max-width: 980px;
-            position: relative;
-            z-index: 6;
+            direction: rtl !important;
         }
 
         .section-executive-stage .exec-stage-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 12px 26px;
+            padding: 12px 24px;
             border-radius: 12px;
-            font-size: 0.95rem;
+            font-size: 0.94rem;
             font-weight: 600;
             text-decoration: none;
             cursor: pointer;
@@ -3234,18 +3233,19 @@
         }
 
         .section-executive-stage .exec-stage-btn-primary {
-            background: linear-gradient(135deg, var(--primary-gold-bright), var(--primary-gold));
-            color: #010907;
-            border: 1px solid var(--primary-gold-bright);
-            box-shadow: 0 10px 25px rgba(197, 168, 128, 0.3);
+            background: linear-gradient(135deg, #e8d3b3 0%, #c5a880 100%) !important;
+            color: #010907 !important;
+            border: 1px solid #f6e2c2 !important;
+            font-weight: 700 !important;
+            box-shadow: 0 10px 28px rgba(197, 168, 128, 0.38) !important;
         }
 
         .section-executive-stage .exec-stage-btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 14px 30px rgba(197, 168, 128, 0.45);
-            background: #ffffff;
-            border-color: #ffffff;
-            color: #010907;
+            box-shadow: 0 14px 34px rgba(197, 168, 128, 0.55) !important;
+            background: #ffffff !important;
+            border-color: #ffffff !important;
+            color: #010907 !important;
         }
 
         .section-executive-stage .exec-stage-btn-glass {
@@ -3257,94 +3257,68 @@
         }
 
         .section-executive-stage .exec-stage-btn-glass:hover {
-            background: rgba(197, 168, 128, 0.15);
-            border-color: var(--primary-gold);
-            color: var(--primary-gold-bright);
+            background: rgba(197, 168, 128, 0.16);
+            border-color: #c5a880;
+            color: #f3dfba;
             transform: translateY(-3px);
         }
 
-        /* رصيف القيادة التنفيذية السفلي المتناسق طرداً مع عرض الشاشة */
-        .section-executive-stage .exec-stage-dock {
+        /* كونسول القيادة الموحد: شريط التبديل والاعتمادات القيادية */
+        .section-executive-stage .exec-stage-console {
             width: 100%;
-            max-width: 1320px;
-            margin-top: clamp(2.4rem, 5vh, 4rem);
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            align-items: center;
-            gap: clamp(16px, 2.5vw, 36px);
-            position: relative;
-            z-index: 7;
-        }
-
-        /* الجناح الأيمن: كرت التعريف بالشريك التنفيذي */
-        .section-executive-stage .exec-stage-profile-dock {
-            background: rgba(10, 16, 13, 0.88);
+            max-width: 660px;
+            background: rgba(10, 16, 13, 0.85);
             border: 1px solid rgba(197, 168, 128, 0.28);
-            border-radius: 18px;
-            padding: clamp(12px, 1.2vw, 16px) clamp(16px, 1.6vw, 22px);
-            max-width: 380px;
-            width: 100%;
-            text-align: right;
+            border-radius: 20px;
+            padding: clamp(16px, 1.8vw, 22px);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
-            transition: all 0.4s ease;
-            justify-self: start;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            direction: rtl !important;
         }
 
-        .section-executive-stage .exec-stage-card-tag {
-            font-size: clamp(0.72rem, 0.85vw, 0.78rem);
+        .section-executive-stage .exec-stage-switcher-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(197, 168, 128, 0.14);
+        }
+
+        .section-executive-stage .exec-stage-switcher-label {
+            font-size: 0.88rem;
             font-weight: 700;
-            color: var(--primary-gold);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 2px;
+            color: #c5a880;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .section-executive-stage .exec-stage-card-name {
-            font-size: clamp(1.05rem, 1.3vw, 1.2rem);
-            font-weight: 800;
-            color: #ffffff;
-            margin-bottom: 3px;
-            white-space: nowrap;
-        }
-
-        .section-executive-stage .exec-stage-card-bio {
-            font-size: clamp(0.78rem, 0.9vw, 0.84rem);
-            color: rgba(255, 255, 255, 0.75);
-            line-height: 1.5;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        /* المنتصف: كبسولة التبديل بين الشريكين */
         .section-executive-stage .exec-stage-capsule {
             display: inline-flex;
             align-items: center;
-            background: rgba(10, 16, 13, 0.9);
+            background: rgba(4, 9, 7, 0.9);
             border: 1px solid rgba(197, 168, 128, 0.35);
             border-radius: 999px;
-            padding: 5px;
+            padding: 4px;
             gap: 6px;
-            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.8), 0 0 20px rgba(197, 168, 128, 0.15);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            justify-self: center;
-            white-space: nowrap;
         }
 
         .section-executive-stage .exec-stage-tab {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 9px 22px;
+            padding: 8px 18px;
             border-radius: 999px;
             border: none;
             background: transparent;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 0.88rem;
             font-weight: 600;
             font-family: inherit;
             cursor: pointer;
@@ -3354,99 +3328,231 @@
         .section-executive-stage .exec-stage-tab.active {
             background: rgba(197, 168, 128, 0.22);
             color: #ffffff;
-            border: 1px solid var(--primary-gold);
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+            border: 1px solid #c5a880;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
 
         .section-executive-stage .exec-stage-tab:hover:not(.active) {
-            color: var(--primary-gold-bright);
-            background: rgba(255, 255, 255, 0.04);
+            color: #f3dfba;
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .section-executive-stage .exec-stage-tab-dot {
             width: 7px;
             height: 7px;
             border-radius: 50%;
-            background: var(--primary-gold);
+            background: #c5a880;
         }
 
-        /* الجناح الأيسر: شارة الاعتمادية والضمان (توازن بصري للمسرح) */
-        .section-executive-stage .exec-stage-assurance-dock {
-            justify-self: end;
-            max-width: 380px;
-            width: 100%;
+        /* شارات التخصص التنفيذي والاعتمادات */
+        .section-executive-stage .exec-stage-focus-row {
             display: flex;
-            justify-content: flex-end;
+            flex-direction: column;
+            gap: 8px;
         }
 
-        .section-executive-stage .exec-stage-assurance-pill {
+        .section-executive-stage .exec-stage-focus-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .section-executive-stage .exec-stage-focus-tag {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #f3dfba;
+            letter-spacing: 0.04em;
+        }
+
+        .section-executive-stage .exec-stage-live-badge {
+            font-size: 0.74rem;
+            font-weight: 600;
+            color: #4ade80;
             display: inline-flex;
             align-items: center;
+            gap: 6px;
+        }
+
+        .section-executive-stage .live-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #4ade80;
+            box-shadow: 0 0 8px #4ade80;
+        }
+
+        .section-executive-stage .exec-stage-focus-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .section-executive-stage .exec-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(197, 168, 128, 0.18);
+            border-radius: 8px;
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.88);
+            font-weight: 500;
+        }
+
+        /* العمود الأيسر: المسرح السينمائي للكرسي القيادي */
+        .section-executive-stage .exec-stage-visual {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .section-executive-stage .exec-visual-spotlight {
+            position: absolute;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle at 50% 10%, rgba(197, 168, 128, 0.2) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .section-executive-stage .exec-visual-frame {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 1 / 1;
+            border-radius: 24px;
+            overflow: hidden;
+            background: #010907;
+            border: 1px solid rgba(197, 168, 128, 0.28);
+            box-shadow: 
+                0 25px 60px rgba(0, 0, 0, 0.85),
+                0 0 35px rgba(197, 168, 128, 0.12);
+        }
+
+        .section-executive-stage .exec-visual-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+            opacity: 0;
+            transform: scale(1.05);
+            transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .section-executive-stage .exec-visual-img.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .section-executive-stage .exec-visual-vignette {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 3;
+            background: 
+                linear-gradient(to top, rgba(1, 9, 7, 0.95) 0%, rgba(1, 9, 7, 0.35) 25%, transparent 55%),
+                radial-gradient(ellipse at 50% 50%, transparent 65%, rgba(1, 9, 7, 0.75) 100%);
+        }
+
+        .section-executive-stage .exec-visual-badge {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            left: 16px;
+            z-index: 4;
+            display: flex;
+            align-items: center;
             gap: 12px;
-            padding: clamp(12px, 1.2vw, 16px) clamp(16px, 1.6vw, 22px);
-            background: rgba(10, 16, 13, 0.78);
-            border: 1px solid rgba(197, 168, 128, 0.22);
-            border-radius: 18px;
+            padding: 10px 16px;
+            background: rgba(4, 9, 7, 0.88);
+            border: 1px solid rgba(197, 168, 128, 0.35);
+            border-radius: 14px;
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
-            transition: all 0.4s ease;
-            text-align: right;
-            width: 100%;
-            max-width: 360px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+            direction: rtl !important;
+            text-align: right !important;
         }
 
-        .section-executive-stage .exec-stage-assurance-dot {
-            width: 9px;
-            height: 9px;
+        .section-executive-stage .exec-visual-badge-avatar {
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
-            background: var(--primary-gold);
-            box-shadow: 0 0 10px var(--primary-gold);
+            background: linear-gradient(135deg, #e8d3b3 0%, #c5a880 100%);
+            color: #010907;
+            font-size: 1.1rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             flex-shrink: 0;
-            animation: pulse-dot 2.2s infinite ease-in-out;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            box-shadow: 0 0 12px rgba(197, 168, 128, 0.5);
         }
 
-        .section-executive-stage .exec-stage-assurance-body {
+        .section-executive-stage .exec-visual-badge-info {
             display: flex;
             flex-direction: column;
             gap: 2px;
+            overflow: hidden;
         }
 
-        .section-executive-stage .exec-stage-assurance-role {
-            font-size: clamp(0.78rem, 0.9vw, 0.84rem);
-            font-weight: 700;
+        .section-executive-stage .exec-visual-badge-name {
+            font-size: 0.94rem;
+            font-weight: 800;
             color: #ffffff;
-            line-height: 1.3;
+            white-space: nowrap;
         }
 
-        .section-executive-stage .exec-stage-assurance-val {
-            font-size: clamp(0.72rem, 0.8vw, 0.78rem);
-            color: var(--primary-gold-bright);
-            line-height: 1.3;
+        .section-executive-stage .exec-visual-badge-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #f3dfba;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         @keyframes pulse-dot {
             0%, 100% { transform: scale(1); opacity: 0.9; }
-            50% { transform: scale(1.35); opacity: 1; box-shadow: 0 0 16px var(--primary-gold-bright); }
+            50% { transform: scale(1.35); opacity: 1; box-shadow: 0 0 16px #e2c8a2; }
         }
 
         @media (max-width: 991px) {
-            .section-executive-stage .exec-stage-dock {
+            .section-executive-stage .exec-stage-grid {
                 grid-template-columns: 1fr;
-                justify-items: center;
-                gap: 16px;
-                margin-top: 2rem;
+                gap: 2.5rem;
             }
-            .section-executive-stage .exec-stage-profile-dock,
-            .section-executive-stage .exec-stage-assurance-dock,
-            .section-executive-stage .exec-stage-assurance-pill {
-                justify-self: center;
-                max-width: 100%;
+            .section-executive-stage .exec-stage-content {
+                align-items: center;
                 text-align: center;
+            }
+            .section-executive-stage .exec-stage-actions {
                 justify-content: center;
             }
-            .section-executive-stage .exec-stage-assurance-pill {
+            .section-executive-stage .exec-stage-console {
+                align-items: center;
+                text-align: center;
+            }
+            .section-executive-stage .exec-stage-switcher-row {
                 justify-content: center;
+            }
+            .section-executive-stage .exec-stage-focus-chips {
+                justify-content: center;
+            }
+            .section-executive-stage .exec-visual-frame {
+                max-width: 380px;
             }
         }
 
@@ -3827,77 +3933,100 @@
 
         <!-- 3.5 مسرح القيادة التنفيذية وحلول ERP والسحابة (Executive Solutions Stage) -->
         <div id="leadership" data-section class="section-scroll-anchor" aria-hidden="true"></div>
-        <section class="section-executive-stage" id="executive-solutions-stage" data-section>
-            <!-- طبقات صور الكراسي السينمائية للطرفين -->
-            <div class="exec-stage-layers" aria-hidden="true">
-                <div class="exec-stage-layer active" id="execLayerSalim" style="background-image: url('./assets/hero-founder-salim-chair.jpg');"></div>
-                <div class="exec-stage-layer" id="execLayerRaed" style="background-image: url('./assets/hero-founder-raed-chair.jpg');"></div>
-            </div>
+        <!-- 3.5 مسرح القيادة التنفيذية وحلول ERP والسحابة (Executive Solutions Stage) -->
+        <div id="leadership" data-section class="section-scroll-anchor" aria-hidden="true"></div>
+        <section class="section-executive-stage" id="executive-solutions-stage" data-section aria-label="منصة القيادة التنفيذية وحلول ERP">
+            
+            <div class="exec-stage-ambient-glow" aria-hidden="true"></div>
 
-            <!-- طبقة التدرج والظلال الملكية -->
-            <div class="exec-stage-vignette" aria-hidden="true"></div>
+            <div class="exec-stage-container">
+                <div class="exec-stage-grid">
+                    
+                    <!-- 1. العمود الأيمن: مركز القيادة التحريري والحلول المخصصة (أول ما تقع عليه عين المشاهد) -->
+                    <div class="exec-stage-content">
+                        
+                        <div class="exec-stage-badge" id="execStageBadge">
+                            <span class="exec-stage-dot"></span>
+                            <span id="execStageBadgeText">كبير مهندسي السحابة والذكاء الاصطناعي & CTO • متاحون لمشاريع 2026</span>
+                        </div>
 
-            <!-- المحتوى التحريري المتفاعل مع الشريك النشط -->
-            <div class="exec-stage-content">
-                <div class="exec-stage-badge" id="execStageBadge">
-                    <span class="exec-stage-dot"></span>
-                    <span id="execStageBadgeText">كبير مهندسي السحابة والذكاء الاصطناعي & CTO • متاحون لمشاريع 2026</span>
-                </div>
+                        <h2 class="exec-stage-title" id="execStageTitle">
+                            أنظمة وبرمجيات سحابية <span class="exec-gold-accent">ذكية تقود شركتك</span> نحو القمة
+                        </h2>
 
-                <h2 class="exec-stage-title" id="execStageTitle">
-                    أنظمة وبرمجيات سحابية <span class="gold-gradient">ذكية تقود شركتك</span> نحو القمة
-                </h2>
+                        <p class="exec-stage-desc" id="execStageDesc">
+                            نبتكر حلولاً برمجية مخصصة، منصات ويب متقدمة، وأتمتة ذكاء اصطناعي لدعم نمو الشركات في أوروبا والشرق الأوسط.
+                        </p>
 
-                <p class="exec-stage-desc" id="execStageDesc">
-                    نبتكر حلولاً برمجية مخصصة، منصات ويب متقدمة، وأتمتة ذكاء اصطناعي لدعم نمو الشركات في أوروبا والشرق الأوسط.
-                </p>
+                        <!-- أزرار الإجراءات مرتبة من اليمين إلى اليسار -->
+                        <div class="exec-stage-actions">
+                            <a href="#contact" class="exec-stage-btn exec-stage-btn-primary">تواصـــل معنا</a>
+                            <button type="button" class="exec-stage-btn exec-stage-btn-glass" onclick="openExecutiveBookingModal('stage')">
+                                <span>حجز استشارة VIP 👔</span>
+                            </button>
+                            <a href="#roi-calculator" class="exec-stage-btn exec-stage-btn-glass">
+                                <span>حاسبة التوفير (ROI) 📊</span>
+                            </a>
+                            <a href="demo.html" class="exec-stage-btn exec-stage-btn-glass">
+                                <span>النظام التجريبي (Live Demo)</span>
+                            </a>
+                        </div>
 
-                <div class="exec-stage-actions">
-                    <a href="#contact" class="exec-stage-btn exec-stage-btn-primary">تواصـــل معنا</a>
-                    <button type="button" class="exec-stage-btn exec-stage-btn-glass" onclick="openExecutiveBookingModal('stage')">
-                        <span>حجز استشارة VIP 👔</span>
-                    </button>
-                    <a href="#roi-calculator" class="exec-stage-btn exec-stage-btn-glass">
-                        <span>حاسبة التوفير (ROI) 📊</span>
-                    </a>
-                    <a href="demo.html" class="exec-stage-btn exec-stage-btn-glass">
-                        <span>النظام التجريبي (Live Demo)</span>
-                    </a>
-                </div>
+                        <!-- كونسول القيادة الموحد: التبديل والاعتمادات القيادية -->
+                        <div class="exec-stage-console">
+                            <div class="exec-stage-switcher-row">
+                                <span class="exec-stage-switcher-label">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                    القيادة المباشرة:
+                                </span>
+                                <div class="exec-stage-capsule" role="tablist" aria-label="تبديل عرض القيادة التنفيذية">
+                                    <button type="button" class="exec-stage-tab active" id="execBtnSalim" onclick="switchExecStage('salim')">
+                                        <span class="exec-stage-tab-dot"></span>
+                                        <span>م. محمد سليم عزيزة (CTO)</span>
+                                    </button>
+                                    <button type="button" class="exec-stage-tab" id="execBtnRaed" onclick="switchExecStage('raed')">
+                                        <span class="exec-stage-tab-dot"></span>
+                                        <span>أ. محمد رائد كعكة (CFO)</span>
+                                    </button>
+                                </div>
+                            </div>
 
-                <!-- رصيف القيادة التنفيذية السفلي المتناسق طرداً مع عرض الشاشة -->
-                <div class="exec-stage-dock">
-                    <!-- الجناح الأيمن: كرت التعريف بالشريك التنفيذي النشط -->
-                    <div class="exec-stage-profile-dock" id="execStageCard">
-                        <div class="exec-stage-card-tag" id="execCardRole">المسؤول التقني // CTO</div>
-                        <div class="exec-stage-card-name" id="execCardName">م. محمد سليم عزيزة</div>
-                        <div class="exec-stage-card-bio" id="execCardBio">هندسة البرمجيات السحابية المتقدمة، تطبيقات الويب والهواتف الذكية، وأتمتة الذكاء الاصطناعي (AI & Cloud).</div>
+                            <div class="exec-stage-focus-row">
+                                <div class="exec-stage-focus-header">
+                                    <span class="exec-stage-focus-tag" id="execCardRole">المسؤول التقني // Chief Technology Officer</span>
+                                    <span class="exec-stage-live-badge"><span class="live-dot"></span> استشارات تنفيذية 2026</span>
+                                </div>
+                                <div class="exec-stage-focus-chips" id="execFocusChips">
+                                    <span class="exec-chip">✓ بنية سحابية متقدمة (Cloud Architecture)</span>
+                                    <span class="exec-chip">✓ حلول ذكاء اصطناعي وأتمتة (AI &amp; Automation)</span>
+                                    <span class="exec-chip">✓ تطبيقات ويب ومنصات أعمال فائقة الأداء</span>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
-                    <!-- المنتصف: كبسولة التبديل بين الشريكين -->
-                    <div class="exec-stage-capsule" role="tablist" aria-label="تبديل عرض القيادة التنفيذية">
-                        <button type="button" class="exec-stage-tab active" id="execBtnSalim" onclick="switchExecStage('salim')">
-                            <span class="exec-stage-tab-dot"></span>
-                            <span>م. سليم S</span>
-                        </button>
-                        <button type="button" class="exec-stage-tab" id="execBtnRaed" onclick="switchExecStage('raed')">
-                            <span class="exec-stage-tab-dot"></span>
-                            <span>أ. رائد R</span>
-                        </button>
-                    </div>
-
-                    <!-- الجناح الأيسر: شارة الاعتمادية والضمان (توازن بصري ملكي) -->
-                    <div class="exec-stage-assurance-dock">
-                        <div class="exec-stage-assurance-pill">
-                            <span class="exec-stage-assurance-dot"></span>
-                            <div class="exec-stage-assurance-body">
-                                <span class="exec-stage-assurance-role" id="execAssuranceRole">بنية سحابية معتمدة وأتمتة AI</span>
-                                <span class="exec-stage-assurance-val" id="execAssuranceVal">استشارات قيادية مباشرة مع المؤسسين</span>
+                    <!-- 2. العمود الأيسر: المسرح السينمائي للكرسي القيادي (صورة واضحة كاملة بدون أي نصوص تغطي الوجه) -->
+                    <div class="exec-stage-visual">
+                        <div class="exec-visual-spotlight" aria-hidden="true"></div>
+                        <div class="exec-visual-frame">
+                            <img id="execVisualImgSalim" src="./assets/hero-founder-salim-chair.jpg" alt="م. محمد سليم عزيزة - المسؤول التقني وكبير مهندسي السحابة" class="exec-visual-img active" />
+                            <img id="execVisualImgRaed" src="./assets/hero-founder-raed-chair.jpg" alt="أ. محمد رائد كعكة - المستشار المالي والـ ERP" class="exec-visual-img" />
+                            <div class="exec-visual-vignette" aria-hidden="true"></div>
+                            
+                            <div class="exec-visual-badge">
+                                <div class="exec-visual-badge-avatar" id="execVisualBadgeAvatar">S</div>
+                                <div class="exec-visual-badge-info">
+                                    <div class="exec-visual-badge-name" id="execVisualBadgeName">م. محمد سليم عزيزة</div>
+                                    <div class="exec-visual-badge-title" id="execVisualBadgeTitle">كبير مهندسي السحابة والذكاء الاصطناعي &amp; CTO</div>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
+
         </section>
 
         <!-- 4. قسم النبذة والقيادة التأسيسية (About Us / Founders Section) -->
