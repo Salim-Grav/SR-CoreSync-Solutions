@@ -3,7 +3,7 @@ Write-Host "==========================================================" -Foregro
 Write-Host " S&R CoreSync Solutions - تشغيل الموقع والتطبيق في Edge" -ForegroundColor Yellow
 Write-Host "==========================================================" -ForegroundColor Cyan
 
-$port = 8080
+$port = 3000
 $url = "http://localhost:$port/index.html"
 $fileUrl = "file:///$($PSScriptRoot.Replace('\', '/'))/index.html"
 
@@ -11,7 +11,7 @@ $fileUrl = "file:///$($PSScriptRoot.Replace('\', '/'))/index.html"
 if (Get-Command python -ErrorAction SilentlyContinue) {
     Write-Host "[✓] تم العثور على Python، بدء السيرفر المحلي على $url" -ForegroundColor Green
     Start-Process msedge $url
-    python -m http.server $port
+    python "$PSScriptRoot\serve.py"
 }
 elseif (Get-Command npx -ErrorAction SilentlyContinue) {
     Write-Host "[✓] تم العثور على npx، بدء السيرفر المحلي..." -ForegroundColor Green
