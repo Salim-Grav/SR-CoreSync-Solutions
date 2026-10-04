@@ -5925,10 +5925,12 @@
             const pDev = document.getElementById('pricing-pane-dev');
             const pErp = document.getElementById('pricing-pane-erp');
             const pCare = document.getElementById('pricing-pane-care');
+            const pCreative = document.getElementById('pricing-pane-creative');
 
             if (pDev) pDev.classList.toggle('pane-hidden', category !== 'dev');
             if (pErp) pErp.classList.toggle('pane-hidden', category !== 'erp');
             if (pCare) pCare.classList.toggle('pane-hidden', category !== 'care');
+            if (pCreative) pCreative.classList.toggle('pane-hidden', category !== 'creative');
         }
 
         // CoreSync System Controller
