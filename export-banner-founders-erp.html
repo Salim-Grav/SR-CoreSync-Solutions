@@ -1019,8 +1019,9 @@
                         <input type="tel" id="bookingPhone" class="sr-exec-input" required placeholder="+31 6 ... أو +966 ..." />
                     </div>
                     <div class="sr-exec-form-group">
-                        <label class="sr-exec-label" for="bookingSessionType">نوع الاجتماع المفضل *</label>
+                        <label class="sr-exec-label" for="bookingSessionType">نوع الاستشارة / الاجتماع *</label>
                         <select id="bookingSessionType" class="sr-exec-select">
+                            <option value="creative">طلب هوية بصرية / موقع ويب / متجر إلكتروني</option>
                             <option value="online">اجتماع مرئي مباشر (Google Meet / Teams)</option>
                             <option value="phone">اتصال هاتفي مباشر عبر الواتساب</option>
                             <option value="office">استشارة حضورية بمقر المؤسسة (أوروبا / هولندا)</option>
@@ -1344,6 +1345,7 @@
 
             let sessionLabel = 'اجتماع مرئي مباشر (Google Meet / Teams)';
             if (sessionType === 'phone') sessionLabel = 'اتصال هاتفي مباشر عبر الواتساب';
+            if (sessionType === 'creative') sessionLabel = 'استشارة تصميم هوية بصرية / متجر إلكتروني وموقع ويب';
             if (sessionType === 'office') sessionLabel = 'استشارة حضورية بمقر المؤسسة';
 
             let timeSlotLabel = 'فترة ظهيرة (13:00 - 15:00 CET)';

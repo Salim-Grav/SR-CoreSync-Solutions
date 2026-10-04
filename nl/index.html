@@ -6440,8 +6440,9 @@
                         <input type="tel" id="bookingPhone" class="sr-exec-input" required placeholder="+31 6 ..." />
                     </div>
                     <div class="sr-exec-form-group">
-                        <label class="sr-exec-label" for="bookingSessionType">Gewenst Bijeenkomstkanaal *</label>
+                        <label class="sr-exec-label" for="bookingSessionType">Type Consultatie / Kanaal *</label>
                         <select id="bookingSessionType" class="sr-exec-select">
+                            <option value="creative">Aanvraag Visuele Identiteit / Website / E-commerce Webshop</option>
                             <option value="online">Online Videoconsultatie (Google Meet / Teams)</option>
                             <option value="phone">Direct WhatsApp / Telefonisch Gesprek</option>
                             <option value="office">Persoonlijke Ontmoeting op Locatie (Nederland)</option>
@@ -6884,6 +6885,7 @@
 
             let sessionLabel = 'Online Videoconsult (Google Meet / Microsoft Teams)';
             if (sessionType === 'phone') sessionLabel = 'Direct WhatsApp Spraakgesprek';
+            if (sessionType === 'creative') sessionLabel = 'Aanvraag Visuele Identiteit / Website / E-commerce Webshop';
             if (sessionType === 'office') sessionLabel = 'Persoonlijke Directiemeeting (Nederland)';
 
             let timeSlotLabel = 'Middagvenster (13:00 - 15:00 CET)';
