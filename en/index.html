@@ -2491,6 +2491,449 @@
             padding-top: 1.5rem !important;
             border-top: 1px solid rgba(197, 168, 128, 0.15) !important;
         }
+        /* ===================================================================
+           S&R CORESYNC - EXECUTIVE LEADERSHIP & SOLUTIONS STAGE (LTR)
+           Two-Column Asymmetric Executive Showcase (Split-Focus Harmony)
+           Left Column: Executive Command Center (Title, CTAs, Console)
+           Right Column: Cinematic Director's Throne Spotlight (Unobstructed)
+           =================================================================== */
+        .section-executive-stage {
+            --stage-gold: #c5a880;
+            --stage-gold-bright: #f3dfba;
+            --stage-gold-glow: rgba(197, 168, 128, 0.35);
+            position: relative;
+            z-index: 10;
+            clear: both;
+            width: 100%;
+            min-height: 82vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #010907;
+            border-top: 1px solid rgba(197, 168, 128, 0.18);
+            border-bottom: 1px solid rgba(197, 168, 128, 0.18);
+            padding: clamp(3.5rem, 6vh, 5.5rem) 1.5rem;
+            margin-top: clamp(35px, 5vh, 65px);
+            direction: ltr !important;
+            text-align: left !important;
+        }
+
+        .section-executive-stage .exec-stage-ambient-glow {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            background: 
+                radial-gradient(circle at 75% 45%, rgba(197, 168, 128, 0.08) 0%, transparent 60%),
+                radial-gradient(circle at 20% 30%, rgba(1, 40, 30, 0.25) 0%, transparent 70%);
+        }
+
+        .section-executive-stage .exec-stage-container {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-executive-stage .exec-stage-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            align-items: center;
+            gap: clamp(2rem, 4vw, 4.5rem);
+            direction: ltr !important;
+        }
+
+        .section-executive-stage .exec-stage-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            direction: ltr !important;
+        }
+
+        .section-executive-stage .exec-stage-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 22px;
+            background: rgba(10, 18, 14, 0.85);
+            border: 1px solid rgba(197, 168, 128, 0.35);
+            border-radius: 999px;
+            font-size: clamp(0.82rem, 1vw, 0.94rem);
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 1.25rem;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 18px rgba(197, 168, 128, 0.15);
+            transition: all 0.4s ease;
+        }
+
+        .section-executive-stage .exec-stage-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #e2c8a2;
+            box-shadow: 0 0 10px #e2c8a2;
+            animation: pulse-dot 2.2s infinite ease-in-out;
+            flex-shrink: 0;
+        }
+
+        .section-executive-stage .exec-stage-title {
+            font-size: clamp(2rem, 3.4vw, 3.4rem);
+            font-weight: 800;
+            line-height: 1.2;
+            color: #ffffff;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.02em;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .section-executive-stage .exec-gold-accent {
+            color: #f3dfba;
+            background: linear-gradient(135deg, #ffffff 0%, #f3dfba 45%, #c5a880 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 25px rgba(197, 168, 128, 0.3);
+            display: inline;
+        }
+
+        .section-executive-stage .exec-stage-desc {
+            font-size: clamp(1rem, 1.15vw, 1.2rem);
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 620px;
+            margin-bottom: 2rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .section-executive-stage .exec-stage-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 2.25rem;
+            direction: ltr !important;
+        }
+
+        .section-executive-stage .exec-stage-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 999px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            text-decoration: none !important;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .section-executive-stage .exec-stage-btn-primary {
+            background: linear-gradient(135deg, #c5a880, #e2c8a2);
+            color: #010907 !important;
+            box-shadow: 0 6px 20px rgba(197, 168, 128, 0.35);
+            border: 1px solid #e2c8a2;
+        }
+
+        .section-executive-stage .exec-stage-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(197, 168, 128, 0.55);
+            filter: brightness(1.06);
+        }
+
+        .section-executive-stage .exec-stage-btn-glass {
+            background: rgba(14, 24, 20, 0.7);
+            color: #ffffff !important;
+            border: 1px solid rgba(197, 168, 128, 0.28);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .section-executive-stage .exec-stage-btn-glass:hover {
+            background: rgba(197, 168, 128, 0.15);
+            border-color: #c5a880;
+            color: #f3dfba !important;
+            transform: translateY(-2px);
+        }
+
+        .section-executive-stage .exec-stage-console {
+            width: 100%;
+            max-width: 620px;
+            background: rgba(10, 18, 14, 0.75);
+            border: 1px solid rgba(197, 168, 128, 0.22);
+            border-radius: 16px;
+            padding: 1.25rem 1.5rem;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .section-executive-stage .exec-stage-switcher-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .section-executive-stage .exec-stage-switcher-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #c5a880;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .section-executive-stage .exec-stage-capsule {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.55);
+            border: 1px solid rgba(197, 168, 128, 0.3);
+            border-radius: 999px;
+            padding: 3px;
+            gap: 4px;
+        }
+
+        .section-executive-stage .exec-stage-tab {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 16px;
+            border-radius: 999px;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.84rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .section-executive-stage .exec-stage-tab.active {
+            background: linear-gradient(135deg, rgba(197, 168, 128, 0.35), rgba(197, 168, 128, 0.15));
+            border: 1px solid rgba(197, 168, 128, 0.6);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+        }
+
+        .section-executive-stage .exec-stage-tab-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .section-executive-stage .exec-stage-tab.active .exec-stage-tab-dot {
+            background: #e2c8a2;
+            box-shadow: 0 0 8px #e2c8a2;
+        }
+
+        .section-executive-stage .exec-stage-focus-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(197, 168, 128, 0.12);
+        }
+
+        .section-executive-stage .exec-stage-focus-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .section-executive-stage .exec-stage-focus-tag {
+            font-size: 0.84rem;
+            font-weight: 700;
+            color: #f3dfba;
+        }
+
+        .section-executive-stage .exec-stage-live-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #34d399;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .section-executive-stage .exec-stage-live-badge .live-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 8px #10b981;
+        }
+
+        .section-executive-stage .exec-stage-focus-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .section-executive-stage .exec-chip {
+            font-size: 0.76rem;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: rgba(197, 168, 128, 0.08);
+            border: 1px solid rgba(197, 168, 128, 0.2);
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .section-executive-stage .exec-stage-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .section-executive-stage .exec-visual-spotlight {
+            position: absolute;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle at 50% 10%, rgba(197, 168, 128, 0.2) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .section-executive-stage .exec-visual-frame {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 1 / 1;
+            border-radius: 24px;
+            overflow: hidden;
+            background: #010907;
+            border: 1px solid rgba(197, 168, 128, 0.28);
+            box-shadow: 
+                0 25px 60px rgba(0, 0, 0, 0.85),
+                0 0 35px rgba(197, 168, 128, 0.12);
+        }
+
+        .section-executive-stage .exec-visual-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+            opacity: 0;
+            transform: scale(1.04);
+            transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: contrast(1.05) brightness(1.02);
+        }
+
+        .section-executive-stage .exec-visual-img.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .section-executive-stage .exec-visual-vignette {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at center, transparent 40%, rgba(1, 9, 7, 0.45) 80%, rgba(1, 9, 7, 0.95) 100%),
+                linear-gradient(to top, rgba(1, 9, 7, 0.9) 0%, transparent 35%);
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .section-executive-stage .exec-visual-badge {
+            position: absolute;
+            bottom: 18px;
+            left: 18px;
+            right: 18px;
+            background: rgba(10, 18, 14, 0.88);
+            border: 1px solid rgba(197, 168, 128, 0.35);
+            border-radius: 14px;
+            padding: 10px 14px;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 4;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+        }
+
+        .section-executive-stage .exec-visual-badge-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #c5a880, #e2c8a2);
+            color: #010907;
+            font-weight: 800;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .section-executive-stage .exec-visual-badge-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            overflow: hidden;
+        }
+
+        .section-executive-stage .exec-visual-badge-name {
+            font-size: 0.94rem;
+            font-weight: 800;
+            color: #ffffff;
+            white-space: nowrap;
+        }
+
+        .section-executive-stage .exec-visual-badge-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #f3dfba;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @media (max-width: 991px) {
+            .section-executive-stage .exec-stage-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+            .section-executive-stage .exec-stage-content {
+                align-items: center;
+                text-align: center;
+            }
+            .section-executive-stage .exec-stage-actions {
+                justify-content: center;
+            }
+            .section-executive-stage .exec-stage-console {
+                align-items: center;
+                text-align: center;
+            }
+            .section-executive-stage .exec-stage-switcher-row {
+                justify-content: center;
+            }
+            .section-executive-stage .exec-stage-focus-chips {
+                justify-content: center;
+            }
+            .section-executive-stage .exec-visual-frame {
+                max-width: 380px;
+            }
+        }
     </style>
 </head>
 
