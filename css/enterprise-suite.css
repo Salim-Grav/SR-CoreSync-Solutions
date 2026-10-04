@@ -796,3 +796,333 @@
     transform: translateY(-2px);
     box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
 }
+
+/* ==========================================================================
+   8. AI Concierge Chat Widget
+   ========================================================================== */
+.es-ai-fab {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 9990;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
+    border: 2px solid rgba(56, 189, 248, 0.6);
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 28px rgba(6, 182, 212, 0.5);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: esAiFabPulse 3s infinite;
+}
+[dir="rtl"] .es-ai-fab { left: auto; right: 24px; }
+@keyframes esAiFabPulse {
+    0%, 100% { box-shadow: 0 8px 28px rgba(6, 182, 212, 0.5), 0 0 0 0 rgba(6, 182, 212, 0.3); }
+    50% { box-shadow: 0 8px 28px rgba(6, 182, 212, 0.6), 0 0 0 12px rgba(6, 182, 212, 0); }
+}
+.es-ai-fab:hover { transform: scale(1.1); background: linear-gradient(135deg, #38bdf8, #06b6d4); }
+.es-ai-chat-window {
+    position: fixed;
+    bottom: 90px;
+    left: 24px;
+    z-index: 9991;
+    width: 370px;
+    max-height: 520px;
+    background: #070d0a;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    border-radius: 20px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(6, 182, 212, 0.1);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    animation: esModalSlide 0.3s ease;
+}
+[dir="rtl"] .es-ai-chat-window { left: auto; right: 24px; }
+.es-ai-chat-window.active { display: flex; }
+.es-ai-chat-header {
+    background: linear-gradient(135deg, #0c1f1a, #071410);
+    border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.es-ai-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    box-shadow: 0 0 12px rgba(6, 182, 212, 0.4);
+}
+.es-ai-chat-info h4 {
+    color: #e0f2fe;
+    font-size: 0.88rem;
+    font-weight: 800;
+    margin: 0 0 2px;
+}
+.es-ai-chat-info span {
+    color: #10b981;
+    font-size: 0.7rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.es-ai-chat-info span::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #10b981;
+    border-radius: 50%;
+    display: inline-block;
+    animation: esPulse 1.5s infinite;
+}
+.es-ai-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(197, 168, 128, 0.2) transparent;
+}
+.es-ai-msg {
+    max-width: 88%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    animation: esModalSlide 0.2s ease;
+}
+.es-ai-msg-bot {
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    color: #e0f2fe;
+    align-self: flex-start;
+    border-radius: 14px 14px 14px 2px;
+}
+.es-ai-msg-user {
+    background: rgba(197, 168, 128, 0.15);
+    border: 1px solid rgba(197, 168, 128, 0.25);
+    color: #ffffff;
+    align-self: flex-end;
+    border-radius: 14px 14px 2px 14px;
+}
+.es-ai-quick-replies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 14px 10px;
+}
+.es-ai-quick-btn {
+    background: rgba(6, 182, 212, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    color: #7dd3fc;
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.es-ai-quick-btn:hover { background: rgba(6, 182, 212, 0.2); color: #e0f2fe; border-color: #38bdf8; }
+.es-ai-input-row {
+    border-top: 1px solid rgba(56, 189, 248, 0.15);
+    padding: 10px 12px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.es-ai-input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    border-radius: 10px;
+    padding: 8px 12px;
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.es-ai-input:focus { border-color: #38bdf8; }
+.es-ai-send-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+.es-ai-send-btn:hover { background: #38bdf8; transform: scale(1.1); }
+/* ==========================================================================
+   9. Client Project Live Status Tracker
+   ========================================================================== */
+.es-tracker-search {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+.es-tracker-search input {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(197, 168, 128, 0.3);
+    border-radius: 10px;
+    padding: 12px 16px;
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-family: 'Plus Jakarta Sans', monospace;
+    outline: none;
+    letter-spacing: 0.5px;
+    transition: border-color 0.2s;
+}
+.es-tracker-search input:focus { border-color: var(--es-gold); }
+.es-tracker-search button {
+    background: var(--es-gold);
+    color: #010907;
+    font-weight: 800;
+    border: none;
+    border-radius: 10px;
+    padding: 0 20px;
+    cursor: pointer;
+    font-size: 0.88rem;
+    transition: all 0.2s ease;
+}
+.es-tracker-search button:hover { background: var(--es-gold-light); transform: translateY(-1px); }
+.es-project-timeline { display: flex; flex-direction: column; gap: 0; position: relative; }
+.es-timeline-item { display: flex; gap: 14px; padding-bottom: 20px; position: relative; }
+.es-timeline-item:last-child { padding-bottom: 0; }
+.es-timeline-track { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 28px; }
+.es-timeline-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 900;
+    flex-shrink: 0;
+    z-index: 1;
+}
+.es-timeline-dot.done { background: rgba(16, 185, 129, 0.2); border: 2px solid #10b981; color: #10b981; }
+.es-timeline-dot.active { background: rgba(197, 168, 128, 0.2); border: 2px solid var(--es-gold); color: var(--es-gold); animation: esAiFabPulse 2s infinite; }
+.es-timeline-dot.pending { background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 255, 255, 0.2); color: rgba(255, 255, 255, 0.4); }
+.es-timeline-line { flex: 1; width: 2px; background: rgba(255, 255, 255, 0.08); margin: 4px 0; min-height: 16px; }
+.es-timeline-content { flex: 1; padding-top: 2px; }
+.es-timeline-title { font-size: 0.88rem; font-weight: 800; color: #ffffff; margin-bottom: 3px; }
+.es-timeline-sub { font-size: 0.75rem; color: rgba(255, 255, 255, 0.65); }
+.es-progress-bar-mini { width: 100%; height: 4px; background: rgba(255, 255, 255, 0.08); border-radius: 999px; margin-top: 6px; overflow: hidden; }
+.es-progress-bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #c5a880, #f3dfba); transition: width 1s cubic-bezier(0.16, 1, 0.3, 1); }
+/* ==========================================================================
+   10. Multi-Currency & VAT Switcher
+   ========================================================================== */
+.es-currency-bar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.es-currency-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(197, 168, 128, 0.2);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.es-currency-btn:hover,
+.es-currency-btn.active { background: rgba(197, 168, 128, 0.18); border-color: var(--es-gold); color: var(--es-gold-light); }
+.es-currency-switcher-widget {
+    background: rgba(6, 182, 212, 0.07);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    border-radius: 12px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+}
+.es-currency-switcher-label { font-size: 0.76rem; color: rgba(255, 255, 255, 0.7); font-weight: 600; }
+.es-vat-badge { display: inline-block; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.35); color: #34d399; padding: 3px 8px; border-radius: 999px; font-size: 0.7rem; font-weight: 700; }
+/* ==========================================================================
+   11. Cloud Architecture ROI & Cost Optimizer
+   ========================================================================== */
+.es-roi-slider-group { margin-bottom: 16px; }
+.es-roi-slider-label { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; font-weight: 700; color: rgba(255, 255, 255, 0.85); margin-bottom: 8px; }
+.es-roi-slider-val { color: var(--es-gold); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 900; }
+input[type="range"].es-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 4px; border-radius: 999px; background: rgba(255, 255, 255, 0.1); outline: none; cursor: pointer; }
+input[type="range"].es-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--es-gold); border: 2px solid #010907; box-shadow: 0 0 8px rgba(197, 168, 128, 0.5); cursor: pointer; }
+.es-roi-compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+.es-roi-compare-card { border-radius: 12px; padding: 16px; text-align: center; }
+.es-roi-compare-card.current { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.3); }
+.es-roi-compare-card.optimized { background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.3); }
+.es-roi-card-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.current .es-roi-card-label { color: #f87171; }
+.optimized .es-roi-card-label { color: #34d399; }
+.es-roi-card-amount { font-size: 1.5rem; font-weight: 900; font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1; margin-bottom: 4px; }
+.current .es-roi-card-amount { color: #fca5a5; }
+.optimized .es-roi-card-amount { color: #6ee7b7; }
+.es-roi-card-period { font-size: 0.68rem; color: rgba(255, 255, 255, 0.5); }
+.es-roi-saving-banner { background: linear-gradient(135deg, rgba(197, 168, 128, 0.15), rgba(16, 185, 129, 0.1)); border: 1px solid rgba(197, 168, 128, 0.4); border-radius: 12px; padding: 14px 16px; text-align: center; margin-bottom: 14px; }
+.es-roi-saving-title { font-size: 0.76rem; color: rgba(255, 255, 255, 0.7); margin-bottom: 4px; }
+.es-roi-saving-amount { font-size: 2rem; font-weight: 900; color: var(--es-gold-light); font-family: 'Plus Jakarta Sans', sans-serif; }
+.es-roi-saving-period { font-size: 0.72rem; color: rgba(255, 255, 255, 0.5); }
+/* ==========================================================================
+   12. Executive Capability Deck & Project Tracker Buttons
+   ========================================================================== */
+.es-deck-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    background: linear-gradient(135deg, rgba(197, 168, 128, 0.2), rgba(197, 168, 128, 0.08));
+    border: 1px solid var(--es-gold);
+    color: var(--es-gold-light);
+    border-radius: 999px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 16px rgba(197, 168, 128, 0.15);
+}
+.es-deck-download-btn:hover { background: var(--es-gold); color: #010907 !important; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(197, 168, 128, 0.35); }
+.btn-tracker-portal {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    color: #7dd3fc;
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 8px;
+}
+.btn-tracker-portal:hover { background: rgba(56, 189, 248, 0.2); color: #e0f2fe; }
+@media (max-width: 768px) {
+    .es-ai-chat-window { width: calc(100vw - 32px); }
+    .es-roi-compare-grid { grid-template-columns: 1fr; }
+}
