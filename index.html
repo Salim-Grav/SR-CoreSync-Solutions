@@ -5962,6 +5962,181 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- حاسبة ميزانية وتكلفة المشروع التفاعلية الفورية (Interactive Cost & Scope Estimator) -->
+                <div class="cost-estimator-wrapper" id="cost-estimator">
+                    <div class="cost-estimator-card">
+                        <div class="cost-estimator-header">
+                            <span class="sr-logo-badge-pill mb-2 d-inline-flex">
+                                <span class="gold-dot"></span>
+                                حاسبة الميزانية الفورية التفاعلية // Custom Scope & Price Estimator
+                            </span>
+                            <h3 class="text-white mb-2">صمّم باقتك الخاصة واحسب تكلفتك ومدة التنفيذ فوراً</h3>
+                            <p class="text-white-64 mb-0">اختر نوع مشروعك والمواصفات المطلوبة لتحصل على تسعير فوري دقيق وشفاف، مع إمكانية التثبيت الفوري والحجز المباشر.</p>
+                        </div>
+
+                        <div class="cost-estimator-grid">
+                            <!-- عمود خيارات التخصيص التفاعلية -->
+                            <div class="cost-estimator-controls">
+                                <!-- 01. نوع المشروع الأساسي -->
+                                <div class="estimator-group">
+                                    <label class="estimator-label">
+                                        <span class="label-step">01</span>
+                                        نوع المشروع الأساسي:
+                                    </label>
+                                    <div class="estimator-options grid-2" id="estimatorGroupType">
+                                        <button type="button" class="estimator-option active" data-group="type" data-val="identity" data-price="590" data-days="5 - 7 أيام عمل" data-title="هوية بصرية متكاملة" onclick="updateEstimatorOption(this)">
+                                            <span class="option-title">هوية بصرية متكاملة</span>
+                                            <span class="option-badge">تبدأ من €590</span>
+                                        </button>
+                                        <button type="button" class="estimator-option" data-group="type" data-val="website" data-price="980" data-days="7 - 12 يوم عمل" data-title="موقع ويب فاخر عالي الأداء" onclick="updateEstimatorOption(this)">
+                                            <span class="option-title">موقع ويب فاخر عالي الأداء</span>
+                                            <span class="option-badge">تبدأ من €980</span>
+                                        </button>
+                                        <button type="button" class="estimator-option" data-group="type" data-val="ecommerce" data-price="1450" data-days="10 - 15 يوم عمل" data-title="متجر إلكتروني ذكي متكامل" onclick="updateEstimatorOption(this)">
+                                            <span class="option-title">متجر إلكتروني ذكي متكامل</span>
+                                            <span class="option-badge">تبدأ من €1,450</span>
+                                        </button>
+                                        <button type="button" class="estimator-option" data-group="type" data-val="bundle" data-price="1990" data-days="14 - 20 يوم عمل" data-title="باقة الانطلاقة الشاملة (All-in-One)" onclick="updateEstimatorOption(this)">
+                                            <span class="option-title">باقة الانطلاقة الشاملة (All-in-One)</span>
+                                            <span class="option-badge">عرض التوفير €1,990</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- 02. نطاق الصفحات / الكتالوج -->
+                                <div class="estimator-group">
+                                    <label class="estimator-label">
+                                        <span class="label-step">02</span>
+                                        نطاق الصفحات والمنتجات:
+                                    </label>
+                                    <div class="estimator-options grid-3" id="estimatorGroupPages">
+                                        <button type="button" class="estimator-option active" data-group="pages" data-val="basic" data-price="0" data-title="أساسي (1 - 5 صفحات / 20 منتج)" onclick="updateEstimatorOption(this)">
+                                            <span class="option-title">أساسي (1 - 5 صفحات)</span>
+                                            <span class="option-price-diff">+€0 (متضمن)</span>
+                                        </button>
+                                        <button type="button" class="estimator-option" data-group="pages" data-val="medium" data-price="290" data-title="متوسط (حتى 15 صفحة / 100 منتج)" onclick="updateEstimatorOption(this)">
+                                            <span class="option-title">متوسط (حتى 15 صفحة)</span>
+                                            <span class="option-price-diff">+€290</span>
+                                        </button>
+                                        <button type="button" class="estimator-option" data-group="pages" data-val="enterprise" data-price="690" data-title="مؤسسي واسع النطاق (كتالوج غير محدود)" onclick="updateEstimatorOption(this)">
+                                            <span class="option-title">مؤسسي (غير محدود)</span>
+                                            <span class="option-price-diff">+€690</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- 03. اللغات وتعدد العملات -->
+                                <div class="estimator-group">
+                                    <label class="estimator-label">
+                                        <span class="label-step">03</span>
+                                        اللغات وتعدد العملات:
+                                    </label>
+                                    <div class="estimator-options grid-3" id="estimatorGroupLang">
+                                        <button type="button" class="estimator-option active" data-group="lang" data-val="single" data-price="0" data-title="لغة واحدة أساسية" onclick="updateEstimatorOption(this)">
+                                            <span class="option-title">لغة واحدة أساسية</span>
+                                            <span class="option-price-diff">+€0 (متضمن)</span>
+                                        </button>
+                                        <button type="button" class="estimator-option" data-group="lang" data-val="dual" data-price="180" data-title="ثنائي اللغة (عربي + إنجليزي أو هولندي)" onclick="updateEstimatorOption(this)">
+                                            <span class="option-title">ثنائي اللغة (+ لغة إضافية)</span>
+                                            <span class="option-price-diff">+€180</span>
+                                        </button>
+                                        <button type="button" class="estimator-option" data-group="lang" data-val="multi" data-price="350" data-title="متعدد اللغات (3 لغات فأكثر مع تعدد العملات)" onclick="updateEstimatorOption(this)">
+                                            <span class="option-title">متعدد اللغات (3 لغات فأكثر)</span>
+                                            <span class="option-price-diff">+€350</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- 04. بوابات الدفع والربط المالي -->
+                                <div class="estimator-group">
+                                    <label class="estimator-label">
+                                        <span class="label-step">04</span>
+                                        بوابات الدفع والتكامل المحاسبي:
+                                    </label>
+                                    <div class="estimator-options grid-3" id="estimatorGroupPay">
+                                        <button type="button" class="estimator-option active" data-group="pay" data-val="none" data-price="0" data-title="بدون بوابات دفع" onclick="updateEstimatorOption(this)">
+                                            <span class="option-title">بدون دفع إلكتروني</span>
+                                            <span class="option-price-diff">+€0</span>
+                                        </button>
+                                        <button type="button" class="estimator-option" data-group="pay" data-val="standard" data-price="240" data-title="بوابات دفع أوروبية (iDEAL + Stripe + Apple Pay)" onclick="updateEstimatorOption(this)">
+                                            <span class="option-title">بوابات دفع معتمدة (iDEAL & Stripe)</span>
+                                            <span class="option-price-diff">+€240</span>
+                                        </button>
+                                        <button type="button" class="estimator-option" data-group="pay" data-val="erp" data-price="480" data-title="بوابات دفع + ربط محاسبي آلي ونظام ERP" onclick="updateEstimatorOption(this)">
+                                            <span class="option-title">دفع إلكتروني + ربط ERP تلقائي</span>
+                                            <span class="option-price-diff">+€480</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- 05. سرعة التسليم -->
+                                <div class="estimator-group">
+                                    <label class="estimator-label">
+                                        <span class="label-step">05</span>
+                                        أولوية وسرعة التسليم:
+                                    </label>
+                                    <div class="estimator-options grid-3" id="estimatorGroupSpeed">
+                                        <button type="button" class="estimator-option active" data-group="speed" data-val="standard" data-price="0" data-title="جدول زمني قياسي" onclick="updateEstimatorOption(this)">
+                                            <span class="option-title">تسليم قياسي</span>
+                                            <span class="option-price-diff">+€0</span>
+                                        </button>
+                                        <button type="button" class="estimator-option" data-group="speed" data-val="fast" data-price="200" data-title="تسليم سريع ومكثف (-30% من الوقت)" onclick="updateEstimatorOption(this)">
+                                            <span class="option-title">تسليم سريع مكثف</span>
+                                            <span class="option-price-diff">+€200</span>
+                                        </button>
+                                        <button type="button" class="estimator-option" data-group="speed" data-val="rush" data-price="450" data-title="أولوية VIP فائقة ومسار سريع جداً" onclick="updateEstimatorOption(this)">
+                                            <span class="option-title">أولوية VIP فائقة</span>
+                                            <span class="option-price-diff">+€450</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- عمود الملخص الحي وأزرار التثبيت -->
+                            <div class="cost-estimator-summary">
+                                <div class="estimator-summary-card">
+                                    <div class="summary-badge">
+                                        <span class="gold-dot"></span>
+                                        <span>تقدير استثماري فوري معتمد</span>
+                                    </div>
+
+                                    <div class="summary-price-display">
+                                        <span class="summary-currency">€</span>
+                                        <span class="summary-amount" id="estimatorTotalAmount">590</span>
+                                    </div>
+                                    <p class="summary-price-sub">تقدير دقيق وشفاف • ضمان 30 يوماً • دعم فني مباشر</p>
+
+                                    <div class="summary-timeline-box">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                        <span>مدة الإنجاز المتوقعة: <strong id="estimatorTimelineText">5 - 7 أيام عمل</strong></span>
+                                    </div>
+
+                                    <!-- مواصفات الباقة المختارة -->
+                                    <div class="summary-spec-list">
+                                        <div class="spec-item"><span class="spec-icon">✓</span> <span id="summarySpecType">هوية بصرية متكاملة</span></div>
+                                        <div class="spec-item"><span class="spec-icon">✓</span> <span id="summarySpecPages">أساسي (1 - 5 صفحات)</span></div>
+                                        <div class="spec-item"><span class="spec-icon">✓</span> <span id="summarySpecLang">لغة واحدة أساسية</span></div>
+                                        <div class="spec-item"><span class="spec-icon">✓</span> <span id="summarySpecPay">بدون دفع إلكتروني</span></div>
+                                        <div class="spec-item"><span class="spec-icon">✓</span> <span id="summarySpecSpeed">تسليم قياسي</span></div>
+                                    </div>
+
+                                    <!-- أزرار الإجراء الفوري -->
+                                    <div class="summary-actions">
+                                        <a href="javascript:void(0)" id="estimatorWhatsAppBtn" onclick="bookEstimatorViaWhatsApp()" class="estimator-btn-whatsapp" title="إرسال التقدير وحجزه مباشرة عبر واتساب">
+                                            <svg viewBox="0 0 32 32" width="18" height="18" fill="currentColor"><path d="M16.02 3.2a12.7 12.7 0 0 0-10.95 19.14L3.2 28.8l6.62-1.74A12.8 12.8 0 1 0 16.02 3.2Zm0 23.24a10.48 10.48 0 0 1-5.35-1.46l-.38-.23-3.93 1.03 1.05-3.83-.25-.4a10.5 10.5 0 1 1 8.86 4.89Zm5.76-7.85c-.32-.16-1.9-.94-2.19-1.05-.3-.11-.51-.16-.73.16-.21.32-.83 1.05-1.02 1.26-.19.21-.38.24-.7.08a8.65 8.65 0 0 1-2.55-1.57 9.57 9.57 0 0 1-1.77-2.2c-.18-.32 0-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.54.1-.21.05-.4-.03-.56-.08-.16-.73-1.75-1-2.39-.26-.62-.53-.54-.73-.55h-.62c-.21 0-.56.08-.86.4-.3.32-1.13 1.1-1.13 2.69s1.16 3.13 1.32 3.35c.16.21 2.27 3.46 5.5 4.85.77.33 1.37.53 1.84.68.77.24 1.47.2 2.03.12.62-.09 1.9-.78 2.17-1.54.27-.75.27-1.4.19-1.54-.08-.13-.3-.21-.62-.37Z"/></svg>
+                                            <span>احجز بهذا التقدير عبر WhatsApp</span>
+                                        </a>
+
+                                        <button type="button" onclick="transferEstimatorToVipBooking()" class="estimator-btn-vip" title="فتح نافذة حجز VIP مع تفاصيل هذا التقدير">
+                                            <span>تثبيت التقدير في حجز VIP</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -6461,10 +6636,42 @@
                         "نظام بصري متقن بإيقاع قوي وصور معبرة وتجربة لا تُنسى."
                     </blockquote>
 
-                    <div class="project-modal-cta mt-4">
-                        <a href="#contact" onclick="closeProjectModal()" class="tf-btn w-100 justify-content-center project-modal-order-btn">
-                            <span>طلب مشروع مماثل</span>
-                        </a>
+                    <!-- مؤشرات الأداء المالي والتقني المحققة (Verified KPIs) -->
+                    <div class="project-kpi-box" id="projectModalKpiBox">
+                        <div class="project-kpi-heading">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                            <span>مؤشرات الأداء المحققة (Verified Impact)</span>
+                        </div>
+                        <div class="project-kpi-grid">
+                            <div class="project-kpi-card">
+                                <span class="kpi-num" id="projectModalKpiConversion">+142%</span>
+                                <span class="kpi-title">معدل التحويل (Conversion)</span>
+                            </div>
+                            <div class="project-kpi-card">
+                                <span class="kpi-num" id="projectModalKpiSpeed">0.38s</span>
+                                <span class="kpi-title">سرعة التحميل (Core Vitals)</span>
+                            </div>
+                            <div class="project-kpi-card">
+                                <span class="kpi-num" id="projectModalKpiSales">+3.4x</span>
+                                <span class="kpi-title">نمو المبيعات (Sales Lift)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- التقنيات ومعايير الأمان المعتمدة -->
+                    <div class="project-tech-box">
+                        <span class="text-caption text-white-64 d-block mb-2">التقنيات ومعايير الأمان المعتمدة:</span>
+                        <div class="project-tech-pills" id="projectModalTechPills">
+                            <span class="project-tech-pill">Next.js 15</span>
+                            <span class="project-tech-pill">iDEAL & Stripe</span>
+                            <span class="project-tech-pill">TailwindCSS</span>
+                        </div>
+                    </div>
+
+                    <div class="project-modal-cta mt-3">
+                        <button type="button" onclick="orderSimilarProject()" class="tf-btn w-100 justify-content-center project-modal-order-btn">
+                            <span>طلب مشروع مماثل الآن</span>
+                        </button>
                     </div>
                 </div>
             </div>
