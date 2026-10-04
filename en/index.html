@@ -5973,6 +5973,54 @@
                 if (mediaPanel) mediaPanel.scrollTop = 0;
             }
 
+            // Add dynamic KPIs with counter-up animation
+            const kpiConv = document.getElementById('projectModalKpiConversion');
+            const kpiSpeed = document.getElementById('projectModalKpiSpeed');
+            const kpiSales = document.getElementById('projectModalKpiSales');
+            
+            const animateValue = (obj, start, end, duration, suffix = '') => {
+                if (!obj) return;
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    obj.textContent = Math.floor(progress * (end - start) + start) + suffix;
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    } else {
+                        obj.textContent = (end % 1 === 0 ? end : end.toFixed(1)) + suffix;
+                    }
+                };
+                window.requestAnimationFrame(step);
+            };
+
+            const parseAndAnimate = (el, strValue) => {
+                if(!el) return;
+                if(!strValue) {
+                    el.textContent = '—';
+                    return;
+                }
+                const numMatch = strValue.match(/([\d\.]+)/);
+                if (numMatch) {
+                    const num = parseFloat(numMatch[1]);
+                    const suffix = strValue.replace(numMatch[1], '');
+                    animateValue(el, 0, num, 1200, suffix);
+                } else {
+                    el.textContent = strValue;
+                }
+            };
+
+            parseAndAnimate(kpiConv, p.kpiConversion || '+142%');
+            parseAndAnimate(kpiSpeed, p.kpiSpeed || '0.38s');
+            parseAndAnimate(kpiSales, p.kpiSales || '+3.4x');
+
+            // Add tech pills
+            const techPills = document.getElementById('projectModalTechPills');
+            if (techPills) {
+                const techs = p.techs || ['HTML5', 'CSS3', 'JavaScript'];
+                techPills.innerHTML = techs.map(t => `<span class="project-tech-pill">${t}</span>`).join('');
+            }
+
             const modal = document.getElementById('projectModal');
             if (modal) {
                 modal.classList.add('active');
