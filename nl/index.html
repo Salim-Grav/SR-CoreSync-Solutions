@@ -3598,15 +3598,15 @@
                         <!-- Actieknoppen -->
                         <div class="exec-stage-actions">
                             <a href="#contact" class="exec-stage-btn exec-stage-btn-primary">Neem Contact Op</a>
-                            <a href="https://wa.me/31687764998?text=Hallo%20S%26R%20CoreSync%2C%20ik%20wil%20graag%20een%20VIP%20directieconsultatie%20inplannen." target="_blank" rel="noopener" class="exec-stage-btn exec-stage-btn-glass">
+                            <button type="button" class="exec-stage-btn exec-stage-btn-glass" onclick="openExecutiveBookingModal('stage')">
                                 <span>VIP Consultatie 👔</span>
-                            </a>
-                            <a href="../export-banner-founders-erp.html" class="exec-stage-btn exec-stage-btn-glass">
-                                <span>Interactieve Showcase 📊</span>
-                            </a>
-                            <a href="../demo.html" class="exec-stage-btn exec-stage-btn-glass">
+                            </button>
+                            <button type="button" class="exec-stage-btn exec-stage-btn-glass" onclick="openRoiCalculatorModal()">
+                                <span>ROI Calculator 📊</span>
+                            </button>
+                            <button type="button" class="exec-stage-btn exec-stage-btn-glass" onclick="openLiveDemoQuickModal()">
                                 <span>Live Demo Sandbox</span>
-                            </a>
+                            </button>
                         </div>
 
                         <!-- Directie Switcher Console -->
@@ -5841,6 +5841,224 @@
                 </div>
                 <button type="button" class="sr-modal-btn-dismiss" onclick="closeLogoLightbox()">
                     Sluiten (Esc)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 1. Executive VIP Consultation Booking Modal (NL) -->
+    <div class="sr-exec-modal" id="executiveBookingModal" role="dialog" aria-modal="true" aria-labelledby="execBookingTitle">
+        <div class="sr-exec-modal-backdrop" onclick="closeExecutiveBookingModal()"></div>
+        <div class="sr-exec-modal-container">
+            <div class="sr-exec-modal-header">
+                <div>
+                    <div class="sr-exec-modal-badge">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <span>Directieadvies (C-Level Advisory) • S&R CoreSync</span>
+                    </div>
+                    <h3 class="sr-exec-modal-title" id="execBookingTitle">Strategische Adviesessie met Oprichters</h3>
+                    <p class="sr-exec-modal-subtitle">Kies uw directieadviseur om uw software-architectuur, cloudinfrastructuur en ERP-roadmap rechtstreeks te bespreken.</p>
+                </div>
+                <button type="button" class="sr-exec-modal-close" onclick="closeExecutiveBookingModal()" aria-label="Sluiten">&times;</button>
+            </div>
+
+            <!-- Keuze Adviseur -->
+            <label class="sr-exec-label mb-2 d-block">Kies uw gewenste directieadviseur:</label>
+            <div class="sr-advisor-select-grid" role="radiogroup">
+                <button type="button" class="sr-advisor-card-btn active" id="advisorBtnSalim" onclick="selectBookingAdvisor('salim')">
+                    <span class="name">Ing. Salim Azizah</span>
+                    <span class="role">Chief Cloud &amp; AI Architect // CTO</span>
+                </button>
+                <button type="button" class="sr-advisor-card-btn" id="advisorBtnRaed" onclick="selectBookingAdvisor('raed')">
+                    <span class="name">Dhr. Raed Kaakeh</span>
+                    <span class="role">Financieel &amp; ERP Consultant // CFO</span>
+                </button>
+                <button type="button" class="sr-advisor-card-btn" id="advisorBtnBoth" onclick="selectBookingAdvisor('both')">
+                    <span class="name">Gezamenlijk (VIP)</span>
+                    <span class="role">Software-engineering + Financiële Governance</span>
+                </button>
+            </div>
+
+            <!-- Boekingsformulier -->
+            <form id="executiveBookingForm" onsubmit="submitExecutiveBooking(event)">
+                <input type="hidden" id="selectedAdvisorField" value="salim" />
+                <div class="sr-exec-form-grid">
+                    <div class="sr-exec-form-group">
+                        <label class="sr-exec-label" for="bookingClientName">Volledige Naam / Beslisser *</label>
+                        <input type="text" id="bookingClientName" class="sr-exec-input" required placeholder="bijv. Alexander de Jong" />
+                    </div>
+                    <div class="sr-exec-form-group">
+                        <label class="sr-exec-label" for="bookingCompanyName">Bedrijfsnaam / Organisatie *</label>
+                        <input type="text" id="bookingCompanyName" class="sr-exec-input" required placeholder="bijv. Apex Logistiek B.V." />
+                    </div>
+                    <div class="sr-exec-form-group">
+                        <label class="sr-exec-label" for="bookingPhone">WhatsApp / Telefoonnummer *</label>
+                        <input type="tel" id="bookingPhone" class="sr-exec-input" required placeholder="+31 6 ..." />
+                    </div>
+                    <div class="sr-exec-form-group">
+                        <label class="sr-exec-label" for="bookingSessionType">Gewenst Bijeenkomstkanaal *</label>
+                        <select id="bookingSessionType" class="sr-exec-select">
+                            <option value="online">Online Videoconsultatie (Google Meet / Teams)</option>
+                            <option value="phone">Direct WhatsApp / Telefonisch Gesprek</option>
+                            <option value="office">Persoonlijke Ontmoeting op Locatie (Nederland)</option>
+                        </select>
+                    </div>
+                    <div class="sr-exec-form-group">
+                        <label class="sr-exec-label" for="bookingPreferredDate">Voorkeursdatum (Optioneel)</label>
+                        <input type="date" id="bookingPreferredDate" class="sr-exec-input" />
+                    </div>
+                    <div class="sr-exec-form-group">
+                        <label class="sr-exec-label" for="bookingTimeSlot">Gewenst Tijdslot *</label>
+                        <select id="bookingTimeSlot" class="sr-exec-select">
+                            <option value="morning">Ochtendslot (10:00 - 12:00 CET)</option>
+                            <option value="afternoon" selected>Middagslot (13:00 - 15:00 CET)</option>
+                            <option value="evening">Avondslot (16:00 - 18:00 CET)</option>
+                            <option value="flexible">Flexibel (Eerstvolgende Beschikbare Slot)</option>
+                        </select>
+                    </div>
+                    <div class="sr-exec-form-group full-width">
+                        <label class="sr-exec-label" for="bookingNotes">Vraagstukken &amp; Doelen (Optioneel)</label>
+                        <textarea id="bookingNotes" class="sr-exec-textarea" rows="2" placeholder="Korte toelichting op uw software-, cloud- of ERP-wensen..."></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="sr-exec-submit-btn">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+                    <span>Bevestig &amp; Verstuur VIP-Aanvraag via WhatsApp</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. Interactive ROI Savings Calculator Modal (NL) -->
+    <div class="sr-exec-modal" id="roiCalculatorModal" role="dialog" aria-modal="true" aria-labelledby="roiModalTitle">
+        <div class="sr-exec-modal-backdrop" onclick="closeRoiCalculatorModal()"></div>
+        <div class="sr-exec-modal-container">
+            <div class="sr-exec-modal-header">
+                <div>
+                    <div class="sr-exec-modal-badge">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        <span>Kostenefficiëntie &amp; ROI Calculator</span>
+                    </div>
+                    <h3 class="sr-exec-modal-title" id="roiModalTitle">Financiële Besparings- &amp; Efficiëntiecalculator</h3>
+                    <p class="sr-exec-modal-subtitle">Directe simulatie van jaarlijkse financiële en urenbesparingen met S&amp;R CoreSync.</p>
+                </div>
+                <button type="button" class="sr-exec-modal-close" onclick="closeRoiCalculatorModal()" aria-label="Sluiten">&times;</button>
+            </div>
+
+            <div class="sr-roi-inputs-box">
+                <!-- Maandelijkse kosten -->
+                <div class="sr-roi-slider-row">
+                    <div class="sr-roi-slider-header">
+                        <span class="text-white">Huidige Operationele &amp; Administratieve Maandkosten:</span>
+                        <span class="sr-roi-val-badge" id="roiCostDisplay">€ 6,500</span>
+                    </div>
+                    <input type="range" class="sr-roi-range" id="roiCostRange" min="1000" max="40000" step="500" value="6500" oninput="updateRoiCalc()" />
+                </div>
+
+                <!-- Teamgrootte -->
+                <div class="sr-roi-slider-row">
+                    <div class="sr-roi-slider-header">
+                        <span class="text-white">Omvang Administratief &amp; Financieel Team (Medewerkers):</span>
+                        <span class="sr-roi-val-badge" id="roiTeamDisplay">12 medewerkers</span>
+                    </div>
+                    <input type="range" class="sr-roi-range" id="roiTeamRange" min="2" max="150" step="1" value="12" oninput="updateRoiCalc()" />
+                </div>
+
+                <!-- Automatiseringsniveau -->
+                <div class="sr-roi-slider-row">
+                    <div class="sr-roi-slider-header">
+                        <span class="text-white">Huidig Automatiserings- &amp; Systeemniveau:</span>
+                    </div>
+                    <select id="roiSystemLevel" class="sr-exec-select" onchange="updateRoiCalc()">
+                        <option value="0.36">Handmatig werk of losse spreadsheets (Tot 36% besparingspotentieel)</option>
+                        <option value="0.25" selected>Traditionele boekhoudsoftware zonder cloudintegratie (25% besparing)</option>
+                        <option value="0.16">Gedeeltelijke cloudtools zonder geavanceerde AI-automatisering (16% besparing)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Dynamische Resultaten -->
+            <div class="sr-roi-results-grid">
+                <div class="sr-roi-metric-card">
+                    <span class="sr-roi-metric-num" id="roiAnnualSavings">€ 19,500</span>
+                    <span class="sr-roi-metric-label">Verwachte Jaarlijkse Besparing</span>
+                </div>
+                <div class="sr-roi-metric-card">
+                    <span class="sr-roi-metric-num" id="roiHoursSaved">96 uur</span>
+                    <span class="sr-roi-metric-label">Herwonnen Uren per Maand</span>
+                </div>
+                <div class="sr-roi-metric-card">
+                    <span class="sr-roi-metric-num" id="roiEfficiency">+ 42%</span>
+                    <span class="sr-roi-metric-label">Doorlooptijdversnelling</span>
+                </div>
+                <div class="sr-roi-metric-card">
+                    <span class="sr-roi-metric-num" id="roiMultiplier">3.8x</span>
+                    <span class="sr-roi-metric-label">Verwachte ROI Multiplier</span>
+                </div>
+            </div>
+
+            <!-- Actieknoppen -->
+            <div style="display:flex; flex-direction:column; gap:10px; margin-top:16px;">
+                <button type="button" class="sr-exec-submit-btn" style="background:linear-gradient(135deg, #25D366 0%, #128C7E 100%); color:#ffffff; border:none; box-shadow:0 8px 24px rgba(37,211,102,0.3);" onclick="sendRoiDirectWhatsApp()">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+                    <span>Verstuur Cijfers Rechtstreeks naar Financieel Adviseur via WhatsApp</span>
+                </button>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px;">
+                    <button type="button" class="sr-exec-submit-btn" style="margin:0; font-size:0.9rem; padding:11px 18px; background:rgba(197,168,128,0.15); border:1px solid rgba(197,168,128,0.4); color:#f3dfba;" onclick="applyRoiToConsultation()">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <span>Boek VIP Audit met Deze Cijfers</span>
+                    </button>
+                    <button type="button" class="sr-exec-submit-btn" style="margin:0; font-size:0.9rem; padding:11px 18px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.2); color:#ffffff;" onclick="sendRoiDirectEmail()">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        <span>Verstuur Rapport per E-mail</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Live Demo Quick Showcase Modal (NL) -->
+    <div class="sr-exec-modal" id="liveDemoQuickModal" role="dialog" aria-modal="true" aria-labelledby="liveDemoTitle">
+        <div class="sr-exec-modal-backdrop" onclick="closeLiveDemoQuickModal()"></div>
+        <div class="sr-exec-modal-container">
+            <div class="sr-exec-modal-header">
+                <div>
+                    <div class="sr-exec-modal-badge">
+                        <span class="live-dot" style="width:8px;height:8px;border-radius:50%;background:#e2c8a2;display:inline-block;"></span>
+                        <span>Interactieve Sandbox Omgeving</span>
+                    </div>
+                    <h3 class="sr-exec-modal-title" id="liveDemoTitle">Verken S&amp;R CoreSync Cloud- &amp; ERP-oplossingen</h3>
+                    <p class="sr-exec-modal-subtitle">Een snel overzicht van onze kernmodules voordat u naar de complete interactieve demo gaat.</p>
+                </div>
+                <button type="button" class="sr-exec-modal-close" onclick="closeLiveDemoQuickModal()" aria-label="Sluiten">&times;</button>
+            </div>
+
+            <!-- Demo Tabs -->
+            <div class="sr-demo-tab-list" role="tablist">
+                <button type="button" class="sr-demo-tab-btn active" id="demoTabBtnErp" onclick="switchDemoModalTab('erp')">
+                    📊 Financieel ERP (CFO Hub)
+                </button>
+                <button type="button" class="sr-demo-tab-btn" id="demoTabBtnCloud" onclick="switchDemoModalTab('cloud')">
+                    ⚡ Cloud &amp; AI Core (CTO)
+                </button>
+                <button type="button" class="sr-demo-tab-btn" id="demoTabBtnGov" onclick="switchDemoModalTab('gov')">
+                    🛡️ Beveiliging &amp; Compliance
+                </button>
+            </div>
+
+            <!-- Demo Inhoudskaart -->
+            <div class="sr-demo-preview-card" id="demoTabContent">
+                <!-- Dynamisch gevuld door switchDemoModalTab -->
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 1.5rem; flex-wrap: wrap;">
+                <a href="../demo.html" class="sr-exec-submit-btn" style="flex: 1; text-decoration: none; margin-top: 0;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 8"/></svg>
+                    <span>Open Volledige Interactieve Sandbox (demo.html)</span>
+                </a>
+                <button type="button" class="sr-exec-btn exec-stage-btn-glass" onclick="closeLiveDemoQuickModal(); openExecutiveBookingModal('both');" style="padding: 12px 20px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(197,168,128,0.3); color: #fff; cursor: pointer;">
+                    <span>Vraag Begeleide Demo Aan</span>
                 </button>
             </div>
         </div>
