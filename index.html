@@ -3212,8 +3212,8 @@
             flex-wrap: wrap;
             align-items: center;
             justify-content: flex-start;
-            gap: 12px;
-            margin-bottom: 2.2rem;
+            gap: 10px;
+            margin-bottom: 2rem;
             width: 100%;
             direction: rtl !important;
         }
@@ -3222,14 +3222,15 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 12px 24px;
+            padding: 11px 20px;
             border-radius: 12px;
-            font-size: 0.94rem;
+            font-size: 0.91rem;
             font-weight: 600;
             text-decoration: none;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             font-family: inherit;
+            white-space: nowrap;
         }
 
         .section-executive-stage .exec-stage-btn-primary {
@@ -3267,10 +3268,10 @@
         .section-executive-stage .exec-stage-console {
             width: 100%;
             max-width: 660px;
-            background: rgba(10, 16, 13, 0.85);
+            background: rgba(10, 16, 13, 0.88);
             border: 1px solid rgba(197, 168, 128, 0.28);
             border-radius: 20px;
-            padding: clamp(16px, 1.8vw, 22px);
+            padding: 18px 22px;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
@@ -3278,6 +3279,7 @@
             flex-direction: column;
             gap: 14px;
             direction: rtl !important;
+            text-align: right !important;
         }
 
         .section-executive-stage .exec-stage-switcher-row {
@@ -3288,6 +3290,7 @@
             flex-wrap: wrap;
             padding-bottom: 12px;
             border-bottom: 1px solid rgba(197, 168, 128, 0.14);
+            direction: rtl !important;
         }
 
         .section-executive-stage .exec-stage-switcher-label {
@@ -3307,6 +3310,7 @@
             border-radius: 999px;
             padding: 4px;
             gap: 6px;
+            direction: rtl !important;
         }
 
         .section-executive-stage .exec-stage-tab {
@@ -3348,21 +3352,28 @@
         .section-executive-stage .exec-stage-focus-row {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
+            width: 100%;
+            direction: rtl !important;
+            text-align: right !important;
         }
 
         .section-executive-stage .exec-stage-focus-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 8px;
+            gap: 12px;
+            width: 100%;
+            direction: rtl !important;
         }
 
         .section-executive-stage .exec-stage-focus-tag {
-            font-size: 0.8rem;
+            font-size: 0.84rem;
             font-weight: 700;
             color: #f3dfba;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.02em;
+            text-align: right;
+            line-height: 1.4;
         }
 
         .section-executive-stage .exec-stage-live-badge {
@@ -3372,6 +3383,7 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            flex-shrink: 0;
         }
 
         .section-executive-stage .live-dot {
@@ -3386,6 +3398,8 @@
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
+            direction: rtl !important;
+            justify-content: flex-start;
         }
 
         .section-executive-stage .exec-chip {
@@ -3993,7 +4007,7 @@
 
                             <div class="exec-stage-focus-row">
                                 <div class="exec-stage-focus-header">
-                                    <span class="exec-stage-focus-tag" id="execCardRole">المسؤول التقني // Chief Technology Officer</span>
+                                    <span class="exec-stage-focus-tag" id="execCardRole">المسؤول التقني • كبير مهندسي السحابة والذكاء الاصطناعي</span>
                                     <span class="exec-stage-live-badge"><span class="live-dot"></span> استشارات تنفيذية 2026</span>
                                 </div>
                                 <div class="exec-stage-focus-chips" id="execFocusChips">
@@ -6543,26 +6557,37 @@
         // ==========================================
         // محرك مسرح القيادة التنفيذية وحلول ERP والسحابة
         // ==========================================
+        // ==========================================
+        // محرك مسرح القيادة التنفيذية وحلول ERP والسحابة
+        // ==========================================
         const EXEC_STAGE_CONFIG = {
             salim: {
                 badge: 'كبير مهندسي السحابة والذكاء الاصطناعي & CTO • متاحون لمشاريع 2026',
-                title: 'أنظمة وبرمجيات سحابية <span class="gold-gradient">ذكية تقود شركتك</span> نحو القمة',
+                title: 'أنظمة وبرمجيات سحابية <span class="exec-gold-accent">ذكية تقود شركتك</span> نحو القمة',
                 desc: 'نبتكر حلولاً برمجية مخصصة، منصات ويب متقدمة، وأتمتة ذكاء اصطناعي لدعم نمو الشركات في أوروبا والشرق الأوسط.',
-                cardRole: 'المسؤول التقني // CTO',
-                cardName: 'م. محمد سليم عزيزة',
-                cardBio: 'هندسة البرمجيات السحابية المتقدمة، تطبيقات الويب والهواتف الذكية، وأتمتة الذكاء الاصطناعي (AI & Cloud).',
-                assuranceRole: 'بنية سحابية معتمدة وأتمتة AI',
-                assuranceVal: 'استشارات قيادية مباشرة مع المؤسسين'
+                cardRole: 'المسؤول التقني • كبير مهندسي السحابة والذكاء الاصطناعي',
+                name: 'م. محمد سليم عزيزة',
+                roleTitle: 'كبير مهندسي السحابة والذكاء الاصطناعي & CTO',
+                avatar: 'S',
+                chips: [
+                    '✓ بنية سحابية متقدمة (Cloud Architecture)',
+                    '✓ حلول ذكاء اصطناعي وأتمتة (AI &amp; Automation)',
+                    '✓ تطبيقات ويب ومنصات أعمال فائقة الأداء'
+                ]
             },
             raed: {
                 badge: 'كبير مستشاري الأنظمة المالية والـ ERP & CFO • متاحون لمشاريع 2026',
-                title: 'أنظمة محاسبية متطورة <span class="gold-gradient">وتكامل ERP & Cloud</span> شامل',
+                title: 'أنظمة محاسبية متطورة <span class="exec-gold-accent">وتكامل ERP &amp; Cloud</span> شامل',
                 desc: 'تكامل مالي دقيق، ربط محاسبي مؤتمت، وتطوير أنظمة إدارة موارد الشركات الممتثلة للأنظمة الأوروبية والخليجية.',
-                cardRole: 'المستشار المالي والـ ERP // CFO',
-                cardName: 'أ. محمد رائد كعكة',
-                cardBio: 'هندسة الأنظمة المحاسبية والـ ERP المتكاملة، التحول المالي الرقمي، وحوكمة وتدقيق حسابات الأعمال والشركات.',
-                assuranceRole: 'حوكمة وتدقيق محاسبي وأنظمة ERP',
-                assuranceVal: 'امتثال مالي كامل للأنظمة الأوروبية والخليجية'
+                cardRole: 'المستشار المالي والـ ERP • الشريك التنفيذي',
+                name: 'أ. محمد رائد كعكة',
+                roleTitle: 'كبير مستشاري الأنظمة المالية والـ ERP & CFO',
+                avatar: 'R',
+                chips: [
+                    '✓ حوكمة وتدقيق محاسبي وأنظمة ERP',
+                    '✓ ربط محاسبي مؤتمت (Automated Accounting)',
+                    '✓ امتثال مالي كامل للأنظمة الأوروبية والخليجية (IFRS)'
+                ]
             }
         };
 
@@ -6573,26 +6598,26 @@
             if (target === currentExecFounder) return;
             currentExecFounder = target;
 
-            const layerSalim = document.getElementById('execLayerSalim');
-            const layerRaed = document.getElementById('execLayerRaed');
+            const imgSalim = document.getElementById('execVisualImgSalim');
+            const imgRaed = document.getElementById('execVisualImgRaed');
             const btnSalim = document.getElementById('execBtnSalim');
             const btnRaed = document.getElementById('execBtnRaed');
             const badgeText = document.getElementById('execStageBadgeText');
             const titleEl = document.getElementById('execStageTitle');
             const descEl = document.getElementById('execStageDesc');
             const cardRole = document.getElementById('execCardRole');
-            const cardName = document.getElementById('execCardName');
-            const cardBio = document.getElementById('execCardBio');
-            const assuranceRole = document.getElementById('execAssuranceRole');
-            const assuranceVal = document.getElementById('execAssuranceVal');
+            const chipsEl = document.getElementById('execFocusChips');
+            const badgeAvatar = document.getElementById('execVisualBadgeAvatar');
+            const badgeName = document.getElementById('execVisualBadgeName');
+            const badgeTitle = document.getElementById('execVisualBadgeTitle');
 
-            if (layerSalim && layerRaed) {
+            if (imgSalim && imgRaed) {
                 if (target === 'salim') {
-                    layerSalim.classList.add('active');
-                    layerRaed.classList.remove('active');
+                    imgSalim.classList.add('active');
+                    imgRaed.classList.remove('active');
                 } else {
-                    layerSalim.classList.remove('active');
-                    layerRaed.classList.add('active');
+                    imgSalim.classList.remove('active');
+                    imgRaed.classList.add('active');
                 }
             }
 
@@ -6609,17 +6634,21 @@
             const data = EXEC_STAGE_CONFIG[target];
             if (data && titleEl && descEl) {
                 titleEl.style.opacity = '0';
+                titleEl.style.transform = 'translateY(6px)';
                 descEl.style.opacity = '0';
                 setTimeout(() => {
                     if (badgeText) badgeText.textContent = data.badge;
                     titleEl.innerHTML = data.title;
                     descEl.innerHTML = data.desc;
                     if (cardRole) cardRole.textContent = data.cardRole;
-                    if (cardName) cardName.textContent = data.cardName;
-                    if (cardBio) cardBio.textContent = data.cardBio;
-                    if (assuranceRole && data.assuranceRole) assuranceRole.textContent = data.assuranceRole;
-                    if (assuranceVal && data.assuranceVal) assuranceVal.textContent = data.assuranceVal;
+                    if (badgeAvatar) badgeAvatar.textContent = data.avatar;
+                    if (badgeName) badgeName.textContent = data.name;
+                    if (badgeTitle) badgeTitle.textContent = data.roleTitle;
+                    if (chipsEl && Array.isArray(data.chips)) {
+                        chipsEl.innerHTML = data.chips.map(chip => `<span class="exec-chip">${chip}</span>`).join('');
+                    }
                     titleEl.style.opacity = '1';
+                    titleEl.style.transform = 'translateY(0)';
                     descEl.style.opacity = '1';
                 }, 180);
             }
