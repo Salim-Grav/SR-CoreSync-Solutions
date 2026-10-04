@@ -7329,13 +7329,47 @@
                 if (mediaPanel) mediaPanel.scrollTop = 0;
             }
 
-            // تعبئة مؤشرات الأداء (KPIs) الديناميكية
+            // تعبئة مؤشرات الأداء (KPIs) الديناميكية مع تأثير تصاعدي
             const kpiConv = document.getElementById('projectModalKpiConversion');
             const kpiSpeed = document.getElementById('projectModalKpiSpeed');
             const kpiSales = document.getElementById('projectModalKpiSales');
-            if (kpiConv) kpiConv.textContent = p.kpiConversion || '+142%';
-            if (kpiSpeed) kpiSpeed.textContent = p.kpiSpeed || '0.38s';
-            if (kpiSales) kpiSales.textContent = p.kpiSales || '+3.4x';
+            
+            const animateValue = (obj, start, end, duration, suffix = '') => {
+                if (!obj) return;
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    obj.textContent = Math.floor(progress * (end - start) + start) + suffix;
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    } else {
+                        obj.textContent = (end % 1 === 0 ? end : end.toFixed(1)) + suffix;
+                    }
+                };
+                window.requestAnimationFrame(step);
+            };
+
+            const parseAndAnimate = (el, strValue) => {
+                if(!el) return;
+                if(!strValue) {
+                    el.textContent = '—';
+                    return;
+                }
+                const numMatch = strValue.match(/([\d\.]+)/);
+                if (numMatch) {
+                    const num = parseFloat(numMatch[1]);
+                    const isInt = num % 1 === 0;
+                    const suffix = strValue.replace(numMatch[1], '');
+                    animateValue(el, 0, num, 1200, suffix);
+                } else {
+                    el.textContent = strValue;
+                }
+            };
+
+            parseAndAnimate(kpiConv, p.kpiConversion || '+142%');
+            parseAndAnimate(kpiSpeed, p.kpiSpeed || '0.38s');
+            parseAndAnimate(kpiSales, p.kpiSales || '+3.4x');
 
             // تعبئة شرائح التقنيات المستخدمة
             const techPills = document.getElementById('projectModalTechPills');
@@ -7415,6 +7449,18 @@
             _estimatorState[group].price = parseInt(btn.dataset.price) || 0;
             _estimatorState[group].title = btn.dataset.title || btn.querySelector('.option-title')?.textContent || '';
             if (btn.dataset.days) _estimatorState[group].days = btn.dataset.days;
+
+            // Tracking for Analytics (GA / Hotjar)
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'estimator_option_selected', {
+                    'event_category': 'Estimator',
+                    'event_label': group + ': ' + _estimatorState[group].title,
+                    'value': _estimatorState[group].price
+                });
+            }
+            if (typeof hj !== 'undefined') {
+                hj('event', 'estimator_option_selected_' + group);
+            }
 
             _recalcEstimator();
         }
