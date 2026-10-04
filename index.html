@@ -6573,18 +6573,33 @@
 
         // تبديل تبويبات الأسعار
         function switchPricingTab(category, btn) {
-            document.querySelectorAll('.pricing-tab_btn .tf-btn-tab').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.pricing-tab_btn .tf-btn-tab').forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-selected', 'false');
+            });
             btn.classList.add('active');
+            btn.setAttribute('aria-selected', 'true');
 
-            const pDev = document.getElementById('pricing-pane-dev');
-            const pErp = document.getElementById('pricing-pane-erp');
-            const pCare = document.getElementById('pricing-pane-care');
-            const pCreative = document.getElementById('pricing-pane-creative');
+            const panes = {
+                dev: document.getElementById('pricing-pane-dev'),
+                erp: document.getElementById('pricing-pane-erp'),
+                care: document.getElementById('pricing-pane-care'),
+                creative: document.getElementById('pricing-pane-creative')
+            };
 
-            if (pDev) pDev.classList.toggle('pane-hidden', category !== 'dev');
-            if (pErp) pErp.classList.toggle('pane-hidden', category !== 'erp');
-            if (pCare) pCare.classList.toggle('pane-hidden', category !== 'care');
-            if (pCreative) pCreative.classList.toggle('pane-hidden', category !== 'creative');
+            for (const key in panes) {
+                const pane = panes[key];
+                if (!pane) continue;
+                if (key === category) {
+                    pane.classList.remove('pane-hidden');
+                    pane.classList.add('active', 'show');
+                    pane.style.display = 'block';
+                } else {
+                    pane.classList.add('pane-hidden');
+                    pane.classList.remove('active', 'show');
+                    pane.style.display = 'none';
+                }
+            }
         }
 
         // القائمة الجانبية للهاتف
