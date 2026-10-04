@@ -7130,6 +7130,8 @@
                     preview: null,
                     desc: "تصميم وتطوير متجر إلكتروني فاخر بتجربة شراء سلسة على الجوال، مع تكامل كامل لبوابات الدفع الأوروبية (iDEAL وStripe وMollie وApple Pay)، وإدارة مخزون لحظية، وفوترة ضريبية متوافقة مع المعايير الهولندية.",
                     quote: "ارتفع معدل إتمام الشراء بنسبة 38% في الأشهر الثلاثة الأولى بفضل الدفع السريع والتصميم الواضح.",
+                    kpiConversion: '+180%', kpiSpeed: '0.41s', kpiSales: '+3.8x',
+                    techs: ['Next.js 15', 'iDEAL & Stripe', 'Mollie', 'Apple Pay', 'PSD2 / SCA'],
                     gallery: [
                         "./assets/service-ecommerce-3d.jpg",
                         "./assets/service-website-3d.jpg",
@@ -7149,6 +7151,8 @@
                     preview: null,
                     desc: "بناء هوية بصرية راقية بالأسود والذهبي تشمل الشعار والنظام الطباعي ولوحة الألوان، مع دليل علامة تجارية شامل وتصاميم بطاقات العمل والقرطاسية والتغليف بالطباعة النافرة والرقائق الذهبية.",
                     quote: "هوية متسقة منحت العلامة حضوراً فاخراً منذ اللحظة الأولى.",
+                    kpiConversion: '+142%', kpiSpeed: '—', kpiSales: '+2.5x ثقة',
+                    techs: ['Adobe Illustrator', 'Brand Guidelines', 'Foil Print', 'Motion Identity'],
                     gallery: [
                         "./assets/service-identity-3d.jpg",
                         "./assets/service-ecommerce-3d.jpg",
@@ -7168,6 +7172,8 @@
                     preview: null,
                     desc: "تصميم موقع مؤسسي متجاوب بالكامل مع لوحة عملاء تعرض المؤشرات المالية لحظياً، وتحسين تقني رفع تقييم الأداء إلى 98/100 مع تهيئة شاملة لمحركات البحث.",
                     quote: "موقع يبعث على الثقة ويحوّل الزوار إلى عملاء بمعدل تحويل تضاعف مرتين.",
+                    kpiConversion: '+210%', kpiSpeed: '0.32s', kpiSales: '+2.1x',
+                    techs: ['Next.js 15', 'Vercel Edge', 'SEO 98/100', 'Live Dashboard'],
                     gallery: [
                         "./assets/service-website-3d.jpg",
                         "./assets/service-identity-3d.jpg",
@@ -7367,6 +7373,112 @@
                 const expandText = document.getElementById('projectModalExpandText');
                 if (expandText) expandText.textContent = 'عرض أوسع';
             }
+        }
+
+        // طلب مشروع مماثل - فتح نافذة حجز أو التمرير لقسم الاتصال
+        function orderSimilarProject() {
+            closeProjectModal();
+            setTimeout(() => {
+                const vipModal = document.getElementById('executiveBookingModal');
+                if (vipModal) {
+                    vipModal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    const contact = document.getElementById('contact');
+                    if (contact) contact.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 350);
+        }
+
+        // ========================================================
+        // حاسبة الميزانية التفاعلية - منطق JS الكامل
+        // ========================================================
+        const _estimatorState = {
+            type: { val: 'identity', price: 590, days: '5 - 7 أيام عمل', title: 'هوية بصرية متكاملة' },
+            pages: { val: 'basic',    price: 0,   title: 'أساسي (1 - 5 صفحات)' },
+            lang:  { val: 'single',   price: 0,   title: 'لغة واحدة أساسية' },
+            pay:   { val: 'none',     price: 0,   title: 'بدون دفع إلكتروني' },
+            speed: { val: 'standard', price: 0,   title: 'تسليم قياسي' }
+        };
+
+        function updateEstimatorOption(btn) {
+            const group = btn.dataset.group;
+            if (!group || !_estimatorState[group]) return;
+
+            // إلغاء تفعيل الأزرار الأخرى في نفس المجموعة
+            const siblings = btn.closest('.estimator-options').querySelectorAll('.estimator-option');
+            siblings.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // تحديث الحالة
+            _estimatorState[group].val   = btn.dataset.val;
+            _estimatorState[group].price = parseInt(btn.dataset.price) || 0;
+            _estimatorState[group].title = btn.dataset.title || btn.querySelector('.option-title')?.textContent || '';
+            if (btn.dataset.days) _estimatorState[group].days = btn.dataset.days;
+
+            _recalcEstimator();
+        }
+
+        function _recalcEstimator() {
+            const total = Object.values(_estimatorState).reduce((sum, g) => sum + (g.price || 0), 0);
+            const timeline = _estimatorState.type.days || '5 - 7 أيام عمل';
+
+            // تحديث السعر مع تأثير انتقالي
+            const amountEl = document.getElementById('estimatorTotalAmount');
+            if (amountEl) {
+                amountEl.style.opacity = '0.4';
+                amountEl.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    amountEl.textContent = total.toLocaleString('en');
+                    amountEl.style.opacity = '1';
+                    amountEl.style.transform = 'scale(1)';
+                }, 180);
+            }
+
+            // تحديث المدة
+            const tlEl = document.getElementById('estimatorTimelineText');
+            if (tlEl) tlEl.textContent = timeline;
+
+            // تحديث المواصفات
+            const map = { type: 'summarySpecType', pages: 'summarySpecPages', lang: 'summarySpecLang', pay: 'summarySpecPay', speed: 'summarySpecSpeed' };
+            Object.entries(map).forEach(([key, id]) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = _estimatorState[key].title;
+            });
+        }
+
+        function bookEstimatorViaWhatsApp() {
+            const total = Object.values(_estimatorState).reduce((sum, g) => sum + (g.price || 0), 0);
+            const lines = [
+                `*طلب تقدير مشروع جديد – S&R CoreSync*`,
+                `📦 *النوع:* ${_estimatorState.type.title}`,
+                `📄 *النطاق:* ${_estimatorState.pages.title}`,
+                `🌐 *اللغات:* ${_estimatorState.lang.title}`,
+                `💳 *الدفع:* ${_estimatorState.pay.title}`,
+                `⚡ *التسليم:* ${_estimatorState.speed.title}`,
+                `💰 *التقدير الإجمالي: €${total.toLocaleString('en')}*`,
+                `⏱ *المدة المتوقعة: ${_estimatorState.type.days}*`
+            ].join('%0A');
+            window.open(`https://wa.me/31687764998?text=${encodeURIComponent(lines.replace(/%0A/g, '\n'))}`, '_blank');
+        }
+
+        function transferEstimatorToVipBooking() {
+            const vipModal = document.getElementById('executiveBookingModal');
+            if (!vipModal) return;
+            // تحديد نوع الاستشارة كـ creative وإظهار حقل الباقة
+            const sessionTypeEl = document.getElementById('bookingSessionType');
+            if (sessionTypeEl) {
+                sessionTypeEl.value = 'creative';
+                if (typeof togglePackageField === 'function') togglePackageField(sessionTypeEl);
+            }
+            // ملء حقل الملاحظات بالتقدير المختار
+            const notesEl = document.getElementById('bookingNotes') || document.getElementById('executiveNotes');
+            if (notesEl) {
+                const total = Object.values(_estimatorState).reduce((sum, g) => sum + (g.price || 0), 0);
+                notesEl.value = `تقدير الحاسبة التفاعلية:\n- النوع: ${_estimatorState.type.title}\n- النطاق: ${_estimatorState.pages.title}\n- اللغات: ${_estimatorState.lang.title}\n- الدفع: ${_estimatorState.pay.title}\n- التسليم: ${_estimatorState.speed.title}\n- إجمالي التقدير: €${total.toLocaleString('en')}`;
+            }
+            vipModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
 
         // تبديل وضع العرض الأوسع (Wide View)
