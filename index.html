@@ -7323,6 +7323,21 @@
                 if (mediaPanel) mediaPanel.scrollTop = 0;
             }
 
+            // تعبئة مؤشرات الأداء (KPIs) الديناميكية
+            const kpiConv = document.getElementById('projectModalKpiConversion');
+            const kpiSpeed = document.getElementById('projectModalKpiSpeed');
+            const kpiSales = document.getElementById('projectModalKpiSales');
+            if (kpiConv) kpiConv.textContent = p.kpiConversion || '+142%';
+            if (kpiSpeed) kpiSpeed.textContent = p.kpiSpeed || '0.38s';
+            if (kpiSales) kpiSales.textContent = p.kpiSales || '+3.4x';
+
+            // تعبئة شرائح التقنيات المستخدمة
+            const techPills = document.getElementById('projectModalTechPills');
+            if (techPills) {
+                const techs = p.techs || ['HTML5', 'CSS3', 'JavaScript'];
+                techPills.innerHTML = techs.map(t => `<span class="project-tech-pill">${t}</span>`).join('');
+            }
+
             const modal = document.getElementById('projectModal');
             if (modal) {
                 modal.classList.add('active');
