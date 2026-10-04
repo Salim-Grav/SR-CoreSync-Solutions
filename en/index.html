@@ -5882,6 +5882,115 @@
                 }
             });
         });
+        // ==========================================
+        // Executive Solutions Stage Switcher (EN)
+        // ==========================================
+        const EXEC_STAGE_CONFIG_EN = {
+            salim: {
+                badge: 'Chief Cloud & AI Architect & CTO • Available for 2026 Enterprise Projects',
+                title: 'Intelligent Cloud Systems <span class="exec-gold-accent">&amp; Custom Architecture</span> Leading Your Enterprise',
+                desc: 'We engineer resilient cloud systems, high-performance web platforms, and automated ERP architectures driving enterprise growth across Europe and the Middle East.',
+                cardRole: 'Chief Technology Officer • Cloud & AI Architecture',
+                name: 'Eng. Salim Azizah',
+                roleTitle: 'Chief Technology Officer & Cloud Architect',
+                avatar: 'S',
+                chips: [
+                    '✓ Advanced Cloud Architecture',
+                    '✓ AI &amp; Process Automation',
+                    '✓ High-Performance Platforms'
+                ]
+            },
+            raed: {
+                badge: 'Principal Financial & ERP Systems Consultant • CFO • Available for 2026 Projects',
+                title: 'Advanced Financial Systems <span class="exec-gold-accent">&amp; Cloud ERP Integration</span> for Enterprises',
+                desc: 'Precise fiscal engineering, automated accounting pipelines, and corporate ERP architectures fully compliant with European (IFRS) and GCC regulations.',
+                cardRole: 'Executive Financial Consultant • ERP & Governance Partner',
+                name: 'Mr. Raed Kaakeh',
+                roleTitle: 'Principal Financial Systems & ERP Consultant & CFO',
+                avatar: 'R',
+                chips: [
+                    '✓ ERP Architecture & Accounting Governance',
+                    '✓ Automated Accounting Pipelines',
+                    '✓ European (IFRS) & GCC Compliance'
+                ]
+            }
+        };
+
+        let currentExecFounderEn = 'salim';
+        let execStageTimerEn = null;
+
+        function switchExecStage(target) {
+            if (target === currentExecFounderEn) return;
+            currentExecFounderEn = target;
+
+            const imgSalim = document.getElementById('execVisualImgSalim');
+            const imgRaed = document.getElementById('execVisualImgRaed');
+            const btnSalim = document.getElementById('execBtnSalim');
+            const btnRaed = document.getElementById('execBtnRaed');
+            const badgeText = document.getElementById('execStageBadgeText');
+            const titleEl = document.getElementById('execStageTitle');
+            const descEl = document.getElementById('execStageDesc');
+            const cardRole = document.getElementById('execCardRole');
+            const chipsEl = document.getElementById('execFocusChips');
+            const badgeAvatar = document.getElementById('execVisualBadgeAvatar');
+            const badgeName = document.getElementById('execVisualBadgeName');
+            const badgeTitle = document.getElementById('execVisualBadgeTitle');
+
+            if (imgSalim && imgRaed) {
+                if (target === 'salim') {
+                    imgSalim.classList.add('active');
+                    imgRaed.classList.remove('active');
+                } else {
+                    imgSalim.classList.remove('active');
+                    imgRaed.classList.add('active');
+                }
+            }
+
+            if (btnSalim && btnRaed) {
+                if (target === 'salim') {
+                    btnSalim.classList.add('active');
+                    btnRaed.classList.remove('active');
+                } else {
+                    btnSalim.classList.remove('active');
+                    btnRaed.classList.add('active');
+                }
+            }
+
+            const data = EXEC_STAGE_CONFIG_EN[target];
+            if (data && titleEl && descEl) {
+                titleEl.style.opacity = '0';
+                titleEl.style.transform = 'translateY(6px)';
+                descEl.style.opacity = '0';
+                setTimeout(() => {
+                    if (badgeText) badgeText.textContent = data.badge;
+                    titleEl.innerHTML = data.title;
+                    descEl.innerHTML = data.desc;
+                    if (cardRole) cardRole.textContent = data.cardRole;
+                    if (badgeAvatar) badgeAvatar.textContent = data.avatar;
+                    if (badgeName) badgeName.textContent = data.name;
+                    if (badgeTitle) badgeTitle.textContent = data.roleTitle;
+                    if (chipsEl && Array.isArray(data.chips)) {
+                        chipsEl.innerHTML = data.chips.map(chip => `<span class="exec-chip">${chip}</span>`).join('');
+                    }
+                    titleEl.style.opacity = '1';
+                    titleEl.style.transform = 'translateY(0)';
+                    descEl.style.opacity = '1';
+                }, 180);
+            }
+
+            restartExecTimerEn();
+        }
+
+        function restartExecTimerEn() {
+            if (execStageTimerEn) clearInterval(execStageTimerEn);
+            execStageTimerEn = setInterval(() => {
+                switchExecStage(currentExecFounderEn === 'salim' ? 'raed' : 'salim');
+            }, 8000);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            restartExecTimerEn();
+        });
         
     </script>
 </body>
