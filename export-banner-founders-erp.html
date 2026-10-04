@@ -505,6 +505,371 @@
                 max-width: 380px;
             }
         }
+
+        /* ===================================================================
+           S&R CORESYNC - LUXURY EXECUTIVE INTERACTION MODALS
+           =================================================================== */
+        .sr-exec-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+            padding: 1.25rem;
+            box-sizing: border-box;
+            direction: rtl !important;
+            text-align: right !important;
+        }
+
+        .sr-exec-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .sr-exec-modal-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(1, 9, 7, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            cursor: pointer;
+        }
+
+        .sr-exec-modal-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 740px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: linear-gradient(145deg, rgba(14, 24, 20, 0.96) 0%, rgba(6, 12, 10, 0.98) 100%);
+            border: 1px solid rgba(197, 168, 128, 0.32);
+            border-radius: 20px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 35px rgba(197, 168, 128, 0.15);
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            transform: scale(0.94) translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            color: #f8fafc;
+        }
+
+        .sr-exec-modal.active .sr-exec-modal-container {
+            transform: scale(1) translateY(0);
+        }
+
+        .sr-exec-modal-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid rgba(197, 168, 128, 0.18);
+            margin-bottom: 1.5rem;
+        }
+
+        .sr-exec-modal-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #e2c8a2;
+            background: rgba(197, 168, 128, 0.12);
+            padding: 4px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(197, 168, 128, 0.25);
+            margin-bottom: 0.5rem;
+        }
+
+        .sr-exec-modal-title {
+            font-size: clamp(1.25rem, 2vw, 1.65rem);
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0 0 4px 0;
+        }
+
+        .sr-exec-modal-subtitle {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .sr-exec-modal-close {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(197, 168, 128, 0.25);
+            color: #ffffff;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            flex-shrink: 0;
+        }
+
+        .sr-exec-modal-close:hover {
+            background: rgba(197, 168, 128, 0.25);
+            color: #f3dfba;
+            transform: rotate(90deg);
+        }
+
+        .sr-advisor-select-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .sr-advisor-card-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(197, 168, 128, 0.18);
+            border-radius: 14px;
+            padding: 12px;
+            cursor: pointer;
+            text-align: right;
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            color: #ffffff;
+        }
+
+        .sr-advisor-card-btn:hover {
+            background: rgba(197, 168, 128, 0.08);
+            border-color: rgba(197, 168, 128, 0.4);
+        }
+
+        .sr-advisor-card-btn.active {
+            background: rgba(197, 168, 128, 0.16);
+            border-color: #c5a880;
+            box-shadow: 0 0 15px rgba(197, 168, 128, 0.2);
+        }
+
+        .sr-advisor-card-btn .name {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #f3dfba;
+        }
+
+        .sr-advisor-card-btn .role {
+            font-size: 0.76rem;
+            color: rgba(255, 255, 255, 0.65);
+            line-height: 1.3;
+        }
+
+        .sr-exec-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 1.25rem;
+        }
+
+        .sr-exec-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            text-align: right;
+        }
+
+        .sr-exec-form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .sr-exec-label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .sr-exec-input, .sr-exec-select, .sr-exec-textarea {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid rgba(197, 168, 128, 0.22);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.92rem;
+            color: #ffffff;
+            outline: none;
+            font-family: inherit;
+            transition: border-color 0.25s, box-shadow 0.25s;
+            box-sizing: border-box;
+        }
+
+        .sr-exec-input:focus, .sr-exec-select:focus, .sr-exec-textarea:focus {
+            border-color: #c5a880;
+            box-shadow: 0 0 12px rgba(197, 168, 128, 0.25);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .sr-exec-submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #c5a880, #e2c8a2);
+            color: #010907;
+            font-weight: 800;
+            font-size: 1rem;
+            padding: 14px 24px;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(197, 168, 128, 0.3);
+            margin-top: 1rem;
+        }
+
+        .sr-exec-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(197, 168, 128, 0.45);
+            filter: brightness(1.05);
+        }
+
+        .sr-roi-inputs-box {
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(197, 168, 128, 0.16);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .sr-roi-slider-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sr-roi-slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.88rem;
+            font-weight: 700;
+        }
+
+        .sr-roi-val-badge {
+            color: #f3dfba;
+            background: rgba(197, 168, 128, 0.15);
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .sr-roi-range {
+            width: 100%;
+            accent-color: #c5a880;
+            cursor: pointer;
+        }
+
+        .sr-roi-results-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .sr-roi-metric-card {
+            background: rgba(197, 168, 128, 0.06);
+            border: 1px solid rgba(197, 168, 128, 0.22);
+            border-radius: 14px;
+            padding: 14px 10px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .sr-roi-metric-num {
+            font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+            font-weight: 800;
+            color: #f3dfba;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .sr-roi-metric-label {
+            font-size: 0.74rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.3;
+        }
+
+        .sr-demo-tab-list {
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid rgba(197, 168, 128, 0.18);
+            padding-bottom: 10px;
+            margin-bottom: 1.25rem;
+            overflow-x: auto;
+        }
+
+        .sr-demo-tab-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: rgba(255, 255, 255, 0.75);
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 0.86rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            white-space: nowrap;
+        }
+
+        .sr-demo-tab-btn.active {
+            background: rgba(197, 168, 128, 0.18);
+            border-color: rgba(197, 168, 128, 0.4);
+            color: #f3dfba;
+        }
+
+        .sr-demo-preview-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(197, 168, 128, 0.2);
+            border-radius: 14px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sr-demo-feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sr-demo-feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .sr-demo-feature-item svg {
+            color: #c5a880;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            .sr-advisor-select-grid { grid-template-columns: 1fr; }
+            .sr-exec-form-grid { grid-template-columns: 1fr; }
+            .sr-roi-results-grid { grid-template-columns: 1fr 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -535,10 +900,16 @@
 
                     <!-- أزرار الإجراءات مرتبة من اليمين إلى اليسار -->
                     <div class="hero-stage-actions">
-                        <a href="#contact" class="hero-stage-btn hero-stage-btn-primary">تواصـــل معنا</a>
-                        <a href="#vip" class="hero-stage-btn hero-stage-btn-glass">حجز استشارة VIP 👔</a>
-                        <a href="#roi" class="hero-stage-btn hero-stage-btn-glass">حاسبة التوفير (ROI) 📊</a>
-                        <a href="#demo" class="hero-stage-btn hero-stage-btn-glass">النظام التجريبي (Live Demo)</a>
+                        <a href="index.html#contact" class="hero-stage-btn hero-stage-btn-primary">تواصـــل معنا</a>
+                        <button type="button" class="hero-stage-btn hero-stage-btn-glass" onclick="openExecutiveBookingModal('stage')">
+                            <span>حجز استشارة VIP 👔</span>
+                        </button>
+                        <button type="button" class="hero-stage-btn hero-stage-btn-glass" onclick="openRoiCalculatorModal()">
+                            <span>حاسبة التوفير (ROI) 📊</span>
+                        </button>
+                        <button type="button" class="hero-stage-btn hero-stage-btn-glass" onclick="openLiveDemoQuickModal()">
+                            <span>النظام التجريبي (Live Demo)</span>
+                        </button>
                     </div>
 
                     <!-- كونسول القيادة الموحد: التبديل والاعتمادات القيادية -->
