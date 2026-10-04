@@ -6284,132 +6284,294 @@
         }
 
         // ==========================================
-        // CoreSync System Controller
+        // 1. VIP Executive Directieconsultatie Modal (NL)
         // ==========================================
-        function updateROICalculator() {
-            const teamSizeInput = document.getElementById('roiCompanySize');
-            const manualHoursInput = document.getElementById('roiManualHours');
-            const avgSalaryInput = document.getElementById('roiAvgSalary');
-            const solutionTypeInput = document.getElementById('roiSolutionType');
-
-            if (!teamSizeInput || !manualHoursInput || !avgSalaryInput || !solutionTypeInput) return;
-
-            const teamSize = parseInt(teamSizeInput.value, 10);
-            const manualHours = parseInt(manualHoursInput.value, 10);
-            const avgSalary = parseFloat(avgSalaryInput.value);
-            const efficiencyFactor = parseFloat(solutionTypeInput.value);
-
-            // CoreSync System Controller
-            const teamSizeVal = document.getElementById('roiCompanySizeVal');
-            const manualHoursVal = document.getElementById('roiManualHoursVal');
-            const avgSalaryVal = document.getElementById('roiAvgSalaryVal');
-
-            if (teamSizeVal) teamSizeVal.textContent = teamSize + ' medewerkers';
-            if (manualHoursVal) manualHoursVal.textContent = manualHours + ' uur / week';
-            if (avgSalaryVal) avgSalaryVal.textContent = '€' + avgSalary + ' / uur';
-
-            // CoreSync System Controller
-            const totalHoursPerYear = teamSize * manualHours * 52;
-            const hoursSaved = Math.round(totalHoursPerYear * efficiencyFactor);
-            
-            // CoreSync System Controller
-            const annualSavings = Math.round(hoursSaved * avgSalary);
-
-            // CoreSync System Controller
-            const estimatedDevCost = 4500;
-            const monthlySavings = annualSavings / 12;
-            const paybackMonths = monthlySavings > 0 ? (estimatedDevCost / monthlySavings).toFixed(1) : 1.5;
-
-            // CoreSync System Controller
-            const annualSavingsEl = document.getElementById('roiAnnualSavings');
-            const paybackMonthsEl = document.getElementById('roiPaybackMonths');
-            const hoursSavedEl = document.getElementById('roiHoursSaved');
-            const efficiencyGainEl = document.getElementById('roiEfficiencyGain');
-
-            if (annualSavingsEl) {
-                annualSavingsEl.innerHTML = `<span>€</span>${annualSavings.toLocaleString('en-US')}`;
-            }
-            if (paybackMonthsEl) {
-                paybackMonthsEl.textContent = paybackMonths + ' mnd';
-            }
-            if (hoursSavedEl) {
-                hoursSavedEl.innerHTML = `${hoursSaved.toLocaleString('en-US')} <span>uur/jaar</span>`;
-            }
-            if (efficiencyGainEl) {
-                efficiencyGainEl.innerHTML = `+<span>${Math.round(efficiencyFactor * 100)}%</span>`;
-            }
-        }
-
-        // ==========================================
-        // CoreSync System Controller
-        // ==========================================
-        function openExecutiveBookingModal(source) {
+        function openExecutiveBookingModal(advisor = 'salim') {
             const modal = document.getElementById('executiveBookingModal');
-            if (modal) {
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
-                
-                // CoreSync System Controller
-                const dateInput = document.getElementById('vipDate');
-                if (dateInput && !dateInput.value) {
-                    const tomorrow = new Date();
-                    tomorrow.setDate(tomorrow.getDate() + 1);
-                    dateInput.value = tomorrow.toISOString().split('T')[0];
-                }
-            }
+            if (!modal) return;
+            selectBookingAdvisor(advisor === 'stage' ? 'both' : (advisor || 'salim'));
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
         }
 
         function closeExecutiveBookingModal() {
             const modal = document.getElementById('executiveBookingModal');
-            if (modal) {
+            if (modal && modal.classList.contains('active')) {
                 modal.classList.remove('active');
                 document.body.style.overflow = '';
                 if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('close');
             }
         }
 
-        function selectAdvisor(type, el) {
-            document.querySelectorAll('.advisor-select-card').forEach(card => card.classList.remove('active'));
-            if (el) el.classList.add('active');
+        function selectBookingAdvisor(advisor) {
+            const field = document.getElementById('selectedAdvisorField');
+            if (field) field.value = advisor;
 
-            const hiddenInput = document.getElementById('selectedAdvisorInput');
-            if (hiddenInput) {
-                if (type === 'salim') {
-                    hiddenInput.value = 'Ir. Mohammad Salim Aziza (CTO - Cloud & AI Architectuur)';
-                } else if (type === 'raed') {
-                    hiddenInput.value = 'Dhr. Mohammad Raed Kaakeh (CFO - Financiële ERP-Systemen)';
-                } else {
-                    hiddenInput.value = 'Gezamenlijke Directiesessie (S & R - Technisch & Financieel)';
-                }
-            }
+            const btnSalim = document.getElementById('advisorBtnSalim');
+            const btnRaed = document.getElementById('advisorBtnRaed');
+            const btnBoth = document.getElementById('advisorBtnBoth');
+
+            if (btnSalim) btnSalim.classList.toggle('active', advisor === 'salim');
+            if (btnRaed) btnRaed.classList.toggle('active', advisor === 'raed');
+            if (btnBoth) btnBoth.classList.toggle('active', advisor === 'both');
+
             if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('switch');
         }
 
-        function dispatchVIPBooking(event) {
-            event.preventDefault();
-            const advisor = document.getElementById('selectedAdvisorInput').value;
-            const name = document.getElementById('vipName').value;
-            const company = document.getElementById('vipCompany').value;
-            const phone = document.getElementById('vipPhone').value;
-            const platform = document.getElementById('vipPlatform').value;
-            const date = document.getElementById('vipDate').value;
-            const time = document.getElementById('vipTime').value;
+        function selectAdvisor(type, el) {
+            selectBookingAdvisor(type);
+        }
 
-            const text = `*Aanvraag VIP Directieconsultatie - S%26R CoreSync*%0A%0A` +
-                         `*Gewenste Adviseur:* ${encodeURIComponent(advisor)}%0A` +
-                         `*Klant:* ${encodeURIComponent(name)}%0A` +
-                         `*Bedrijf:* ${encodeURIComponent(company)}%0A` +
-                         `*Telefoon/WhatsApp:* ${encodeURIComponent(phone)}%0A` +
-                         `*Vergaderkanaal:* ${encodeURIComponent(platform)}%0A` +
-                         `*Voorkeurstijdstip:* ${encodeURIComponent(date)} om ${encodeURIComponent(time)}%0A%0A` +
-                         `_Verzonden via het officiële CoreSync platform._`;
+        function submitExecutiveBooking(e) {
+            if (e && e.preventDefault) e.preventDefault();
+            const advisor = document.getElementById('selectedAdvisorField') ? document.getElementById('selectedAdvisorField').value : 'salim';
+            const clientName = document.getElementById('bookingClientName') ? document.getElementById('bookingClientName').value.trim() : '';
+            const companyName = document.getElementById('bookingCompanyName') ? document.getElementById('bookingCompanyName').value.trim() : '';
+            const phone = document.getElementById('bookingPhone') ? document.getElementById('bookingPhone').value.trim() : '';
+            const sessionType = document.getElementById('bookingSessionType') ? document.getElementById('bookingSessionType').value : 'online';
+            const preferredDate = document.getElementById('bookingPreferredDate') ? document.getElementById('bookingPreferredDate').value : '';
+            const timeSlot = document.getElementById('bookingTimeSlot') ? document.getElementById('bookingTimeSlot').value : 'afternoon';
+            const notes = document.getElementById('bookingNotes') ? document.getElementById('bookingNotes').value.trim() : '';
+
+            let advisorName = 'Ir. Mohammad Salim Aziza (CTO - Cloud & AI Architectuur)';
+            if (advisor === 'raed') advisorName = 'Dhr. Mohammad Raed Kaakeh (CFO - Financiële ERP-Systemen)';
+            if (advisor === 'both') advisorName = 'Gezamenlijke Directiesessie (Salim & Raed)';
+
+            let sessionLabel = 'Online Videoconsult (Google Meet / Microsoft Teams)';
+            if (sessionType === 'phone') sessionLabel = 'Direct WhatsApp Spraakgesprek';
+            if (sessionType === 'office') sessionLabel = 'Persoonlijke Directiemeeting (Nederland)';
+
+            let timeSlotLabel = 'Middagvenster (13:00 - 15:00 CET)';
+            if (timeSlot === 'morning') timeSlotLabel = 'Ochtendvenster (10:00 - 12:00 CET)';
+            if (timeSlot === 'evening') timeSlotLabel = 'Namiddag/Avond (16:00 - 18:00 CET)';
+            if (timeSlot === 'flexible') timeSlotLabel = 'Flexibel (Eerstvolgende beschikbare directie-slot)';
+
+            let msg = `*Aanvraag VIP Directieconsultatie - S&R CoreSync Solutions*\n` +
+                      `━━━━━━━━━━━━━━━━━━━━\n` +
+                      `👤 *Beslisser / Contactpersoon:* ${clientName || 'Niet opgegeven'}\n` +
+                      `🏢 *Bedrijfsnaam:* ${companyName || 'Niet opgegeven'}\n` +
+                      `📞 *Telefoon / WhatsApp:* ${phone || 'Niet opgegeven'}\n` +
+                      `👔 *Gewenste Adviseur:* ${advisorName}\n` +
+                      `📅 *Kanaal:* ${sessionLabel}\n` +
+                      `🗓️ *Voorkeursdatum:* ${preferredDate || 'Eerst mogelijke gelegenheid'}\n` +
+                      `⏰ *Voorkeurstijdstip:* ${timeSlotLabel}\n`;
+
+            if (notes) {
+                msg += `📝 *Doelstelling & Uitdagingen:* ${notes}\n`;
+            }
+            msg += `━━━━━━━━━━━━━━━━━━━━\n` +
+                   `_Verzonden via de officiële S&R CoreSync Directieportal_`;
 
             if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
-            alert('Uw sessie-aanvraag is succesvol ingediend! U wordt doorgestuurd naar de directie via WhatsApp om de agenda te bevestigen.');
-            window.open(`https://wa.me/31612345678?text=${text}`, '_blank');
+            alert('Uw consultatie-aanvraag is succesvol geregistreerd! U wordt direct doorgeschakeld naar WhatsApp om het tijdslot definitief te bevestigen.');
+            const whatsappUrl = `https://wa.me/31687764998?text=${encodeURIComponent(msg)}`;
             closeExecutiveBookingModal();
+            window.open(whatsappUrl, '_blank');
         }
+
+        function dispatchVIPBooking(e) {
+            submitExecutiveBooking(e);
+        }
+
+        // ==========================================
+        // 2. Interactieve ROI Besparingscalculator (NL)
+        // ==========================================
+        let calculatedRoiData = { annualSavings: 19500, hoursSaved: 96, costMonthly: 6500, teamSize: 12, multiplier: '3.8' };
+
+        function openRoiCalculatorModal() {
+            const modal = document.getElementById('roiCalculatorModal');
+            if (!modal) return;
+            updateRoiCalc();
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
+        }
+
+        function closeRoiCalculatorModal() {
+            const modal = document.getElementById('roiCalculatorModal');
+            if (modal && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+                if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('close');
+            }
+        }
+
+        function updateRoiCalc() {
+            const costRange = document.getElementById('roiCostRange');
+            const teamRange = document.getElementById('roiTeamRange');
+            const systemSelect = document.getElementById('roiSystemLevel');
+
+            if (!costRange || !teamRange || !systemSelect) return;
+
+            const cost = parseInt(costRange.value, 10);
+            const team = parseInt(teamRange.value, 10);
+            const factor = parseFloat(systemSelect.value);
+
+            const costDisp = document.getElementById('roiCostDisplay');
+            const teamDisp = document.getElementById('roiTeamDisplay');
+            if (costDisp) costDisp.textContent = `€ ${cost.toLocaleString('nl-NL')}`;
+            if (teamDisp) teamDisp.textContent = `${team} medewerkers`;
+
+            const annualCost = cost * 12;
+            const annualSavings = Math.round(annualCost * factor);
+            const hoursMonthly = Math.round(team * 16 * factor);
+            const efficiencyGain = Math.round(factor * 115);
+            const multiplier = (factor * 11.2).toFixed(1);
+
+            calculatedRoiData = {
+                annualSavings,
+                hoursSaved: hoursMonthly,
+                costMonthly: cost,
+                teamSize: team,
+                multiplier
+            };
+
+            const savingsEl = document.getElementById('roiAnnualSavings');
+            const hoursEl = document.getElementById('roiHoursSaved');
+            const effEl = document.getElementById('roiEfficiency');
+            const multiEl = document.getElementById('roiMultiplier');
+
+            if (savingsEl) savingsEl.textContent = `€ ${annualSavings.toLocaleString('nl-NL')}`;
+            if (hoursEl) hoursEl.textContent = `${hoursMonthly} uur`;
+            if (effEl) effEl.textContent = `+ ${efficiencyGain}%`;
+            if (multiEl) multiEl.textContent = `${multiplier}x`;
+        }
+
+        function sendRoiDirectWhatsApp() {
+            const msg = `*ROI & Besparingsanalyse - S&R CoreSync Solutions*\n` +
+                        `━━━━━━━━━━━━━━━━━━━━\n` +
+                        `🏢 *Huidige Maandelijkse Operationele Kosten:* € ${calculatedRoiData.costMonthly.toLocaleString('nl-NL')}/mnd\n` +
+                        `👥 *Teamgrootte:* ${calculatedRoiData.teamSize} medewerkers\n` +
+                        `💰 *Verwachte Jaarlijkse Besparing:* € ${calculatedRoiData.annualSavings.toLocaleString('nl-NL')}\n` +
+                        `⏱️ *Vrijgemaakte Administratieve Uren:* ${calculatedRoiData.hoursSaved} uur/mnd\n` +
+                        `🚀 *Geprojecteerde ROI Factor:* ${calculatedRoiData.multiplier}x\n` +
+                        `━━━━━━━━━━━━━━━━━━━━\n` +
+                        `_Graag bespreek ik onze implementatiestrategie voor cloud & ERP automatisering._`;
+            if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
+            window.open(`https://wa.me/31687764998?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function sendRoiDirectEmail() {
+            const subject = encodeURIComponent('ROI & Besparingsanalyse Rapportage - S&R CoreSync');
+            const body = encodeURIComponent(
+                `Beste directie van S&R CoreSync Solutions,\n\n` +
+                `Hierbij stuur ik de berekende parameters via uw interactieve ROI-calculator:\n` +
+                `- Huidige operationele kosten: €${calculatedRoiData.costMonthly.toLocaleString('nl-NL')}/maand\n` +
+                `- Teamgrootte: ${calculatedRoiData.teamSize} medewerkers\n` +
+                `- Geschatte jaarlijkse besparing: €${calculatedRoiData.annualSavings.toLocaleString('nl-NL')}\n` +
+                `- Teruggewonnen administratieve tijd: ${calculatedRoiData.hoursSaved} uur/maand\n` +
+                `- Geprojecteerde ROI factor: ${calculatedRoiData.multiplier}x\n\n` +
+                `Graag plannen wij een directieconsultatie in om de implementatieopties door te nemen.\n\n` +
+                `Met vriendelijke groet,`
+            );
+            if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
+            window.location.href = `mailto:info@coresync-solutions.com?subject=${subject}&body=${body}`;
+        }
+
+        function applyRoiToConsultation() {
+            closeRoiCalculatorModal();
+            openExecutiveBookingModal('both');
+            const notesEl = document.getElementById('bookingNotes');
+            if (notesEl) {
+                notesEl.value = `Geschatte ROI-parameters: maandelijkse kosten €${calculatedRoiData.costMonthly.toLocaleString('nl-NL')}, team van ${calculatedRoiData.teamSize} personen, jaarlijkse besparing €${calculatedRoiData.annualSavings.toLocaleString('nl-NL')}, tijdwinst ${calculatedRoiData.hoursSaved} uur/mnd met een factor van ${calculatedRoiData.multiplier}x. Graag bespreken wij de implementatie-roadmap.`;
+            }
+        }
+
+        // ==========================================
+        // 3. Live Demo Quick Showcase Modal (NL)
+        // ==========================================
+        const DEMO_TAB_CONTENTS_NL = {
+            erp: {
+                title: 'Intelligente Boekhouding & Financiële ERP-Systemen (CFO Hub)',
+                desc: 'Complete financiële integratie volledig in overeenstemming met Europese (IFRS / BTW) en internationale richtlijnen.',
+                features: [
+                    '✓ Geautomatiseerde e-facturatie conform Europese normen (EU Peppol) & btw-aangiftes.',
+                    '✓ Realtime voorspellend cashflowbeheer en dynamische balansprognoses.',
+                    '✓ Multivaluta voorraadbeheer, leveranciersbeheer en foutloze grootboekautomatisering.'
+                ],
+                metric: '99,98% grootboekprecisie • 35+ uur per team wekelijks bespaard'
+            },
+            cloud: {
+                title: 'Cloud Systeemarchitectuur & AI Automatisering (CTO Core)',
+                desc: 'Robuuste cloudinfrastructuren en bedrijfskritische platformen gehost op zwaarbeveiligde Europese datacenters.',
+                features: [
+                    '✓ Autonome AI-agents voor geautomatiseerde documentextractie en continue gegevensverwerking.',
+                    '✓ Veerkrachtige multi-region cloudarchitectuur met 99,9% uptime en sub-80ms reactietijd.',
+                    '✓ Hoogwaardige bedrijfsportalen en webapplicaties met moderne en intuïtieve UI/UX.'
+                ],
+                metric: 'Reactietijd < 80ms • Meerlaagse SSL/TLS hardware-encryptie'
+            },
+            gov: {
+                title: 'Digitale Governance, Beveiliging & Compliance',
+                desc: 'Geavanceerde bedrijfsbeveiliging, fijnmazige rechtenstructuur en onweerlegbare audit trails voor accountants.',
+                features: [
+                    '✓ Rolgebaseerde toegangscontrole (RBAC) met cryptografisch beveiligde logboeken.',
+                    '✓ Automatische geo-redundante back-ups in Europese datacenters voor bedrijfscontinuïteit.',
+                    '✓ Directe rapportage met één klik, direct gereed voor gecertificeerde externe accountants.'
+                ],
+                metric: '100% AVG / GDPR compliant • Volledig voorbereid op financiële audits'
+            }
+        };
+
+        function openLiveDemoQuickModal() {
+            const modal = document.getElementById('liveDemoQuickModal');
+            if (!modal) return;
+            switchDemoModalTab('erp');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
+        }
+
+        function closeLiveDemoQuickModal() {
+            const modal = document.getElementById('liveDemoQuickModal');
+            if (modal && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+                if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('close');
+            }
+        }
+
+        function switchDemoModalTab(tabKey) {
+            const data = DEMO_TAB_CONTENTS_NL[tabKey];
+            if (!data) return;
+
+            const btnErp = document.getElementById('demoTabBtnErp');
+            const btnCloud = document.getElementById('demoTabBtnCloud');
+            const btnGov = document.getElementById('demoTabBtnGov');
+            const contentBox = document.getElementById('demoTabContent');
+
+            if (btnErp) btnErp.classList.toggle('active', tabKey === 'erp');
+            if (btnCloud) btnCloud.classList.toggle('active', tabKey === 'cloud');
+            if (btnGov) btnGov.classList.toggle('active', tabKey === 'gov');
+
+            if (contentBox) {
+                contentBox.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:8px;">
+                        <h4 style="font-size:1.15rem; font-weight:800; color:#ffffff; margin:0;">${data.title}</h4>
+                        <span style="font-size:0.75rem; background:rgba(197,168,128,0.18); border:1px solid rgba(197,168,128,0.3); color:#f3dfba; padding:3px 10px; border-radius:999px; white-space:nowrap;">Actieve Sandbox</span>
+                    </div>
+                    <p style="font-size:0.88rem; color:rgba(255,255,255,0.75); line-height:1.5; margin:0 0 10px 0;">${data.desc}</p>
+                    <ul class="sr-demo-feature-list">
+                        ${data.features.map(f => `<li class="sr-demo-feature-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><span>${f}</span></li>`).join('')}
+                    </ul>
+                    <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(197,168,128,0.25); border-radius:8px; padding:8px 14px; margin-top:8px; display:flex; align-items:center; gap:8px;">
+                        <span style="width:6px; height:6px; border-radius:50%; background:#c5a880;"></span>
+                        <span style="font-size:0.8rem; font-weight:700; color:#f3dfba;">Benchmark: ${data.metric}</span>
+                    </div>
+                `;
+            }
+
+            if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('switch');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeExecutiveBookingModal();
+                closeRoiCalculatorModal();
+                closeLiveDemoQuickModal();
+            }
+        });
 
         // ==========================================
         // CoreSync System Controller
