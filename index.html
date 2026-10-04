@@ -3191,6 +3191,7 @@
             color: #f3dfba; /* لون أساسي مضمون الظهور */
             background: linear-gradient(135deg, #ffffff 10%, #f6e2c2 50%, #c5a880 100%);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             display: inline-block;
         }
@@ -3938,6 +3939,7 @@
         @media (max-width: 768px) {
             .sr-advisor-select-grid { grid-template-columns: 1fr; }
             .sr-exec-form-grid { grid-template-columns: 1fr; }
+        }
         /* ===================================================================
            تصميم كروت دانا نجمة الفاخرة لخدمات الهوية والمواقع والمتاجر 1:1
            Dana Najmeh Signature Luxury Creative Services Cards (Option 1)
@@ -4300,6 +4302,7 @@
                 text-align: center;
                 align-items: center;
             }
+        }
         /* ========================================================
            حاسبة الميزانية التفاعلية (Interactive Cost Estimator)
            ======================================================== */
@@ -4766,6 +4769,9 @@
                     <video class="cinematic-video cinematic-video--a" muted loop autoplay preload="auto" poster="./assets/hero-founder-poster-bw.webp" src="./assets/hero-founder-cinematic.mp4" aria-hidden="true"></video>
                 </div>
             </div>
+
+            <!-- شريط تقدم القراءة المستمر -->
+            <div id="scroll-progress" style="position:fixed;top:0;left:0;height:3px;background:var(--primary);z-index:9999;width:0%;transition:width 0.1s ease-out; border-radius: 0 2px 2px 0;"></div>
 
             <!-- شريط التنقل العلوي الملكي (Header Refined) -->
             <header class="tf-header header-refined">
@@ -6350,6 +6356,31 @@
         </section>
 
         <!-- 9. قسم التواصل ونموذج الطلب (Section CTA) -->
+        <!-- شريط التقنيات المتدفق (Tech Marquee) -->
+        <div class="tech-marquee-wrapper py-4" style="background: rgba(197, 168, 128, 0.03); border-top: 1px solid rgba(197,168,128,0.1); border-bottom: 1px solid rgba(197,168,128,0.1); overflow: hidden; white-space: nowrap;">
+            <div class="tech-marquee-content" style="display: inline-block; animation: srMarquee 25s linear infinite;">
+                <span class="text-display-3 text-white-64 px-4 font-latin">Next.js</span><span class="gold-accent px-2">✦</span>
+                <span class="text-display-3 text-white-64 px-4 font-latin">React</span><span class="gold-accent px-2">✦</span>
+                <span class="text-display-3 text-white-64 px-4 font-latin">Vercel Edge</span><span class="gold-accent px-2">✦</span>
+                <span class="text-display-3 text-white-64 px-4 font-latin">Google Cloud</span><span class="gold-accent px-2">✦</span>
+                <span class="text-display-3 text-white-64 px-4 font-latin">AWS</span><span class="gold-accent px-2">✦</span>
+                <span class="text-display-3 text-white-64 px-4 font-latin">Stripe</span><span class="gold-accent px-2">✦</span>
+                <span class="text-display-3 text-white-64 px-4 font-latin">Mollie</span><span class="gold-accent px-2">✦</span>
+                <span class="text-display-3 text-white-64 px-4 font-latin">Node.js</span><span class="gold-accent px-2">✦</span>
+                <span class="text-display-3 text-white-64 px-4 font-latin">Python</span><span class="gold-accent px-2">✦</span>
+                <span class="text-display-3 text-white-64 px-4 font-latin">Next.js</span><span class="gold-accent px-2">✦</span>
+                <span class="text-display-3 text-white-64 px-4 font-latin">React</span><span class="gold-accent px-2">✦</span>
+                <span class="text-display-3 text-white-64 px-4 font-latin">Vercel Edge</span><span class="gold-accent px-2">✦</span>
+                <span class="text-display-3 text-white-64 px-4 font-latin">Google Cloud</span><span class="gold-accent px-2">✦</span>
+                <span class="text-display-3 text-white-64 px-4 font-latin">AWS</span><span class="gold-accent px-2">✦</span>
+                <span class="text-display-3 text-white-64 px-4 font-latin">Stripe</span><span class="gold-accent px-2">✦</span>
+                <span class="text-display-3 text-white-64 px-4 font-latin">Mollie</span><span class="gold-accent px-2">✦</span>
+                <span class="text-display-3 text-white-64 px-4 font-latin">Node.js</span><span class="gold-accent px-2">✦</span>
+                <span class="text-display-3 text-white-64 px-4 font-latin">Python</span><span class="gold-accent px-2">✦</span>
+            </div>
+        </div>
+        <style>@keyframes srMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }</style>
+        
         <section class="section-cta flat-spacing" id="contact" data-section>
             <div class="bg-img">
                 <img loading="lazy" width="1440" height="1081" src="./assets/bg-3.png" alt="خلفية التواصل">
@@ -7221,7 +7252,16 @@
 
             const activeProject = list[currentWorkProjectIdx];
 
-            // 1. تحديث قائمة أسماء المشاريع في الجانب
+            // تأثير التحريك والانسيابية عند التبديل
+            const workWrapper = document.querySelector('.project-grid-main');
+            if (workWrapper) {
+                workWrapper.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+                workWrapper.style.opacity = '0';
+                workWrapper.style.transform = 'translateY(15px)';
+            }
+
+            setTimeout(() => {
+                // 1. تحديث قائمة أسماء المشاريع في الجانب
             const navContainer = document.getElementById('work-project-names-nav');
             if (navContainer) {
                 navContainer.innerHTML = '';
@@ -7270,6 +7310,12 @@
                     yearEl.textContent = y;
                 }
             }
+
+            if (workWrapper) {
+                workWrapper.style.opacity = '1';
+                workWrapper.style.transform = 'translateY(0)';
+            }
+            }, 250);
         }
 
         // التنقل بين المشاريع داخل نفس التبويب (السابق / التالي)
@@ -7462,6 +7508,11 @@
                 hj('event', 'estimator_option_selected_' + group);
             }
 
+            // حفظ الجلسة في localStorage
+            try {
+                localStorage.setItem('sr_estimator_state', JSON.stringify(_estimatorState));
+            } catch(e) {}
+
             _recalcEstimator();
         }
 
@@ -7547,9 +7598,41 @@
             }
         });
 
-        // تهيئة التبويب الافتراضي لقسم الأعمال عند تحميل الصفحة
+        // تهيئة التبويب الافتراضي وميزات الواجهة المتقدمة عند التحميل
         document.addEventListener('DOMContentLoaded', function() {
             switchWorkTab('identity');
+
+            // 1. شريط تقدم القراءة (Scroll Progress Bar)
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                const pb = document.getElementById('scroll-progress');
+                if(pb) pb.style.width = scrolled + '%';
+            });
+
+            // 2. استرجاع حالة حاسبة الميزانية من الجلسة السابقة (Persistent Estimator)
+            try {
+                const savedState = localStorage.getItem('sr_estimator_state');
+                if (savedState) {
+                    const parsed = JSON.parse(savedState);
+                    Object.keys(parsed).forEach(key => {
+                        if (_estimatorState[key]) {
+                            _estimatorState[key] = parsed[key];
+                            // تحديث الزر المرئي
+                            const groupWrapper = document.querySelector(`.estimator-options[data-group-parent="${key}"]`);
+                            if (groupWrapper) {
+                                const btn = groupWrapper.querySelector(`[data-val="${parsed[key].val}"]`);
+                                if (btn) {
+                                    groupWrapper.querySelectorAll('.estimator-option').forEach(b => b.classList.remove('active'));
+                                    btn.classList.add('active');
+                                }
+                            }
+                        }
+                    });
+                    _recalcEstimator();
+                }
+            } catch (e) {}
         });
 
         // تبديل تبويبات الأسعار
