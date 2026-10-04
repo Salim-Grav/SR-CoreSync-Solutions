@@ -2928,8 +2928,402 @@
             .section-executive-stage .exec-stage-focus-chips {
                 justify-content: center;
             }
-            .section-executive-stage .exec-visual-frame {
-                max-width: 380px;
+        /* ==========================================
+           Executive Strategic Modals (LTR - NL)
+           ========================================== */
+        .sr-exec-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 100000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease;
+            direction: ltr !important;
+            text-align: left !important;
+            font-family: inherit;
+        }
+
+        .sr-exec-modal.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .sr-exec-modal-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(1, 9, 7, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        .sr-exec-modal-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 680px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: linear-gradient(135deg, rgba(14, 22, 18, 0.96) 0%, rgba(6, 11, 9, 0.98) 100%);
+            border: 1px solid rgba(197, 168, 128, 0.35);
+            border-radius: 24px;
+            padding: clamp(1.5rem, 3.5vw, 2.5rem);
+            box-shadow: 0 35px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(197, 168, 128, 0.12);
+            transform: scale(0.94) translateY(20px);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .sr-exec-modal.active .sr-exec-modal-container {
+            transform: scale(1) translateY(0);
+        }
+
+        .sr-exec-modal-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(197, 168, 128, 0.15);
+            padding-bottom: 1.25rem;
+        }
+
+        .sr-exec-modal-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #e2c8a2;
+            background: rgba(197, 168, 128, 0.12);
+            padding: 4px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(197, 168, 128, 0.25);
+            margin-bottom: 0.5rem;
+        }
+
+        .sr-exec-modal-title {
+            font-size: clamp(1.25rem, 2vw, 1.65rem);
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0 0 4px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .sr-exec-modal-subtitle {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .sr-exec-modal-close {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(197, 168, 128, 0.25);
+            color: #ffffff;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            flex-shrink: 0;
+        }
+
+        .sr-exec-modal-close:hover {
+            background: rgba(197, 168, 128, 0.25);
+            color: #f3dfba;
+            transform: rotate(90deg);
+        }
+
+        .sr-advisor-select-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .sr-advisor-card-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(197, 168, 128, 0.18);
+            border-radius: 14px;
+            padding: 12px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .sr-advisor-card-btn:hover {
+            background: rgba(197, 168, 128, 0.1);
+            border-color: rgba(197, 168, 128, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .sr-advisor-card-btn.active {
+            background: rgba(197, 168, 128, 0.18);
+            border-color: #c5a880;
+            box-shadow: 0 0 20px rgba(197, 168, 128, 0.25);
+        }
+
+        .sr-advisor-card-btn .name {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #f3dfba;
+        }
+
+        .sr-advisor-card-btn .role {
+            font-size: 0.74rem;
+            color: rgba(255, 255, 255, 0.65);
+            line-height: 1.3;
+        }
+
+        .sr-exec-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 1.25rem;
+        }
+
+        .sr-exec-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            text-align: left;
+        }
+
+        .sr-exec-form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .sr-exec-label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .sr-exec-input, .sr-exec-select, .sr-exec-textarea {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid rgba(197, 168, 128, 0.22);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.92rem;
+            color: #ffffff;
+            outline: none;
+            font-family: inherit;
+            transition: border-color 0.25s, box-shadow 0.25s;
+            box-sizing: border-box;
+            color-scheme: dark;
+        }
+
+        .sr-exec-input:focus, .sr-exec-select:focus, .sr-exec-textarea:focus {
+            border-color: #c5a880;
+            box-shadow: 0 0 12px rgba(197, 168, 128, 0.25);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .sr-exec-submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #c5a880, #e2c8a2);
+            color: #010907;
+            font-weight: 800;
+            font-size: 1rem;
+            padding: 14px 24px;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(197, 168, 128, 0.3);
+            text-decoration: none;
+        }
+
+        .sr-exec-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 35px rgba(197, 168, 128, 0.45);
+            color: #010907;
+        }
+
+        /* ROI Modal Specifics */
+        .sr-roi-inputs-box {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(197, 168, 128, 0.15);
+            border-radius: 16px;
+            padding: 1.25rem;
+        }
+
+        .sr-roi-slider-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sr-roi-slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.88rem;
+            font-weight: 600;
+        }
+
+        .sr-roi-val-badge {
+            background: rgba(197, 168, 128, 0.18);
+            border: 1px solid rgba(197, 168, 128, 0.35);
+            color: #f3dfba;
+            padding: 3px 10px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 700;
+        }
+
+        .sr-roi-range {
+            width: 100%;
+            height: 6px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.15);
+            outline: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+
+        .sr-roi-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #c5a880;
+            box-shadow: 0 0 10px rgba(197, 168, 128, 0.6);
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+
+        .sr-roi-range::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .sr-roi-results-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .sr-roi-metric-card {
+            background: rgba(197, 168, 128, 0.06);
+            border: 1px solid rgba(197, 168, 128, 0.22);
+            border-radius: 14px;
+            padding: 12px 8px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .sr-roi-metric-num {
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: #f3dfba;
+            font-family: inherit;
+        }
+
+        .sr-roi-metric-label {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.3;
+        }
+
+        /* Live Demo Showcase Tab Specifics */
+        .sr-demo-tab-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 1.25rem;
+        }
+
+        .sr-demo-tab-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(197, 168, 128, 0.2);
+            border-radius: 12px;
+            padding: 10px 8px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: center;
+        }
+
+        .sr-demo-tab-btn:hover {
+            background: rgba(197, 168, 128, 0.12);
+            border-color: rgba(197, 168, 128, 0.4);
+            color: #fff;
+        }
+
+        .sr-demo-tab-btn.active {
+            background: rgba(197, 168, 128, 0.22);
+            border-color: #c5a880;
+            color: #f3dfba;
+            box-shadow: 0 0 15px rgba(197, 168, 128, 0.2);
+        }
+
+        .sr-demo-preview-card {
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(197, 168, 128, 0.2);
+            border-radius: 16px;
+            padding: 1.25rem;
+            min-height: 180px;
+        }
+
+        .sr-demo-feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sr-demo-feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 0.86rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.4;
+        }
+
+        .sr-demo-feature-item svg {
+            flex-shrink: 0;
+            color: #c5a880;
+            margin-top: 2px;
+        }
+
+        @media (max-width: 640px) {
+            .sr-advisor-select-grid, .sr-demo-tab-list {
+                grid-template-columns: 1fr;
+            }
+            .sr-exec-form-grid {
+                grid-template-columns: 1fr;
+            }
+            .sr-roi-results-grid {
+                grid-template-columns: 1fr 1fr;
             }
         }
     </style>

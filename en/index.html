@@ -2930,8 +2930,402 @@
             .section-executive-stage .exec-stage-focus-chips {
                 justify-content: center;
             }
-            .section-executive-stage .exec-visual-frame {
-                max-width: 380px;
+        /* ==========================================
+           Executive Strategic Modals (LTR - EN)
+           ========================================== */
+        .sr-exec-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 100000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease;
+            direction: ltr !important;
+            text-align: left !important;
+            font-family: inherit;
+        }
+
+        .sr-exec-modal.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .sr-exec-modal-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(1, 9, 7, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        .sr-exec-modal-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 680px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: linear-gradient(135deg, rgba(14, 22, 18, 0.96) 0%, rgba(6, 11, 9, 0.98) 100%);
+            border: 1px solid rgba(197, 168, 128, 0.35);
+            border-radius: 24px;
+            padding: clamp(1.5rem, 3.5vw, 2.5rem);
+            box-shadow: 0 35px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(197, 168, 128, 0.12);
+            transform: scale(0.94) translateY(20px);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .sr-exec-modal.active .sr-exec-modal-container {
+            transform: scale(1) translateY(0);
+        }
+
+        .sr-exec-modal-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(197, 168, 128, 0.15);
+            padding-bottom: 1.25rem;
+        }
+
+        .sr-exec-modal-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #e2c8a2;
+            background: rgba(197, 168, 128, 0.12);
+            padding: 4px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(197, 168, 128, 0.25);
+            margin-bottom: 0.5rem;
+        }
+
+        .sr-exec-modal-title {
+            font-size: clamp(1.25rem, 2vw, 1.65rem);
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0 0 4px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .sr-exec-modal-subtitle {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .sr-exec-modal-close {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(197, 168, 128, 0.25);
+            color: #ffffff;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            flex-shrink: 0;
+        }
+
+        .sr-exec-modal-close:hover {
+            background: rgba(197, 168, 128, 0.25);
+            color: #f3dfba;
+            transform: rotate(90deg);
+        }
+
+        .sr-advisor-select-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .sr-advisor-card-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(197, 168, 128, 0.18);
+            border-radius: 14px;
+            padding: 12px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .sr-advisor-card-btn:hover {
+            background: rgba(197, 168, 128, 0.1);
+            border-color: rgba(197, 168, 128, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .sr-advisor-card-btn.active {
+            background: rgba(197, 168, 128, 0.18);
+            border-color: #c5a880;
+            box-shadow: 0 0 20px rgba(197, 168, 128, 0.25);
+        }
+
+        .sr-advisor-card-btn .name {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #f3dfba;
+        }
+
+        .sr-advisor-card-btn .role {
+            font-size: 0.74rem;
+            color: rgba(255, 255, 255, 0.65);
+            line-height: 1.3;
+        }
+
+        .sr-exec-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 1.25rem;
+        }
+
+        .sr-exec-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            text-align: left;
+        }
+
+        .sr-exec-form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .sr-exec-label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .sr-exec-input, .sr-exec-select, .sr-exec-textarea {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid rgba(197, 168, 128, 0.22);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.92rem;
+            color: #ffffff;
+            outline: none;
+            font-family: inherit;
+            transition: border-color 0.25s, box-shadow 0.25s;
+            box-sizing: border-box;
+            color-scheme: dark;
+        }
+
+        .sr-exec-input:focus, .sr-exec-select:focus, .sr-exec-textarea:focus {
+            border-color: #c5a880;
+            box-shadow: 0 0 12px rgba(197, 168, 128, 0.25);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .sr-exec-submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #c5a880, #e2c8a2);
+            color: #010907;
+            font-weight: 800;
+            font-size: 1rem;
+            padding: 14px 24px;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(197, 168, 128, 0.3);
+            text-decoration: none;
+        }
+
+        .sr-exec-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 35px rgba(197, 168, 128, 0.45);
+            color: #010907;
+        }
+
+        /* ROI Modal Specifics */
+        .sr-roi-inputs-box {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(197, 168, 128, 0.15);
+            border-radius: 16px;
+            padding: 1.25rem;
+        }
+
+        .sr-roi-slider-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sr-roi-slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.88rem;
+            font-weight: 600;
+        }
+
+        .sr-roi-val-badge {
+            background: rgba(197, 168, 128, 0.18);
+            border: 1px solid rgba(197, 168, 128, 0.35);
+            color: #f3dfba;
+            padding: 3px 10px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 700;
+        }
+
+        .sr-roi-range {
+            width: 100%;
+            height: 6px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.15);
+            outline: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+
+        .sr-roi-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #c5a880;
+            box-shadow: 0 0 10px rgba(197, 168, 128, 0.6);
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+
+        .sr-roi-range::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .sr-roi-results-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .sr-roi-metric-card {
+            background: rgba(197, 168, 128, 0.06);
+            border: 1px solid rgba(197, 168, 128, 0.22);
+            border-radius: 14px;
+            padding: 12px 8px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .sr-roi-metric-num {
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: #f3dfba;
+            font-family: inherit;
+        }
+
+        .sr-roi-metric-label {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.3;
+        }
+
+        /* Live Demo Showcase Tab Specifics */
+        .sr-demo-tab-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 1.25rem;
+        }
+
+        .sr-demo-tab-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(197, 168, 128, 0.2);
+            border-radius: 12px;
+            padding: 10px 8px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: center;
+        }
+
+        .sr-demo-tab-btn:hover {
+            background: rgba(197, 168, 128, 0.12);
+            border-color: rgba(197, 168, 128, 0.4);
+            color: #fff;
+        }
+
+        .sr-demo-tab-btn.active {
+            background: rgba(197, 168, 128, 0.22);
+            border-color: #c5a880;
+            color: #f3dfba;
+            box-shadow: 0 0 15px rgba(197, 168, 128, 0.2);
+        }
+
+        .sr-demo-preview-card {
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(197, 168, 128, 0.2);
+            border-radius: 16px;
+            padding: 1.25rem;
+            min-height: 180px;
+        }
+
+        .sr-demo-feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sr-demo-feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 0.86rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.4;
+        }
+
+        .sr-demo-feature-item svg {
+            flex-shrink: 0;
+            color: #c5a880;
+            margin-top: 2px;
+        }
+
+        @media (max-width: 640px) {
+            .sr-advisor-select-grid, .sr-demo-tab-list {
+                grid-template-columns: 1fr;
+            }
+            .sr-exec-form-grid {
+                grid-template-columns: 1fr;
+            }
+            .sr-roi-results-grid {
+                grid-template-columns: 1fr 1fr;
             }
         }
     </style>
@@ -3206,15 +3600,15 @@
                         <!-- Action Buttons -->
                         <div class="exec-stage-actions">
                             <a href="#contact" class="exec-stage-btn exec-stage-btn-primary">Get in Touch</a>
-                            <a href="https://wa.me/31687764998?text=Hello%20S%26R%20CoreSync%2C%20I%20would%20like%20to%20schedule%20a%20VIP%20executive%20consultation." target="_blank" rel="noopener" class="exec-stage-btn exec-stage-btn-glass">
+                            <button type="button" class="exec-stage-btn exec-stage-btn-glass" onclick="openExecutiveBookingModal('stage')">
                                 <span>VIP Consultation 👔</span>
-                            </a>
-                            <a href="../export-banner-founders-erp.html" class="exec-stage-btn exec-stage-btn-glass">
-                                <span>Live Interactive Showcase 📊</span>
-                            </a>
-                            <a href="../demo.html" class="exec-stage-btn exec-stage-btn-glass">
+                            </button>
+                            <button type="button" class="exec-stage-btn exec-stage-btn-glass" onclick="openRoiCalculatorModal()">
+                                <span>ROI Savings Calculator 📊</span>
+                            </button>
+                            <button type="button" class="exec-stage-btn exec-stage-btn-glass" onclick="openLiveDemoQuickModal()">
                                 <span>Live Demo Sandbox</span>
-                            </a>
+                            </button>
                         </div>
 
                         <!-- Leadership Switcher Console -->
@@ -5159,114 +5553,221 @@
         </div>
     </div>
 
-    <!-- نافذة حجز الاستشارات التنفيذية الفاخرة (Executive VIP Consultation Booking Modal) -->
-    <div class="sr-booking-modal-overlay" id="executiveBookingModal" role="dialog" aria-modal="true" aria-labelledby="vipBookingTitle" onclick="if(event.target === this) closeExecutiveBookingModal()">
-        <div class="sr-booking-modal-card">
-            <!-- رأس النافذة -->
-            <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-secondary border-opacity-25">
+    <!-- 1. Executive VIP Consultation Booking Modal -->
+    <div class="sr-exec-modal" id="executiveBookingModal" role="dialog" aria-modal="true" aria-labelledby="execBookingTitle">
+        <div class="sr-exec-modal-backdrop" onclick="closeExecutiveBookingModal()"></div>
+        <div class="sr-exec-modal-container">
+            <div class="sr-exec-modal-header">
                 <div>
-                    <span class="sr-logo-badge-pill mb-1 d-inline-flex">
-                        <span class="gold-dot"></span> Direct Session with Senior Leadership
-                    </span>
-                    <h3 id="vipBookingTitle" class="text-white fw-bold mb-0">Book VIP Executive Consultation</h3>
+                    <div class="sr-exec-modal-badge">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <span>C-Level Executive Advisory • S&R CoreSync</span>
+                    </div>
+                    <h3 class="sr-exec-modal-title" id="execBookingTitle">Strategic Advisory Session with Founding Partners</h3>
+                    <p class="sr-exec-modal-subtitle">Choose your executive advisor to address your software architecture, cloud platforms, and ERP roadmap directly.</p>
                 </div>
-                <button type="button" class="btn text-white-64 p-0 fs-3 lh-1 link" onclick="closeExecutiveBookingModal()" aria-label="Close">&times;</button>
+                <button type="button" class="sr-exec-modal-close" onclick="closeExecutiveBookingModal()" aria-label="Close">&times;</button>
             </div>
 
-            <p class="text-caption text-white-64 mb-4">
-                A focused 30-minute strategic consultation with the founding partners to audit your IT architecture, ERP roadmap, and cost-reduction automation opportunities.
-            </p>
+            <!-- Advisor Selection -->
+            <label class="sr-exec-label mb-2 d-block">Select Executive Advisor for the Session:</label>
+            <div class="sr-advisor-select-grid" role="radiogroup">
+                <button type="button" class="sr-advisor-card-btn active" id="advisorBtnSalim" onclick="selectBookingAdvisor('salim')">
+                    <span class="name">Eng. Salim Azizah</span>
+                    <span class="role">Chief Cloud &amp; AI Architect // CTO</span>
+                </button>
+                <button type="button" class="sr-advisor-card-btn" id="advisorBtnRaed" onclick="selectBookingAdvisor('raed')">
+                    <span class="name">Mr. Raed Kaakeh</span>
+                    <span class="role">Financial Systems &amp; ERP Consultant // CFO</span>
+                </button>
+                <button type="button" class="sr-advisor-card-btn" id="advisorBtnBoth" onclick="selectBookingAdvisor('both')">
+                    <span class="name">Joint Board (VIP)</span>
+                    <span class="role">Comprehensive (Software Engineering + Financial Governance)</span>
+                </button>
+            </div>
 
-            <form id="executiveBookingForm" onsubmit="dispatchVIPBooking(event)">
-                <div class="mb-4">
-                    <label class="form-label text-white fw-bold mb-2">Select Executive Advisor for the Session:</label>
-                    <div class="row g-3">
-                        <div class="col-md-4">
-                            <div class="advisor-select-card active" onclick="selectAdvisor('joint', this)">
-                                <div class="d-flex align-items-center gap-1">
-                                    <img src="../assets/founder-salim.png?v=color_v2" alt="Ir. Salim" class="advisor-avatar-dual-1">
-                                    <img src="../assets/founder-raed.png?v=color_v2" alt="Dhr. Raed" class="advisor-avatar-dual-2">
-                                </div>
-                                <div>
-                                    <div class="fw-bold text-white fs-6">Joint Executive Session (S &amp; R)</div>
-                                    <div class="text-caption text-primary gold-accent">Cloud & AI + Financial ERP</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="advisor-select-card" onclick="selectAdvisor('salim', this)">
-                                <img src="../assets/founder-salim.png?v=color_v2" alt="Ir. Salim Aziza" class="advisor-avatar-sm">
-                                <div>
-                                    <div class="fw-bold text-white fs-6">Ir. Salim Aziza</div>
-                                    <div class="text-caption text-white-64">CTO // Software & AI Architecture</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="advisor-select-card" onclick="selectAdvisor('raed', this)">
-                                <img src="../assets/founder-raed.png?v=color_v2" alt="Dhr. Raed Kaakeh" class="advisor-avatar-sm">
-                                <div>
-                                    <div class="fw-bold text-white fs-6">Dhr. Raed Kaakeh</div>
-                                    <div class="text-caption text-white-64">CFO // Financial ERP & Governance</div>
-                                </div>
-                            </div>
-                        </div>
+            <!-- Booking Form -->
+            <form id="executiveBookingForm" onsubmit="submitExecutiveBooking(event)">
+                <input type="hidden" id="selectedAdvisorField" value="salim" />
+                <div class="sr-exec-form-grid">
+                    <div class="sr-exec-form-group">
+                        <label class="sr-exec-label" for="bookingClientName">Full Name / Decision Maker *</label>
+                        <input type="text" id="bookingClientName" class="sr-exec-input" required placeholder="e.g. Alexander de Jong" />
                     </div>
-                    <input type="hidden" id="selectedAdvisorInput" value="Joint Strategic Session (S & R - Tech & Financial)">
-                </div>
-
-                <div class="row g-3 mb-3">
-                    <div class="col-md-6">
-                        <label for="vipName" class="form-label text-white-64 text-caption mb-1">Full Name & Title *</label>
-                        <input type="text" id="vipName" class="tf-input w-100" placeholder="e.g. Alexander de Jong - Managing Director" required>
+                    <div class="sr-exec-form-group">
+                        <label class="sr-exec-label" for="bookingCompanyName">Company / Organization *</label>
+                        <input type="text" id="bookingCompanyName" class="sr-exec-input" required placeholder="e.g. Apex Global Logistics" />
                     </div>
-                    <div class="col-md-6">
-                        <label for="vipCompany" class="form-label text-white-64 text-caption mb-1">Company Name & Location *</label>
-                        <input type="text" id="vipCompany" class="tf-input w-100" placeholder="e.g. Apex Global Logistics - Amsterdam" required>
+                    <div class="sr-exec-form-group">
+                        <label class="sr-exec-label" for="bookingPhone">WhatsApp / Direct Phone *</label>
+                        <input type="tel" id="bookingPhone" class="sr-exec-input" required placeholder="+31 6 ... or +44 ..." />
                     </div>
-                </div>
-
-                <div class="row g-3 mb-3">
-                    <div class="col-md-6">
-                        <label for="vipPhone" class="form-label text-white-64 text-caption mb-1">WhatsApp or Phone Number *</label>
-                        <input type="tel" id="vipPhone" class="tf-input w-100 font-latin" placeholder="+31 6 ..." required dir="ltr">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="vipPlatform" class="form-label text-white-64 text-caption mb-1">Preferred Meeting Channel *</label>
-                        <select id="vipPlatform" class="tf-input w-100 form-select-dark">
-                            <option value="Google Meet">Google Meet (Video Conference)</option>
-                            <option value="Zoom">Zoom Cloud (Video Conference)</option>
-                            <option value="WhatsApp Call">Direct WhatsApp Voice Call</option>
-                            <option value="Phone Call">International Voice Call</option>
+                    <div class="sr-exec-form-group">
+                        <label class="sr-exec-label" for="bookingSessionType">Preferred Meeting Channel *</label>
+                        <select id="bookingSessionType" class="sr-exec-select">
+                            <option value="online">Online Video Conference (Google Meet / Teams)</option>
+                            <option value="phone">Direct WhatsApp / Phone Call</option>
+                            <option value="office">In-Person Consultation (Netherlands / Europe)</option>
                         </select>
                     </div>
-                </div>
-
-                <div class="row g-3 mb-4">
-                    <div class="col-md-6">
-                        <label for="vipDate" class="form-label text-white-64 text-caption mb-1">Preferred Date *</label>
-                        <input type="date" id="vipDate" class="tf-input w-100" required>
+                    <div class="sr-exec-form-group">
+                        <label class="sr-exec-label" for="bookingPreferredDate">Preferred Date (Optional)</label>
+                        <input type="date" id="bookingPreferredDate" class="sr-exec-input" />
                     </div>
-                    <div class="col-md-6">
-                        <label for="vipTime" class="form-label text-white-64 text-caption mb-1">Preferred Time Window *</label>
-                        <select id="vipTime" class="tf-input w-100 form-select-dark">
-                            <option value="11:00 AM (Amsterdam / CET)">11:00 AM (Amsterdam / CET)</option>
-                            <option value="02:00 PM (Amsterdam / CET)">02:00 PM (Amsterdam / CET)</option>
-                            <option value="05:00 PM (Gulf Standard Time)">05:00 PM (Gulf Standard Time)</option>
-                            <option value="08:00 PM (Gulf Standard Time)">08:00 PM (Gulf Standard Time)</option>
+                    <div class="sr-exec-form-group">
+                        <label class="sr-exec-label" for="bookingTimeSlot">Preferred Time Window *</label>
+                        <select id="bookingTimeSlot" class="sr-exec-select">
+                            <option value="morning">Morning Window (10:00 - 12:00 CET)</option>
+                            <option value="afternoon" selected>Afternoon Window (13:00 - 15:00 CET)</option>
+                            <option value="evening">Evening Window (16:00 - 18:00 CET)</option>
+                            <option value="flexible">Flexible (Next Available Executive Slot)</option>
                         </select>
                     </div>
+                    <div class="sr-exec-form-group full-width">
+                        <label class="sr-exec-label" for="bookingNotes">Consultation Scope / Challenges (Optional)</label>
+                        <textarea id="bookingNotes" class="sr-exec-textarea" rows="2" placeholder="Brief outline of your software, cloud or ERP requirements..."></textarea>
+                    </div>
                 </div>
 
-                <div class="d-flex flex-wrap gap-3 align-items-center justify-content-between pt-2">
-                    <button type="submit" class="tf-btn tf-btn-submit flex-grow-1 justify-content-center">
-                        <span>Confirm & Book Session 📅</span>
-                    </button>
-                    <button type="button" class="btn text-white-64 link" onclick="closeExecutiveBookingModal()">
-                        Cancel
-                    </button>
-                </div>
+                <button type="submit" class="sr-exec-submit-btn">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+                    <span>Confirm &amp; Dispatch VIP Session Request via WhatsApp</span>
+                </button>
             </form>
+        </div>
+    </div>
+
+    <!-- 2. Interactive ROI Savings Calculator Modal -->
+    <div class="sr-exec-modal" id="roiCalculatorModal" role="dialog" aria-modal="true" aria-labelledby="roiModalTitle">
+        <div class="sr-exec-modal-backdrop" onclick="closeRoiCalculatorModal()"></div>
+        <div class="sr-exec-modal-container">
+            <div class="sr-exec-modal-header">
+                <div>
+                    <div class="sr-exec-modal-badge">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        <span>Direct Cost-Efficiency &amp; ROI Calculator</span>
+                    </div>
+                    <h3 class="sr-exec-modal-title" id="roiModalTitle">Enterprise Financial Savings &amp; Efficiency Engine</h3>
+                    <p class="sr-exec-modal-subtitle">Real-time simulation of financial and operational hours saved after deploying S&R CoreSync architectures.</p>
+                </div>
+                <button type="button" class="sr-exec-modal-close" onclick="closeRoiCalculatorModal()" aria-label="Close">&times;</button>
+            </div>
+
+            <div class="sr-roi-inputs-box">
+                <!-- Monthly Cost Slider -->
+                <div class="sr-roi-slider-row">
+                    <div class="sr-roi-slider-header">
+                        <span class="text-white">Current Operational &amp; Administrative Monthly Cost:</span>
+                        <span class="sr-roi-val-badge" id="roiCostDisplay">€ 6,500</span>
+                    </div>
+                    <input type="range" class="sr-roi-range" id="roiCostRange" min="1000" max="40000" step="500" value="6500" oninput="updateRoiCalc()" />
+                </div>
+
+                <!-- Team Size Slider -->
+                <div class="sr-roi-slider-row">
+                    <div class="sr-roi-slider-header">
+                        <span class="text-white">Administrative &amp; Finance Team Size (Employees):</span>
+                        <span class="sr-roi-val-badge" id="roiTeamDisplay">12 employees</span>
+                    </div>
+                    <input type="range" class="sr-roi-range" id="roiTeamRange" min="2" max="150" step="1" value="12" oninput="updateRoiCalc()" />
+                </div>
+
+                <!-- Systems Maturity -->
+                <div class="sr-roi-slider-row">
+                    <div class="sr-roi-slider-header">
+                        <span class="text-white">Current Software &amp; Workflow Maturity Level:</span>
+                    </div>
+                    <select id="roiSystemLevel" class="sr-exec-select" onchange="updateRoiCalc()">
+                        <option value="0.36">Manual workflows or scattered spreadsheets (Up to 36% savings potential)</option>
+                        <option value="0.25" selected>Legacy accounting software without cloud synchronization (25% savings)</option>
+                        <option value="0.16">Partial cloud setup lacking autonomous AI workflows (16% savings)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Dynamic Results Grid -->
+            <div class="sr-roi-results-grid">
+                <div class="sr-roi-metric-card">
+                    <span class="sr-roi-metric-num" id="roiAnnualSavings">€ 19,500</span>
+                    <span class="sr-roi-metric-label">Estimated Annual Savings</span>
+                </div>
+                <div class="sr-roi-metric-card">
+                    <span class="sr-roi-metric-num" id="roiHoursSaved">96 hrs</span>
+                    <span class="sr-roi-metric-label">Admin Hours Recovered / Mo</span>
+                </div>
+                <div class="sr-roi-metric-card">
+                    <span class="sr-roi-metric-num" id="roiEfficiency">+ 42%</span>
+                    <span class="sr-roi-metric-label">Efficiency &amp; Speed Gain</span>
+                </div>
+                <div class="sr-roi-metric-card">
+                    <span class="sr-roi-metric-num" id="roiMultiplier">3.8x</span>
+                    <span class="sr-roi-metric-label">Estimated ROI Multiplier</span>
+                </div>
+            </div>
+
+            <!-- Multi-channel action triggers -->
+            <div style="display:flex; flex-direction:column; gap:10px; margin-top:16px;">
+                <button type="button" class="sr-exec-submit-btn" style="background:linear-gradient(135deg, #25D366 0%, #128C7E 100%); color:#ffffff; border:none; box-shadow:0 8px 24px rgba(37,211,102,0.3);" onclick="sendRoiDirectWhatsApp()">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+                    <span>Send ROI Metrics to Senior Financial Advisor on WhatsApp</span>
+                </button>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px;">
+                    <button type="button" class="sr-exec-submit-btn" style="margin:0; font-size:0.9rem; padding:11px 18px; background:rgba(197,168,128,0.15); border:1px solid rgba(197,168,128,0.4); color:#f3dfba;" onclick="applyRoiToConsultation()">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <span>Book VIP Audit with These Figures</span>
+                    </button>
+                    <button type="button" class="sr-exec-submit-btn" style="margin:0; font-size:0.9rem; padding:11px 18px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.2); color:#ffffff;" onclick="sendRoiDirectEmail()">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        <span>Email Savings Report</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Live Demo Quick Showcase Modal -->
+    <div class="sr-exec-modal" id="liveDemoQuickModal" role="dialog" aria-modal="true" aria-labelledby="liveDemoTitle">
+        <div class="sr-exec-modal-backdrop" onclick="closeLiveDemoQuickModal()"></div>
+        <div class="sr-exec-modal-container">
+            <div class="sr-exec-modal-header">
+                <div>
+                    <div class="sr-exec-modal-badge">
+                        <span class="live-dot" style="width:8px;height:8px;border-radius:50%;background:#e2c8a2;display:inline-block;"></span>
+                        <span>Interactive Enterprise Sandbox</span>
+                    </div>
+                    <h3 class="sr-exec-modal-title" id="liveDemoTitle">Explore S&amp;R CoreSync Cloud &amp; ERP Solutions</h3>
+                    <p class="sr-exec-modal-subtitle">A concise walkthrough of our key enterprise modules before entering the complete sandbox.</p>
+                </div>
+                <button type="button" class="sr-exec-modal-close" onclick="closeLiveDemoQuickModal()" aria-label="Close">&times;</button>
+            </div>
+
+            <!-- Demo Tabs -->
+            <div class="sr-demo-tab-list" role="tablist">
+                <button type="button" class="sr-demo-tab-btn active" id="demoTabBtnErp" onclick="switchDemoModalTab('erp')">
+                    📊 Financial ERP (CFO Hub)
+                </button>
+                <button type="button" class="sr-demo-tab-btn" id="demoTabBtnCloud" onclick="switchDemoModalTab('cloud')">
+                    ⚡ Cloud &amp; AI Core (CTO)
+                </button>
+                <button type="button" class="sr-demo-tab-btn" id="demoTabBtnGov" onclick="switchDemoModalTab('gov')">
+                    🛡️ Compliance &amp; Security
+                </button>
+            </div>
+
+            <!-- Demo Content Card -->
+            <div class="sr-demo-preview-card" id="demoTabContent">
+                <!-- Populated dynamically by switchDemoModalTab -->
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 1.5rem; flex-wrap: wrap;">
+                <a href="../demo.html" class="sr-exec-submit-btn" style="flex: 1; text-decoration: none; margin-top: 0;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 8"/></svg>
+                    <span>Launch Full Interactive Sandbox (demo.html)</span>
+                </a>
+                <button type="button" class="sr-exec-btn exec-stage-btn-glass" onclick="closeLiveDemoQuickModal(); openExecutiveBookingModal('both');" style="padding: 12px 20px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(197,168,128,0.3); color: #fff; cursor: pointer;">
+                    <span>Request Guided Demo</span>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -5676,130 +6177,295 @@
         // ==========================================
         // CoreSync System Controller
         // ==========================================
-        function updateROICalculator() {
-            const teamSizeInput = document.getElementById('roiCompanySize');
-            const manualHoursInput = document.getElementById('roiManualHours');
-            const avgSalaryInput = document.getElementById('roiAvgSalary');
-            const solutionTypeInput = document.getElementById('roiSolutionType');
-
-            if (!teamSizeInput || !manualHoursInput || !avgSalaryInput || !solutionTypeInput) return;
-
-            const teamSize = parseInt(teamSizeInput.value, 10);
-            const manualHours = parseInt(manualHoursInput.value, 10);
-            const avgSalary = parseFloat(avgSalaryInput.value);
-            const efficiencyFactor = parseFloat(solutionTypeInput.value);
-
-            // CoreSync System Controller
-            const teamSizeVal = document.getElementById('roiCompanySizeVal');
-            const manualHoursVal = document.getElementById('roiManualHoursVal');
-            const avgSalaryVal = document.getElementById('roiAvgSalaryVal');
-
-            if (teamSizeVal) teamSizeVal.textContent = teamSize + ' employees';
-            if (manualHoursVal) manualHoursVal.textContent = manualHours + ' hrs / week';
-            if (avgSalaryVal) avgSalaryVal.textContent = '€' + avgSalary + ' / hr';
-
-            // CoreSync System Controller
-            const totalHoursPerYear = teamSize * manualHours * 52;
-            const hoursSaved = Math.round(totalHoursPerYear * efficiencyFactor);
-            
-            // CoreSync System Controller
-            const annualSavings = Math.round(hoursSaved * avgSalary);
-
-            // CoreSync System Controller
-            const estimatedDevCost = 4500;
-            const monthlySavings = annualSavings / 12;
-            const paybackMonths = monthlySavings > 0 ? (estimatedDevCost / monthlySavings).toFixed(1) : 1.5;
-
-            // CoreSync System Controller
-            const annualSavingsEl = document.getElementById('roiAnnualSavings');
-            const paybackMonthsEl = document.getElementById('roiPaybackMonths');
-            const hoursSavedEl = document.getElementById('roiHoursSaved');
-            const efficiencyGainEl = document.getElementById('roiEfficiencyGain');
-
-            if (annualSavingsEl) {
-                annualSavingsEl.innerHTML = `<span>€</span>${annualSavings.toLocaleString('en-US')}`;
-            }
-            if (paybackMonthsEl) {
-                paybackMonthsEl.textContent = paybackMonths + ' months';
-            }
-            if (hoursSavedEl) {
-                hoursSavedEl.innerHTML = `${hoursSaved.toLocaleString('en-US')} <span>hrs/year</span>`;
-            }
-            if (efficiencyGainEl) {
-                efficiencyGainEl.innerHTML = `+<span>${Math.round(efficiencyFactor * 100)}%</span>`;
-            }
-        }
-
         // ==========================================
-        // CoreSync System Controller
+        // 1. VIP Executive Consultation Modal (EN)
         // ==========================================
-        function openExecutiveBookingModal(source) {
+        function openExecutiveBookingModal(advisor = 'salim') {
             const modal = document.getElementById('executiveBookingModal');
-            if (modal) {
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
-                
-                // CoreSync System Controller
-                const dateInput = document.getElementById('vipDate');
-                if (dateInput && !dateInput.value) {
-                    const tomorrow = new Date();
-                    tomorrow.setDate(tomorrow.getDate() + 1);
-                    dateInput.value = tomorrow.toISOString().split('T')[0];
-                }
-            }
+            if (!modal) return;
+            selectBookingAdvisor(advisor === 'stage' ? 'both' : (advisor || 'salim'));
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
         }
 
         function closeExecutiveBookingModal() {
             const modal = document.getElementById('executiveBookingModal');
-            if (modal) {
+            if (modal && modal.classList.contains('active')) {
                 modal.classList.remove('active');
                 document.body.style.overflow = '';
                 if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('close');
             }
         }
 
-        function selectAdvisor(type, el) {
-            document.querySelectorAll('.advisor-select-card').forEach(card => card.classList.remove('active'));
-            if (el) el.classList.add('active');
+        function selectBookingAdvisor(advisor) {
+            const field = document.getElementById('selectedAdvisorField');
+            if (field) field.value = advisor;
 
-            const hiddenInput = document.getElementById('selectedAdvisorInput');
-            if (hiddenInput) {
-                if (type === 'salim') {
-                    hiddenInput.value = 'Ir. Mohammad Salim Aziza (CTO - Cloud & AI Architecture)';
-                } else if (type === 'raed') {
-                    hiddenInput.value = 'Dhr. Mohammad Raed Kaakeh (CFO - Financial Systems & ERP)';
-                } else {
-                    hiddenInput.value = 'Joint Strategic Session (S & R - Tech & Financial)';
-                }
-            }
+            const btnSalim = document.getElementById('advisorBtnSalim');
+            const btnRaed = document.getElementById('advisorBtnRaed');
+            const btnBoth = document.getElementById('advisorBtnBoth');
+
+            if (btnSalim) btnSalim.classList.toggle('active', advisor === 'salim');
+            if (btnRaed) btnRaed.classList.toggle('active', advisor === 'raed');
+            if (btnBoth) btnBoth.classList.toggle('active', advisor === 'both');
+
             if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('switch');
         }
 
-        function dispatchVIPBooking(event) {
-            event.preventDefault();
-            const advisor = document.getElementById('selectedAdvisorInput').value;
-            const name = document.getElementById('vipName').value;
-            const company = document.getElementById('vipCompany').value;
-            const phone = document.getElementById('vipPhone').value;
-            const platform = document.getElementById('vipPlatform').value;
-            const date = document.getElementById('vipDate').value;
-            const time = document.getElementById('vipTime').value;
+        function selectAdvisor(type, el) {
+            selectBookingAdvisor(type);
+        }
 
-            const text = `*VIP Executive Consultation Request - S%26R CoreSync*%0A%0A` +
-                         `*Requested Advisor:* ${encodeURIComponent(advisor)}%0A` +
-                         `*Client:* ${encodeURIComponent(name)}%0A` +
-                         `*Company:* ${encodeURIComponent(company)}%0A` +
-                         `*Phone/WhatsApp:* ${encodeURIComponent(phone)}%0A` +
-                         `*Meeting Channel:* ${encodeURIComponent(platform)}%0A` +
-                         `*Proposed Schedule:* ${encodeURIComponent(date)} at ${encodeURIComponent(time)}%0A%0A` +
-                         `_Submitted via Official CoreSync Platform._`;
+        function submitExecutiveBooking(e) {
+            if (e && e.preventDefault) e.preventDefault();
+            const advisor = document.getElementById('selectedAdvisorField') ? document.getElementById('selectedAdvisorField').value : 'salim';
+            const clientName = document.getElementById('bookingClientName') ? document.getElementById('bookingClientName').value.trim() : '';
+            const companyName = document.getElementById('bookingCompanyName') ? document.getElementById('bookingCompanyName').value.trim() : '';
+            const phone = document.getElementById('bookingPhone') ? document.getElementById('bookingPhone').value.trim() : '';
+            const sessionType = document.getElementById('bookingSessionType') ? document.getElementById('bookingSessionType').value : 'online';
+            const preferredDate = document.getElementById('bookingPreferredDate') ? document.getElementById('bookingPreferredDate').value : '';
+            const timeSlot = document.getElementById('bookingTimeSlot') ? document.getElementById('bookingTimeSlot').value : 'afternoon';
+            const notes = document.getElementById('bookingNotes') ? document.getElementById('bookingNotes').value.trim() : '';
+
+            let advisorName = 'Eng. Salim Azizah (CTO - Cloud & AI Architecture)';
+            if (advisor === 'raed') advisorName = 'Mr. Raed Kaakeh (CFO - Financial Systems & ERP)';
+            if (advisor === 'both') advisorName = 'Joint Executive Board (Salim & Raed)';
+
+            let sessionLabel = 'Online Video Conference (Google Meet / Teams)';
+            if (sessionType === 'phone') sessionLabel = 'Direct WhatsApp Voice Call';
+            if (sessionType === 'office') sessionLabel = 'In-Person Consultation (Netherlands)';
+
+            let timeSlotLabel = 'Afternoon Window (13:00 - 15:00 CET)';
+            if (timeSlot === 'morning') timeSlotLabel = 'Morning Window (10:00 - 12:00 CET)';
+            if (timeSlot === 'evening') timeSlotLabel = 'Evening Window (16:00 - 18:00 CET)';
+            if (timeSlot === 'flexible') timeSlotLabel = 'Flexible (Next Available Executive Slot)';
+
+            let msg = `*VIP Executive Consultation Request - S&R CoreSync Solutions*\n` +
+                      `━━━━━━━━━━━━━━━━━━━━\n` +
+                      `👤 *Decision Maker:* ${clientName || 'Not specified'}\n` +
+                      `🏢 *Company:* ${companyName || 'Not specified'}\n` +
+                      `📞 *Direct Phone/WhatsApp:* ${phone || 'Not specified'}\n` +
+                      `👔 *Requested Advisor:* ${advisorName}\n` +
+                      `📅 *Channel:* ${sessionLabel}\n` +
+                      `🗓️ *Proposed Date:* ${preferredDate || 'Earliest Available'}\n` +
+                      `⏰ *Preferred Time:* ${timeSlotLabel}\n`;
+
+            if (notes) {
+                msg += `📝 *Scope / Challenges:* ${notes}\n`;
+            }
+            msg += `━━━━━━━━━━━━━━━━━━━━\n` +
+                   `_Submitted via Official S&R CoreSync Executive Portal_`;
 
             if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
-            alert('Session request submitted successfully! Redirecting you to our executive WhatsApp desk to verify calendar details.');
-            window.open(`https://wa.me/31612345678?text=${text}`, '_blank');
+            alert('Your consultation request has been submitted! Redirecting you to our executive WhatsApp desk to verify calendar details.');
+            const whatsappUrl = `https://wa.me/31687764998?text=${encodeURIComponent(msg)}`;
             closeExecutiveBookingModal();
+            window.open(whatsappUrl, '_blank');
         }
+
+        function dispatchVIPBooking(e) {
+            submitExecutiveBooking(e);
+        }
+
+        // ==========================================
+        // 2. Interactive ROI Savings Calculator (EN)
+        // ==========================================
+        let calculatedRoiData = { annualSavings: 19500, hoursSaved: 96, costMonthly: 6500, teamSize: 12, multiplier: '3.8' };
+
+        function openRoiCalculatorModal() {
+            const modal = document.getElementById('roiCalculatorModal');
+            if (!modal) return;
+            updateRoiCalc();
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
+        }
+
+        function closeRoiCalculatorModal() {
+            const modal = document.getElementById('roiCalculatorModal');
+            if (modal && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+                if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('close');
+            }
+        }
+
+        function updateRoiCalc() {
+            const costRange = document.getElementById('roiCostRange');
+            const teamRange = document.getElementById('roiTeamRange');
+            const systemSelect = document.getElementById('roiSystemLevel');
+
+            if (!costRange || !teamRange || !systemSelect) return;
+
+            const cost = parseInt(costRange.value, 10);
+            const team = parseInt(teamRange.value, 10);
+            const factor = parseFloat(systemSelect.value);
+
+            const costDisp = document.getElementById('roiCostDisplay');
+            const teamDisp = document.getElementById('roiTeamDisplay');
+            if (costDisp) costDisp.textContent = `€ ${cost.toLocaleString()}`;
+            if (teamDisp) teamDisp.textContent = `${team} employees`;
+
+            const annualCost = cost * 12;
+            const annualSavings = Math.round(annualCost * factor);
+            const hoursMonthly = Math.round(team * 16 * factor);
+            const efficiencyGain = Math.round(factor * 115);
+            const multiplier = (factor * 11.2).toFixed(1);
+
+            calculatedRoiData = {
+                annualSavings,
+                hoursSaved: hoursMonthly,
+                costMonthly: cost,
+                teamSize: team,
+                multiplier
+            };
+
+            const savingsEl = document.getElementById('roiAnnualSavings');
+            const hoursEl = document.getElementById('roiHoursSaved');
+            const effEl = document.getElementById('roiEfficiency');
+            const multiEl = document.getElementById('roiMultiplier');
+
+            if (savingsEl) savingsEl.textContent = `€ ${annualSavings.toLocaleString()}`;
+            if (hoursEl) hoursEl.textContent = `${hoursMonthly} hrs`;
+            if (effEl) effEl.textContent = `+ ${efficiencyGain}%`;
+            if (multiEl) multiEl.textContent = `${multiplier}x`;
+        }
+
+        function sendRoiDirectWhatsApp() {
+            const msg = `*Enterprise ROI & Savings Assessment - S&R CoreSync*\n` +
+                        `━━━━━━━━━━━━━━━━━━━━\n` +
+                        `🏢 *Current Monthly Cost:* € ${calculatedRoiData.costMonthly.toLocaleString()}/mo\n` +
+                        `👥 *Team Size:* ${calculatedRoiData.teamSize} employees\n` +
+                        `💰 *Expected Annual Savings:* € ${calculatedRoiData.annualSavings.toLocaleString()}\n` +
+                        `⏱️ *Admin Hours Recovered:* ${calculatedRoiData.hoursSaved} hrs/mo\n` +
+                        `🚀 *Projected ROI Multiplier:* ${calculatedRoiData.multiplier}x\n` +
+                        `━━━━━━━━━━━━━━━━━━━━\n` +
+                        `_I would like to discuss our enterprise software and cloud automation roadmap._`;
+            if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
+            window.open(`https://wa.me/31687764998?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function sendRoiDirectEmail() {
+            const subject = encodeURIComponent('Enterprise ROI Assessment & Technical Audit - S&R CoreSync');
+            const body = encodeURIComponent(
+                `Dear S&R CoreSync Solutions Team,\n\n` +
+                `I simulated our enterprise metrics using your online ROI calculator with the following results:\n` +
+                `- Current Operational Cost: €${calculatedRoiData.costMonthly.toLocaleString()}/month\n` +
+                `- Team Size: ${calculatedRoiData.teamSize} employees\n` +
+                `- Estimated Annual Savings: €${calculatedRoiData.annualSavings.toLocaleString()}\n` +
+                `- Administrative Hours Recovered: ${calculatedRoiData.hoursSaved} hrs/month\n` +
+                `- Projected ROI Multiplier: ${calculatedRoiData.multiplier}x\n\n` +
+                `Please contact us to schedule an executive audit session.\n\n` +
+                `Best regards,`
+            );
+            if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
+            window.location.href = `mailto:info@coresync-solutions.com?subject=${subject}&body=${body}`;
+        }
+
+        function applyRoiToConsultation() {
+            closeRoiCalculatorModal();
+            openExecutiveBookingModal('both');
+            const notesEl = document.getElementById('bookingNotes');
+            if (notesEl) {
+                notesEl.value = `Estimated ROI figures: monthly cost €${calculatedRoiData.costMonthly.toLocaleString()}, team of ${calculatedRoiData.teamSize}, projected annual savings €${calculatedRoiData.annualSavings.toLocaleString()}, saving ${calculatedRoiData.hoursSaved} hrs/month with ${calculatedRoiData.multiplier}x ROI. We would like to review the implementation roadmap.`;
+            }
+        }
+
+        // ==========================================
+        // 3. Live Demo Quick Showcase Modal (EN)
+        // ==========================================
+        const DEMO_TAB_CONTENTS_EN = {
+            erp: {
+                title: 'Intelligent Accounting & Financial ERP Systems (CFO Hub)',
+                desc: 'Comprehensive financial integration fully aligned with European (IFRS) and international tax regulations.',
+                features: [
+                    '✓ Automated smart e-invoicing compliant with European (EU Peppol) & GCC regulations.',
+                    '✓ Real-time predictive cash flow monitoring and dynamic balance sheet forecasting.',
+                    '✓ Multi-currency inventory, vendor governance, and zero-defect ledger automation.'
+                ],
+                metric: '99.98% ledger precision • 35+ hours saved weekly per team'
+            },
+            cloud: {
+                title: 'Cloud Systems Architecture & AI Automation (CTO Core)',
+                desc: 'Resilient cloud backbones and high-throughput enterprise platforms running on ultra-secure nodes.',
+                features: [
+                    '✓ Autonomous AI agents for automated document extraction and continuous pipeline processing.',
+                    '✓ Resilient multi-region cloud infrastructure with 99.9% uptime and sub-80ms response latency.',
+                    '✓ High-performance web applications and enterprise portals with sleek, modern UI/UX.'
+                ],
+                metric: 'Response latency < 80ms • Multi-layered SSL/TLS hardware encryption'
+            },
+            gov: {
+                title: 'Digital Governance, Security & Regulatory Compliance',
+                desc: 'Enterprise data protection, granular permissions, and tamper-proof financial audit trails.',
+                features: [
+                    '✓ Role-Based Access Control (RBAC) with cryptographic, immutable audit logs.',
+                    '✓ Automated geo-redundant backups across European datacenters for business continuity.',
+                    '✓ Instant one-click statutory reporting ready for certified external auditors.'
+                ],
+                metric: '100% GDPR compliant • Certified financial audit readiness'
+            }
+        };
+
+        function openLiveDemoQuickModal() {
+            const modal = document.getElementById('liveDemoQuickModal');
+            if (!modal) return;
+            switchDemoModalTab('erp');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
+        }
+
+        function closeLiveDemoQuickModal() {
+            const modal = document.getElementById('liveDemoQuickModal');
+            if (modal && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+                if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('close');
+            }
+        }
+
+        function switchDemoModalTab(tabKey) {
+            const data = DEMO_TAB_CONTENTS_EN[tabKey];
+            if (!data) return;
+
+            const btnErp = document.getElementById('demoTabBtnErp');
+            const btnCloud = document.getElementById('demoTabBtnCloud');
+            const btnGov = document.getElementById('demoTabBtnGov');
+            const contentBox = document.getElementById('demoTabContent');
+
+            if (btnErp) btnErp.classList.toggle('active', tabKey === 'erp');
+            if (btnCloud) btnCloud.classList.toggle('active', tabKey === 'cloud');
+            if (btnGov) btnGov.classList.toggle('active', tabKey === 'gov');
+
+            if (contentBox) {
+                contentBox.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:8px;">
+                        <h4 style="font-size:1.15rem; font-weight:800; color:#ffffff; margin:0;">${data.title}</h4>
+                        <span style="font-size:0.75rem; background:rgba(197,168,128,0.18); border:1px solid rgba(197,168,128,0.3); color:#f3dfba; padding:3px 10px; border-radius:999px; white-space:nowrap;">Active Sandbox</span>
+                    </div>
+                    <p style="font-size:0.88rem; color:rgba(255,255,255,0.75); line-height:1.5; margin:0 0 10px 0;">${data.desc}</p>
+                    <ul class="sr-demo-feature-list">
+                        ${data.features.map(f => `<li class="sr-demo-feature-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><span>${f}</span></li>`).join('')}
+                    </ul>
+                    <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(197,168,128,0.25); border-radius:8px; padding:8px 14px; margin-top:8px; display:flex; align-items:center; gap:8px;">
+                        <span style="width:6px; height:6px; border-radius:50%; background:#c5a880;"></span>
+                        <span style="font-size:0.8rem; font-weight:700; color:#f3dfba;">Benchmark: ${data.metric}</span>
+                    </div>
+                `;
+            }
+
+            if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('switch');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeExecutiveBookingModal();
+                closeRoiCalculatorModal();
+                closeLiveDemoQuickModal();
+            }
+        });
 
         // ==========================================
         // CoreSync System Controller
