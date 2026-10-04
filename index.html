@@ -4300,6 +4300,408 @@
                 text-align: center;
                 align-items: center;
             }
+        /* ========================================================
+           حاسبة الميزانية التفاعلية (Interactive Cost Estimator)
+           ======================================================== */
+        .cost-estimator-wrapper {
+            margin-top: clamp(2.5rem, 5vw, 4rem);
+        }
+
+        .cost-estimator-card {
+            background: radial-gradient(120% 120% at 50% 0%, rgba(197, 168, 128, 0.12) 0%, rgba(10, 20, 16, 0.92) 100%);
+            border: 1px solid rgba(197, 168, 128, 0.35);
+            border-radius: 24px;
+            padding: clamp(1.5rem, 3.5vw, 2.8rem);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cost-estimator-card::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: 20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(197, 168, 128, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cost-estimator-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .cost-estimator-header h3 {
+            font-size: clamp(1.4rem, 2.5vw, 2rem);
+            font-weight: 800;
+        }
+
+        .cost-estimator-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 992px) {
+            .cost-estimator-grid {
+                grid-template-columns: 1.65fr 1fr;
+                gap: 2.5rem;
+                align-items: start;
+            }
+        }
+
+        .estimator-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .estimator-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .label-step {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            border-radius: 7px;
+            background: rgba(197, 168, 128, 0.22);
+            color: #c5a880;
+            font-size: 0.75rem;
+            font-weight: 800;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            border: 1px solid rgba(197, 168, 128, 0.4);
+        }
+
+        .estimator-options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .estimator-options.grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        }
+
+        .estimator-options.grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+        }
+
+        .estimator-option {
+            background: rgba(14, 24, 20, 0.75);
+            border: 1px solid rgba(197, 168, 128, 0.2);
+            border-radius: 12px;
+            padding: 12px 14px;
+            color: #e2e8f0;
+            cursor: pointer;
+            text-align: start;
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            position: relative;
+        }
+
+        .estimator-option:hover {
+            border-color: rgba(197, 168, 128, 0.55);
+            background: rgba(22, 36, 30, 0.9);
+            transform: translateY(-2px);
+        }
+
+        .estimator-option.active {
+            border-color: #c5a880;
+            background: linear-gradient(135deg, rgba(197, 168, 128, 0.24), rgba(14, 24, 20, 0.96));
+            box-shadow: 0 4px 18px rgba(197, 168, 128, 0.22);
+        }
+
+        .estimator-option.active::after {
+            content: '✓';
+            position: absolute;
+            top: 8px;
+            left: 10px;
+            color: #c5a880;
+            font-weight: 900;
+            font-size: 0.8rem;
+        }
+
+        [dir="ltr"] .estimator-option.active::after {
+            left: auto;
+            right: 10px;
+        }
+
+        .option-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.35;
+        }
+
+        .option-badge {
+            font-size: 0.82rem;
+            font-weight: 800;
+            color: #c5a880;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .option-price-diff {
+            font-size: 0.76rem;
+            color: #c5a880;
+            opacity: 0.9;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* بطاقة ملخص الحاسبة (Estimator Summary) */
+        .estimator-summary-card {
+            background: linear-gradient(180deg, rgba(20, 32, 26, 0.95) 0%, rgba(10, 18, 14, 0.98) 100%);
+            border: 1px solid rgba(197, 168, 128, 0.4);
+            border-radius: 20px;
+            padding: clamp(1.4rem, 2.5vw, 2rem);
+            position: sticky;
+            top: 100px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .summary-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(197, 168, 128, 0.12);
+            border: 1px solid rgba(197, 168, 128, 0.35);
+            border-radius: 30px;
+            padding: 5px 12px;
+            font-size: 0.75rem;
+            color: #c5a880;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .summary-price-display {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            margin-bottom: 4px;
+        }
+
+        .summary-currency {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #c5a880;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .summary-amount {
+            font-size: clamp(2.6rem, 4vw, 3.4rem);
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: -1.5px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .summary-price-sub {
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 0.78rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.4;
+        }
+
+        .summary-timeline-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(197, 168, 128, 0.2);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            margin-bottom: 1.2rem;
+        }
+
+        .summary-timeline-box svg {
+            color: #c5a880;
+            flex-shrink: 0;
+        }
+
+        .summary-timeline-box strong {
+            color: #c5a880;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .summary-spec-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid rgba(197, 168, 128, 0.18);
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .spec-icon {
+            color: #c5a880;
+            font-weight: bold;
+        }
+
+        .summary-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .estimator-btn-whatsapp {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            background: #25D366;
+            color: #010907 !important;
+            font-weight: 800;
+            border-radius: 12px;
+            padding: 13px 18px;
+            text-decoration: none !important;
+            font-size: 0.9rem;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 18px rgba(37, 211, 102, 0.25);
+        }
+
+        .estimator-btn-whatsapp:hover {
+            background: #20bd5a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
+        }
+
+        .estimator-btn-vip {
+            width: 100%;
+            background: transparent;
+            border: 1px solid rgba(197, 168, 128, 0.5);
+            color: #c5a880;
+            font-weight: 700;
+            border-radius: 12px;
+            padding: 11px 18px;
+            font-size: 0.85rem;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .estimator-btn-vip:hover {
+            background: rgba(197, 168, 128, 0.16);
+            color: #ffffff;
+            border-color: #c5a880;
+        }
+
+        /* ========================================================
+           معرض الأعمال: زر Quick View والـ KPIs في النافذة المنبثقة
+           ======================================================== */
+        .work-explore-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(197, 168, 128, 0.12);
+            border: 1px solid var(--primary-gold);
+            color: #ffffff;
+            padding: 9px 18px;
+            border-radius: 30px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+        }
+
+        .work-explore-btn:hover {
+            background: var(--primary-gold);
+            color: #010907;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(197, 168, 128, 0.35);
+        }
+
+        .project-kpi-box {
+            background: rgba(10, 20, 16, 0.75);
+            border: 1px solid rgba(197, 168, 128, 0.25);
+            border-radius: 16px;
+            padding: 16px;
+            margin: 1.2rem 0;
+        }
+
+        .project-kpi-heading {
+            font-size: 0.78rem;
+            font-weight: 800;
+            color: #c5a880;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .project-kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .project-kpi-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(197, 168, 128, 0.15);
+            border-radius: 10px;
+            padding: 10px 6px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .project-kpi-card .kpi-num {
+            font-size: 1.2rem;
+            font-weight: 900;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #c5a880;
+        }
+
+        .project-kpi-card .kpi-title {
+            font-size: 0.68rem;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.3;
+        }
+
+        .project-tech-box {
+            margin-bottom: 1.2rem;
+        }
+
+        .project-tech-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .project-tech-pill {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(197, 168, 128, 0.08);
+            border: 1px solid rgba(197, 168, 128, 0.25);
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-size: 0.74rem;
+            color: #e2e8f0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
     </style>
