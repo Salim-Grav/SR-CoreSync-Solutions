@@ -830,8 +830,8 @@
         document.getElementById('esGdprBanner')?.classList.remove('active');
     };
 
-    /* =====================================================================
-       FEATURE 1: CoreSync AI Concierge Widget
+/* =====================================================================
+       FEATURE 1: CoreSync AI Concierge Widget with Purchase Intent & WhatsApp Human Expert
        ===================================================================== */
     const AI_KB = {
         cloud: {
@@ -853,16 +853,16 @@
             nl: 'Wij ontwikkelen AI-oplossingen (RAG, NLP, Predictive Analytics) geïntegreerd in cloud-ERP-systemen voor geautomatiseerde besluitvorming.'
         },
         pricing: {
-            keywords: ['price', 'cost', 'سعر', 'تكلفة', 'quote', 'عرض', 'prijs', 'kosten', 'offer', 'budget'],
-            ar: 'يمكنك طلب عرض سعر رسمي مفصل مباشرةً من خلال أداة "مولّد عرض السعر" في الموقع، أو التواصل مع فريقنا عبر WhatsApp أو البريد الإلكتروني لجدولة اجتماع استشاري مجاني.',
-            en: 'Request a detailed official quote directly via our Quote Generator tool on the site, or contact our team via WhatsApp for a free consultation meeting.',
-            nl: 'Vraag een gedetailleerde offerte aan via onze offertetool op de website, of neem contact op via WhatsApp voor een gratis consultatie.'
+            keywords: ['price', 'cost', 'سعر', 'تكلفة', 'quote', 'عرض', 'prijs', 'kosten', 'offer', 'budget', 'اسعار', 'أسعار', 'باقة', 'باقات'],
+            ar: 'تبدأ باقاتنا من €490 وحتى الحلول المؤسسية المتقدمة. يمكنك استخدام محول العملات والضرائب (EUR/SAR/AED/USD) وتوليد عرض سعر رسمي PDF فوراً.',
+            en: 'Our enterprise packages range from €490 to custom enterprise cloud suites. You can switch currencies live and generate an official PDF quote instantly.',
+            nl: 'Onze pakketten beginnen bij €490. U kunt live valuta en BTW bekijken en direct een officiële offerte downloaden.'
         },
         contact: {
-            keywords: ['contact', 'تواصل', 'whatsapp', 'email', 'phone', 'هاتف', 'بريد', 'reach', 'meeting', 'اجتماع', 'schedule', 'afspraak'],
-            ar: 'فريقنا متاح 24/6. تواصل معنا:\n📱 WhatsApp: +31 6 87764998\n📧 info@coresync.solutions\n🌐 هولندا – الشرق الأوسط – أوروبا',
-            en: 'Our team is available 24/6:\n📱 WhatsApp: +31 6 87764998\n📧 info@coresync.solutions\n🌐 Netherlands · Middle East · Europe',
-            nl: 'Ons team is beschikbaar 24/6:\n📱 WhatsApp: +31 6 87764998\n📧 info@coresync.solutions\n🌐 Nederland · Midden-Oosten · Europa'
+            keywords: ['contact', 'تواصل', 'whatsapp', 'email', 'phone', 'هاتف', 'بريد', 'reach', 'meeting', 'اجتماع', 'schedule', 'afspraak', 'خبير', 'بشري', 'مهندس', 'سليم', 'رائد'],
+            ar: 'فريق الإدارة التنفيذية متاح لمناقشة مشروعك:\n📱 WhatsApp: +31 6 87764998\n📧 info@coresync.solutions\n🏢 المقر: هولندا (EU) وعمليات الشرق الأوسط',
+            en: 'Our executive leadership is available:\n📱 WhatsApp: +31 6 87764998\n📧 info@coresync.solutions\n🏢 HQ: Netherlands (EU) & Middle East operations',
+            nl: 'Ons managementteam staat voor u klaar:\n📱 WhatsApp: +31 6 87764998\n📧 info@coresync.solutions\n🏢 Hoofdkantoor: Nederland (EU) & Midden-Oosten'
         },
         default: {
             ar: 'شكراً لتواصلك مع CoreSync AI. يسعدني مساعدتك في كل ما يخص الحلول السحابية وأنظمة ERP والذكاء الاصطناعي. اكتب سؤالك أو اختر أحد الخيارات السريعة.',
@@ -878,25 +878,38 @@
         return 'ar';
     }
 
+    function isPurchaseOrConsultIntent(input) {
+        const q = input.toLowerCase();
+        const purchaseKeywords = [
+            'سعر', 'اسعار', 'أسعار', 'تكلفة', 'تكاليف', 'عرض', 'عرض سعر', 'شراء', 'طلب', 'حجز', 'احجز',
+            'استشارة', 'استشاره', 'اجتماع', 'خبير', 'بشري', 'انسان', 'شخص', 'سليم', 'رائد', 'باقة', 'باقات',
+            'عقد', 'اتفاق', 'تعاقد', 'فاتورة', 'اريد', 'أريد', 'محتاج', 'مشروع',
+            'buy', 'purchase', 'hire', 'quote', 'pricing', 'price', 'cost', 'book', 'schedule', 'consultation',
+            'talk to human', 'human', 'expert', 'sales', 'proposal', 'contract', 'project', 'order', 'demo', 'person', 'salim', 'raed',
+            'kopen', 'offerte', 'prijs', 'prijzen', 'kosten', 'afspraak', 'boeken', 'consultatie', 'mens', 'expert', 'voorstel', 'bestellen'
+        ];
+        return purchaseKeywords.some(kw => q.includes(kw));
+    }
+
     function aiGetResponse(input) {
         const lang = detectLang();
         const q = input.toLowerCase();
         for (const key in AI_KB) {
             if (key === 'default') continue;
             if (AI_KB[key].keywords.some(kw => q.includes(kw))) {
-                return AI_KB[key][lang] || AI_KB[key].ar;
+                return { text: AI_KB[key][lang] || AI_KB[key].ar, category: key };
             }
         }
-        return AI_KB.default[lang] || AI_KB.default.ar;
+        return { text: AI_KB.default[lang] || AI_KB.default.ar, category: 'default' };
     }
 
     function injectAIConcierge() {
         if (document.getElementById('esAiFab')) return;
         const lang = detectLang();
         const labels = {
-            ar: { name: 'CoreSync AI Concierge', status: 'متاح الآن', placeholder: 'اكتب سؤالك...', send: 'إرسال', quick: ['☁️ الحلول السحابية', '💼 أنظمة ERP', '🤖 الذكاء الاصطناعي', '💰 طلب عرض سعر', '📞 تواصل معنا'] },
-            en: { name: 'CoreSync AI Concierge', status: 'Online now', placeholder: 'Ask me anything...', send: 'Send', quick: ['☁️ Cloud Solutions', '💼 ERP Systems', '🤖 AI Integration', '💰 Request a Quote', '📞 Contact Us'] },
-            nl: { name: 'CoreSync AI Concierge', status: 'Nu online', placeholder: 'Stel uw vraag...', send: 'Versturen', quick: ['☁️ Cloudoplossingen', '💼 ERP-systemen', '🤖 AI-integratie', '💰 Offerte aanvragen', '📞 Neem contact op'] }
+            ar: { name: 'CoreSync AI Concierge', status: 'متاح الآن', humanBtn: '👤 خبير بشري', placeholder: 'اكتب سؤالك...', send: 'إرسال', quick: ['☁️ الحلول السحابية', '💼 أنظمة ERP', '🤖 الذكاء الاصطناعي', '💰 طلب عرض سعر', '📞 تواصل معنا'] },
+            en: { name: 'CoreSync AI Concierge', status: 'Online now', humanBtn: '👤 Human Expert', placeholder: 'Ask me anything...', send: 'Send', quick: ['☁️ Cloud Solutions', '💼 ERP Systems', '🤖 AI Integration', '💰 Request a Quote', '📞 Contact Us'] },
+            nl: { name: 'CoreSync AI Concierge', status: 'Nu online', humanBtn: '👤 Expert WhatsApp', placeholder: 'Stel uw vraag...', send: 'Versturen', quick: ['☁️ Cloudoplossingen', '💼 ERP-systemen', '🤖 AI-integratie', '💰 Offerte aanvragen', '📞 Neem contact op'] }
         };
         const lbl = labels[lang] || labels.ar;
         const welcomeMsg = AI_KB.default[lang] || AI_KB.default.ar;
@@ -911,6 +924,8 @@
             win && win.classList.toggle('active');
         };
 
+        const humanWhatsAppMsg = encodeURIComponent('مرحباً فريق S&R CoreSync، أود التحدث مع خبير بشري (م. سليم عزيزة أو أ. رائد كعكة) لمناقشة متطلبات مشروعنا.');
+
         const win = document.createElement('div');
         win.id = 'esAiChatWindow';
         win.className = 'es-ai-chat-window';
@@ -921,7 +936,12 @@
                     <h4>${lbl.name}</h4>
                     <span>${lbl.status}</span>
                 </div>
-                <button onclick="document.getElementById('esAiChatWindow').classList.remove('active')" style="margin-left:auto;background:none;border:none;color:rgba(255,255,255,0.5);cursor:pointer;font-size:1.2rem;line-height:1;">✕</button>
+                <div class="es-ai-header-actions">
+                    <a href="https://wa.me/${WHATSAPP_NUM}?text=${humanWhatsAppMsg}" target="_blank" rel="noopener" class="es-ai-header-human-btn" title="تحدث مع خبير بشري عبر واتساب">
+                        ${lbl.humanBtn}
+                    </a>
+                </div>
+                <button onclick="document.getElementById('esAiChatWindow').classList.remove('active')" style="background:none;border:none;color:rgba(255,255,255,0.5);cursor:pointer;font-size:1.2rem;line-height:1;" aria-label="Close">✕</button>
             </div>
             <div class="es-ai-messages" id="esAiMessages">
                 <div class="es-ai-msg es-ai-msg-bot">${welcomeMsg}</div>
@@ -955,6 +975,8 @@
         msgs.appendChild(userEl);
         msgs.scrollTop = msgs.scrollHeight;
 
+        const hasIntent = isPurchaseOrConsultIntent(text);
+
         // Typing indicator
         const typingEl = document.createElement('div');
         typingEl.className = 'es-ai-msg es-ai-msg-bot';
@@ -967,10 +989,31 @@
             const typing = document.getElementById('esAiTyping');
             if (typing) {
                 typing.removeAttribute('id');
-                typing.innerHTML = aiGetResponse(text).replace(/\n/g, '<br>');
+                const resp = aiGetResponse(text);
+                let content = resp.text.replace(/\n/g, '<br>');
+
+                // If purchase / booking / expert intent is detected, inject Human Expert WhatsApp CTA
+                if (hasIntent || resp.category === 'pricing' || resp.category === 'contact') {
+                    const waMsg = encodeURIComponent('مرحباً م. سليم عزيزة و أ. رائد كعكة (S&R CoreSync)، أود استشارة خبير بشري بخصوص: ' + text);
+                    content += `
+                        <div class="es-ai-intent-cta">
+                            <div class="es-ai-intent-header">
+                                <span class="es-ai-live-dot"></span>
+                                <span>الخبراء متاحون الآن للتواصل المباشر</span>
+                            </div>
+                            <p>اكتشفنا اهتمامك بتنفيذ مشروع أو الاستفسار عن الأسعار. يمكنك التحدث فوراً مع مهندسينا ومستشارينا المعتمدين عبر واتساب:</p>
+                            <a href="https://wa.me/${WHATSAPP_NUM}?text=${waMsg}" target="_blank" rel="noopener" class="es-ai-whatsapp-btn">
+                                <svg viewBox="0 0 32 32" width="16" height="16" fill="currentColor"><path d="M16.02 3.2a12.7 12.7 0 0 0-10.95 19.14L3.2 28.8l6.62-1.74A12.8 12.8 0 1 0 16.02 3.2Zm0 23.24a10.48 10.48 0 0 1-5.35-1.46l-.38-.23-3.93 1.03 1.05-3.83-.25-.4a10.5 10.5 0 1 1 8.86 4.89Zm5.76-7.85c-.32-.16-1.9-.94-2.19-1.05-.3-.11-.51-.16-.73.16-.21.32-.83 1.05-1.02 1.26-.19.21-.38.24-.7.08a8.65 8.65 0 0 1-2.55-1.57 9.57 9.57 0 0 1-1.77-2.2c-.18-.32 0-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.54.1-.21.05-.4-.03-.56-.08-.16-.73-1.75-1-2.39-.26-.62-.53-.54-.73-.55h-.62c-.21 0-.56.08-.86.4-.3.32-1.13 1.1-1.13 2.69s1.16 3.13 1.32 3.35c.16.21 2.27 3.46 5.5 4.85.77.33 1.37.53 1.84.68.77.24 1.47.2 2.03.12.62-.09 1.9-.78 2.17-1.54.27-.75.27-1.4.19-1.54-.08-.13-.3-.21-.62-.37Z"/></svg>
+                                <span>التحدث مع خبير بشري فوراً عبر WhatsApp</span>
+                            </a>
+                        </div>
+                    `;
+                }
+
+                typing.innerHTML = content;
                 msgs.scrollTop = msgs.scrollHeight;
             }
-        }, 700 + Math.random() * 400);
+        }, 600 + Math.random() * 300);
 
         const quickReplies = document.getElementById('esAiQuickReplies');
         if (quickReplies) quickReplies.style.display = 'none';
@@ -984,38 +1027,177 @@
     };
 
     /* =====================================================================
-       FEATURE 2: Client Project Live Status Tracker
+       FEATURE 2 & 3: Live Client Project DB (Supabase/Firebase Ready) & Secure Client Portal Session
        ===================================================================== */
-    const PROJECT_DB = {
+    const DEFAULT_PROJECT_DB = {
         'CSN-2024-001': {
-            client: '365 SCHOON B.V.', service: 'Dutch Tax & ERP Automation',
+            client: '365 SCHOON B.V.',
+            executive: 'Mr. Jan van den Berg',
+            pin: '2024',
+            location: 'Amsterdam, Netherlands',
+            service: 'Dutch Cloud ERP & Automated Belastingdienst (BTW) Engine',
             completion: 100,
+            status: 'Delivered / Live Production SLA',
+            budget: '€48,500',
+            currency: 'EUR',
+            nda: 'DocuSign Ref: #NL-9942-S (Active)',
+            assignedLead: 'Mr. Mohammad Raed Kaakeh (CFO) & Eng. Salim Aziza (CTO)',
             phases: [
                 { title: 'Discovery & Requirements', sub: 'مكتمل – 15 يناير 2024', status: 'done', pct: 100 },
                 { title: 'ERP Configuration & BTW Engine', sub: 'مكتمل – 28 فبراير 2024', status: 'done', pct: 100 },
                 { title: 'iDEAL Payment Integration', sub: 'مكتمل – 15 مارس 2024', status: 'done', pct: 100 },
                 { title: 'UAT & Go-Live', sub: 'مكتمل – 01 أبريل 2024', status: 'done', pct: 100 }
+            ],
+            deliverables: [
+                { name: 'Architecture_Design_Doc_v2.4.pdf', size: '4.2 MB', date: '2024-03-20', type: 'PDF Spec' },
+                { name: 'BTW_Audit_Compliance_Certification.pdf', size: '1.8 MB', date: '2024-04-01', type: 'Tax Certificate' },
+                { name: 'Production_Credentials_Vault.enc', size: '12 KB', date: '2024-04-05', type: 'Encrypted Vault' }
+            ],
+            invoices: [
+                { invNo: 'INV-2024-041', amount: '€18,500', status: 'paid', statusText: 'مدفوعة (iDEAL)', date: '2024-01-15' },
+                { invNo: 'INV-2024-078', amount: '€20,000', status: 'paid', statusText: 'مدفوعة (SEPA)', date: '2024-03-01' },
+                { invNo: 'INV-2024-112', amount: '€10,000', status: 'paid', statusText: 'مدفوعة (Mollie)', date: '2024-04-01' }
             ]
         },
         'CSN-2024-087': {
-            client: 'براق للخدمات اللوجستية', service: 'Predictive AI & Fleet Management',
-            completion: 72,
+            client: 'شركة براق للخدمات اللوجستية',
+            executive: 'المهندس فهد التميمي',
+            pin: '8776',
+            location: 'الرياض - دبي',
+            service: 'Predictive AI Routing & Hybrid Cloud Fleet Infrastructure',
+            completion: 78,
+            status: 'Sprint 4: تجارب الأسطول الميدانية اللحظية',
+            budget: 'SAR 285,000',
+            currency: 'SAR',
+            nda: 'NDA-KSA-2024-B (موقعة ومعتمدة)',
+            assignedLead: 'Eng. Mohammad Salim Aziza (CTO & Cloud Lead)',
             phases: [
                 { title: 'AI Model Training & Data Pipeline', sub: 'مكتمل – 10 أغسطس 2024', status: 'done', pct: 100 },
                 { title: 'Real-time Routing Engine', sub: 'مكتمل – 01 سبتمبر 2024', status: 'done', pct: 100 },
-                { title: 'Fleet Dashboard & Mobile App', sub: 'جارٍ الآن – التسليم في 20 أكتوبر 2024', status: 'active', pct: 72 },
+                { title: 'Fleet Dashboard & Mobile App', sub: 'جارٍ الآن – التسليم الميداني 20 أكتوبر 2024', status: 'active', pct: 78 },
                 { title: 'Training & Handover', sub: 'مجدول – نوفمبر 2024', status: 'pending', pct: 0 }
+            ],
+            deliverables: [
+                { name: 'Fleet_AI_Model_Benchmark_Report.pdf', size: '5.1 MB', date: '2024-08-15', type: 'AI Benchmark' },
+                { name: 'Microservices_API_Specs_v1.9.pdf', size: '2.6 MB', date: '2024-09-02', type: 'API Spec' },
+                { name: 'Staging_Cluster_Access_Token.txt', size: '2 KB', date: '2024-09-28', type: 'Staging Token' }
+            ],
+            invoices: [
+                { invNo: 'INV-KSA-0087-1', amount: 'SAR 120,000', status: 'paid', statusText: 'مدفوعة (حوالة مصرفية)', date: '2024-08-01' },
+                { invNo: 'INV-KSA-0087-2', amount: 'SAR 100,000', status: 'paid', statusText: 'مدفوعة (تحويل سويفت)', date: '2024-09-10' },
+                { invNo: 'INV-KSA-0087-3', amount: 'SAR 65,000', status: 'pending', statusText: 'بانتظار التسليم النهائي (أكتوبر)', date: 'Due 2024-10-25' }
             ]
         },
         'CSN-2025-014': {
-            client: 'European Logistics Chain', service: 'Cloud ERP & Microservices',
+            client: 'European Logistics Chain B.V.',
+            executive: 'Marcus Lindqvist',
+            pin: '2025',
+            location: 'Rotterdam, Netherlands',
+            service: 'Multi-Country Cloud ERP & High-Throughput Microservices',
             completion: 45,
+            status: 'Phase 2: Microservices Build & Multi-Tenant Setup',
+            budget: '€112,000',
+            currency: 'EUR',
+            nda: 'NDA-EU-2025-C (Active)',
+            assignedLead: 'Eng. Salim Aziza & Mr. Raed Kaakeh',
             phases: [
                 { title: 'Cloud Architecture Design', sub: 'مكتمل – 12 مارس 2025', status: 'done', pct: 100 },
                 { title: 'Microservices Development', sub: 'جارٍ الآن – الاكتمال 60%', status: 'active', pct: 60 },
                 { title: 'Data Migration & Sync', sub: 'مجدول – ديسمبر 2025', status: 'pending', pct: 0 },
                 { title: 'Multi-Country Go-Live', sub: 'مجدول – يناير 2026', status: 'pending', pct: 0 }
+            ],
+            deliverables: [
+                { name: 'MultiTenant_Architecture_Blueprint.pdf', size: '6.4 MB', date: '2025-03-12', type: 'Blueprint' }
+            ],
+            invoices: [
+                { invNo: 'INV-2025-014-1', amount: '€45,000', status: 'paid', statusText: 'مدفوعة (SEPA B2B)', date: '2025-03-15' },
+                { invNo: 'INV-2025-014-2', amount: '€35,000', status: 'pending', statusText: 'مستحقة المرحلة 2', date: '2025-11-01' }
             ]
+        },
+        'CSN-2026-099': {
+            client: 'مجموعة الرواد للاستثمار والتقنية',
+            executive: 'د. طارق المنصوري',
+            pin: '2026',
+            location: 'دبي - أمستردام',
+            service: 'Enterprise AI Agent Hub & Multi-Currency Treasury Management',
+            completion: 28,
+            status: 'Phase 1: Architecture Blueprint & Security Auditing',
+            budget: 'AED 380,000',
+            currency: 'AED',
+            nda: 'NDA-UAE-2026-A (موقعة ومعتمدة)',
+            assignedLead: 'Eng. Mohammad Salim Aziza & Mr. Mohammad Raed Kaakeh',
+            phases: [
+                { title: 'Requirements & Multi-Currency Schema', sub: 'مكتمل – سبتمبر 2026', status: 'done', pct: 100 },
+                { title: 'AI Agent Workflows & RAG Pipeline', sub: 'جارٍ الآن – الإنجاز 50%', status: 'active', pct: 50 },
+                { title: 'Treasury ERP Integration', sub: 'مجدول – نوفمبر 2026', status: 'pending', pct: 0 },
+                { title: 'Security Audit & Compliance Sign-off', sub: 'مجدول – ديسمبر 2026', status: 'pending', pct: 0 }
+            ],
+            deliverables: [
+                { name: 'AI_Agent_Architecture_Spec_v1.0.pdf', size: '3.8 MB', date: '2026-09-18', type: 'Specification' }
+            ],
+            invoices: [
+                { invNo: 'INV-UAE-099-1', amount: 'AED 150,000', status: 'paid', statusText: 'مدفوعة (تحويل بنكي دبي)', date: '2026-09-20' },
+                { invNo: 'INV-UAE-099-2', amount: 'AED 120,000', status: 'pending', statusText: 'مستحقة قريباً', date: '2026-11-15' }
+            ]
+        }
+    };
+
+    // Live Project DB Connector with Supabase / Firebase / Local sync
+    window.CoreSyncProjectDB = {
+        config: {
+            supabaseUrl: window.CORESYNC_SUPABASE_URL || 'https://api.coresync.solutions/supabase/v1',
+            supabaseKey: window.CORESYNC_SUPABASE_KEY || '',
+            storageKey: 'coresync_live_client_db'
+        },
+        getAll() {
+            try {
+                const stored = localStorage.getItem(this.config.storageKey);
+                if (stored) return JSON.parse(stored);
+            } catch (e) { console.warn(e); }
+            return DEFAULT_PROJECT_DB;
+        },
+        save(code, data) {
+            const all = this.getAll();
+            all[code] = data;
+            try {
+                localStorage.setItem(this.config.storageKey, JSON.stringify(all));
+            } catch (e) { console.warn(e); }
+        },
+        async getProject(code) {
+            // Check remote Supabase/Firebase if configured with live credentials
+            if (this.config.supabaseKey && this.config.supabaseUrl) {
+                try {
+                    const res = await fetch(`${this.config.supabaseUrl}/projects?code=eq.${code}`, {
+                        headers: { 'apikey': this.config.supabaseKey, 'Authorization': `Bearer ${this.config.supabaseKey}` }
+                    });
+                    if (res.ok) {
+                        const json = await res.json();
+                        if (json && json.length > 0) return json[0];
+                    }
+                } catch (e) {
+                    console.info('Supabase cloud fetch fallback to live local DB:', e.message);
+                }
+            }
+            const all = this.getAll();
+            return all[code] || null;
+        },
+        login(code, pin) {
+            const all = this.getAll();
+            const proj = all[code];
+            if (!proj) return { success: false, msg: 'لم يتم العثور على رمز المشروع.' };
+            if (proj.pin && proj.pin !== pin) return { success: false, msg: 'رمز الأمان (PIN) غير صحيح.' };
+            const session = { code, client: proj.client, executive: proj.executive, loginTime: new Date().toISOString() };
+            sessionStorage.setItem('coresync_client_session', JSON.stringify(session));
+            return { success: true, project: proj };
+        },
+        logout() {
+            sessionStorage.removeItem('coresync_client_session');
+        },
+        getSession() {
+            try {
+                const s = sessionStorage.getItem('coresync_client_session');
+                return s ? JSON.parse(s) : null;
+            } catch (e) { return null; }
         }
     };
 
@@ -1026,28 +1208,38 @@
         overlay.className = 'es-modal-overlay';
         overlay.style.display = 'none';
         overlay.innerHTML = `
-            <div class="es-modal-inner" style="max-width:660px;" role="dialog" aria-label="Project Status Tracker">
+            <div class="es-modal-inner" style="max-width:720px;" role="dialog" aria-label="Client Portal & Project Tracker">
                 <div class="es-modal-header">
                     <div class="es-modal-header-left">
                         <div class="es-modal-icon" style="background:linear-gradient(135deg,rgba(56,189,248,0.2),rgba(56,189,248,0.05));border-color:rgba(56,189,248,0.3);">📡</div>
                         <div>
-                            <h2 class="es-modal-title">متابعة مشروعك اللحظية</h2>
-                            <p class="es-modal-subtitle">Project Live Status Tracker</p>
+                            <h2 class="es-modal-title">بوابة العملاء وتتبع المشاريع الحية</h2>
+                            <p class="es-modal-subtitle">CoreSync Client Portal & Live Project DB</p>
                         </div>
                     </div>
                     <button class="es-modal-close" onclick="window.closeTrackerModal()" aria-label="Close">✕</button>
                 </div>
                 <div class="es-modal-body">
-                    <div class="es-currency-switcher-widget" style="margin-bottom:14px;">
-                        <span class="es-currency-switcher-label">أدخل رمز المشروع الخاص بك للاطلاع على آخر التحديثات</span>
-                        <span class="es-vat-badge">LIVE</span>
+                    <div class="es-portal-nav">
+                        <button class="es-portal-nav-tab active" id="tabClientPortal" onclick="window.switchTrackerTab('portal')">🔐 بوابة العميل الآمنة (Client Portal)</button>
+                        <button class="es-portal-nav-tab" id="tabPublicLookup" onclick="window.switchTrackerTab('lookup')">🔍 استعلام عام سريع</button>
                     </div>
-                    <div class="es-tracker-search">
-                        <input type="text" id="esTrackerCodeInput" placeholder="CSN-2024-087" />
-                        <button onclick="window.lookupProject()">بحث</button>
+
+                    <!-- Client Portal View -->
+                    <div id="esPortalContainer"></div>
+
+                    <!-- Public Lookup View -->
+                    <div id="esLookupContainer" style="display:none;">
+                        <div class="es-currency-switcher-widget" style="margin-bottom:14px;">
+                            <span class="es-currency-switcher-label">أدخل رمز المشروع الخاص بك للاطلاع على تقدم الإنجاز العام</span>
+                            <span class="es-vat-badge">PUBLIC</span>
+                        </div>
+                        <div class="es-tracker-search">
+                            <input type="text" id="esTrackerCodeInput" placeholder="CSN-2024-087" />
+                            <button onclick="window.lookupProjectPublic()">بحث</button>
+                        </div>
+                        <div id="esTrackerPublicResult"></div>
                     </div>
-                    <div id="esTrackerResult"></div>
-                    <p style="text-align:center;font-size:0.74rem;color:rgba(255,255,255,0.4);margin-top:12px;">أمثلة للتجربة: CSN-2024-001 · CSN-2024-087 · CSN-2025-014</p>
                 </div>
             </div>
         `;
@@ -1057,7 +1249,11 @@
 
     window.openTrackerModal = function() {
         const el = document.getElementById('esTrackerModal');
-        if (el) { el.style.display = 'flex'; el.classList.add('active'); }
+        if (el) {
+            el.style.display = 'flex';
+            el.classList.add('active');
+            window.renderClientPortalView();
+        }
     };
 
     window.closeTrackerModal = function() {
@@ -1065,17 +1261,100 @@
         if (el) { el.style.display = 'none'; el.classList.remove('active'); }
     };
 
-    window.lookupProject = function() {
-        const code = (document.getElementById('esTrackerCodeInput')?.value || '').trim().toUpperCase();
-        const result = document.getElementById('esTrackerResult');
-        if (!result) return;
+    window.switchTrackerTab = function(tab) {
+        const tabP = document.getElementById('tabClientPortal');
+        const tabL = document.getElementById('tabPublicLookup');
+        const cP = document.getElementById('esPortalContainer');
+        const cL = document.getElementById('esLookupContainer');
+        if (tab === 'portal') {
+            tabP.classList.add('active');
+            tabL.classList.remove('active');
+            cP.style.display = 'block';
+            cL.style.display = 'none';
+            window.renderClientPortalView();
+        } else {
+            tabL.classList.add('active');
+            tabP.classList.remove('active');
+            cL.style.display = 'block';
+            cP.style.display = 'none';
+        }
+    };
 
-        const proj = PROJECT_DB[code];
-        if (!proj) {
-            result.innerHTML = `<div style="text-align:center;padding:24px;color:rgba(239,68,68,0.8);font-size:0.88rem;">❌ لم يُعثر على رمز المشروع. تحقق من الرمز وأعد المحاولة.</div>`;
+    window.renderClientPortalView = function() {
+        const container = document.getElementById('esPortalContainer');
+        if (!container) return;
+        const session = window.CoreSyncProjectDB.getSession();
+        if (session) {
+            const proj = window.CoreSyncProjectDB.getAll()[session.code];
+            if (proj) {
+                window.renderClientDashboard(container, session.code, proj);
+                return;
+            }
+        }
+        window.renderClientLoginForm(container);
+    };
+
+    window.renderClientLoginForm = function(container) {
+        container.innerHTML = `
+            <div class="es-portal-login-card">
+                <div class="es-portal-session-badge">🛡️ اتصال مشفر آمن ببروتوكول 256-Bit SSL</div>
+                <h3 style="font-size:1.05rem;color:var(--es-gold-light);margin-bottom:6px;">تسجيل الدخول إلى بوابة العميل الخاصة</h3>
+                <p style="font-size:0.78rem;color:rgba(255,255,255,0.6);margin-bottom:16px;">أدخل رمز المشروع ورمز الأمان الخاص بك للوصول إلى المستندات السرية ومراحل التنفيذ والفواتير المعتمدة:</p>
+                
+                <div style="display:flex;flex-direction:column;gap:10px;max-width:380px;margin:0 auto 16px auto;">
+                    <input type="text" id="esLoginCode" class="es-ai-input" placeholder="رمز المشروع (مثال: CSN-2024-087)" style="text-transform:uppercase;text-align:center;font-weight:700;" />
+                    <input type="password" id="esLoginPin" class="es-ai-input" placeholder="رمز الأمان PIN (مثال: 8776)" style="text-align:center;" />
+                    <button class="es-btn-primary" onclick="window.doClientLogin()" style="width:100%;padding:10px;">
+                        🔐 الدخول الآمن للبوابة
+                    </button>
+                </div>
+                <div id="esLoginError" style="font-size:0.78rem;color:#f87171;min-height:20px;margin-bottom:8px;"></div>
+                
+                <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:14px;margin-top:10px;">
+                    <div style="font-size:0.72rem;color:rgba(255,255,255,0.5);margin-bottom:8px;">حسابات تجريبية سريعة للفحص والمعاينة (One-Click Demo):</div>
+                    <div class="es-demo-logins">
+                        <button class="es-demo-btn" onclick="window.quickDemoLogin('CSN-2024-087', '8776')">⚡ براق للخدمات اللوجستية</button>
+                        <button class="es-demo-btn" onclick="window.quickDemoLogin('CSN-2024-001', '2024')">⚡ 365 SCHOON B.V.</button>
+                        <button class="es-demo-btn" onclick="window.quickDemoLogin('CSN-2025-014', '2025')">⚡ European Logistics</button>
+                        <button class="es-demo-btn" onclick="window.quickDemoLogin('CSN-2026-099', '2026')">⚡ مجموعة الرواد</button>
+                    </div>
+                </div>
+            </div>
+        `;
+    };
+
+    window.quickDemoLogin = function(code, pin) {
+        const inpC = document.getElementById('esLoginCode');
+        const inpP = document.getElementById('esLoginPin');
+        if (inpC && inpP) {
+            inpC.value = code;
+            inpP.value = pin;
+            window.doClientLogin();
+        }
+    };
+
+    window.doClientLogin = function() {
+        const code = (document.getElementById('esLoginCode')?.value || '').trim().toUpperCase();
+        const pin = (document.getElementById('esLoginPin')?.value || '').trim();
+        const err = document.getElementById('esLoginError');
+        if (!code || !pin) {
+            if (err) err.textContent = 'يرجى إدخال رمز المشروع ورمز الأمان PIN.';
             return;
         }
+        const res = window.CoreSyncProjectDB.login(code, pin);
+        if (!res.success) {
+            if (err) err.textContent = res.msg;
+            return;
+        }
+        window.renderClientPortalView();
+    };
 
+    window.doClientLogout = function() {
+        window.CoreSyncProjectDB.logout();
+        window.renderClientPortalView();
+    };
+
+    window.renderClientDashboard = function(container, code, proj) {
         const dotIcon = { done: '✓', active: '◉', pending: '○' };
         const phases = proj.phases.map((p, i) => `
             <div class="es-timeline-item">
@@ -1091,65 +1370,184 @@
             </div>
         `).join('');
 
-        result.innerHTML = `
-            <div style="background:rgba(197,168,128,0.06);border:1px solid rgba(197,168,128,0.2);border-radius:12px;padding:16px;margin-bottom:16px;">
+        const deliverables = (proj.deliverables || []).map(d => `
+            <div class="es-deliverable-item">
+                <div>
+                    <div style="font-weight:700;color:#ffffff;">📄 ${d.name}</div>
+                    <div style="font-size:0.7rem;color:rgba(255,255,255,0.5);">${d.type} · ${d.size} · ${d.date}</div>
+                </div>
+                <button class="es-deliverable-btn" onclick="alert('جاري تنزيل الملف المشفر: ' + '${d.name}')">تحميل ⬇</button>
+            </div>
+        `).join('');
+
+        const invoices = (proj.invoices || []).map(inv => `
+            <tr>
+                <td style="font-weight:700;">${inv.invNo}</td>
+                <td>${inv.date}</td>
+                <td style="font-weight:700;color:var(--es-gold-light);">${inv.amount}</td>
+                <td><span class="es-inv-status ${inv.status === 'paid' ? 'es-inv-paid' : 'es-inv-pending'}">${inv.statusText}</span></td>
+            </tr>
+        `).join('');
+
+        const directMsg = encodeURIComponent(`مرحباً فريق S&R CoreSync، أنا العميل ${proj.executive} من شركة ${proj.client} (مشروع ${code})، أود الاستفسار حول تقدم المشروع.`);
+
+        container.innerHTML = `
+            <div class="es-portal-auth-header">
+                <div>
+                    <div class="es-portal-session-badge" style="margin-bottom:2px;">🔒 جلسة موثقة 256-Bit SSL</div>
+                    <div style="font-size:0.85rem;font-weight:800;color:#ffffff;">${proj.client} — <span style="color:var(--es-gold-light);">${proj.executive}</span></div>
+                    <div style="font-size:0.72rem;color:rgba(255,255,255,0.5);">المقر: ${proj.location} · العقد: ${proj.nda}</div>
+                </div>
+                <button class="es-portal-logout-btn" onclick="window.doClientLogout()">تسجيل خروج ✕</button>
+            </div>
+
+            <!-- Project KPI Header -->
+            <div style="background:rgba(197,168,128,0.06);border:1px solid rgba(197,168,128,0.25);border-radius:12px;padding:14px;margin-bottom:14px;">
                 <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px;">
                     <div>
-                        <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:2px;">رقم المشروع</div>
-                        <div style="font-size:1rem;font-weight:900;color:var(--es-gold);">${code}</div>
+                        <div style="font-size:0.72rem;color:rgba(255,255,255,0.5);">رقم المشروع السحابي</div>
+                        <div style="font-size:1.1rem;font-weight:900;color:var(--es-gold);">${code}</div>
                     </div>
                     <div style="text-align:right;">
-                        <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:2px;">${proj.client}</div>
+                        <div style="font-size:0.72rem;color:rgba(255,255,255,0.5);">المعمارية السحابية والحل</div>
                         <div style="font-size:0.82rem;font-weight:700;color:#e0f2fe;">${proj.service}</div>
                     </div>
                 </div>
-                <div style="font-size:0.76rem;color:rgba(255,255,255,0.6);margin-bottom:6px;">الإكمال الكلي: <strong style="color:var(--es-gold-light);">${proj.completion}%</strong></div>
+                <div style="font-size:0.75rem;color:rgba(255,255,255,0.6);margin-bottom:4px;">
+                    حالة الإنجاز الكلي: <strong style="color:var(--es-gold-light);">${proj.completion}%</strong> — ${proj.status}
+                </div>
                 <div class="es-progress-bar-mini"><div class="es-progress-bar-fill" style="width:0%" data-target="${proj.completion}%"></div></div>
+                <div style="font-size:0.7rem;color:rgba(255,255,255,0.5);margin-top:6px;">
+                    المهندس المشرف: <span style="color:#ffffff;">${proj.assignedLead}</span>
+                </div>
             </div>
+
+            <!-- Phases Timeline -->
+            <h4 style="font-size:0.85rem;color:var(--es-gold);margin-bottom:8px;">مراحل التنفيذ والجدول الزمني</h4>
             <div class="es-project-timeline">${phases}</div>
+
+            <!-- Deliverables Vault -->
+            <h4 style="font-size:0.85rem;color:var(--es-gold);margin:14px 0 8px 0;">المستندات والملفات المعتمدة (Deliverables Vault)</h4>
+            <div class="es-deliverables-list">${deliverables}</div>
+
+            <!-- Invoices Ledger -->
+            <h4 style="font-size:0.85rem;color:var(--es-gold);margin:14px 0 8px 0;">سجل الفواتير والدفعات المالية</h4>
+            <table class="es-invoices-table">
+                <thead>
+                    <tr>
+                        <th>رقم الفاتورة</th>
+                        <th>التاريخ</th>
+                        <th>المبلغ</th>
+                        <th>الحالة</th>
+                    </tr>
+                </thead>
+                <tbody>${invoices}</tbody>
+            </table>
+
+            <!-- Support & Lead Contact -->
+            <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+                <a href="https://wa.me/${WHATSAPP_NUM}?text=${directMsg}" target="_blank" rel="noopener" class="es-btn-primary" style="flex:1;text-align:center;text-decoration:none !important;padding:9px;">
+                    💬 محادثة مباشرة مع المهندس المشرف
+                </a>
+            </div>
         `;
 
-        // Animate progress bars
         setTimeout(() => {
-            result.querySelectorAll('.es-progress-bar-fill').forEach(bar => {
+            container.querySelectorAll('.es-progress-bar-fill').forEach(bar => {
                 bar.style.width = bar.dataset.target;
             });
         }, 100);
     };
 
+    window.lookupProjectPublic = function() {
+        const code = (document.getElementById('esTrackerCodeInput')?.value || '').trim().toUpperCase();
+        const result = document.getElementById('esTrackerPublicResult');
+        if (!result) return;
+        const all = window.CoreSyncProjectDB.getAll();
+        const proj = all[code];
+        if (!proj) {
+            result.innerHTML = `<div style="text-align:center;padding:20px;color:#f87171;font-size:0.84rem;">❌ لم يُعثر على مشروع بهذا الرمز. يرجى التحقق وإعادة المحاولة.</div>`;
+            return;
+        }
+
+        const dotIcon = { done: '✓', active: '◉', pending: '○' };
+        const phases = proj.phases.map((p, i) => `
+            <div class="es-timeline-item">
+                <div class="es-timeline-track">
+                    <div class="es-timeline-dot ${p.status}">${dotIcon[p.status]}</div>
+                    ${i < proj.phases.length - 1 ? '<div class="es-timeline-line"></div>' : ''}
+                </div>
+                <div class="es-timeline-content">
+                    <div class="es-timeline-title">${p.title}</div>
+                    <div class="es-timeline-sub">${p.sub}</div>
+                </div>
+            </div>
+        `).join('');
+
+        result.innerHTML = `
+            <div style="background:rgba(197,168,128,0.06);border:1px solid rgba(197,168,128,0.2);border-radius:12px;padding:14px;margin-top:14px;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+                    <div style="font-weight:900;color:var(--es-gold);">${code}</div>
+                    <div style="font-weight:700;color:#ffffff;">${proj.client}</div>
+                </div>
+                <div style="font-size:0.78rem;color:rgba(255,255,255,0.6);margin-bottom:6px;">نسبة الإنجاز: ${proj.completion}%</div>
+                <div class="es-progress-bar-mini"><div class="es-progress-bar-fill" style="width:${proj.completion}%"></div></div>
+                <div class="es-project-timeline" style="margin-top:12px;">${phases}</div>
+                <p style="font-size:0.7rem;color:rgba(255,255,255,0.4);text-align:center;margin-top:10px;">للوصول إلى الفواتير والمستندات السرية، يرجى الانتقال إلى تبويب "بوابة العميل الآمنة".</p>
+            </div>
+        `;
+    };
+
     /* =====================================================================
-       FEATURE 3: Multi-Currency & VAT Live Switcher
+       FEATURE 4: Multi-Currency & VAT Live Switcher Across All Prices
        ===================================================================== */
     const CURRENCIES = {
-        EUR: { symbol: '€', flag: '🇪🇺', name: 'Euro', rate: 1, vat: 21, vatName: 'BTW (NL 21%)' },
-        USD: { symbol: '$', flag: '🇺🇸', name: 'US Dollar', rate: 1.08, vat: 0, vatName: 'No VAT' },
-        AED: { symbol: 'د.إ', flag: '🇦🇪', name: 'UAE Dirham', rate: 3.97, vat: 5, vatName: 'VAT (UAE 5%)' },
-        SAR: { symbol: '﷼', flag: '🇸🇦', name: 'Saudi Riyal', rate: 4.05, vat: 15, vatName: 'VAT (KSA 15%)' },
-        GBP: { symbol: '£', flag: '🇬🇧', name: 'British Pound', rate: 0.86, vat: 20, vatName: 'VAT (UK 20%)' }
+        EUR: { symbol: '€', flag: '🇪🇺', name: 'Euro', rate: 1, vat: 21, vatName: '🇳🇱 BTW 21% (NL/EU Tax Compliant)' },
+        USD: { symbol: '$', flag: '🇺🇸', name: 'US Dollar', rate: 1.08, vat: 0, vatName: '🌐 0% VAT (Non-EU / Export)' },
+        AED: { symbol: 'د.إ', flag: '🇦🇪', name: 'UAE Dirham', rate: 3.97, vat: 5, vatName: '🇦🇪 5% ضريبة القيمة المضافة UAE' },
+        SAR: { symbol: '﷼', flag: '🇸🇦', name: 'Saudi Riyal', rate: 4.05, vat: 15, vatName: '🇸🇦 15% ضريبة القيمة المضافة KSA' },
+        GBP: { symbol: '£', flag: '🇬🇧', name: 'British Pound', rate: 0.86, vat: 20, vatName: '🇬🇧 20% VAT (UK Compliant)' }
     };
 
     let activeCurrency = 'EUR';
 
     window.switchCurrency = function(code) {
+        if (!CURRENCIES[code]) return;
         activeCurrency = code;
+        const cur = CURRENCIES[code];
+
+        // Update all currency buttons across document
         document.querySelectorAll('.es-currency-btn').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.currency === code);
         });
-        // Update any price displays tagged with data-eur-price
-        const cur = CURRENCIES[code];
+
+        // Update all price displays tagged with data-eur-price
         document.querySelectorAll('[data-eur-price]').forEach(el => {
-            const base = parseFloat(el.dataset.eurPrice);
-            const converted = (base * cur.rate).toLocaleString('en-US', { maximumFractionDigits: 0 });
-            el.textContent = `${cur.symbol}${converted}`;
+            const baseEur = parseFloat(el.dataset.eurPrice);
+            if (isNaN(baseEur)) return;
+            const converted = Math.round(baseEur * cur.rate);
+            const formatted = converted.toLocaleString('en-US');
+
+            if (code === 'SAR' || code === 'AED') {
+                el.textContent = `${formatted} ${cur.symbol}`;
+            } else {
+                el.textContent = `${cur.symbol}${formatted}`;
+            }
         });
-        // Update vat badges
-        document.querySelectorAll('.es-vat-live-badge').forEach(el => {
-            el.textContent = `${cur.vatName}`;
+
+        // Update VAT live badges
+        document.querySelectorAll('.es-vat-live-badge, .es-pricing-vat-notice span').forEach(el => {
+            el.textContent = cur.vatName;
         });
+
+        // Sync with ROI modal if open
+        if (window.switchROICurrency) {
+            window.switchROICurrency(code);
+        }
     };
 
     /* =====================================================================
-       FEATURE 4: Cloud Architecture ROI & Cost Optimizer
+       FEATURE 5: Cloud Architecture ROI & Cost Optimizer
        ===================================================================== */
     function injectROIOptimizer() {
         if (document.getElementById('esROIModal')) return;
@@ -1174,7 +1572,7 @@
                         <span class="es-currency-switcher-label">حرّك الأشرطة لمحاكاة البنية التحتية الحالية وقارن مع الحل السحابي المُحسَّن</span>
                         <div class="es-currency-bar">
                             ${Object.entries(CURRENCIES).map(([code, c]) =>
-                                `<button class="es-currency-btn${code === 'EUR' ? ' active' : ''}" data-currency="${code}" onclick="window.switchROICurrency('${code}')">${c.flag} ${code}</button>`
+                                `<button class="es-currency-btn${code === activeCurrency ? ' active' : ''}" data-currency="${code}" onclick="window.switchCurrency('${code}')">${c.flag} ${code}</button>`
                             ).join('')}
                         </div>
                     </div>
@@ -1253,11 +1651,10 @@
         const hours = parseInt(document.getElementById('roiHours')?.value || 20);
 
         const cur = CURRENCIES[roiCurrencyCode] || CURRENCIES.EUR;
-        const ratePerHour = 35 * cur.rate; // avg €35/h staff cost
+        const ratePerHour = 35 * cur.rate;
 
-        const currentMonthly = (server + (hours * 4 * ratePerHour) + (users * 8 * cur.rate)) * cur.rate / 1;
         const currentMonthlyEur = server + (hours * 4 * 35) + (users * 8);
-        const optimizedEur = currentMonthlyEur * 0.40; // 60% reduction estimate
+        const optimizedEur = currentMonthlyEur * 0.40;
         const optimized = optimizedEur * cur.rate;
         const current = currentMonthlyEur * cur.rate;
         const annualSaving = (currentMonthlyEur - optimizedEur) * 12 * cur.rate;
@@ -1289,113 +1686,277 @@
     };
 
     /* =====================================================================
-       FEATURE 5: Executive Capability Deck (HTML → Print → PDF)
+       FEATURE 6: Executive Capability Deck with Live Chart.js Charts & Visual KPIs
        ===================================================================== */
     window.downloadCapabilityDeck = function() {
         const lang = detectLang();
-        const titleMap = { ar: 'ملف القدرات التنفيذي – S&R CoreSync Solutions', en: 'Executive Capability Deck – S&R CoreSync Solutions', nl: 'Capability Deck – S&R CoreSync Solutions' };
+        const titleMap = {
+            ar: 'ملف القدرات التنفيذي ولوحة الـ KPIs – S&R CoreSync Solutions',
+            en: 'Executive Capability Deck & Visual KPIs – S&R CoreSync Solutions',
+            nl: 'Executive Capability Deck & KPI Dashboard – S&R CoreSync Solutions'
+        };
+
         const deck = `<!DOCTYPE html>
 <html lang="${lang}" dir="${lang === 'ar' ? 'rtl' : 'ltr'}">
 <head>
 <meta charset="UTF-8">
 <title>${titleMap[lang]}</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"><\/script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;900&family=Cairo:wght@400;600;700;900&display=swap');
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Plus Jakarta Sans', sans-serif; background: #010907; color: #ffffff; }
-  .deck-page { width: 210mm; min-height: 297mm; padding: 16mm 18mm; page-break-after: always; position: relative; }
-  .deck-cover { background: linear-gradient(135deg, #010907 0%, #021a12 50%, #010907 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 297mm; }
+  body {
+    font-family: ${lang === 'ar' ? "'Cairo', sans-serif" : "'Plus Jakarta Sans', sans-serif"};
+    background: #010907;
+    color: #ffffff;
+    line-height: 1.6;
+  }
+  .deck-page { width: 210mm; min-height: 297mm; padding: 14mm 16mm; page-break-after: always; position: relative; margin: 0 auto; background: #010907; }
+  .deck-cover { background: linear-gradient(135deg, #010907 0%, #021a12 50%, #010907 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
   .deck-logo-text { font-size: 2.8rem; font-weight: 900; background: linear-gradient(135deg, #c5a880, #f3dfba); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
-  .deck-tagline { color: rgba(255,255,255,0.6); font-size: 1rem; margin-bottom: 40px; }
-  .deck-gold-line { width: 120px; height: 3px; background: linear-gradient(90deg, transparent, #c5a880, transparent); margin: 0 auto 40px; }
-  .deck-title { font-size: 1.4rem; font-weight: 900; color: #ffffff; margin-bottom: 12px; }
-  .deck-date { font-size: 0.85rem; color: rgba(255,255,255,0.4); }
-  .deck-section { background: #0a1a12; border-radius: 16px; padding: 24px; margin-bottom: 20px; border: 1px solid rgba(197,168,128,0.2); }
-  .deck-section h2 { color: #c5a880; font-size: 1.1rem; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid rgba(197,168,128,0.2); }
-  .deck-kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-  .deck-kpi { background: rgba(197,168,128,0.08); border: 1px solid rgba(197,168,128,0.2); border-radius: 10px; padding: 16px; text-align: center; }
-  .deck-kpi-val { font-size: 1.6rem; font-weight: 900; color: #f3dfba; }
-  .deck-kpi-lbl { font-size: 0.72rem; color: rgba(255,255,255,0.6); margin-top: 4px; }
-  .deck-service { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
-  .deck-service-icon { width: 36px; height: 36px; border-radius: 10px; background: rgba(197,168,128,0.12); border: 1px solid rgba(197,168,128,0.25); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
-  .deck-service-title { font-size: 0.88rem; font-weight: 800; color: #ffffff; margin-bottom: 3px; }
-  .deck-service-desc { font-size: 0.76rem; color: rgba(255,255,255,0.6); line-height: 1.5; }
-  .deck-leaders { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .deck-leader { background: rgba(197,168,128,0.06); border: 1px solid rgba(197,168,128,0.2); border-radius: 12px; padding: 16px; }
-  .deck-leader-name { font-size: 0.95rem; font-weight: 900; color: #f3dfba; margin-bottom: 4px; }
-  .deck-leader-role { font-size: 0.76rem; color: rgba(255,255,255,0.6); }
-  .deck-contact { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 8px; }
-  .deck-contact-item { background: rgba(6,182,212,0.08); border: 1px solid rgba(56,189,248,0.2); border-radius: 10px; padding: 12px; text-align: center; font-size: 0.78rem; color: #e0f2fe; }
-  @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+  .deck-tagline { color: rgba(255,255,255,0.7); font-size: 1rem; margin-bottom: 30px; }
+  .deck-gold-line { width: 120px; height: 3px; background: linear-gradient(90deg, transparent, #c5a880, transparent); margin: 0 auto 30px; }
+  .deck-title { font-size: 1.5rem; font-weight: 900; color: #ffffff; margin-bottom: 12px; }
+  .deck-date { font-size: 0.85rem; color: rgba(255,255,255,0.45); }
+  
+  .deck-section { background: #0a1a12; border-radius: 14px; padding: 18px 20px; margin-bottom: 16px; border: 1px solid rgba(197,168,128,0.22); }
+  .deck-section h2 { color: #c5a880; font-size: 1.05rem; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid rgba(197,168,128,0.2); display: flex; align-items: center; gap: 8px; }
+  
+  .deck-kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 12px; }
+  .deck-kpi { background: rgba(197,168,128,0.08); border: 1px solid rgba(197,168,128,0.2); border-radius: 10px; padding: 12px; text-align: center; }
+  .deck-kpi-val { font-size: 1.5rem; font-weight: 900; color: #f3dfba; }
+  .deck-kpi-lbl { font-size: 0.72rem; color: rgba(255,255,255,0.65); margin-top: 2px; }
+
+  .deck-charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 10px; }
+  .deck-chart-box { background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 12px; text-align: center; }
+  .deck-chart-box h3 { font-size: 0.78rem; color: #6ee7b7; margin-bottom: 8px; font-weight: 700; }
+  .deck-chart-box canvas { width: 100% !important; max-height: 180px !important; }
+
+  .deck-service { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .deck-service-icon { width: 34px; height: 34px; border-radius: 8px; background: rgba(197,168,128,0.12); border: 1px solid rgba(197,168,128,0.25); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+  .deck-service-title { font-size: 0.85rem; font-weight: 800; color: #ffffff; margin-bottom: 2px; }
+  .deck-service-desc { font-size: 0.74rem; color: rgba(255,255,255,0.65); line-height: 1.45; }
+
+  .deck-leaders { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .deck-leader { background: rgba(197,168,128,0.06); border: 1px solid rgba(197,168,128,0.2); border-radius: 12px; padding: 14px; }
+  .deck-leader-name { font-size: 0.95rem; font-weight: 900; color: #f3dfba; margin-bottom: 2px; }
+  .deck-leader-role { font-size: 0.74rem; color: #6ee7b7; font-weight: 700; }
+
+  .deck-contact { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 8px; }
+  .deck-contact-item { background: rgba(6,182,212,0.08); border: 1px solid rgba(56,189,248,0.2); border-radius: 8px; padding: 10px; text-align: center; font-size: 0.76rem; color: #e0f2fe; }
+
+  .deck-print-bar { position: fixed; top: 12px; right: 12px; z-index: 9999; display: flex; gap: 8px; }
+  .deck-print-btn { background: #c5a880; color: #010907; border: none; padding: 8px 16px; border-radius: 999px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+  @media print {
+    .deck-print-bar { display: none !important; }
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; background: #010907 !important; }
+    .deck-page { margin: 0; box-shadow: none; }
+  }
 </style>
 </head>
 <body>
-<!-- Cover Page -->
-<div class="deck-page deck-cover">
-  <div class="deck-logo-text">S&R CoreSync</div>
-  <div class="deck-tagline">Cloud Engineering · ERP Architecture · AI Integration</div>
-  <div class="deck-gold-line"></div>
-  <div class="deck-title">${titleMap[lang]}</div>
-  <div class="deck-date">Q4 2026 · Confidential & Proprietary</div>
+<div class="deck-print-bar">
+  <button class="deck-print-btn" onclick="window.print()">🖨️ حفظ كـ PDF / طباعة</button>
+  <button class="deck-print-btn" style="background:rgba(255,255,255,0.2);color:#fff;" onclick="window.close()">✕ إغلاق</button>
 </div>
 
-<!-- Page 2: KPIs -->
+<!-- Page 1: Cover Page -->
+<div class="deck-page deck-cover">
+  <div class="deck-logo-text">S&R CoreSync</div>
+  <div class="deck-tagline">Cloud Engineering · Financial ERP Architecture · Custom AI Solutions</div>
+  <div class="deck-gold-line"></div>
+  <div class="deck-title">${titleMap[lang]}</div>
+  <div class="deck-date">Q4 2026 · Confidential & Proprietary Document · Amsterdam & Middle East</div>
+</div>
+
+<!-- Page 2: Analytical KPIs & Chart.js Visuals -->
 <div class="deck-page">
   <div class="deck-section">
     <h2>🏆 Enterprise Performance KPIs</h2>
     <div class="deck-kpi-grid">
-      <div class="deck-kpi"><div class="deck-kpi-val">99.99%</div><div class="deck-kpi-lbl">Cloud Uptime SLA</div></div>
-      <div class="deck-kpi"><div class="deck-kpi-val">45,000€</div><div class="deck-kpi-lbl">Avg Annual Client Savings</div></div>
-      <div class="deck-kpi"><div class="deck-kpi-val">60%</div><div class="deck-kpi-lbl">Infrastructure Cost Reduction</div></div>
+      <div class="deck-kpi"><div class="deck-kpi-val">99.99%</div><div class="deck-kpi-lbl">Cloud High-Availability SLA</div></div>
+      <div class="deck-kpi"><div class="deck-kpi-val">€45,000+</div><div class="deck-kpi-lbl">Avg Annual Client Net Savings</div></div>
+      <div class="deck-kpi"><div class="deck-kpi-val">60%</div><div class="deck-kpi-lbl">Hosting & Infra Cost Reduction</div></div>
       <div class="deck-kpi"><div class="deck-kpi-val">100%</div><div class="deck-kpi-lbl">EU Tax Compliance (BTW/VAT)</div></div>
-      <div class="deck-kpi"><div class="deck-kpi-val">3+</div><div class="deck-kpi-lbl">Languages Supported (AR/EN/NL)</div></div>
-      <div class="deck-kpi"><div class="deck-kpi-val">22%</div><div class="deck-kpi-lbl">AI-Driven Cost Savings</div></div>
+      <div class="deck-kpi"><div class="deck-kpi-val">4.8x</div><div class="deck-kpi-lbl">3-Year Average Client ROI</div></div>
+      <div class="deck-kpi"><div class="deck-kpi-val">0 Dwt</div><div class="deck-kpi-lbl">Zero Planned Maintenance Downtime</div></div>
     </div>
   </div>
 
   <div class="deck-section">
-    <h2>⚙️ Core Services</h2>
-    <div class="deck-service"><div class="deck-service-icon">☁️</div><div><div class="deck-service-title">Cloud Architecture & DevOps</div><div class="deck-service-desc">Multi-Cloud (AWS/Azure/GCP), Kubernetes, Microservices, CI/CD Pipelines, High Availability</div></div></div>
-    <div class="deck-service"><div class="deck-service-icon">💼</div><div><div class="deck-service-title">ERP Implementation & Customization</div><div class="deck-service-desc">Odoo, Oracle, Custom ERP. EU Tax (BTW/VAT/IFRS), Multi-Currency, Multi-Branch Sync</div></div></div>
-    <div class="deck-service"><div class="deck-service-icon">🤖</div><div><div class="deck-service-title">AI & Intelligent Automation</div><div class="deck-service-desc">RAG Pipelines, NLP, Predictive Analytics, Process Automation, AI-ERP Integration</div></div></div>
-    <div class="deck-service"><div class="deck-service-icon">📊</div><div><div class="deck-service-title">Financial Consulting & Compliance</div><div class="deck-service-desc">IFRS, Belastingdienst, Multi-Jurisdiction Tax, CFO Advisory, Audit-Ready Reporting</div></div></div>
+    <h2>📊 Financial Impact & Architecture Benchmarks (Live Visuals)</h2>
+    <div class="deck-charts-grid">
+      <div class="deck-chart-box">
+        <h3>مقارنة التكلفة التشغيلية السنوية (€ TCO Reduction)</h3>
+        <canvas id="chartTCO"></canvas>
+      </div>
+      <div class="deck-chart-box">
+        <h3>مؤشر الجاهزية الرقمية والمعمارية (Readiness Radar)</h3>
+        <canvas id="chartRadar"></canvas>
+      </div>
+    </div>
+    <div class="deck-chart-box" style="margin-top:12px;">
+      <h3>العائد المالي التراكمي على الاستثمار خلال 36 شهراً (€ Cumulative ROI)</h3>
+      <canvas id="chartROI"></canvas>
+    </div>
   </div>
 </div>
 
-<!-- Page 3: Leadership & Contact -->
+<!-- Page 3: Core Services, Founders & Contact -->
 <div class="deck-page">
   <div class="deck-section">
-    <h2>👥 Leadership Team</h2>
+    <h2>⚙️ Enterprise Solutions & Capability Pillars</h2>
+    <div class="deck-service">
+      <div class="deck-service-icon">☁️</div>
+      <div>
+        <div class="deck-service-title">Cloud Architecture, Kubernetes & DevOps</div>
+        <div class="deck-service-desc">Multi-Cloud deployments (AWS/Azure/GCP), CI/CD pipelines, container orchestration, microservices decoupling, automated failover and 99.99% SLA.</div>
+      </div>
+    </div>
+    <div class="deck-service">
+      <div class="deck-service-icon">💼</div>
+      <div>
+        <div class="deck-service-title">ERP Engineering & Automated Tax (BTW/VAT/IFRS)</div>
+        <div class="deck-service-desc">Custom ERP & Odoo implementations compliant with Dutch Belastingdienst (BTW 21%), GCC VAT, automated multi-currency invoicing and banking integrations (iDEAL, SEPA, Stripe).</div>
+      </div>
+    </div>
+    <div class="deck-service">
+      <div class="deck-service-icon">🤖</div>
+      <div>
+        <div class="deck-service-title">Custom AI & Intelligent Automation</div>
+        <div class="deck-service-desc">RAG pipelines, predictive analytics models for logistics and cash-flow forecasting, enterprise NLP agents, and automated reconciliation bots.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="deck-section">
+    <h2>👥 Co-Founders & Executive Leadership</h2>
     <div class="deck-leaders">
       <div class="deck-leader">
         <div class="deck-leader-name">Eng. Mohammad Salim Aziza</div>
-        <div class="deck-leader-role">Co-Founder · CTO & Cloud Architect</div>
-        <p style="font-size:0.76rem;color:rgba(255,255,255,0.5);margin-top:8px;line-height:1.5;">10+ years designing mission-critical cloud infrastructures for enterprise clients across EU & Middle East. Expert in AWS, Azure, GCP, Kubernetes & Microservices.</p>
+        <div class="deck-leader-role">Co-Founder · CTO & Lead Cloud Systems Architect</div>
+        <p style="font-size:0.74rem;color:rgba(255,255,255,0.6);margin-top:6px;line-height:1.45;">10+ years engineering cloud infrastructures across EU and the Middle East. Expert in AWS, Azure, GCP, Kubernetes, high-concurrency microservices, and system resilience.</p>
       </div>
       <div class="deck-leader">
         <div class="deck-leader-name">Mr. Mohammad Raed Kaakeh</div>
-        <div class="deck-leader-role">Co-Founder · CFO & ERP Architect</div>
-        <p style="font-size:0.76rem;color:rgba(255,255,255,0.5);margin-top:8px;line-height:1.5;">Specialist in financial systems architecture, EU tax compliance (BTW/VAT), IFRS reporting, and multi-jurisdiction financial operations across 10+ countries.</p>
+        <div class="deck-leader-role">Co-Founder · CFO & Lead Financial ERP Architect</div>
+        <p style="font-size:0.74rem;color:rgba(255,255,255,0.6);margin-top:6px;line-height:1.45;">Senior financial architect specializing in EU corporate tax (BTW/VAT), IFRS accounting standards, cross-border multi-currency fiscal workflows, and ERP optimization.</p>
       </div>
     </div>
   </div>
+
   <div class="deck-section">
-    <h2>📍 Headquarters & Contact</h2>
+    <h2>📍 Headquarters & Direct Inquiries</h2>
     <div class="deck-contact">
-      <div class="deck-contact-item">📍<br>Netherlands (EU HQ)<br>Middle East Operations</div>
-      <div class="deck-contact-item">📱<br>WhatsApp<br>+31 6 87764998</div>
+      <div class="deck-contact-item">🏢<br>Netherlands HQ (Amsterdam)<br>Middle East Regional Ops</div>
+      <div class="deck-contact-item">📱<br>WhatsApp Direct<br>+31 6 87764998</div>
       <div class="deck-contact-item">🌐<br>coresync.solutions<br>info@coresync.solutions</div>
     </div>
-    <p style="text-align:center;margin-top:20px;font-size:0.72rem;color:rgba(255,255,255,0.3);">This document is confidential. © 2026 S&R CoreSync Solutions B.V. All rights reserved.</p>
+    <p style="text-align:center;margin-top:14px;font-size:0.7rem;color:rgba(255,255,255,0.35);">
+      This document is confidential and proprietary to S&R CoreSync Solutions B.V. Generated on ${new Date().toLocaleDateString('ar', { dateStyle: 'full' })}.
+    </p>
   </div>
 </div>
-</body></html>`;
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    // 1. TCO Bar Chart
+    const ctxTCO = document.getElementById('chartTCO');
+    if (ctxTCO) {
+      new Chart(ctxTCO, {
+        type: 'bar',
+        data: {
+          labels: ['السنة 1', 'السنة 2', 'السنة 3'],
+          datasets: [
+            { label: 'البنية التقليدية (Legacy)', data: [58000, 62000, 67000], backgroundColor: 'rgba(239, 68, 68, 0.65)' },
+            { label: 'مع CoreSync Cloud', data: [24000, 25500, 27000], backgroundColor: 'rgba(16, 185, 129, 0.75)' }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { labels: { color: '#ffffff', font: { size: 10 } } } },
+          scales: {
+            x: { ticks: { color: '#cccccc' }, grid: { color: 'rgba(255,255,255,0.06)' } },
+            y: { ticks: { color: '#cccccc' }, grid: { color: 'rgba(255,255,255,0.06)' } }
+          }
+        }
+      });
+    }
+
+    // 2. Radar Chart
+    const ctxRadar = document.getElementById('chartRadar');
+    if (ctxRadar) {
+      new Chart(ctxRadar, {
+        type: 'radar',
+        data: {
+          labels: ['الحوسبة السحابية', 'أنظمة ERP', 'الذكاء الاصطناعي', 'الأمان والتوافق', 'كفاءة التكلفة'],
+          datasets: [{
+            label: 'مؤشر CoreSync',
+            data: [99, 96, 94, 98, 95],
+            backgroundColor: 'rgba(197, 168, 128, 0.25)',
+            borderColor: '#c5a880',
+            pointBackgroundColor: '#f3dfba'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { labels: { color: '#ffffff', font: { size: 10 } } } },
+          scales: {
+            r: {
+              grid: { color: 'rgba(255,255,255,0.1)' },
+              ticks: { display: false },
+              pointLabels: { color: '#ffffff', font: { size: 9 } }
+            }
+          }
+        }
+      });
+    }
+
+    // 3. ROI Line Chart
+    const ctxROI = document.getElementById('chartROI');
+    if (ctxROI) {
+      new Chart(ctxROI, {
+        type: 'line',
+        data: {
+          labels: ['شهر 1', 'شهر 6', 'شهر 12', 'شهر 18', 'شهر 24', 'شهر 30', 'شهر 36'],
+          datasets: [{
+            label: 'الوفر المالي التراكمي المحقق (€)',
+            data: [2500, 18000, 45000, 78000, 115000, 152000, 194000],
+            borderColor: '#10b981',
+            backgroundColor: 'rgba(16, 185, 129, 0.15)',
+            fill: true,
+            tension: 0.35,
+            pointRadius: 4,
+            pointBackgroundColor: '#34d399'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { labels: { color: '#ffffff', font: { size: 10 } } } },
+          scales: {
+            x: { ticks: { color: '#cccccc' }, grid: { color: 'rgba(255,255,255,0.06)' } },
+            y: { ticks: { color: '#cccccc' }, grid: { color: 'rgba(255,255,255,0.06)' } }
+          }
+        }
+      });
+    }
+
+    // Auto print prompt after charts render
+    setTimeout(() => {
+      window.print();
+    }, 1200);
+  });
+<\/script>
+</body>
+</html>`;
 
         const win = window.open('', '_blank');
         if (win) {
             win.document.write(deck);
             win.document.close();
-            setTimeout(() => win.print(), 800);
         }
     };
 
@@ -1414,61 +1975,46 @@
     function injectNextGenButtons() {
         // Inject Tracker button inside the Feedback Hub header if it exists
         const hubHeader = document.querySelector('.es-hub-header');
-        if (hubHeader && !document.getElementById('esTrackerBtn')) {
+        if (hubHeader && !document.getElementById('esHubTrackerBtn')) {
             const btn = document.createElement('button');
-            btn.id = 'esTrackerBtn';
+            btn.id = 'esHubTrackerBtn';
             btn.className = 'btn-tracker-portal';
+            btn.innerHTML = '📡 بوابة العملاء وتتبع المشاريع';
             btn.onclick = window.openTrackerModal;
-            btn.innerHTML = `📡 متابعة مشروعك`;
             hubHeader.appendChild(btn);
         }
 
         // Inject ROI Optimizer button next to Case Studies if present
-        const caseStudyBtns = document.querySelector('.es-case-study-actions');
-        if (caseStudyBtns && !document.getElementById('esROIBtn')) {
+        const caseStudySec = document.querySelector('.es-case-studies-section');
+        if (caseStudySec && !document.getElementById('esRoiOptBtn')) {
             const btn = document.createElement('button');
-            btn.id = 'esROIBtn';
+            btn.id = 'esRoiOptBtn';
             btn.className = 'es-btn-secondary';
+            btn.style.margin = '10px 0';
+            btn.innerHTML = '🚀 محاكي التكلفة السحابية وROI';
             btn.onclick = window.openROIModal;
-            btn.style.marginTop = '10px';
-            btn.innerHTML = `🚀 محسّن التكلفة السحابية`;
-            caseStudyBtns.appendChild(btn);
-        }
-
-        // Inject Currency Switcher into cost estimator summary if present
-        const summaryActions = document.querySelector('.summary-actions');
-        if (summaryActions && !document.getElementById('esCurrencyBar')) {
-            const bar = document.createElement('div');
-            bar.id = 'esCurrencyBar';
-            bar.className = 'es-currency-bar';
-            bar.style.marginBottom = '8px';
-            bar.innerHTML = Object.entries(CURRENCIES).map(([code, c]) =>
-                `<button class="es-currency-btn${code === 'EUR' ? ' active' : ''}" data-currency="${code}" onclick="window.switchCurrency('${code}')">${c.flag} ${code}</button>`
-            ).join('');
-            summaryActions.insertBefore(bar, summaryActions.firstChild);
+            caseStudySec.prepend(btn);
         }
 
         // Inject Executive Deck Download button
-        const floatingHub = document.querySelector('.es-floating-hub-content');
-        if (floatingHub && !document.getElementById('esDeckBtn')) {
+        const heroActions = document.querySelector('.banner-hero-content .box-btn, .banner-hero .box-btn');
+        if (heroActions && !document.getElementById('esExecutiveDeckBtn')) {
             const btn = document.createElement('button');
-            btn.id = 'esDeckBtn';
+            btn.id = 'esExecutiveDeckBtn';
             btn.className = 'es-deck-download-btn';
-            btn.style.width = '100%';
-            btn.style.justifyContent = 'center';
-            btn.style.marginTop = '10px';
+            btn.innerHTML = '<span>📊 تحميل ملف القدرات التنفيذي PDF</span>';
             btn.onclick = window.downloadCapabilityDeck;
-            btn.innerHTML = `📄 تحميل ملف القدرات التنفيذي (PDF)`;
-            floatingHub.appendChild(btn);
+            heroActions.appendChild(btn);
         }
     }
 
     // Override init with extended version
+    window.initEnterpriseSuite = initEnterpriseSuiteExtended;
+
     // Auto-bootstrap
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initEnterpriseSuiteExtended);
     } else {
         initEnterpriseSuiteExtended();
     }
-
 })();

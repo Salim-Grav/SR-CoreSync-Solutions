@@ -4941,7 +4941,7 @@
                                 <span class="dana-price-label">السعر التنافسي الجاذب:</span>
                                 <div class="d-flex align-items-center gap-2">
                                     <span class="dana-price-badge-saving">توفير 35%</span>
-                                    <span class="dana-price-value"><span>€</span>590</span>
+                                    <span class="dana-price-value" data-eur-price="590"><span>€</span>590</span>
                                 </div>
                             </div>
                             <a href="https://wa.me/31687764998?text=%2A%D8%B7%D9%84%D8%A8%20%D8%AE%D8%AF%D9%85%D8%A9%20%D8%A7%D9%84%D9%87%D9%88%D9%8A%D8%A9%20%D8%A7%D9%84%D8%A8%D8%B5%D8%B1%D9%8A%D8%A9%20-%20S%26R%20CoreSync%2A%0A%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%B7%D9%84%D8%A8%20%D8%AA%D8%B5%D9%85%D9%8A%D9%85%20%D9%87%D9%88%D9%8A%D8%A9%20%D8%A8%D8%B5%D8%B1%D9%8A%D8%A9%20%D9%85%D8%AA%D9%83%D8%A7%D9%85%D9%84%D8%A9%20%D8%A8%D8%A7%D9%84%D8%B3%D8%B9%D8%B1%20%D8%A7%D9%84%D8%AA%D9%86%D8%A7%D9%81%D8%B3%D9%8A%20(%E2%82%AC590)" target="_blank" rel="noopener noreferrer" class="dana-whatsapp-cta">
@@ -4979,7 +4979,7 @@
                                 <span class="dana-price-label">السعر التنافسي الجاذب:</span>
                                 <div class="d-flex align-items-center gap-2">
                                     <span class="dana-price-badge-saving">الأكثر طلباً</span>
-                                    <span class="dana-price-value"><span>€</span>980</span>
+                                    <span class="dana-price-value" data-eur-price="980"><span>€</span>980</span>
                                 </div>
                             </div>
                             <a href="https://wa.me/31687764998?text=%2A%D8%B7%D9%84%D8%A8%20%D8%AE%D8%AF%D9%85%D8%A9%20%D8%AA%D8%B5%D9%85%D9%8A%D9%85%20%D8%A7%D9%84%D9%85%D9%88%D8%A7%D9%82%D8%B9%20-%20S%26R%20CoreSync%2A%0A%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%B7%D9%84%D8%A8%20%D8%AA%D8%B5%D9%85%D9%8A%D9%85%20%D9%85%D9%88%D9%82%D8%B9%20%D8%B9%D8%B5%D8%B1%D9%8A%20%D8%B9%D8%A7%D9%84%D9%8A%20%D8%A7%D9%84%D8%A3%D8%AF%D8%A7%D8%A1%20%D8%A8%D8%A7%D9%84%D8%B3%D8%B9%D8%B1%20%D8%A7%D9%84%D8%AA%D9%86%D8%A7%D9%81%D8%B3%D9%8A%20(%E2%82%AC980)" target="_blank" rel="noopener noreferrer" class="dana-whatsapp-cta">
@@ -5017,7 +5017,7 @@
                                 <span class="dana-price-label">السعر التنافسي الجاذب:</span>
                                 <div class="d-flex align-items-center gap-2">
                                     <span class="dana-price-badge-saving">تكامل مالي تام</span>
-                                    <span class="dana-price-value"><span>€</span>1,450</span>
+                                    <span class="dana-price-value" data-eur-price="1450"><span>€</span>1,450</span>
                                 </div>
                             </div>
                             <!-- شارات الثقة لبوابات الدفع الأوروبية المعتمدة -->
@@ -5642,6 +5642,23 @@
                     </h2>
                 </div>
 
+                <!-- Live Currency & VAT Switcher Bar -->
+                <div class="es-currency-bar-pricing">
+                    <div class="es-currency-bar-pricing-left">
+                        <span class="es-currency-bar-title">اختر العملة واحتساب الضريبة:</span>
+                        <div class="es-currency-bar">
+                            <button class="es-currency-btn active" data-currency="EUR" onclick="window.switchCurrency('EUR')">🇪🇺 EUR (€)</button>
+                            <button class="es-currency-btn" data-currency="USD" onclick="window.switchCurrency('USD')">🇺🇸 USD ($)</button>
+                            <button class="es-currency-btn" data-currency="SAR" onclick="window.switchCurrency('SAR')">🇸🇦 SAR (﷼)</button>
+                            <button class="es-currency-btn" data-currency="AED" onclick="window.switchCurrency('AED')">🇦🇪 AED (د.إ)</button>
+                            <button class="es-currency-btn" data-currency="GBP" onclick="window.switchCurrency('GBP')">🇬🇧 GBP (£)</button>
+                        </div>
+                    </div>
+                    <div class="es-pricing-vat-notice">
+                        <span class="es-vat-live-badge">🇳🇱 BTW 21% (NL/EU Tax Compliant)</span>
+                    </div>
+                </div>
+
                 <!-- تبويبات الفئات -->
                 <ul class="pricing-tab_btn" role="tablist" aria-label="اختر فئة الباقات">
                     <li class="nav-tab-item" role="presentation">
@@ -5684,7 +5701,7 @@
                                 <div class="br-line"></div>
                                 <p class="plan-name letter-space--1 fw-medium">Core Starter</p>
                                 <h4 class="plan-price font-latin">
-                                    <span><span class="text-primary gold-accent">€</span><span class="plan-price__amount">1,490</span></span>
+                                    <span><span class="text-primary gold-accent">€</span><span class="plan-price__amount" data-eur-price="1490">1,490</span></span>
                                     <span class="text-body-2 fw-normal text-white-64 letter-space--1">/ للمشروع</span>
                                 </h4>
                                 <p class="plan-desc text-white-64">
@@ -5720,7 +5737,7 @@
                                 <div class="br-line bg-primary br-line-gold"></div>
                                 <p class="plan-name letter-space--1 fw-medium">Enterprise Growth</p>
                                 <h4 class="plan-price font-latin">
-                                    <span><span class="text-primary gold-accent">€</span><span class="plan-price__amount">2,890</span></span>
+                                    <span><span class="text-primary gold-accent">€</span><span class="plan-price__amount" data-eur-price="2890">2,890</span></span>
                                     <span class="text-body-2 fw-normal text-white-64 letter-space--1">/ للمشروع</span>
                                 </h4>
                                 <p class="plan-desc text-white-64">
@@ -5747,7 +5764,7 @@
                                 <div class="br-line bg-white"></div>
                                 <p class="plan-name letter-space--1 fw-medium">Core MAX Synergy</p>
                                 <h4 class="plan-price font-latin">
-                                    <span><span class="text-primary gold-accent">€</span><span class="plan-price__amount">4,990</span></span>
+                                    <span><span class="text-primary gold-accent">€</span><span class="plan-price__amount" data-eur-price="4990">4,990</span></span>
                                     <span class="text-body-2 fw-normal text-white-64 letter-space--1">/ للمشروع</span>
                                 </h4>
                                 <p class="plan-desc text-white-64">
@@ -5778,7 +5795,7 @@
                                 <div class="br-line"></div>
                                 <p class="plan-name letter-space--1 fw-medium">ERP Setup</p>
                                 <h4 class="plan-price font-latin">
-                                    <span><span class="text-primary gold-accent">€</span><span class="plan-price__amount">1,890</span></span>
+                                    <span><span class="text-primary gold-accent">€</span><span class="plan-price__amount" data-eur-price="1890">1,890</span></span>
                                     <span class="text-body-2 fw-normal text-white-64 letter-space--1">/ للمشروع</span>
                                 </h4>
                                 <p class="plan-desc text-white-64">تهيئة وربط نظام الـ ERP الأساسي وتوحيد شجرة الحسابات</p>
@@ -5797,7 +5814,7 @@
                                 <div class="br-line bg-primary br-line-gold"></div>
                                 <p class="plan-name letter-space--1 fw-medium">Full ERP Sync</p>
                                 <h4 class="plan-price font-latin">
-                                    <span><span class="text-primary gold-accent">€</span><span class="plan-price__amount">3,490</span></span>
+                                    <span><span class="text-primary gold-accent">€</span><span class="plan-price__amount" data-eur-price="3490">3,490</span></span>
                                     <span class="text-body-2 fw-normal text-white-64 letter-space--1">/ للمشروع</span>
                                 </h4>
                                 <p class="plan-desc text-white-64">تكامل ERP شامل يشمل سلاسل الإمداد، الرواتب، والبنوك</p>
@@ -5814,7 +5831,7 @@
                                 <div class="br-line bg-white"></div>
                                 <p class="plan-name letter-space--1 fw-medium">Custom ERP Ecosystem</p>
                                 <h4 class="plan-price font-latin">
-                                    <span><span class="text-primary gold-accent">€</span><span class="plan-price__amount">5,990</span></span>
+                                    <span><span class="text-primary gold-accent">€</span><span class="plan-price__amount" data-eur-price="5990">5,990</span></span>
                                     <span class="text-body-2 fw-normal text-white-64 letter-space--1">/ للمشروع</span>
                                 </h4>
                                 <p class="plan-desc text-white-64">بناء نظام ERP مخصص من الصفر وفق دورة عمل شركتك بدقة</p>
@@ -5836,7 +5853,7 @@
                                 <div class="br-line"></div>
                                 <p class="plan-name letter-space--1 fw-medium">Security & Audit</p>
                                 <h4 class="plan-price font-latin">
-                                    <span><span class="text-primary gold-accent">€</span><span class="plan-price__amount">490</span></span>
+                                    <span><span class="text-primary gold-accent">€</span><span class="plan-price__amount" data-eur-price="490">490</span></span>
                                     <span class="text-body-2 fw-normal text-white-64 letter-space--1">/ فحص شامل</span>
                                 </h4>
                                 <p class="plan-desc text-white-64">فحص أمني وبرمجي ومالي شامل لكشف الثغرات وتحسين سرعة النظام</p>
@@ -5847,7 +5864,7 @@
                                 <div class="br-line bg-primary br-line-gold"></div>
                                 <p class="plan-name letter-space--1 fw-medium">CoreCare Monthly</p>
                                 <h4 class="plan-price font-latin">
-                                    <span><span class="text-primary gold-accent">€</span><span class="plan-price__amount">149</span></span>
+                                    <span><span class="text-primary gold-accent">€</span><span class="plan-price__amount" data-eur-price="149">149</span></span>
                                     <span class="text-body-2 fw-normal text-white-64 letter-space--1">/ شهريًا</span>
                                 </h4>
                                 <p class="plan-desc text-white-64">إدارة سحابية، نسخ احتياطي يومي، ومراقبة أداء 24/7 مع دعم فوري</p>
@@ -5865,7 +5882,7 @@
                                 <div class="br-line"></div>
                                 <p class="plan-name letter-space--1 fw-medium">الهوية البصرية المتكاملة</p>
                                 <h4 class="plan-price font-latin">
-                                    <span><span class="text-primary gold-accent">€</span><span class="plan-price__amount">590</span></span>
+                                    <span><span class="text-primary gold-accent">€</span><span class="plan-price__amount" data-eur-price="590">590</span></span>
                                     <span class="text-body-2 fw-normal text-white-64 letter-space--1">/ للمشروع</span>
                                 </h4>
                                 <p class="plan-desc text-white-64">
@@ -5901,7 +5918,7 @@
                                 <div class="br-line bg-primary br-line-gold"></div>
                                 <p class="plan-name letter-space--1 fw-medium">المواقع الفاخرة عالية الأداء</p>
                                 <h4 class="plan-price font-latin">
-                                    <span><span class="text-primary gold-accent">€</span><span class="plan-price__amount">980</span></span>
+                                    <span><span class="text-primary gold-accent">€</span><span class="plan-price__amount" data-eur-price="980">980</span></span>
                                     <span class="text-body-2 fw-normal text-white-64 letter-space--1">/ للمشروع</span>
                                 </h4>
                                 <p class="plan-desc text-white-64">
@@ -5928,7 +5945,7 @@
                                 <div class="br-line bg-white"></div>
                                 <p class="plan-name letter-space--1 fw-medium">المتجر الإلكتروني المتكامل</p>
                                 <h4 class="plan-price font-latin">
-                                    <span><span class="text-primary gold-accent">€</span><span class="plan-price__amount">1,450</span></span>
+                                    <span><span class="text-primary gold-accent">€</span><span class="plan-price__amount" data-eur-price="1450">1,450</span></span>
                                     <span class="text-body-2 fw-normal text-white-64 letter-space--1">/ للمشروع</span>
                                 </h4>
                                 <p class="plan-desc text-white-64">
@@ -5958,8 +5975,8 @@
                                 </div>
                                 <div class="d-flex flex-column align-items-end gap-2 flex-shrink-0">
                                     <div class="dana-price-value text-white" style="font-size: 1.6rem;">
-                                        <span class="text-white-64 text-decoration-line-through fs-6 me-2">€3,020</span>
-                                        <span>€1,990</span>
+                                        <span class="text-white-64 text-decoration-line-through fs-6 me-2" data-eur-price="3020">€3,020</span>
+                                        <span data-eur-price="1990">€1,990</span>
                                     </div>
                                     <a href="https://wa.me/31687764998?text=%2A%D8%B7%D9%84%D8%A8%20%D8%A8%D8%A7%D9%82%D8%A9%20%D8%A7%D9%84%D8%A7%D9%86%D8%B7%D9%84%D8%A7%D9%82%D8%A9%20%D8%A7%D9%84%D8%B4%D8%A7%D9%85%D9%84%D8%A9%20All-in-One%20(%E2%82%AC1,990)%20-%20S%26R%20CoreSync%2A" target="_blank" rel="noopener noreferrer" class="dana-whatsapp-cta">
                                         <span>احجز عرض الانطلاقة الشاملة (€1,990)</span>
