@@ -7268,132 +7268,258 @@
         }
 
         // ==========================================
-        // 1. حاسبة العائد على الاستثمار التفاعلية (ROI Calculator Engine)
+        // 1. نظام حجز استشارات VIP (VIP Executive Booking Modal)
         // ==========================================
-        function updateROICalculator() {
-            const teamSizeInput = document.getElementById('roiCompanySize');
-            const manualHoursInput = document.getElementById('roiManualHours');
-            const avgSalaryInput = document.getElementById('roiAvgSalary');
-            const solutionTypeInput = document.getElementById('roiSolutionType');
-
-            if (!teamSizeInput || !manualHoursInput || !avgSalaryInput || !solutionTypeInput) return;
-
-            const teamSize = parseInt(teamSizeInput.value, 10);
-            const manualHours = parseInt(manualHoursInput.value, 10);
-            const avgSalary = parseFloat(avgSalaryInput.value);
-            const efficiencyFactor = parseFloat(solutionTypeInput.value);
-
-            // تحديث شارات القيم
-            const teamSizeVal = document.getElementById('roiCompanySizeVal');
-            const manualHoursVal = document.getElementById('roiManualHoursVal');
-            const avgSalaryVal = document.getElementById('roiAvgSalaryVal');
-
-            if (teamSizeVal) teamSizeVal.textContent = teamSize + ' موظف';
-            if (manualHoursVal) manualHoursVal.textContent = manualHours + ' ساعات / أسبوع';
-            if (avgSalaryVal) avgSalaryVal.textContent = '€' + avgSalary + ' / ساعة';
-
-            // حساب الساعات السنوية المهدرة = teamSize * manualHours * 52 أسابيع
-            const totalHoursPerYear = teamSize * manualHours * 52;
-            const hoursSaved = Math.round(totalHoursPerYear * efficiencyFactor);
-            
-            // حساب التكلفة السنوية الموفرة = hoursSaved * avgSalary
-            const annualSavings = Math.round(hoursSaved * avgSalary);
-
-            // حساب سرعة استرداد التكلفة (تقدير متوسط تكلفة النظام 4,500 يورو)
-            const estimatedDevCost = 4500;
-            const monthlySavings = annualSavings / 12;
-            const paybackMonths = monthlySavings > 0 ? (estimatedDevCost / monthlySavings).toFixed(1) : 1.5;
-
-            // تحديث النتائج في الشاشة
-            const annualSavingsEl = document.getElementById('roiAnnualSavings');
-            const paybackMonthsEl = document.getElementById('roiPaybackMonths');
-            const hoursSavedEl = document.getElementById('roiHoursSaved');
-            const efficiencyGainEl = document.getElementById('roiEfficiencyGain');
-
-            if (annualSavingsEl) {
-                annualSavingsEl.innerHTML = `<span>€</span>${annualSavings.toLocaleString('en-US')}`;
-            }
-            if (paybackMonthsEl) {
-                paybackMonthsEl.textContent = paybackMonths + ' شهر';
-            }
-            if (hoursSavedEl) {
-                hoursSavedEl.innerHTML = `${hoursSaved.toLocaleString('en-US')} <span>ساعة/سنة</span>`;
-            }
-            if (efficiencyGainEl) {
-                efficiencyGainEl.innerHTML = `+<span>${Math.round(efficiencyFactor * 100)}%</span>`;
-            }
-        }
-
-        // ==========================================
-        // 2. إدارة نافذة حجز الاستشارات التنفيذية VIP
-        // ==========================================
-        function openExecutiveBookingModal(source) {
+        function openExecutiveBookingModal(advisor = 'stage') {
             const modal = document.getElementById('executiveBookingModal');
-            if (modal) {
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
-                
-                // تحديد تاريخ الغد كأقرب موعد تلقائي
-                const dateInput = document.getElementById('vipDate');
-                if (dateInput && !dateInput.value) {
-                    const tomorrow = new Date();
-                    tomorrow.setDate(tomorrow.getDate() + 1);
-                    dateInput.value = tomorrow.toISOString().split('T')[0];
-                }
+            if (!modal) return;
+            if (advisor === 'stage') {
+                advisor = (typeof currentExecFounder !== 'undefined' ? currentExecFounder : 'salim');
             }
+            selectBookingAdvisor(advisor);
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
         }
 
         function closeExecutiveBookingModal() {
             const modal = document.getElementById('executiveBookingModal');
-            if (modal) {
+            if (modal && modal.classList.contains('active')) {
                 modal.classList.remove('active');
                 document.body.style.overflow = '';
                 if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('close');
             }
         }
 
-        function selectAdvisor(type, el) {
-            document.querySelectorAll('.advisor-select-card').forEach(card => card.classList.remove('active'));
-            if (el) el.classList.add('active');
+        function selectBookingAdvisor(advisor) {
+            const field = document.getElementById('selectedAdvisorField');
+            if (field) field.value = advisor;
 
-            const hiddenInput = document.getElementById('selectedAdvisorInput');
-            if (hiddenInput) {
-                if (type === 'salim') {
-                    hiddenInput.value = 'م. محمد سليم عزيزة (CTO - تقني وAI)';
-                } else if (type === 'raed') {
-                    hiddenInput.value = 'أ. محمد رائد كعكة (CFO - مالي وERP)';
-                } else {
-                    hiddenInput.value = 'جلسة استشارية مشتركة (S & R - تقني ومالي)';
-                }
-            }
+            const btnSalim = document.getElementById('advisorBtnSalim');
+            const btnRaed = document.getElementById('advisorBtnRaed');
+            const btnBoth = document.getElementById('advisorBtnBoth');
+
+            if (btnSalim) btnSalim.classList.toggle('active', advisor === 'salim');
+            if (btnRaed) btnRaed.classList.toggle('active', advisor === 'raed');
+            if (btnBoth) btnBoth.classList.toggle('active', advisor === 'both');
+
             if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('switch');
         }
 
-        function dispatchVIPBooking(event) {
-            event.preventDefault();
-            const advisor = document.getElementById('selectedAdvisorInput').value;
-            const name = document.getElementById('vipName').value;
-            const company = document.getElementById('vipCompany').value;
-            const phone = document.getElementById('vipPhone').value;
-            const platform = document.getElementById('vipPlatform').value;
-            const date = document.getElementById('vipDate').value;
-            const time = document.getElementById('vipTime').value;
+        function selectAdvisor(type, el) {
+            selectBookingAdvisor(type);
+        }
 
-            const text = `*طلب حجز استشارة تنفيذية VIP - S%26R CoreSync*%0A%0A` +
-                         `*المستشار المطلوب:* ${encodeURIComponent(advisor)}%0A` +
-                         `*العميل:* ${encodeURIComponent(name)}%0A` +
-                         `*الشركة:* ${encodeURIComponent(company)}%0A` +
-                         `*الهاتف/واتساب:* ${encodeURIComponent(phone)}%0A` +
-                         `*قناة الاجتماع:* ${encodeURIComponent(platform)}%0A` +
-                         `*الموعد المقترح:* ${encodeURIComponent(date)} في ${encodeURIComponent(time)}%0A%0A` +
-                         `_تم إرسال الطلب عبر المنصة الرسمية._`;
+        function submitExecutiveBooking(e) {
+            if (e && e.preventDefault) e.preventDefault();
+            const advisor = document.getElementById('selectedAdvisorField') ? document.getElementById('selectedAdvisorField').value : 'salim';
+            const clientName = document.getElementById('bookingClientName') ? document.getElementById('bookingClientName').value.trim() : '';
+            const companyName = document.getElementById('bookingCompanyName') ? document.getElementById('bookingCompanyName').value.trim() : '';
+            const phone = document.getElementById('bookingPhone') ? document.getElementById('bookingPhone').value.trim() : '';
+            const sessionType = document.getElementById('bookingSessionType') ? document.getElementById('bookingSessionType').value : 'online';
+            const notes = document.getElementById('bookingNotes') ? document.getElementById('bookingNotes').value.trim() : '';
+
+            let advisorName = 'م. محمد سليم عزيزة (CTO)';
+            if (advisor === 'raed') advisorName = 'أ. محمد رائد كعكة (CFO)';
+            if (advisor === 'both') advisorName = 'كلا الشريكين المؤسسين (جلسة مشتركة سليم & رائد)';
+
+            let sessionLabel = 'اجتماع مرئي مباشر (Google Meet / Teams)';
+            if (sessionType === 'phone') sessionLabel = 'اتصال هاتفي مباشر عبر الواتساب';
+            if (sessionType === 'office') sessionLabel = 'استشارة حضورية بمقر المؤسسة';
+
+            let msg = `*طلب استشارة تنفيذية VIP - S&R CoreSync Solutions*\n` +
+                      `━━━━━━━━━━━━━━━━━━━━\n` +
+                      `👤 *صاحب القرار:* ${clientName || 'غير محدد'}\n` +
+                      `🏢 *الشركة:* ${companyName || 'غير محدد'}\n` +
+                      `📞 *رقم الاتصال:* ${phone || 'غير محدد'}\n` +
+                      `👔 *المستشار المطلوب:* ${advisorName}\n` +
+                      `📅 *نوع الجلسة:* ${sessionLabel}\n`;
+
+            if (notes) {
+                msg += `📝 *محاور الاستشارة:* ${notes}\n`;
+            }
+            msg += `━━━━━━━━━━━━━━━━━━━━\n` +
+                   `_تم إرسال الطلب عبر البوابة التنفيذية المباشرة للموقع_`;
 
             if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
-            alert('تم تأكيد طلب الموعد بنجاح! سيتم تحويلك الآن إلى واتساب الإدارة التنفيذية لتأكيد تفاصيل الرابط.');
-            window.open(`https://wa.me/31612345678?text=${text}`, '_blank');
+            alert('تم تسجيل طلب الموعد بنجاح! سيتم تحويلك الآن إلى واتساب الإدارة التنفيذية المباشرة لتأكيد الموعد.');
+            const whatsappUrl = `https://wa.me/31687764998?text=${encodeURIComponent(msg)}`;
             closeExecutiveBookingModal();
+            window.open(whatsappUrl, '_blank');
         }
+
+        function dispatchVIPBooking(e) {
+            submitExecutiveBooking(e);
+        }
+
+        // ==========================================
+        // 2. حاسبة التوفير والعائد الاستثماري (Interactive ROI Calculator)
+        // ==========================================
+        let calculatedRoiData = { annualSavings: 19500, hoursSaved: 96, costMonthly: 6500, teamSize: 12 };
+
+        function openRoiCalculatorModal() {
+            const modal = document.getElementById('roiCalculatorModal');
+            if (!modal) return;
+            updateRoiCalc();
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
+        }
+
+        function closeRoiCalculatorModal() {
+            const modal = document.getElementById('roiCalculatorModal');
+            if (modal && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+                if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('close');
+            }
+        }
+
+        function updateRoiCalc() {
+            const costRange = document.getElementById('roiCostRange');
+            const teamRange = document.getElementById('roiTeamRange');
+            const systemSelect = document.getElementById('roiSystemLevel');
+
+            if (!costRange || !teamRange || !systemSelect) return;
+
+            const cost = parseInt(costRange.value, 10);
+            const team = parseInt(teamRange.value, 10);
+            const factor = parseFloat(systemSelect.value);
+
+            const costDisp = document.getElementById('roiCostDisplay');
+            const teamDisp = document.getElementById('roiTeamDisplay');
+            if (costDisp) costDisp.textContent = `€ ${cost.toLocaleString()}`;
+            if (teamDisp) teamDisp.textContent = `${team} موظف`;
+
+            // الحسابات الذكية
+            const annualCost = cost * 12;
+            const annualSavings = Math.round(annualCost * factor);
+            const hoursMonthly = Math.round(team * 16 * factor);
+            const efficiencyGain = Math.round(factor * 115);
+            const multiplier = (factor * 11.2).toFixed(1);
+
+            calculatedRoiData = {
+                annualSavings,
+                hoursSaved: hoursMonthly,
+                costMonthly: cost,
+                teamSize: team
+            };
+
+            const savingsEl = document.getElementById('roiAnnualSavings');
+            const hoursEl = document.getElementById('roiHoursSaved');
+            const effEl = document.getElementById('roiEfficiency');
+            const multiEl = document.getElementById('roiMultiplier');
+
+            if (savingsEl) savingsEl.textContent = `€ ${annualSavings.toLocaleString()}`;
+            if (hoursEl) hoursEl.textContent = `${hoursMonthly} ساعة`;
+            if (effEl) effEl.textContent = `+ ${efficiencyGain}%`;
+            if (multiEl) multiEl.textContent = `${multiplier}x`;
+        }
+
+        function applyRoiToConsultation() {
+            closeRoiCalculatorModal();
+            openExecutiveBookingModal('both');
+            const notesEl = document.getElementById('bookingNotes');
+            if (notesEl) {
+                notesEl.value = `نتائج حاسبة التوفير ROI التقديرية: تكلفة شهرية €${calculatedRoiData.costMonthly.toLocaleString()}، فريق عمل ${calculatedRoiData.teamSize} موظف، توفير سنوي متوقع €${calculatedRoiData.annualSavings.toLocaleString()}، توفير ${calculatedRoiData.hoursSaved} ساعة شهرياً. نود مناقشة تفاصيل خطة التوفير والأتمتة لشركتنا.`;
+            }
+        }
+
+        // ==========================================
+        // 3. نافذة العرض الحي السريع للنظام (Live Demo Quick Showcase Modal)
+        // ==========================================
+        const DEMO_TAB_CONTENTS = {
+            erp: {
+                title: 'منظومة إدارة الموارد المحاسبية والمالية الذكية (S&R Cloud ERP)',
+                desc: 'ربط مالي ومحاسبي شامل متوافق بالكامل مع معايير IFRS والأنظمة الضريبية الأوروبية والخليجية.',
+                features: [
+                    '✓ فوترة ذكية مؤتمتة متوافقة مع الفاتورة الإلكترونية الأوروبية والخليجية (ZATCA / EU Peppol).',
+                    '✓ كشف تدفقات نقدية لحظي (Real-Time Cash Flow) وتقارير أرباح وخسائر تنبؤية.',
+                    '✓ إدارة المخزون، الموردين، والمبيعات متعددة العملات مع ترحيل قيود أوتوماتيكي بنسبة خطأ 0%.'
+                ],
+                metric: 'دقة ترحيل 99.98% • توفير 35+ ساعة عمل إدارية أسبوعياً'
+            },
+            cloud: {
+                title: 'هندسة البنية السحابية وأتمتة الذكاء الاصطناعي (Cloud & AI Core)',
+                desc: 'منصات سحابية مرنة وتطبيقات أعمال متطورة تعمل على خوادم فائقة الأمان والسرعة.',
+                features: [
+                    '✓ وكلاء ذكاء اصطناعي (AI Autonomous Agents) لمعالجة وتحليل الفواتير والمستندات أوتوماتيكياً.',
+                    '✓ بنية تحتية سحابية متقدمة مع توافرية 99.9% وزمن استجابة فائق السرعة أقل من 80ms.',
+                    '✓ تطبيقات ويب وهواتف ذكية فائقة الأداء بواجهات مستخدم عصرية وسهلة الاستخدام.'
+                ],
+                metric: 'زمن استجابة < 80ms • أمان مشفر متعدد الطبقات SSL/TLS'
+            },
+            gov: {
+                title: 'الحوكمة الرقمية، الأمان العالي، والامتثال القانوني (Security & Compliance)',
+                desc: 'حماية متطورة للبيانات المالية وحوكمة دقيقة للصلاحيات والتدقيق المحاسبي.',
+                features: [
+                    '✓ نظام إدارة صلاحيات دقيق (Role-Based Access Control) مع سجل تدقيق غير قابل للتلاعب (Audit Logs).',
+                    '✓ نسخ احتياطي آلي مشفر على خوادم متعددة المناطق الجغرافية لضمان استمرارية الأعمال.',
+                    '✓ تقارير مالية وتدقيق متكاملة وجاهزة للمدققين والمحاسبين القانونيين بضغطة زر.'
+                ],
+                metric: 'متوافق مع قوانين حماية البيانات العامة GDPR • تدقيق محاسبي معتمد'
+            }
+        };
+
+        function openLiveDemoQuickModal() {
+            const modal = document.getElementById('liveDemoQuickModal');
+            if (!modal) return;
+            switchDemoModalTab('erp');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
+        }
+
+        function closeLiveDemoQuickModal() {
+            const modal = document.getElementById('liveDemoQuickModal');
+            if (modal && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+                if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('close');
+            }
+        }
+
+        function switchDemoModalTab(tabKey) {
+            const data = DEMO_TAB_CONTENTS[tabKey];
+            if (!data) return;
+
+            const btnErp = document.getElementById('demoTabBtnErp');
+            const btnCloud = document.getElementById('demoTabBtnCloud');
+            const btnGov = document.getElementById('demoTabBtnGov');
+            const contentBox = document.getElementById('demoTabContent');
+
+            if (btnErp) btnErp.classList.toggle('active', tabKey === 'erp');
+            if (btnCloud) btnCloud.classList.toggle('active', tabKey === 'cloud');
+            if (btnGov) btnGov.classList.toggle('active', tabKey === 'gov');
+
+            if (contentBox) {
+                contentBox.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:8px;">
+                        <h4 style="font-size:1.15rem; font-weight:800; color:#ffffff; margin:0;">${data.title}</h4>
+                        <span style="font-size:0.75rem; background:rgba(197,168,128,0.18); border:1px solid rgba(197,168,128,0.3); color:#f3dfba; padding:3px 10px; border-radius:999px; white-space:nowrap;">جاهز للاختبار</span>
+                    </div>
+                    <p style="font-size:0.88rem; color:rgba(255,255,255,0.75); line-height:1.5; margin:0 0 10px 0;">${data.desc}</p>
+                    <ul class="sr-demo-feature-list">
+                        ${data.features.map(f => `<li class="sr-demo-feature-item"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><span>${f}</span></li>`).join('')}
+                    </ul>
+                    <div style="background:rgba(0,0,0,0.5); border:1px solid rgba(197,168,128,0.25); border-radius:8px; padding:8px 14px; margin-top:8px; display:flex; align-items:center; gap:8px;">
+                        <span style="width:6px; height:6px; border-radius:50%; background:#c5a880;"></span>
+                        <span style="font-size:0.8rem; font-weight:700; color:#f3dfba;">مؤشر الكفاءة: ${data.metric}</span>
+                    </div>
+                `;
+            }
+
+            if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('switch');
+        }
+
+        // ربط مفتاح Escape لإغلاق أي نافذة نشطة
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeExecutiveBookingModal();
+                closeRoiCalculatorModal();
+                closeLiveDemoQuickModal();
+            }
+        });
 
         // ==========================================
         // 3. إدارة نافذة بوابة العملاء (Client Portal Hub)
