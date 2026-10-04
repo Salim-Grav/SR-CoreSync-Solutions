@@ -6466,6 +6466,65 @@
                         "./assets/work-1.webp"
                     ]
                 }
+            ],
+            commerce: [
+                {
+                    id: "aurum",
+                    name: "AURUM Boutique",
+                    subtitle: "متجر إلكتروني فاخر للمنتجات الجلدية والساعات الراقية",
+                    heroImg: "./assets/service-ecommerce-3d.jpg",
+                    tags: ["متجر إلكتروني", "iDEAL · Stripe · Apple Pay", "إدارة مخزون ذكية"],
+                    year: "2026",
+                    client: "AURUM Luxury Goods BV",
+                    type: "متجر إلكتروني متكامل",
+                    loc: "أمستردام، هولندا",
+                    preview: null,
+                    desc: "تصميم وتطوير متجر إلكتروني فاخر بتجربة شراء سلسة على الجوال، مع تكامل كامل لبوابات الدفع الأوروبية (iDEAL وStripe وMollie وApple Pay)، وإدارة مخزون لحظية، وفوترة ضريبية متوافقة مع المعايير الهولندية.",
+                    quote: "ارتفع معدل إتمام الشراء بنسبة 38% في الأشهر الثلاثة الأولى بفضل الدفع السريع والتصميم الواضح.",
+                    gallery: [
+                        "./assets/service-ecommerce-3d.jpg",
+                        "./assets/service-website-3d.jpg",
+                        "./assets/service-identity-3d.jpg"
+                    ]
+                },
+                {
+                    id: "aurelia",
+                    name: "AURELIA London",
+                    subtitle: "هوية بصرية فاخرة ودليل علامة تجارية متكامل",
+                    heroImg: "./assets/service-identity-3d.jpg",
+                    tags: ["شعار وهوية", "دليل العلامة Brand Book", "قرطاسية فاخرة"],
+                    year: "2026",
+                    client: "Aurelia Atelier Ltd",
+                    type: "هوية بصرية متكاملة",
+                    loc: "لندن، المملكة المتحدة",
+                    preview: null,
+                    desc: "بناء هوية بصرية راقية بالأسود والذهبي تشمل الشعار والنظام الطباعي ولوحة الألوان، مع دليل علامة تجارية شامل وتصاميم بطاقات العمل والقرطاسية والتغليف بالطباعة النافرة والرقائق الذهبية.",
+                    quote: "هوية متسقة منحت العلامة حضوراً فاخراً منذ اللحظة الأولى.",
+                    gallery: [
+                        "./assets/service-identity-3d.jpg",
+                        "./assets/service-ecommerce-3d.jpg",
+                        "./assets/service-website-3d.jpg"
+                    ]
+                },
+                {
+                    id: "aurora",
+                    name: "AURORA Wealth",
+                    subtitle: "موقع مؤسسي عالي الأداء ولوحة عملاء تفاعلية",
+                    heroImg: "./assets/service-website-3d.jpg",
+                    tags: ["موقع عالي الأداء", "SEO وسرعة فائقة", "لوحة عملاء"],
+                    year: "2025",
+                    client: "Aurora Wealth Management",
+                    type: "موقع ويب وتحسين أداء",
+                    loc: "زيورخ، سويسرا",
+                    preview: null,
+                    desc: "تصميم موقع مؤسسي متجاوب بالكامل مع لوحة عملاء تعرض المؤشرات المالية لحظياً، وتحسين تقني رفع تقييم الأداء إلى 98/100 مع تهيئة شاملة لمحركات البحث.",
+                    quote: "موقع يبعث على الثقة ويحوّل الزوار إلى عملاء بمعدل تحويل تضاعف مرتين.",
+                    gallery: [
+                        "./assets/service-website-3d.jpg",
+                        "./assets/service-identity-3d.jpg",
+                        "./assets/service-ecommerce-3d.jpg"
+                    ]
+                }
             ]
         };
 
@@ -7277,12 +7336,23 @@
                     </div>
                     <div class="sr-exec-form-group">
                         <label class="sr-exec-label" for="bookingSessionType">نوع الاستشارة / الاجتماع *</label>
-                        <select id="bookingSessionType" class="sr-exec-select">
+                        <select id="bookingSessionType" class="sr-exec-select" onchange="togglePackageField()">
                             <option value="creative">طلب هوية بصرية / موقع ويب / متجر إلكتروني</option>
                             <option value="online">اجتماع مرئي مباشر (Google Meet / Teams)</option>
                             <option value="phone">اتصال هاتفي مباشر عبر الواتساب</option>
                             <option value="office">استشارة حضورية بمقر المؤسسة (أوروبا / هولندا)</option>
                         </select>
+                    </div>
+                    <div class="sr-exec-form-group full-width sr-package-group" id="bookingPackageGroup">
+                        <label class="sr-exec-label" for="bookingPackage">الباقة المستهدفة (اختياري)</label>
+                        <select id="bookingPackage" class="sr-exec-select">
+                            <option value="">لم أحدد بعد — أرغب بالتوجيه والاستشارة</option>
+                            <option value="identity">باقة الهوية البصرية المتكاملة — €590</option>
+                            <option value="website">باقة المواقع الفاخرة عالية الأداء — €980</option>
+                            <option value="store">باقة المتاجر الرقمية المتكاملة — €1,450</option>
+                            <option value="bundle">⭐ باقة الانطلاق الرقمي الشاملة (توفير €1,030) — €1,990</option>
+                        </select>
+                        <span class="sr-package-hint">تحديد الباقة يُسرّع إعداد عرض السعر النهائي وبدء التنفيذ.</span>
                     </div>
                     <div class="sr-exec-form-group">
                         <label class="sr-exec-label" for="bookingPreferredDate">تاريخ الجلسة المفضل (اختياري)</label>
@@ -8002,6 +8072,15 @@
             let sessionLabel = 'اجتماع مرئي مباشر (Google Meet / Teams)';
             if (sessionType === 'phone') sessionLabel = 'اتصال هاتفي مباشر عبر الواتساب';
             if (sessionType === 'creative') sessionLabel = 'استشارة تصميم هوية بصرية / متجر إلكتروني وموقع ويب';
+
+            const pkgMap = {
+                identity: 'باقة الهوية البصرية المتكاملة (€590)',
+                website: 'باقة المواقع الفاخرة عالية الأداء (€980)',
+                store: 'باقة المتاجر الرقمية المتكاملة (€1,450)',
+                bundle: 'باقة الانطلاق الرقمي الشاملة (€1,990 بدلاً من €3,020)'
+            };
+            const pkgEl = document.getElementById('bookingPackage');
+            const pkgLabel = (sessionType === 'creative' && pkgEl && pkgMap[pkgEl.value]) ? pkgMap[pkgEl.value] : '';
             if (sessionType === 'office') sessionLabel = 'استشارة حضورية بمقر المؤسسة';
 
             let timeSlotLabel = 'فترة ظهيرة (13:00 - 15:00 CET)';
@@ -8016,6 +8095,7 @@
                       `📞 *رقم الاتصال:* ${phone || 'غير محدد'}\n` +
                       `👔 *المستشار المطلوب:* ${advisorName}\n` +
                       `📅 *نوع الجلسة:* ${sessionLabel}\n` +
+                      (pkgLabel ? `📦 *الباقة المستهدفة:* ${pkgLabel}\n` : '') +
                       `🗓️ *التاريخ المقترح:* ${preferredDate || 'أقرب موعد متاح'}\n` +
                       `⏰ *الفترة الزمنية المفضلة:* ${timeSlotLabel}\n`;
 
@@ -8034,6 +8114,14 @@
 
         function dispatchVIPBooking(e) {
             submitExecutiveBooking(e);
+        }
+
+        // إظهار / إخفاء حقل الباقة حسب نوع الاستشارة
+        function togglePackageField() {
+            const typeEl = document.getElementById('bookingSessionType');
+            const group = document.getElementById('bookingPackageGroup');
+            if (!typeEl || !group) return;
+            group.classList.toggle('is-hidden', typeEl.value !== 'creative');
         }
 
         // ==========================================
