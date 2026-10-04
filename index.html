@@ -7344,6 +7344,8 @@
             const companyName = document.getElementById('bookingCompanyName') ? document.getElementById('bookingCompanyName').value.trim() : '';
             const phone = document.getElementById('bookingPhone') ? document.getElementById('bookingPhone').value.trim() : '';
             const sessionType = document.getElementById('bookingSessionType') ? document.getElementById('bookingSessionType').value : 'online';
+            const preferredDate = document.getElementById('bookingPreferredDate') ? document.getElementById('bookingPreferredDate').value : '';
+            const timeSlot = document.getElementById('bookingTimeSlot') ? document.getElementById('bookingTimeSlot').value : 'afternoon';
             const notes = document.getElementById('bookingNotes') ? document.getElementById('bookingNotes').value.trim() : '';
 
             let advisorName = 'م. محمد سليم عزيزة (CTO)';
@@ -7354,13 +7356,20 @@
             if (sessionType === 'phone') sessionLabel = 'اتصال هاتفي مباشر عبر الواتساب';
             if (sessionType === 'office') sessionLabel = 'استشارة حضورية بمقر المؤسسة';
 
+            let timeSlotLabel = 'فترة ظهيرة (13:00 - 15:00 CET)';
+            if (timeSlot === 'morning') timeSlotLabel = 'فترة صباحية (10:00 - 12:00 CET)';
+            if (timeSlot === 'evening') timeSlotLabel = 'فترة مسائية (16:00 - 18:00 CET)';
+            if (timeSlot === 'flexible') timeSlotLabel = 'مرن (أقرب موعد متاح لدى المستشار)';
+
             let msg = `*طلب استشارة تنفيذية VIP - S&R CoreSync Solutions*\n` +
                       `━━━━━━━━━━━━━━━━━━━━\n` +
                       `👤 *صاحب القرار:* ${clientName || 'غير محدد'}\n` +
                       `🏢 *الشركة:* ${companyName || 'غير محدد'}\n` +
                       `📞 *رقم الاتصال:* ${phone || 'غير محدد'}\n` +
                       `👔 *المستشار المطلوب:* ${advisorName}\n` +
-                      `📅 *نوع الجلسة:* ${sessionLabel}\n`;
+                      `📅 *نوع الجلسة:* ${sessionLabel}\n` +
+                      `🗓️ *التاريخ المقترح:* ${preferredDate || 'أقرب موعد متاح'}\n` +
+                      `⏰ *الفترة الزمنية المفضلة:* ${timeSlotLabel}\n`;
 
             if (notes) {
                 msg += `📝 *محاور الاستشارة:* ${notes}\n`;
@@ -7369,7 +7378,7 @@
                    `_تم إرسال الطلب عبر البوابة التنفيذية المباشرة للموقع_`;
 
             if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
-            alert('تم تسجيل طلب الموعد بنجاح! سيتم تحويلك الآن إلى واتساب الإدارة التنفيذية المباشرة لتأكيد الموعد.');
+            alert('تم تسجيل طلب الموعد بنجاح! سيتم تحويلك الآن إلى واتساب الإدارة التنفيذية المباشرة لتأكيد الموعد وإرسال دعوة التقويم.');
             const whatsappUrl = `https://wa.me/31687764998?text=${encodeURIComponent(msg)}`;
             closeExecutiveBookingModal();
             window.open(whatsappUrl, '_blank');
@@ -7382,7 +7391,7 @@
         // ==========================================
         // 2. حاسبة التوفير والعائد الاستثماري (Interactive ROI Calculator)
         // ==========================================
-        let calculatedRoiData = { annualSavings: 19500, hoursSaved: 96, costMonthly: 6500, teamSize: 12 };
+        let calculatedRoiData = { annualSavings: 19500, hoursSaved: 96, costMonthly: 6500, teamSize: 12, multiplier: '3.8' };
 
         function openRoiCalculatorModal() {
             const modal = document.getElementById('roiCalculatorModal');
@@ -7429,7 +7438,8 @@
                 annualSavings,
                 hoursSaved: hoursMonthly,
                 costMonthly: cost,
-                teamSize: team
+                teamSize: team,
+                multiplier
             };
 
             const savingsEl = document.getElementById('roiAnnualSavings');
@@ -7443,12 +7453,43 @@
             if (multiEl) multiEl.textContent = `${multiplier}x`;
         }
 
+        function sendRoiDirectWhatsApp() {
+            const msg = `*تقرير دراسة التوفير والعائد الاستثماري (ROI) - S&R CoreSync*\n` +
+                        `━━━━━━━━━━━━━━━━━━━━\n` +
+                        `🏢 *التكلفة التشغيلية الحالية:* € ${calculatedRoiData.costMonthly.toLocaleString()}/شهرياً\n` +
+                        `👥 *حجم الفريق الإداري والمالي:* ${calculatedRoiData.teamSize} موظف\n` +
+                        `💰 *التوفير المالي السنوي المتوقع:* € ${calculatedRoiData.annualSavings.toLocaleString()}\n` +
+                        `⏱️ *الساعات الإدارية المستردة:* ${calculatedRoiData.hoursSaved} ساعة/شهرياً\n` +
+                        `🚀 *مضاعف العائد على الاستثمار:* ${calculatedRoiData.multiplier}x\n` +
+                        `━━━━━━━━━━━━━━━━━━━━\n` +
+                        `_أود مناقشة خطة التدقيق المالي والأتمتة السحابية لشركتنا مع الاستشاري التنفيذي._`;
+            if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
+            window.open(`https://wa.me/31687764998?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function sendRoiDirectEmail() {
+            const subject = encodeURIComponent('طلب تدقيق مالي ودراسة جدوى ROI - S&R CoreSync Solutions');
+            const body = encodeURIComponent(
+                `تحية طيبة فريق S&R CoreSync Solutions،\n\n` +
+                `قمت بحساب مؤشرات التوفير عبر حاسبة الـ ROI على موقعكم وكانت النتائج كالتالي:\n` +
+                `- التكلفة التشغيلية الشهرية: €${calculatedRoiData.costMonthly.toLocaleString()}\n` +
+                `- حجم الفريق: ${calculatedRoiData.teamSize} موظف\n` +
+                `- التوفير السنوي المتوقع: €${calculatedRoiData.annualSavings.toLocaleString()}\n` +
+                `- ساعات العمل المستردة شهرياً: ${calculatedRoiData.hoursSaved} ساعة\n` +
+                `- مضاعف العائد الاستثماري: ${calculatedRoiData.multiplier}x\n\n` +
+                `نرجو التواصل معنا لترتيب جلسة استشارية وتدقيق مالي وسحابي مفصل لشركتنا.\n\n` +
+                `مع خالص التقدير،`
+            );
+            if (typeof LuxuryAudio !== 'undefined') LuxuryAudio.play('open');
+            window.location.href = `mailto:info@coresync-solutions.com?subject=${subject}&body=${body}`;
+        }
+
         function applyRoiToConsultation() {
             closeRoiCalculatorModal();
             openExecutiveBookingModal('both');
             const notesEl = document.getElementById('bookingNotes');
             if (notesEl) {
-                notesEl.value = `نتائج حاسبة التوفير ROI التقديرية: تكلفة شهرية €${calculatedRoiData.costMonthly.toLocaleString()}، فريق عمل ${calculatedRoiData.teamSize} موظف، توفير سنوي متوقع €${calculatedRoiData.annualSavings.toLocaleString()}، توفير ${calculatedRoiData.hoursSaved} ساعة شهرياً. نود مناقشة تفاصيل خطة التوفير والأتمتة لشركتنا.`;
+                notesEl.value = `نتائج حاسبة التوفير ROI التقديرية: تكلفة شهرية €${calculatedRoiData.costMonthly.toLocaleString()}، فريق عمل ${calculatedRoiData.teamSize} موظف، توفير سنوي متوقع €${calculatedRoiData.annualSavings.toLocaleString()}، توفير ${calculatedRoiData.hoursSaved} ساعة شهرياً، عائد ${calculatedRoiData.multiplier}x. نود مناقشة تفاصيل خطة التوفير والأتمتة لشركتنا.`;
             }
         }
 
