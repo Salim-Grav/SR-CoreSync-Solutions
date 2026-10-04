@@ -3345,11 +3345,16 @@
         }
 
         .dana-signature-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: clamp(1.2rem, 2vw, 2rem);
-            margin-bottom: 3.5rem;
-            width: 100%;
+            display: grid !important;
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            gap: clamp(1.2rem, 2vw, 2rem) !important;
+            margin-bottom: 3.5rem !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        .tab-pane.pane-hidden {
+            display: none !important;
         }
 
         .dana-signature-card {
