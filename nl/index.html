@@ -5879,6 +5879,114 @@
                     }
                 }
             });
+        // ==========================================
+        // Executive Solutions Stage Switcher (NL)
+        // ==========================================
+        const EXEC_STAGE_CONFIG_NL = {
+            salim: {
+                badge: 'Chief Cloud & AI Architect & CTO • Beschikbaar voor Enterprise Projecten 2026',
+                title: 'Intelligente Cloudsystemen <span class="exec-gold-accent">&amp; Maatwerk Architectuur</span> voor Uw Onderneming',
+                desc: 'Wij bouwen veerkrachtige cloudsystemen, krachtige webplatformen en geautomatiseerde ERP-architecturen die groei stimuleren in Europa en het Midden-Oosten.',
+                cardRole: 'Chief Technology Officer • Cloud & AI Architectuur',
+                name: 'Ing. Salim Azizah',
+                roleTitle: 'Chief Technology Officer & Cloud Architect',
+                avatar: 'S',
+                chips: [
+                    '✓ Geavanceerde Cloud Architectuur',
+                    '✓ AI &amp; Procesautomatisering',
+                    '✓ Hoogwaardige Webplatformen'
+                ]
+            },
+            raed: {
+                badge: 'Principal Financial & ERP Systems Consultant • CFO • Beschikbaar voor Projecten 2026',
+                title: 'Geavanceerde Financiële Systemen <span class="exec-gold-accent">&amp; Cloud ERP-integratie</span>',
+                desc: 'Nauwkeurige fiscale engineering, geautomatiseerde boekhoudprocessen en robuuste ERP-architecturen die voldoen aan Europese normen (IFRS) en GCC-vereisten.',
+                cardRole: 'Executive Financial Consultant • ERP & Governance Partner',
+                name: 'Dhr. Raed Kaakeh',
+                roleTitle: 'Principal Financial Systems & ERP Consultant & CFO',
+                avatar: 'R',
+                chips: [
+                    '✓ ERP-architectuur & Financiële Governance',
+                    '✓ Geautomatiseerde Boekhoudprocessen',
+                    '✓ Naleving van Europese Normen (IFRS) & GCC'
+                ]
+            }
+        };
+
+        let currentExecFounderNl = 'salim';
+        let execStageTimerNl = null;
+
+        function switchExecStage(target) {
+            if (target === currentExecFounderNl) return;
+            currentExecFounderNl = target;
+
+            const imgSalim = document.getElementById('execVisualImgSalim');
+            const imgRaed = document.getElementById('execVisualImgRaed');
+            const btnSalim = document.getElementById('execBtnSalim');
+            const btnRaed = document.getElementById('execBtnRaed');
+            const badgeText = document.getElementById('execStageBadgeText');
+            const titleEl = document.getElementById('execStageTitle');
+            const descEl = document.getElementById('execStageDesc');
+            const cardRole = document.getElementById('execCardRole');
+            const chipsEl = document.getElementById('execFocusChips');
+            const badgeAvatar = document.getElementById('execVisualBadgeAvatar');
+            const badgeName = document.getElementById('execVisualBadgeName');
+            const badgeTitle = document.getElementById('execVisualBadgeTitle');
+
+            if (imgSalim && imgRaed) {
+                if (target === 'salim') {
+                    imgSalim.classList.add('active');
+                    imgRaed.classList.remove('active');
+                } else {
+                    imgSalim.classList.remove('active');
+                    imgRaed.classList.add('active');
+                }
+            }
+
+            if (btnSalim && btnRaed) {
+                if (target === 'salim') {
+                    btnSalim.classList.add('active');
+                    btnRaed.classList.remove('active');
+                } else {
+                    btnSalim.classList.remove('active');
+                    btnRaed.classList.add('active');
+                }
+            }
+
+            const data = EXEC_STAGE_CONFIG_NL[target];
+            if (data && titleEl && descEl) {
+                titleEl.style.opacity = '0';
+                titleEl.style.transform = 'translateY(6px)';
+                descEl.style.opacity = '0';
+                setTimeout(() => {
+                    if (badgeText) badgeText.textContent = data.badge;
+                    titleEl.innerHTML = data.title;
+                    descEl.innerHTML = data.desc;
+                    if (cardRole) cardRole.textContent = data.cardRole;
+                    if (badgeAvatar) badgeAvatar.textContent = data.avatar;
+                    if (badgeName) badgeName.textContent = data.name;
+                    if (badgeTitle) badgeTitle.textContent = data.roleTitle;
+                    if (chipsEl && Array.isArray(data.chips)) {
+                        chipsEl.innerHTML = data.chips.map(chip => `<span class="exec-chip">${chip}</span>`).join('');
+                    }
+                    titleEl.style.opacity = '1';
+                    titleEl.style.transform = 'translateY(0)';
+                    descEl.style.opacity = '1';
+                }, 180);
+            }
+
+            restartExecTimerNl();
+        }
+
+        function restartExecTimerNl() {
+            if (execStageTimerNl) clearInterval(execStageTimerNl);
+            execStageTimerNl = setInterval(() => {
+                switchExecStage(currentExecFounderNl === 'salim' ? 'raed' : 'salim');
+            }, 8000);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            restartExecTimerNl();
         });
         
     </script>
