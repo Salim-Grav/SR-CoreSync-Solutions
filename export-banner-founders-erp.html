@@ -969,6 +969,198 @@
 
     </section>
 
+    <!-- 1. نافذة حجز استشارة VIP للقيادات التنفيذية (Executive Booking Modal) -->
+    <div class="sr-exec-modal" id="executiveBookingModal" role="dialog" aria-modal="true" aria-labelledby="execBookingTitle">
+        <div class="sr-exec-modal-backdrop" onclick="closeExecutiveBookingModal()"></div>
+        <div class="sr-exec-modal-container">
+            <div class="sr-exec-modal-header">
+                <div>
+                    <div class="sr-exec-modal-badge">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <span>حجز استشارة تنفيذية خاصة (C-Level Advisory)</span>
+                    </div>
+                    <h3 class="sr-exec-modal-title" id="execBookingTitle">جلسة استراتيجية مغلقة مع الشركاء المؤسسين</h3>
+                    <p class="sr-exec-modal-subtitle">حدد مستشارك التنفيذي واطرح تحديات شركتك التقنية والمالية لمناقشتها مباشرة.</p>
+                </div>
+                <button type="button" class="sr-exec-modal-close" onclick="closeExecutiveBookingModal()" aria-label="إغلاق">&times;</button>
+            </div>
+
+            <!-- اختيار المستشار -->
+            <label class="sr-exec-label mb-2 d-block">اختر المستشار التنفيذي المطلوب للجلسة:</label>
+            <div class="sr-advisor-select-grid" role="radiogroup">
+                <button type="button" class="sr-advisor-card-btn active" id="advisorBtnSalim" onclick="selectBookingAdvisor('salim')">
+                    <span class="name">م. محمد سليم عزيزة</span>
+                    <span class="role">كبير مهندسي السحابة والذكاء الاصطناعي // CTO</span>
+                </button>
+                <button type="button" class="sr-advisor-card-btn" id="advisorBtnRaed" onclick="selectBookingAdvisor('raed')">
+                    <span class="name">أ. محمد رائد كعكة</span>
+                    <span class="role">خبير الأنظمة المحاسبية والـ ERP والضرائب // CFO</span>
+                </button>
+                <button type="button" class="sr-advisor-card-btn" id="advisorBtnBoth" onclick="selectBookingAdvisor('both')">
+                    <span class="name">كلا الشريكين معاً (VIP)</span>
+                    <span class="role">جلسة استراتيجية شاملة (هندسة برمجية + حوكمة مالية)</span>
+                </button>
+            </div>
+
+            <!-- حقول الحجز -->
+            <form id="executiveBookingForm" onsubmit="submitExecutiveBooking(event)">
+                <input type="hidden" id="selectedAdvisorField" value="salim" />
+                <div class="sr-exec-form-grid">
+                    <div class="sr-exec-form-group">
+                        <label class="sr-exec-label" for="bookingClientName">اسم المسؤول / صاحب القرار *</label>
+                        <input type="text" id="bookingClientName" class="sr-exec-input" required placeholder="مثال: د. أحمد المنصور" />
+                    </div>
+                    <div class="sr-exec-form-group">
+                        <label class="sr-exec-label" for="bookingCompanyName">اسم الشركة أو المؤسسة *</label>
+                        <input type="text" id="bookingCompanyName" class="sr-exec-input" required placeholder="مثال: مجموعة الآفاق القابضة" />
+                    </div>
+                    <div class="sr-exec-form-group">
+                        <label class="sr-exec-label" for="bookingPhone">رقم الواتساب / الهاتف المباشر *</label>
+                        <input type="tel" id="bookingPhone" class="sr-exec-input" required placeholder="+31 6 ... أو +966 ..." />
+                    </div>
+                    <div class="sr-exec-form-group">
+                        <label class="sr-exec-label" for="bookingSessionType">نوع الاجتماع المفضل *</label>
+                        <select id="bookingSessionType" class="sr-exec-select">
+                            <option value="online">اجتماع مرئي مباشر (Google Meet / Teams)</option>
+                            <option value="phone">اتصال هاتفي مباشر عبر الواتساب</option>
+                            <option value="office">استشارة حضورية بمقر المؤسسة (أوروبا / هولندا)</option>
+                        </select>
+                    </div>
+                    <div class="sr-exec-form-group full-width">
+                        <label class="sr-exec-label" for="bookingNotes">محاور الاستشارة المطلوبة (اختياري)</label>
+                        <textarea id="bookingNotes" class="sr-exec-textarea" rows="2" placeholder="اكتب نبذة مختصرة عن التحدي أو النظام المطلوب..."></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="sr-exec-submit-btn">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+                    <span>تأكيد وإرسال طلب جلسة الـ VIP عبر الواتساب المباشر</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. نافذة حاسبة التوفير والعائد الاستثماري (Interactive ROI Calculator Modal) -->
+    <div class="sr-exec-modal" id="roiCalculatorModal" role="dialog" aria-modal="true" aria-labelledby="roiModalTitle">
+        <div class="sr-exec-modal-backdrop" onclick="closeRoiCalculatorModal()"></div>
+        <div class="sr-exec-modal-container">
+            <div class="sr-exec-modal-header">
+                <div>
+                    <div class="sr-exec-modal-badge">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        <span>حاسبة كفاءة التكاليف والعائد الاستثماري المباشر (ROI)</span>
+                    </div>
+                    <h3 class="sr-exec-modal-title" id="roiModalTitle">حاسبة التوفير المالي وهندسة الكفاءة لشركتك</h3>
+                    <p class="sr-exec-modal-subtitle">حساب فوري تقديري لمقدار التوفير المالي والوقتي السنوي بعد تطبيق حلول S&R CoreSync.</p>
+                </div>
+                <button type="button" class="sr-exec-modal-close" onclick="closeRoiCalculatorModal()" aria-label="إغلاق">&times;</button>
+            </div>
+
+            <div class="sr-roi-inputs-box">
+                <!-- شريط التكلفة الشهرية -->
+                <div class="sr-roi-slider-row">
+                    <div class="sr-roi-slider-header">
+                        <span class="text-white">التكاليف التشغيلية والإدارية والمحاسبية الحالية (شهرياً):</span>
+                        <span class="sr-roi-val-badge" id="roiCostDisplay">€ 6,500</span>
+                    </div>
+                    <input type="range" class="sr-roi-range" id="roiCostRange" min="1000" max="40000" step="500" value="6500" oninput="updateRoiCalc()" />
+                </div>
+
+                <!-- شريط عدد الموظفين -->
+                <div class="sr-roi-slider-row">
+                    <div class="sr-roi-slider-header">
+                        <span class="text-white">حجم فريق العمل الإداري والمالي (عدد الموظفين):</span>
+                        <span class="sr-roi-val-badge" id="roiTeamDisplay">12 موظف</span>
+                    </div>
+                    <input type="range" class="sr-roi-range" id="roiTeamRange" min="2" max="150" step="1" value="12" oninput="updateRoiCalc()" />
+                </div>
+
+                <!-- مستوى الأتمتة الحالي -->
+                <div class="sr-roi-slider-row">
+                    <div class="sr-roi-slider-header">
+                        <span class="text-white">مستوى الأنظمة والأتمتة المعتمد حالياً في شركتك:</span>
+                    </div>
+                    <select id="roiSystemLevel" class="sr-exec-select" onchange="updateRoiCalc()">
+                        <option value="0.36">عمل يدوي أو ملفات Excel مبعثرة (إمكانية توفير قصوى 36%)</option>
+                        <option value="0.25" selected>برامج محاسبية تقليدية غير مترابطة مع السحابة (توفير 25%)</option>
+                        <option value="0.16">نظام سحابي جزئي تنقصه الأتمتة المتقدمة (توفير 16%)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- شبكة نتائج الحساب الفوري -->
+            <div class="sr-roi-results-grid">
+                <div class="sr-roi-metric-card">
+                    <span class="sr-roi-metric-num" id="roiAnnualSavings">€ 19,500</span>
+                    <span class="sr-roi-metric-label">التوفير المالي السنوي المتوقع</span>
+                </div>
+                <div class="sr-roi-metric-card">
+                    <span class="sr-roi-metric-num" id="roiHoursSaved">96 ساعة</span>
+                    <span class="sr-roi-metric-label">ساعات إدارية مستردة شهرياً</span>
+                </div>
+                <div class="sr-roi-metric-card">
+                    <span class="sr-roi-metric-num" id="roiEfficiency">+ 42%</span>
+                    <span class="sr-roi-metric-label">رفع كفاءة وسرعة المعالجة</span>
+                </div>
+                <div class="sr-roi-metric-card">
+                    <span class="sr-roi-metric-num" id="roiMultiplier">3.8x</span>
+                    <span class="sr-roi-metric-label">مضاعف العائد على الاستثمار</span>
+                </div>
+            </div>
+
+            <button type="button" class="sr-exec-submit-btn" onclick="applyRoiToConsultation()">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>طلب تدقيق مالي وسحابي مفصل بالأرقام المحسوبة أعلاه مجاناً</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- 3. نافذة العرض الحي السريع للنظام (Live Demo Quick Showcase Modal) -->
+    <div class="sr-exec-modal" id="liveDemoQuickModal" role="dialog" aria-modal="true" aria-labelledby="liveDemoTitle">
+        <div class="sr-exec-modal-backdrop" onclick="closeLiveDemoQuickModal()"></div>
+        <div class="sr-exec-modal-container">
+            <div class="sr-exec-modal-header">
+                <div>
+                    <div class="sr-exec-modal-badge">
+                        <span class="live-dot" style="width:8px;height:8px;border-radius:50%;background:#e2c8a2;display:inline-block;"></span>
+                        <span>بيئة العرض الحي المباشرة (S&R Interactive Sandbox)</span>
+                    </div>
+                    <h3 class="sr-exec-modal-title" id="liveDemoTitle">استعراض حلول S&R CoreSync السحابية والمحاسبية</h3>
+                    <p class="sr-exec-modal-subtitle">نظرة سريعة على أهم محاور النظام قبل الانتقال للبيئة التجريبية الكاملة.</p>
+                </div>
+                <button type="button" class="sr-exec-modal-close" onclick="closeLiveDemoQuickModal()" aria-label="إغلاق">&times;</button>
+            </div>
+
+            <!-- تبويبات العرض التجريبي -->
+            <div class="sr-demo-tab-list" role="tablist">
+                <button type="button" class="sr-demo-tab-btn active" id="demoTabBtnErp" onclick="switchDemoModalTab('erp')">
+                    📊 منظومة ERP والمحاسبة الذكية (CFO Hub)
+                </button>
+                <button type="button" class="sr-demo-tab-btn" id="demoTabBtnCloud" onclick="switchDemoModalTab('cloud')">
+                    ⚡ المحرك السحابي وأتمتة الذكاء الاصطناعي (CTO Core)
+                </button>
+                <button type="button" class="sr-demo-tab-btn" id="demoTabBtnGov" onclick="switchDemoModalTab('gov')">
+                    🛡️ الامتثال والأمان والربط الضريبي
+                </button>
+            </div>
+
+            <!-- محتويات التبويبات -->
+            <div class="sr-demo-preview-card" id="demoTabContent">
+                <!-- يتم تعبئتها ديناميكياً بواسطة switchDemoModalTab -->
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 1.5rem; flex-wrap: wrap;">
+                <a href="demo.html" class="sr-exec-submit-btn" style="flex: 1; text-decoration: none; margin-top: 0;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 8"/></svg>
+                    <span>دخول بيئة النظام التجريبي التفاعلي الكامل (Full Sandbox)</span>
+                </a>
+                <button type="button" class="sr-exec-btn exec-stage-btn-glass" onclick="closeLiveDemoQuickModal(); openExecutiveBookingModal('both');" style="padding: 12px 20px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(197,168,128,0.3); color: #fff; cursor: pointer;">
+                    <span>طلب جولة حية مخصصة لشركتك</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- محرك التبديل والتشغيل التلقائي -->
     <script>
         const FOUNDERS_CONFIG = {
