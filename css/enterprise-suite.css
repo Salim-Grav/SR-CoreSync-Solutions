@@ -4,6 +4,10 @@
    1. Interactive PDF Quotation Modal & Print Stylesheet
    2. Client Visual Feedback Hub
    3. EU GDPR Cookie Consent Banner
+   4. Executive Meeting Scheduler (Zoom & Live Advisory)
+   5. AI & ERP Digital Readiness Assessment Engine
+   6. Enterprise Case Studies & ROI Hub
+   7. Live Cloud ERP Demo Sandbox CTA
    ========================================================================== */
 
 :root {
@@ -14,6 +18,8 @@
     --es-card-bg: rgba(10, 20, 16, 0.96);
     --es-border-gold: rgba(197, 168, 128, 0.28);
     --es-font-main: 'Plus Jakarta Sans', 'Alexandria', -apple-system, BlinkMacSystemFont, sans-serif;
+    --es-cyan: #38bdf8;
+    --es-emerald: #10b981;
 }
 
 /* ==========================================================================
@@ -332,11 +338,22 @@
    2. Client Visual Feedback Hub
    ========================================================================== */
 
-.es-feedback-fab {
+.es-floating-suite {
     position: fixed;
     bottom: 24px;
     right: 24px;
     z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+[dir="ltr"] .es-floating-suite {
+    right: auto;
+    left: 24px;
+}
+
+.es-feedback-fab {
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -352,13 +369,8 @@
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-[dir="ltr"] .es-feedback-fab {
-    right: auto;
-    left: 24px;
-}
-
 .es-feedback-fab:hover {
-    transform: translateY(-3px) scale(1.03);
+    transform: translateY(-2px) scale(1.02);
     background: var(--es-gold);
     color: #010907;
     box-shadow: 0 14px 40px rgba(197, 168, 128, 0.4);
@@ -378,16 +390,22 @@
     100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
 }
 
-.es-feedback-modal {
+.es-feedback-modal,
+.es-scheduler-modal,
+.es-readiness-modal,
+.es-casestudy-modal {
     background: var(--es-card-bg);
     color: #ffffff;
     width: 100%;
-    max-width: 520px;
+    max-width: 580px;
     border-radius: 18px;
     border: 1px solid var(--es-border-gold);
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85);
     overflow: hidden;
     animation: esModalSlide 0.3s ease;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .es-feedback-header {
@@ -414,6 +432,7 @@
     display: flex;
     flex-direction: column;
     gap: 14px;
+    overflow-y: auto;
 }
 
 .es-input-group label {
@@ -568,20 +587,212 @@
     border-color: rgba(255, 255, 255, 0.4);
 }
 
-@media (max-width: 768px) {
-    .es-gdpr-banner {
-        flex-direction: column;
-        align-items: stretch;
-        bottom: 12px;
-        left: 12px;
-        right: 12px;
-        padding: 16px;
-    }
-    .es-gdpr-actions {
-        width: 100%;
-    }
-    .es-btn-gdpr-accept, .es-btn-gdpr-decline {
-        flex: 1;
-        text-align: center;
-    }
+/* ==========================================================================
+   4. Executive Meeting Scheduler
+   ========================================================================== */
+
+.es-consultant-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.es-consultant-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(197, 168, 128, 0.2);
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.es-consultant-card:hover,
+.es-consultant-card.active {
+    background: rgba(197, 168, 128, 0.15);
+    border-color: var(--es-gold);
+    transform: translateY(-2px);
+}
+
+.es-consultant-name {
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.es-consultant-role {
+    font-size: 0.68rem;
+    color: var(--es-gold-light);
+    margin-top: 2px;
+}
+
+.es-slots-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.es-slot-btn {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(197, 168, 128, 0.2);
+    color: #ffffff;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.es-slot-btn:hover,
+.es-slot-btn.active {
+    background: var(--es-gold);
+    color: #010907;
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   5. AI & ERP Digital Readiness Assessment Engine
+   ========================================================================== */
+
+.es-quiz-progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.es-quiz-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--es-cyan), var(--es-gold));
+    width: 25%;
+    transition: width 0.35s ease;
+}
+
+.es-quiz-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(197, 168, 128, 0.18);
+    border-radius: 10px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: 8px;
+    color: #ffffff;
+    font-size: 0.86rem;
+}
+
+.es-quiz-option:hover {
+    background: rgba(197, 168, 128, 0.12);
+    border-color: var(--es-gold);
+    transform: translateX(-4px);
+}
+
+[dir="ltr"] .es-quiz-option:hover {
+    transform: translateX(4px);
+}
+
+.es-quiz-score-circle {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(197, 168, 128, 0.2) 0%, rgba(10, 20, 16, 0.8) 100%);
+    border: 3px solid var(--es-gold);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    box-shadow: 0 0 25px rgba(197, 168, 128, 0.3);
+}
+
+.es-quiz-score-val {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--es-gold-light);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    line-height: 1;
+}
+
+.es-quiz-score-lbl {
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 4px;
+}
+
+/* ==========================================================================
+   6. Enterprise Case Studies & ROI Hub
+   ========================================================================== */
+
+.es-casestudy-hero {
+    background: linear-gradient(180deg, rgba(197, 168, 128, 0.12), transparent);
+    border-bottom: 1px solid rgba(197, 168, 128, 0.2);
+    padding: 20px;
+}
+
+.es-casestudy-tag {
+    display: inline-block;
+    background: rgba(56, 189, 248, 0.15);
+    border: 1px solid var(--es-cyan);
+    color: var(--es-cyan);
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.es-casestudy-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 14px 0;
+}
+
+.es-casestudy-kpi {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(197, 168, 128, 0.2);
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+.es-casestudy-kpi .val {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--es-gold);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.es-casestudy-kpi .lbl {
+    font-size: 0.68rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 2px;
+}
+
+/* Header Live Demo Pill */
+.btn-live-sandbox-header {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(16, 185, 129, 0.1));
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    color: #e0f2fe !important;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-decoration: none !important;
+    transition: all 0.25s ease;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
+}
+
+.btn-live-sandbox-header:hover {
+    background: var(--es-cyan);
+    color: #010907 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
 }
