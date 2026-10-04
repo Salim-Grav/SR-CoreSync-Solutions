@@ -3375,6 +3375,22 @@
             overflow: hidden;
         }
 
+        /* EU Payment Trust Badges */
+        .dana-payment-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0.35rem 0 0.95rem; }
+        .dana-payment-label { width: 100%; display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 0.2px; }
+        .dana-payment-label svg { color: #6fd39a; }
+        .dana-pay-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(197,168,128,0.26); background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015)); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 700; color: #eadfca; transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease; }
+        .dana-pay-badge:hover { border-color: rgba(197,168,128,0.7); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(197,168,128,0.15); }
+        .dana-pay-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+        .dana-pay-dot.ideal { background: #CC0066; box-shadow: 0 0 6px rgba(204,0,102,0.7); }
+        .dana-pay-dot.stripe { background: #635BFF; box-shadow: 0 0 6px rgba(99,91,255,0.7); }
+        .dana-pay-dot.mollie { background: #ffffff; box-shadow: 0 0 6px rgba(255,255,255,0.6); }
+        /* VIP package selector */
+        .sr-package-group { animation: srPkgReveal 0.35s ease; }
+        .sr-package-group.is-hidden { display: none !important; }
+        .sr-package-hint { display: block; margin-top: 6px; font-size: 11px; color: rgba(197,168,128,0.85); }
+        @keyframes srPkgReveal { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+
         .dana-signature-card:hover {
             border-color: rgba(197, 168, 128, 0.5);
             transform: translateY(-6px);
@@ -3900,6 +3916,16 @@
                                     <span class="dana-price-value"><span>€</span>1,450</span>
                                 </div>
                             </div>
+                            <div class="dana-payment-badges" aria-label="Supported payment gateways">
+                                <span class="dana-payment-label">
+                                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                                    Secure checkout compliant with EU standards (PSD2 / SCA)
+                                </span>
+                                <span class="dana-pay-badge" title="iDEAL"><span class="dana-pay-dot ideal"></span>iDEAL</span>
+                                <span class="dana-pay-badge" title="Stripe"><span class="dana-pay-dot stripe"></span>Stripe</span>
+                                <span class="dana-pay-badge" title="Mollie"><span class="dana-pay-dot mollie"></span>Mollie</span>
+                                <span class="dana-pay-badge" title="Apple Pay"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M16.37 12.6c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.76 2.28-1.6 2.78-.41 6.9 1.150 9.16.76 1.1 1.67 2.34 2.86 2.3 1.15-.05 1.58-.74 2.97-.74 1.38 0 1.77.74 2.98.72 1.23-.02 2.01-1.12 2.76-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.4-.92-2.42-3.66zM14.1 5.84c.63-.77 1.06-1.83.94-2.89-.91.04-2.01.61-2.66 1.37-.58.67-1.09 1.75-.96 2.79 1.02.08 2.05-.52 2.68-1.27z"/></svg>Apple&nbsp;Pay</span>
+                            </div>
                             <a href="https://wa.me/31687764998?text=%2AOrder%20E-Commerce%20Store%20Package%20(%E2%82%AC1,450)%20-%20S%26R%20CoreSync%2A%0AI%20would%20like%20to%20order%20an%20intuitive%20online%20store%20with%20seamless%20checkout." target="_blank" rel="noopener noreferrer" class="dana-whatsapp-cta">
                                 <span>Order via WhatsApp</span>
                                 <svg viewBox="0 0 32 32" width="16" height="16" fill="currentColor"><path d="M16.02 3.2a12.7 12.7 0 0 0-10.95 19.14L3.2 28.8l6.62-1.74A12.8 12.8 0 1 0 16.02 3.2Zm0 23.24a10.48 10.48 0 0 1-5.35-1.46l-.38-.23-3.93 1.03 1.05-3.83-.25-.4a10.5 10.5 0 1 1 8.86 4.89Zm5.76-7.85c-.32-.16-1.9-.94-2.19-1.05-.3-.11-.51-.16-.73.16-.21.32-.83 1.05-1.02 1.26-.19.21-.38.24-.7.08a8.65 8.65 0 0 1-2.55-1.57 9.57 9.57 0 0 1-1.77-2.2c-.18-.32 0-.49.14-.65.14-.14.32-.38.48-.57.16-.19.21-.32.32-.54.1-.21.05-.4-.03-.56-.08-.16-.73-1.75-1-2.39-.26-.62-.53-.54-.73-.55h-.62c-.21 0-.56.08-.86.4-.3.32-1.13 1.1-1.13 2.69s1.16 3.13 1.32 3.35c.16.21 2.27 3.46 5.5 4.85.77.33 1.37.53 1.84.68.77.24 1.47.2 2.03.12.62-.09 1.9-.78 2.17-1.54.27-.75.27-1.4.19-1.54-.08-.13-.3-.21-.62-.37Z"/></svg>
@@ -4112,6 +4138,13 @@
                                 <span class="dot-active" aria-hidden="true"></span>
                                 <svg class="pricing-tab__icon" viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
                                 Smart Apps & AI
+                            </button>
+                        </li>
+                        <li class="nav-tab-item" role="presentation">
+                            <button type="button" role="tab" id="tab-btn-commerce" aria-selected="false" class="tf-btn-tab fw-medium letter-space--1" onclick="switchWorkTab('commerce', this)">
+                                <span class="dot-active" aria-hidden="true"></span>
+                                <svg class="pricing-tab__icon" viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                                Identity & E-Commerce
                             </button>
                         </li>
                     </ul>
@@ -5725,6 +5758,38 @@
                         "../assets/work-1.webp"
                     ]
                 }
+            ],
+            commerce: [
+                {
+                    id: "aurum", name: "AURUM Boutique",
+                    subtitle: "Luxury e-commerce store for leather goods & fine watches",
+                    heroImg: "../assets/service-ecommerce-3d.jpg",
+                    tags: ["E-Commerce Store", "iDEAL · Stripe · Apple Pay", "Smart Inventory"],
+                    year: "2026", client: "AURUM Luxury Goods BV", type: "Full E-Commerce Store", loc: "Amsterdam, Netherlands", preview: null,
+                    desc: "Design and development of a luxury online store with a seamless mobile checkout, full integration of European payment gateways (iDEAL, Stripe, Mollie, Apple Pay), real-time inventory management and Dutch-compliant tax invoicing.",
+                    quote: "Checkout completion rose by 38% in the first three months thanks to fast payments and a clear design.",
+                    gallery: ["../assets/service-ecommerce-3d.jpg", "../assets/service-website-3d.jpg", "../assets/service-identity-3d.jpg"]
+                },
+                {
+                    id: "aurelia", name: "AURELIA London",
+                    subtitle: "Premium visual identity & complete brand guidelines",
+                    heroImg: "../assets/service-identity-3d.jpg",
+                    tags: ["Logo & Identity", "Brand Book", "Luxury Stationery"],
+                    year: "2026", client: "Aurelia Atelier Ltd", type: "Complete Visual Identity", loc: "London, United Kingdom", preview: null,
+                    desc: "A refined black-and-gold identity covering the logo, typography system and colour palette, with a comprehensive brand book plus business cards, stationery and packaging finished with embossing and gold foil.",
+                    quote: "A consistent identity that gave the brand a premium presence from day one.",
+                    gallery: ["../assets/service-identity-3d.jpg", "../assets/service-ecommerce-3d.jpg", "../assets/service-website-3d.jpg"]
+                },
+                {
+                    id: "aurora", name: "AURORA Wealth",
+                    subtitle: "High-performance corporate website & interactive client dashboard",
+                    heroImg: "../assets/service-website-3d.jpg",
+                    tags: ["High-Performance Website", "SEO & Speed", "Client Dashboard"],
+                    year: "2025", client: "Aurora Wealth Management", type: "Website Design & Optimization", loc: "Zurich, Switzerland", preview: null,
+                    desc: "A fully responsive corporate website with a client dashboard showing live financial KPIs, plus technical optimization that lifted the performance score to 98/100 with full search-engine readiness.",
+                    quote: "A website that inspires trust and doubled the visitor-to-client conversion rate.",
+                    gallery: ["../assets/service-website-3d.jpg", "../assets/service-identity-3d.jpg", "../assets/service-ecommerce-3d.jpg"]
+                }
             ]
         };
 
@@ -6150,12 +6215,23 @@
                     </div>
                     <div class="sr-exec-form-group">
                         <label class="sr-exec-label" for="bookingSessionType">Consultation Type / Channel *</label>
-                        <select id="bookingSessionType" class="sr-exec-select">
+                        <select id="bookingSessionType" class="sr-exec-select" onchange="togglePackageField()">
                             <option value="creative">Visual Identity / Website / E-Commerce Store Request</option>
                             <option value="online">Online Video Conference (Google Meet / Teams)</option>
                             <option value="phone">Direct WhatsApp / Phone Call</option>
                             <option value="office">In-Person Consultation (Netherlands / Europe)</option>
                         </select>
+                    </div>
+                    <div class="sr-exec-form-group full-width sr-package-group" id="bookingPackageGroup">
+                        <label class="sr-exec-label" for="bookingPackage">Target Package (Optional)</label>
+                        <select id="bookingPackage" class="sr-exec-select">
+                            <option value="">Not decided yet — I'd like guidance</option>
+                            <option value="identity">Complete Visual Identity — €590</option>
+                            <option value="website">High-Performance Luxury Website — €980</option>
+                            <option value="store">Complete E-Commerce Store — €1,450</option>
+                            <option value="bundle">⭐ All-in-One Digital Growth Bundle (save €1,030) — €1,990</option>
+                        </select>
+                        <span class="sr-package-hint">Selecting a package speeds up your final quote and project kickoff.</span>
                     </div>
                     <div class="sr-exec-form-group">
                         <label class="sr-exec-label" for="bookingPreferredDate">Preferred Date (Optional)</label>
@@ -6782,6 +6858,14 @@
             let sessionLabel = 'Online Video Conference (Google Meet / Teams)';
             if (sessionType === 'phone') sessionLabel = 'Direct WhatsApp Voice Call';
             if (sessionType === 'creative') sessionLabel = 'Visual Identity / Website / E-Commerce Store Request';
+            const pkgMap = {
+                identity: 'Complete Visual Identity (€590)',
+                website: 'High-Performance Luxury Website (€980)',
+                store: 'Complete E-Commerce Store (€1,450)',
+                bundle: 'All-in-One Digital Growth Bundle (€1,990 instead of €3,020)'
+            };
+            const pkgEl = document.getElementById('bookingPackage');
+            const pkgLabel = (sessionType === 'creative' && pkgEl && pkgMap[pkgEl.value]) ? pkgMap[pkgEl.value] : '';
             if (sessionType === 'office') sessionLabel = 'In-Person Consultation (Netherlands)';
 
             let timeSlotLabel = 'Afternoon Window (13:00 - 15:00 CET)';
@@ -6796,6 +6880,7 @@
                       `📞 *Direct Phone/WhatsApp:* ${phone || 'Not specified'}\n` +
                       `👔 *Requested Advisor:* ${advisorName}\n` +
                       `📅 *Channel:* ${sessionLabel}\n` +
+                      (pkgLabel ? `📦 *Target Package:* ${pkgLabel}\n` : '') +
                       `🗓️ *Proposed Date:* ${preferredDate || 'Earliest Available'}\n` +
                       `⏰ *Preferred Time:* ${timeSlotLabel}\n`;
 
@@ -6814,6 +6899,14 @@
 
         function dispatchVIPBooking(e) {
             submitExecutiveBooking(e);
+        }
+
+        // Show / hide the package selector based on consultation type
+        function togglePackageField() {
+            const typeEl = document.getElementById('bookingSessionType');
+            const group = document.getElementById('bookingPackageGroup');
+            if (!typeEl || !group) return;
+            group.classList.toggle('is-hidden', typeEl.value !== 'creative');
         }
 
         // ==========================================
