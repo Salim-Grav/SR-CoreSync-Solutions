@@ -1,0 +1,587 @@
+/* ==========================================================================
+   S&R CoreSync Solutions - Enterprise Suite CSS
+   Includes:
+   1. Interactive PDF Quotation Modal & Print Stylesheet
+   2. Client Visual Feedback Hub
+   3. EU GDPR Cookie Consent Banner
+   ========================================================================== */
+
+:root {
+    --es-gold: #c5a880;
+    --es-gold-light: #f3dfba;
+    --es-gold-dark: #8c734b;
+    --es-bg-dark: #070d0a;
+    --es-card-bg: rgba(10, 20, 16, 0.96);
+    --es-border-gold: rgba(197, 168, 128, 0.28);
+    --es-font-main: 'Plus Jakarta Sans', 'Alexandria', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ==========================================================================
+   1. PDF Quotation Modal & Print Engine
+   ========================================================================== */
+
+.estimator-btn-pdf {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    background: linear-gradient(135deg, rgba(197, 168, 128, 0.18), rgba(197, 168, 128, 0.08));
+    border: 1px solid var(--es-gold);
+    color: var(--es-gold-light) !important;
+    font-weight: 700;
+    border-radius: 12px;
+    padding: 12px 18px;
+    font-size: 0.88rem;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    text-align: center;
+    margin-top: 6px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.estimator-btn-pdf:hover {
+    background: var(--es-gold);
+    color: #010907 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(197, 168, 128, 0.3);
+}
+
+.es-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.82);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.es-modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.es-quote-modal {
+    background: #ffffff;
+    color: #1a202c;
+    width: 100%;
+    max-width: 820px;
+    max-height: 92vh;
+    border-radius: 16px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(197, 168, 128, 0.4);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: esModalSlide 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes esModalSlide {
+    from { opacity: 0; transform: scale(0.95) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.es-quote-toolbar {
+    background: #0d1512;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(197, 168, 128, 0.3);
+}
+
+.es-quote-toolbar-title {
+    color: var(--es-gold-light);
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.es-toolbar-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.es-btn-tool {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.es-btn-tool-print {
+    background: var(--es-gold);
+    color: #010907;
+}
+
+.es-btn-tool-print:hover {
+    background: var(--es-gold-light);
+    transform: translateY(-1px);
+}
+
+.es-btn-tool-close {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.es-btn-tool-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.es-quote-paper {
+    padding: 36px 44px;
+    overflow-y: auto;
+    font-family: var(--es-font-main);
+    background: #ffffff;
+}
+
+.es-quote-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+}
+
+.es-quote-brand h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #0d1512;
+    letter-spacing: -0.5px;
+}
+
+.es-quote-brand p {
+    margin: 4px 0 0;
+    font-size: 0.82rem;
+    color: #718096;
+}
+
+.es-quote-meta {
+    text-align: right;
+    font-size: 0.85rem;
+}
+
+[dir="rtl"] .es-quote-meta {
+    text-align: left;
+}
+
+.es-quote-meta strong {
+    color: #1a202c;
+}
+
+.es-quote-ref {
+    display: inline-block;
+    background: #f7fafc;
+    border: 1px solid #cbd5e0;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 800;
+    font-family: monospace;
+    color: #2d3748;
+    margin-bottom: 6px;
+}
+
+.es-quote-section-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #2d3748;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.es-quote-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+}
+
+.es-quote-table th {
+    background: #f8fafc;
+    color: #4a5568;
+    font-size: 0.8rem;
+    text-align: right;
+    padding: 10px 14px;
+    border-bottom: 2px solid #edf2f7;
+}
+
+[dir="ltr"] .es-quote-table th {
+    text-align: left;
+}
+
+.es-quote-table td {
+    padding: 12px 14px;
+    font-size: 0.88rem;
+    color: #2d3748;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.es-quote-total-box {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 28px;
+}
+
+.es-quote-total-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 16px 24px;
+    min-width: 260px;
+}
+
+.es-quote-total-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-size: 0.86rem;
+    color: #718096;
+}
+
+.es-quote-total-row.grand-total {
+    border-top: 1px solid #cbd5e0;
+    padding-top: 8px;
+    margin-top: 8px;
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: #0d1512;
+}
+
+.es-quote-signatures {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    border-top: 1px dashed #cbd5e0;
+    padding-top: 20px;
+    margin-top: 24px;
+}
+
+.es-sig-block {
+    text-align: center;
+}
+
+.es-sig-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #718096;
+    margin-bottom: 8px;
+}
+
+.es-sig-name {
+    font-weight: 800;
+    color: #1a202c;
+    font-size: 0.9rem;
+}
+
+.es-sig-role {
+    font-size: 0.76rem;
+    color: #a0aec0;
+}
+
+/* Print Only Styles */
+@media print {
+    body * {
+        visibility: hidden !important;
+    }
+    .es-modal-overlay,
+    .es-quote-modal,
+    .es-quote-paper,
+    .es-quote-paper * {
+        visibility: visible !important;
+    }
+    .es-modal-overlay {
+        position: absolute;
+        inset: 0;
+        background: transparent !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+    .es-quote-toolbar {
+        display: none !important;
+    }
+    .es-quote-modal {
+        box-shadow: none !important;
+        border: none !important;
+        max-width: 100% !important;
+        max-height: none !important;
+    }
+    .es-quote-paper {
+        padding: 0 !important;
+    }
+}
+
+/* ==========================================================================
+   2. Client Visual Feedback Hub
+   ========================================================================== */
+
+.es-feedback-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #0f1c16, #060d09);
+    border: 1px solid var(--es-gold);
+    color: var(--es-gold-light);
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 16px rgba(197, 168, 128, 0.2);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[dir="ltr"] .es-feedback-fab {
+    right: auto;
+    left: 24px;
+}
+
+.es-feedback-fab:hover {
+    transform: translateY(-3px) scale(1.03);
+    background: var(--es-gold);
+    color: #010907;
+    box-shadow: 0 14px 40px rgba(197, 168, 128, 0.4);
+}
+
+.es-feedback-dot {
+    width: 8px;
+    height: 8px;
+    background: #25D366;
+    border-radius: 50%;
+    animation: esPulse 1.8s infinite;
+}
+
+@keyframes esPulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+    70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(37, 211, 102, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+.es-feedback-modal {
+    background: var(--es-card-bg);
+    color: #ffffff;
+    width: 100%;
+    max-width: 520px;
+    border-radius: 18px;
+    border: 1px solid var(--es-border-gold);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+    animation: esModalSlide 0.3s ease;
+}
+
+.es-feedback-header {
+    background: rgba(197, 168, 128, 0.08);
+    border-bottom: 1px solid var(--es-border-gold);
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.es-feedback-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--es-gold-light);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.es-feedback-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.es-input-group label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 6px;
+}
+
+.es-input-field,
+.es-textarea-field,
+.es-select-field {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(197, 168, 128, 0.25);
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.es-input-field:focus,
+.es-textarea-field:focus,
+.es-select-field:focus {
+    border-color: var(--es-gold);
+}
+
+.es-feedback-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.es-btn-send-wa {
+    flex: 1;
+    background: #25D366;
+    color: #010907;
+    font-weight: 800;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 0.88rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.25s ease;
+}
+
+.es-btn-send-wa:hover {
+    background: #20bd5a;
+    transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   3. EU GDPR Cookie Consent Banner
+   ========================================================================== */
+
+.es-gdpr-banner {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    right: 24px;
+    max-width: 680px;
+    margin: 0 auto;
+    background: rgba(7, 13, 10, 0.94);
+    border: 1px solid var(--es-border-gold);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 18px;
+    padding: 18px 24px;
+    z-index: 99998;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    animation: esBannerUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.es-gdpr-banner.active {
+    display: flex;
+}
+
+@keyframes esBannerUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.es-gdpr-content {
+    flex: 1;
+}
+
+.es-gdpr-title {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--es-gold-light);
+    margin: 0 0 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.es-gdpr-text {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.78);
+    margin: 0;
+    line-height: 1.45;
+}
+
+.es-gdpr-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.es-btn-gdpr-accept {
+    background: var(--es-gold);
+    color: #010907;
+    font-weight: 800;
+    font-size: 0.8rem;
+    padding: 9px 18px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.es-btn-gdpr-accept:hover {
+    background: var(--es-gold-light);
+    transform: translateY(-1px);
+}
+
+.es-btn-gdpr-decline {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.8rem;
+    padding: 9px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.es-btn-gdpr-decline:hover {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+@media (max-width: 768px) {
+    .es-gdpr-banner {
+        flex-direction: column;
+        align-items: stretch;
+        bottom: 12px;
+        left: 12px;
+        right: 12px;
+        padding: 16px;
+    }
+    .es-gdpr-actions {
+        width: 100%;
+    }
+    .es-btn-gdpr-accept, .es-btn-gdpr-decline {
+        flex: 1;
+        text-align: center;
+    }
+}

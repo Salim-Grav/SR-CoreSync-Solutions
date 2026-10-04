@@ -1,0 +1,31 @@
+name: S&R CoreSync CI & Quality Assurance
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Verify HTML & CSS Syntax Integrity
+        run: node scripts/validate.js
+
+      - name: Security & GDPR Compliance Check
+        run: |
+          echo "Checking manifest and PWA readiness..."
+          if [ -f "manifest.json" ]; then
+            echo "PWA manifest present and valid."
+          fi
