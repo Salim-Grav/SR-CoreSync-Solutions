@@ -550,9 +550,13 @@
                             <button type="button" class="filter-btn" onclick="applySampleClientBrand('بنك التقنية الحديثة', '🏦')">بنك التقنية 🏦</button>
                         </div>
 
-                        <button type="button" class="action-cta-btn w-100" onclick="applyClientBrand()">
+                        <button type="button" class="action-cta-btn w-100 mb-2" onclick="applyClientBrand()">
                             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
                             تطبيق الهوية فوراً على المنصة بالكامل
+                        </button>
+                        <button type="button" class="btn-secondary-glow w-100" onclick="openBrandedInvoicePreview()">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            توليد ومعاينة فاتورة تجريبية رسمية بهوية شركتك (Branded Invoice PDF)
                         </button>
                     </div>
                 </div>
@@ -694,8 +698,9 @@
         <div class="modal-invoice-card">
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <div class="d-flex align-items-center gap-2">
-                    <img src="./assets/logo-neon-icon.svg" width="30" height="30" alt="Emblem">
+                    <img src="./assets/logo-neon-icon.svg" id="invModalHeaderEmblem" width="30" height="30" alt="Emblem" style="border-radius:6px; object-fit:contain;">
                     <h3 class="fw-bold mb-0 text-white invoice-preview-title">فاتورة إلكترونية رسمية (e-Invoice)</h3>
+                    <span id="invWhiteLabelBadge" style="display:none; font-size:10px; font-weight:700; padding:2px 8px; border-radius:10px; background:rgba(197,168,128,0.2); border:1px solid var(--gold); color:var(--gold);">White-Label Branded</span>
                 </div>
                 <button type="button" class="btn-return-main font-num btn-modal-close-sm" onclick="closeInvoicePreviewModal()">✕</button>
             </div>
@@ -703,9 +708,9 @@
             <div class="inv-paper" id="printableInvoice">
                 <div class="inv-head-row">
                     <div>
-                        <h4 class="fw-bold text-white mb-1">S&R CoreSync Solutions B.V.</h4>
-                        <div class="text-caption text-white-64">KVK: 84920194 | VAT ID: NL849201942B01</div>
-                        <div class="text-caption text-white-64">Keizersgracht 482, 1016 EG Amsterdam, Netherlands</div>
+                        <h4 class="fw-bold text-white mb-1" id="invIssuerName">S&R CoreSync Solutions B.V.</h4>
+                        <div class="text-caption text-white-64" id="invIssuerSub">KVK: 84920194 | VAT ID: NL849201942B01</div>
+                        <div class="text-caption text-white-64" id="invIssuerAddress">Keizersgracht 482, 1016 EG Amsterdam, Netherlands</div>
                     </div>
                     <div class="inv-qr-block" title="EPC-QR / ZATCA Cryptographic Stamp">
                         <svg viewBox="0 0 100 100" fill="#010907">
@@ -1036,7 +1041,7 @@
             previewInvoiceModal(invNum, client, netAmount, vatAmount, total, 'قيد الانتظار', dateStr, taxLabel);
         }
 
-        function previewInvoiceModal(num, client, net, vat, total, status, date, taxType) {
+        function previewInvoiceModal(num, client, net, vat, total, status, date, taxType, customIssuerName = null) {
             document.getElementById('pvNumber').innerText = num;
             document.getElementById('pvClient').innerText = client;
             document.getElementById('pvNet').innerText = `€ ${net.toLocaleString()}`;
@@ -1045,7 +1050,45 @@
             document.getElementById('pvGrandTotal').innerText = `€ ${total.toLocaleString()}`;
             document.getElementById('pvStatus').innerText = status;
             document.getElementById('pvDate').innerText = date || '2026-10-06';
+
+            // تطبيق الهوية المخصصة إن وجدت
+            const savedBrand = localStorage.getItem('sr_custom_brand_name');
+            const savedLogo = localStorage.getItem('sr_custom_brand_logo') || uploadedLogoDataUrl;
+            const effectiveIssuer = customIssuerName || savedBrand || 'S&R CoreSync Solutions B.V.';
+            
+            const issuerNameEl = document.getElementById('invIssuerName');
+            const issuerEmblemEl = document.getElementById('invModalHeaderEmblem');
+            const wlBadge = document.getElementById('invWhiteLabelBadge');
+
+            if (issuerNameEl) issuerNameEl.innerText = effectiveIssuer;
+            if (issuerEmblemEl && savedLogo) issuerEmblemEl.src = savedLogo;
+            
+            if (wlBadge) {
+                if (customIssuerName || (savedBrand && savedBrand !== 'S&R CORESYNC')) {
+                    wlBadge.style.display = 'inline-block';
+                    wlBadge.innerText = `هوية مخصصة: ${effectiveIssuer}`;
+                } else {
+                    wlBadge.style.display = 'none';
+                }
+            }
+
             document.getElementById('invoicePreviewModal').classList.add('active');
+        }
+
+        function openBrandedInvoicePreview() {
+            const currentName = document.getElementById('clientBrandNameInput')?.value || localStorage.getItem('sr_custom_brand_name') || 'مجموعة الرياض للخدمات اللوجستية';
+            previewInvoiceModal(
+                'INV-WL-2026-099',
+                'Global Enterprise Client BV (Rotterdam)',
+                28500,
+                5985,
+                34485,
+                'فاتورة معتمدة - جاهزة للتحصيل ✓',
+                '2026-10-06',
+                '21% BTW',
+                currentName
+            );
+            showPortalToast(`✨ تم توليد فاتورة تجريبية رسمية بهوية [${currentName}] جاهزة للمعاينة والطباعة!`);
         }
 
         function closeInvoicePreviewModal() {
