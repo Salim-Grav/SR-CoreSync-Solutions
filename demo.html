@@ -478,7 +478,10 @@
                 <div class="section-header">
                     <div class="section-title-wrap">
                         <h2>محرك العلامة البيضاء وتخصيص هوية العميل (White-Label Studio)</h2>
-                        <p>شاهد كيف تتحول لوحة تحكم الـ ERP السحابية فورياً لتلائم هوية شركتك وشعارك وألوانك المؤسسية</p>
+                        <div class="d-flex align-items-center gap-2 mt-1">
+                            <p class="mb-0">شاهد كيف تتحول لوحة تحكم الـ ERP السحابية فورياً لتلائم هوية شركتك وشعارك وألوانك المؤسسية</p>
+                            <span id="storageBadge" style="display:none; font-size:11px; padding:2px 8px; border-radius:12px; background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.4); color:#34d399;">● محفوظ في المتصفح</span>
+                        </div>
                     </div>
                     <button type="button" class="btn-return-main" onclick="resetBrandIdentity()">
                         استعادة هوية S&R الأصلية
@@ -1190,18 +1193,54 @@
     
 
         // ==========================================
-        // 5. محرك تخصيص الهوية والعلامة البيضاء (White-Label)
+        // 5. محرك تخصيص الهوية والعلامة البيضاء المتقدم مع الحفظ التلقائي (White-Label & LocalStorage)
         // ==========================================
         const themePalette = {
-            gold: { gold: '#c5a880', hover: '#e0c59e', glow: 'rgba(197, 168, 128, 0.25)', border: 'rgba(197, 168, 128, 0.18)' },
-            cyan: { gold: '#38bdf8', hover: '#7dd3fc', glow: 'rgba(56, 189, 248, 0.25)', border: 'rgba(56, 189, 248, 0.2)' },
-            emerald: { gold: '#10b981', hover: '#34d399', glow: 'rgba(16, 185, 129, 0.25)', border: 'rgba(16, 185, 129, 0.2)' },
-            violet: { gold: '#a855f7', hover: '#c084fc', glow: 'rgba(168, 85, 247, 0.25)', border: 'rgba(168, 85, 247, 0.2)' }
+            gold: { name: 'gold', gold: '#c5a880', hover: '#e0c59e', glow: 'rgba(197, 168, 128, 0.25)', border: 'rgba(197, 168, 128, 0.18)' },
+            cyan: { name: 'cyan', gold: '#38bdf8', hover: '#7dd3fc', glow: 'rgba(56, 189, 248, 0.25)', border: 'rgba(56, 189, 248, 0.2)' },
+            emerald: { name: 'emerald', gold: '#10b981', hover: '#34d399', glow: 'rgba(16, 185, 129, 0.25)', border: 'rgba(16, 185, 129, 0.2)' },
+            violet: { name: 'violet', gold: '#a855f7', hover: '#c084fc', glow: 'rgba(168, 85, 247, 0.25)', border: 'rgba(168, 85, 247, 0.2)' }
         };
 
-        function applyThemeColor(themeName, el) {
+        let currentActiveTheme = 'gold';
+        let uploadedLogoDataUrl = null;
+
+        function showPortalToast(msg) {
+            const toast = document.getElementById('portal-toast');
+            const msgEl = document.getElementById('portal-toast-msg');
+            if (!toast || !msgEl) return;
+            msgEl.textContent = msg;
+            toast.style.transform = 'translateY(0)';
+            toast.style.opacity = '1';
+            clearTimeout(window.__toastTimeout);
+            window.__toastTimeout = setTimeout(() => {
+                toast.style.transform = 'translateY(100px)';
+                toast.style.opacity = '0';
+            }, 3500);
+        }
+
+        function updateStorageStatusBadge() {
+            const badge = document.getElementById('storageBadge');
+            if (!badge) return;
+            const hasCustomBrand = localStorage.getItem('sr_custom_brand_name');
+            const hasCustomTheme = localStorage.getItem('sr_custom_theme');
+            if (hasCustomBrand || (hasCustomTheme && hasCustomTheme !== 'gold')) {
+                badge.style.display = 'inline-flex';
+                badge.textContent = `● مخصص (${hasCustomBrand || hasCustomTheme}) ومحفوظ محلياً`;
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        function applyThemeColor(themeName, el, saveToStorage = true) {
+            currentActiveTheme = themeName;
             document.querySelectorAll('.theme-preset-card').forEach(c => c.classList.remove('active'));
-            if (el) el.classList.add('active');
+            if (el) {
+                el.classList.add('active');
+            } else {
+                const targetCard = document.querySelector(`.theme-preset-card[onclick*="'${themeName}'"]`);
+                if (targetCard) targetCard.classList.add('active');
+            }
 
             const p = themePalette[themeName] || themePalette.gold;
             document.documentElement.style.setProperty('--gold', p.gold);
@@ -1214,9 +1253,15 @@
                 revenueChartInstance.data.datasets[0].pointBackgroundColor = p.gold;
                 revenueChartInstance.update();
             }
-        }
 
-        let uploadedLogoDataUrl = null;
+            if (saveToStorage) {
+                try {
+                    localStorage.setItem('sr_custom_theme', themeName);
+                    updateStorageStatusBadge();
+                    showPortalToast(`تم تطبيق وحفظ سمة [${themeName.toUpperCase()}] في المتصفح!`);
+                } catch(e) {}
+            }
+        }
 
         function handleClientLogoUpload(e) {
             const file = e.target.files[0];
@@ -1224,26 +1269,28 @@
             const reader = new FileReader();
             reader.onload = function(evt) {
                 uploadedLogoDataUrl = evt.target.result;
+                showPortalToast('تم تحميل ملف الشعار بنجاح! انقر على زر تطبيق الهوية لحفظه.');
             };
             reader.readAsDataURL(file);
         }
 
         function applySampleClientBrand(name, iconChar) {
-            document.getElementById('clientBrandNameInput').value = name;
+            const input = document.getElementById('clientBrandNameInput');
+            if (input) input.value = name;
             uploadedLogoDataUrl = null;
-            applyClientBrand(name, iconChar);
+            applyClientBrand(name, iconChar, true, false);
         }
 
-        function applyClientBrand(customName, customIcon) {
-            const name = customName || document.getElementById('clientBrandNameInput').value || 'S&R CORESYNC';
+        function applyClientBrand(customName, customIcon, saveToStorage = true, isSilent = false) {
+            const name = customName || document.getElementById('clientBrandNameInput')?.value || 'S&R CORESYNC';
             
-            // Update brand text in header
+            // 1. Update brand text in header
             const brandH1 = document.querySelector('.portal-brand-text h1');
             if (brandH1) {
                 brandH1.innerHTML = `<span>${name}</span> ERP`;
             }
 
-            // Update user card
+            // 2. Update user card
             const userNameEl = document.querySelector('.sidebar-user-card .user-name');
             if (userNameEl) userNameEl.innerText = name;
             const userAvatar = document.querySelector('.sidebar-user-card .user-avatar');
@@ -1251,23 +1298,76 @@
                 userAvatar.innerText = customIcon || name.substring(0, 2).toUpperCase();
             }
 
-            // Update emblem if uploaded
+            // 3. Update emblem if uploaded
             if (uploadedLogoDataUrl) {
                 const emblem = document.querySelector('.portal-brand-emblem');
                 if (emblem) emblem.src = uploadedLogoDataUrl;
             }
 
-            alert(`✨ تم تطبيق هوية [${name}] بنجاح على نظام الـ ERP السحابي بالكامل!`);
+            // 4. Save to LocalStorage
+            if (saveToStorage) {
+                try {
+                    localStorage.setItem('sr_custom_brand_name', name);
+                    if (customIcon) localStorage.setItem('sr_custom_brand_icon', customIcon);
+                    if (uploadedLogoDataUrl) localStorage.setItem('sr_custom_brand_logo', uploadedLogoDataUrl);
+                } catch(e) {}
+            }
+
+            updateStorageStatusBadge();
+
+            if (!isSilent) {
+                showPortalToast(`✨ تم حفظ وتطبيق هوية [${name}] على نظام الـ ERP بنجاح!`);
+            }
         }
 
         function resetBrandIdentity() {
-            applyThemeColor('gold');
+            try {
+                localStorage.removeItem('sr_custom_theme');
+                localStorage.removeItem('sr_custom_brand_name');
+                localStorage.removeItem('sr_custom_brand_icon');
+                localStorage.removeItem('sr_custom_brand_logo');
+            } catch(e) {}
+
+            uploadedLogoDataUrl = null;
+            const input = document.getElementById('clientBrandNameInput');
+            if (input) input.value = 'مجموعة الرياض للخدمات اللوجستية';
+
+            applyThemeColor('gold', null, false);
             document.querySelector('.portal-brand-text h1').innerHTML = `<span>S&R</span> CORESYNC`;
             document.querySelector('.sidebar-user-card .user-name').innerText = 'جلسة معاينة تفاعلية';
             document.querySelector('.sidebar-user-card .user-avatar').innerText = 'SR';
             document.querySelector('.portal-brand-emblem').src = './assets/logo-neon-icon.svg';
-            alert('تمت استعادة هوية S&R CoreSync Solutions الرسمية المعتمدة.');
+
+            updateStorageStatusBadge();
+            showPortalToast('تمت استعادة هوية S&R CoreSync الأصلية ومسح التخصيص المحفوظ.');
         }
+
+        function restoreSavedBrandSettings() {
+            try {
+                const savedTheme = localStorage.getItem('sr_custom_theme');
+                if (savedTheme && themePalette[savedTheme]) {
+                    applyThemeColor(savedTheme, null, false);
+                }
+
+                const savedName = localStorage.getItem('sr_custom_brand_name');
+                const savedIcon = localStorage.getItem('sr_custom_brand_icon');
+                const savedLogo = localStorage.getItem('sr_custom_brand_logo');
+
+                if (savedName) {
+                    if (savedLogo) uploadedLogoDataUrl = savedLogo;
+                    const input = document.getElementById('clientBrandNameInput');
+                    if (input) input.value = savedName;
+                    applyClientBrand(savedName, savedIcon, false, true);
+                }
+                updateStorageStatusBadge();
+            } catch(e) {
+                console.warn('LocalStorage error:', e);
+            }
+        }
+
+        // استعادة التخصيص المحفوظ عند تحميل الصفحة
+        window.addEventListener('DOMContentLoaded', restoreSavedBrandSettings);
+
 
         // تفعيل اختصارات لوحة المفاتيح لوضع العرض التقديمي (Key Shortcuts)
         document.addEventListener('keydown', function(e) {
@@ -1283,5 +1383,12 @@
             }
         });
     </script>
+
+    <!-- إشعار التخصيص العائم (Portal Floating Toast) -->
+    <div id="portal-toast" style="position:fixed; bottom:24px; left:24px; z-index:9999; background:rgba(9,9,11,0.92); backdrop-filter:blur(12px); border:1px solid var(--gold); border-radius:12px; padding:12px 18px; color:#fff; font-size:13px; font-weight:600; display:flex; align-items:center; gap:10px; box-shadow:0 12px 32px rgba(0,0,0,0.6); transform:translateY(100px); opacity:0; transition:all 0.35s ease; pointer-events:none;">
+        <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--gold);"></span>
+        <span id="portal-toast-msg">تم تطبيق الإعدادات بنجاح</span>
+    </div>
+
 </body>
 </html>
