@@ -675,6 +675,283 @@
             gap: 10px;
             margin-top: 1rem;
         }
+
+        /* أزرار وعناصر وضع العرض التقديمي والمزامنة */
+        .btn-presentation-mode {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(56, 189, 248, 0.05));
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            color: #38bdf8;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: 'Alexandria', sans-serif;
+        }
+        .btn-presentation-mode:hover, .btn-presentation-mode.active {
+            background: #38bdf8;
+            color: #010907;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+        }
+
+        .btn-sync-consultation {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(197, 168, 128, 0.25), rgba(197, 168, 128, 0.08));
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: 'Alexandria', sans-serif;
+            box-shadow: 0 0 12px var(--gold-glow);
+        }
+        .btn-sync-consultation:hover {
+            background: var(--gold);
+            color: #010907;
+            box-shadow: 0 0 20px rgba(197, 168, 128, 0.5);
+            transform: translateY(-1px);
+        }
+
+        /* صندوق المزامنة في القائمة الجانبية */
+        .sidebar-sync-box {
+            background: linear-gradient(145deg, rgba(197, 168, 128, 0.1), rgba(1, 9, 7, 0.85));
+            border: 1px solid rgba(197, 168, 128, 0.28);
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 0.8rem;
+        }
+        .sync-box-tag {
+            font-size: 0.65rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .sync-box-title {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .sync-box-desc {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+        .sync-box-btn {
+            width: 100%;
+            background: var(--gold);
+            color: #010907;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            font-family: 'Alexandria', sans-serif;
+        }
+        .sync-box-btn:hover {
+            background: var(--gold-hover);
+            transform: translateY(-1px);
+        }
+
+        /* أزرار وحالات الفوترة الإلكترونية وiDEAL */
+        .btn-secondary-glow {
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            color: #38bdf8;
+            font-weight: 700;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Alexandria', sans-serif;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.25s ease;
+        }
+        .btn-secondary-glow:hover {
+            background: rgba(56, 189, 248, 0.25);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .table-action-btn {
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            font-size: 0.75rem;
+            cursor: pointer;
+            font-family: 'Alexandria', sans-serif;
+            transition: all 0.2s ease;
+        }
+        .table-action-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        .pay-action-btn {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.4);
+            color: var(--success);
+            font-weight: 600;
+            margin-left: 4px;
+        }
+        .pay-action-btn:hover {
+            background: var(--success);
+            color: #010907;
+            border-color: var(--success);
+        }
+
+        .filter-pill-group {
+            display: flex;
+            gap: 6px;
+        }
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-muted);
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            font-family: 'Alexandria', sans-serif;
+            transition: all 0.2s;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: rgba(197, 168, 128, 0.2);
+            border-color: var(--gold);
+            color: #fff;
+        }
+
+        /* نافذة معاينة الفاتورة الإلكترونية */
+        .modal-invoice-card {
+            background: #040d09;
+            border: 1px solid var(--gold);
+            border-radius: 20px;
+            max-width: 620px;
+            width: 100%;
+            padding: 2.2rem;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.9);
+            color: #fff;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .inv-paper {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(197, 168, 128, 0.2);
+            border-radius: 14px;
+            padding: 1.5rem;
+            margin: 1.2rem 0;
+        }
+        .inv-head-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+        .inv-qr-block {
+            background: #fff;
+            padding: 8px;
+            border-radius: 8px;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .inv-qr-block svg {
+            width: 100%;
+            height: 100%;
+        }
+        .inv-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            font-size: 0.82rem;
+            margin-bottom: 1rem;
+        }
+        .inv-total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-top: 1px dashed rgba(197, 168, 128, 0.3);
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+
+        /* محاكي iDEAL للبنوك */
+        .bank-select-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 1.2rem 0;
+        }
+        .bank-option {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+        }
+        .bank-option:hover, .bank-option.selected {
+            border-color: #ff6200;
+            background: rgba(255, 98, 0, 0.1);
+        }
+        .bank-badge {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: #fff;
+            color: #010907;
+            font-weight: 800;
+            font-size: 0.72rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .bank-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .payment-progress-bar {
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            margin: 1.2rem 0 0.8rem;
+        }
+        .payment-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #10b981, #38bdf8);
+            transition: width 0.8s ease;
+        }
     </style>
 </head>
 <body>
@@ -694,6 +971,14 @@
                 <span class="live-status-dot"></span>
                 <span>النظام السحابي متصل (EU Node)</span>
             </div>
+            <button type="button" class="btn-presentation-mode" id="btnPresentationToggle" onclick="togglePresentationMode()" title="وضع العرض التقديمي للزبائن (شاشة كاملة وتجربة تنفيذية)">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+                <span>وضع عرض الزبائن</span>
+            </button>
+            <button type="button" class="btn-sync-consultation" onclick="syncDemoToConsultation()" title="نقل تفضيلات الجلسة وحجز موعد استشاري">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                <span>حجز استشارة بهذا النظام</span>
+            </button>
             <a href="logo-studio.html" class="btn-return-main" title="استوديو ومحرر الشعار">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle></svg>
                 استوديو الشعار
@@ -731,6 +1016,17 @@
             </div>
 
             <div class="sidebar-spacer"></div>
+
+            <!-- بطاقة مزامنة الديمو مع استشارة المؤسسين -->
+            <div class="sidebar-sync-box">
+                <div class="sync-box-tag">تكامل مع الإدارة</div>
+                <div class="sync-box-title">طلب تفعيل لشركتك</div>
+                <p class="sync-box-desc">انقل تفاصيل الجلسة والسيناريوهات المجرّبة مباشرة لاستشارة المؤسسين.</p>
+                <button type="button" class="sync-box-btn" onclick="syncDemoToConsultation()">
+                    <span>حجز استشارة مخصصة</span>
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+            </div>
 
             <div class="sidebar-user-card">
                 <div class="user-avatar font-num">SR</div>
@@ -926,42 +1222,112 @@
             <section class="tab-section" id="tab-invoices">
                 <div class="section-header">
                     <div class="section-title-wrap">
-                        <h2>الفواتير الإلكترونية والامتثال الضريبي</h2>
-                        <p>مطابقة معايير الفوترة الإلكترونية المعتمدة في هولندا والاتحاد الأوروبي وهيئة الزكاة والضريبة (ZATCA)</p>
+                        <h2>الفواتير الإلكترونية والامتثال الضريبي الذكي</h2>
+                        <p>مطابقة معايير الفوترة الإلكترونية المعتمدة في هولندا والاتحاد الأوروبي (UBL / PEPPOL) وهيئة الزكاة والضريبة (ZATCA)</p>
+                    </div>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button type="button" class="action-cta-btn" onclick="openInvoiceGeneratorModal()">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+                            توليد فاتورة إلكترونية تجريبية
+                        </button>
+                        <button type="button" class="btn-secondary-glow" onclick="openIdealSimulatorModal('INV-2026-082', 'Gulf Logistics Partners', 35000)">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                            محاكاة دفع فوري عبر iDEAL
+                        </button>
                     </div>
                 </div>
+
+                <!-- إحصائيات سريعة للفوترة -->
+                <div class="stats-grid mb-4">
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <span class="stat-label">الفواتير المحصلة هذا الشهر</span>
+                            <div class="stat-icon font-num">€</div>
+                        </div>
+                        <div class="stat-value font-num" id="inv-stat-paid">€ 142,500</div>
+                        <div class="stat-trend positive"><span>100%</span> سداد فوري بالربط البنكي المباشر</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <span class="stat-label">الفواتير قيد الاستحقاق</span>
+                            <div class="stat-icon">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            </div>
+                        </div>
+                        <div class="stat-value font-num" id="inv-stat-pending">€ 35,000</div>
+                        <div class="stat-trend" style="color: var(--gold);"><span>فاتورة واحدة</span> قابلة للمحاكاة الفورية</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <span class="stat-label">معدل التحصيل التلقائي</span>
+                            <div class="stat-icon">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                        </div>
+                        <div class="stat-value font-num">98.7%</div>
+                        <div class="stat-trend positive">تسوية عبر SEPA وiDEAL بدون تدخل بشري</div>
+                    </div>
+                </div>
+
                 <div class="glass-box">
                     <div class="glass-box-header">
-                        <h3>سجل الفواتير الصادرة والواردة</h3>
+                        <div>
+                            <h3>سجل الفواتير الصادرة والواردة</h3>
+                            <span class="text-caption text-white-64">توليد لحظي وتوافق كامل مع المعايير المحاسبية</span>
+                        </div>
+                        <div class="filter-pill-group">
+                            <button type="button" class="filter-btn active" onclick="filterInvoices('all', this)">الكل (<span id="count-all">3</span>)</button>
+                            <button type="button" class="filter-btn" onclick="filterInvoices('paid', this)">المدفوعة (<span id="count-paid">2</span>)</button>
+                            <button type="button" class="filter-btn" onclick="filterInvoices('pending', this)">المستحقة (<span id="count-pending">1</span>)</button>
+                        </div>
                     </div>
                     <div class="data-table-wrap">
-                        <table class="data-table">
+                        <table class="data-table" id="invoicesTable">
                             <thead>
                                 <tr>
                                     <th>رقم الفاتورة</th>
-                                    <th>العميل</th>
+                                    <th>العميل والجهة</th>
                                     <th>المبلغ الصافي</th>
-                                    <th>الضريبة (VAT 21%)</th>
+                                    <th>الضريبة</th>
                                     <th>الإجمالي</th>
-                                    <th>حالة السداد</th>
+                                    <th>حالة السداد والربط</th>
+                                    <th>الإجراءات التفاعلية</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
+                            <tbody id="invoicesTableBody">
+                                <tr data-status="paid" id="inv-row-1">
                                     <td class="font-num">INV-2026-081</td>
-                                    <td>Amsterdam Tech Hub</td>
+                                    <td>Amsterdam Tech Hub (NL)</td>
                                     <td class="font-num">€ 10,000</td>
-                                    <td class="font-num">€ 2,100</td>
+                                    <td class="font-num">€ 2,100 (21% BTW)</td>
                                     <td class="font-num tx-amount-highlight">€ 12,100</td>
-                                    <td><span class="status-badge status-completed">مدفوعة عبر iDEAL</span></td>
+                                    <td><span class="status-badge status-completed">مدفوعة عبر iDEAL ✓</span></td>
+                                    <td>
+                                        <button type="button" class="table-action-btn" onclick="previewInvoiceModal('INV-2026-081', 'Amsterdam Tech Hub (NL)', 10000, 2100, 12100, 'مدفوعة عبر iDEAL ✓', '2026-10-01', 'BTW 21%')">معاينة الفاتورة</button>
+                                    </td>
                                 </tr>
-                                <tr>
+                                <tr data-status="pending" id="inv-row-2">
                                     <td class="font-num">INV-2026-082</td>
-                                    <td>Gulf Logistics Partners</td>
+                                    <td>Gulf Logistics Partners (KSA)</td>
                                     <td class="font-num">€ 35,000</td>
                                     <td class="font-num">€ 0 (Reverse Charge)</td>
                                     <td class="font-num tx-amount-highlight">€ 35,000</td>
-                                    <td><span class="status-badge status-processing">تستحق خلال 14 يوم</span></td>
+                                    <td><span class="status-badge status-processing" id="status-badge-inv-82">تستحق خلال 14 يوم</span></td>
+                                    <td>
+                                        <button type="button" class="table-action-btn pay-action-btn" id="btn-pay-inv-82" onclick="openIdealSimulatorModal('INV-2026-082', 'Gulf Logistics Partners', 35000)">محاكاة سداد iDEAL</button>
+                                        <button type="button" class="table-action-btn" onclick="previewInvoiceModal('INV-2026-082', 'Gulf Logistics Partners (KSA)', 35000, 0, 35000, 'قيد الانتظار', '2026-10-03', 'Reverse Charge 0%')">معاينة الفاتورة</button>
+                                    </td>
+                                </tr>
+                                <tr data-status="paid" id="inv-row-3">
+                                    <td class="font-num">INV-2026-080</td>
+                                    <td>Rotterdam Maritime BV (NL)</td>
+                                    <td class="font-num">€ 22,000</td>
+                                    <td class="font-num">€ 4,620 (21% BTW)</td>
+                                    <td class="font-num tx-amount-highlight">€ 26,620</td>
+                                    <td><span class="status-badge status-completed">مدفوعة بتحويل SEPA Instant ✓</span></td>
+                                    <td>
+                                        <button type="button" class="table-action-btn" onclick="previewInvoiceModal('INV-2026-080', 'Rotterdam Maritime BV (NL)', 22000, 4620, 26620, 'مدفوعة بتحويل SEPA Instant ✓', '2026-09-28', 'BTW 21%')">معاينة الفاتورة</button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1070,6 +1436,195 @@
                 <div class="modal-form-actions">
                     <button type="button" class="btn-return-main" onclick="closeNewTxModal()">إلغاء</button>
                     <button type="button" class="action-cta-btn" onclick="saveNewTx()">حفظ ومزامنة فورية</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة توليد فاتورة إلكترونية تجريبية جديدة -->
+    <div class="modal-overlay" id="newInvoiceModal" onclick="if(event.target === this) closeInvoiceGeneratorModal()">
+        <div class="modal-card">
+            <h3 class="text-white mb-2 fw-bold">توليد فاتورة إلكترونية معتمدة</h3>
+            <p class="text-caption text-white-64 mb-4">إنشاء فاتورة سحابية متوافقة مع أنظمة الضرائب في هولندا (BTW 21%) والخليج</p>
+            
+            <div class="modal-form-fields">
+                <div>
+                    <label class="text-caption text-white-64 mb-1 d-block" for="invClient">اسم العميل / الشركة</label>
+                    <input type="text" id="invClient" class="ai-chat-input modal-form-input" value="Rotterdam Tech Enterprises BV" placeholder="اسم العميل" title="اسم العميل">
+                </div>
+                <div>
+                    <label class="text-caption text-white-64 mb-1 d-block" for="invAmount">المبلغ الصافي (€)</label>
+                    <input type="number" id="invAmount" class="ai-chat-input font-num modal-form-input" value="18500" placeholder="المبلغ الصافي" title="المبلغ الصافي">
+                </div>
+                <div>
+                    <label class="text-caption text-white-64 mb-1 d-block" for="invTaxRegime">النظام الضريبي والامتثال</label>
+                    <select id="invTaxRegime" class="ai-chat-input modal-form-select" title="النظام الضريبي" aria-label="النظام الضريبي">
+                        <option value="21">ضريبة القيمة المضافة بهولندا (BTW 21%)</option>
+                        <option value="0">إعفاء ضريبي أوروبي (Reverse Charge 0%)</option>
+                        <option value="15">ضريبة القيمة المضافة السعودية (ZATCA 15%)</option>
+                    </select>
+                </div>
+                <div class="modal-form-actions">
+                    <button type="button" class="btn-return-main" onclick="closeInvoiceGeneratorModal()">إلغاء</button>
+                    <button type="button" class="action-cta-btn" onclick="generateNewInvoice()">إصدار الفاتورة وتوليد QR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة محاكاة الدفع عبر بوابة iDEAL الهولندية -->
+    <div class="modal-overlay" id="idealSimulatorModal" onclick="if(event.target === this) closeIdealSimulatorModal()">
+        <div class="modal-card">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <h3 class="text-white fw-bold mb-0">محاكي بوابات الدفع iDEAL</h3>
+                <span class="status-badge status-completed font-num" style="font-size: 0.75rem;">SEPA Instant ⚡</span>
+            </div>
+            <p class="text-caption text-white-64 mb-3">اختر البنك الهولندي لمحاكاة تسوية الفاتورة اللحظية في حساب الشركة</p>
+
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(197,168,128,0.2); border-radius: 12px; padding: 12px; margin-bottom: 1rem;">
+                <div class="d-flex justify-content-between mb-1">
+                    <span class="text-caption text-white-64">الفاتورة المستهدفة:</span>
+                    <strong class="font-num text-white" id="idealInvNum">INV-2026-082</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-1">
+                    <span class="text-caption text-white-64">الجهة المسددة:</span>
+                    <strong class="text-white" id="idealClientName">Gulf Logistics Partners</strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span class="text-caption text-white-64">المبلغ الإجمالي المطلوب:</span>
+                    <strong class="font-num text-gold" style="color: var(--gold); font-size: 1.1rem;" id="idealTotalAmount">€ 35,000</strong>
+                </div>
+            </div>
+
+            <label class="text-caption text-white-64 d-block mb-1">اختر البنك الهولندي (Dutch Banking Partner):</label>
+            <div class="bank-select-grid">
+                <div class="bank-option selected" onclick="selectBank(this)">
+                    <div class="bank-badge font-num" style="color: #ff6200;">ING</div>
+                    <div class="bank-name">ING Bank</div>
+                </div>
+                <div class="bank-option" onclick="selectBank(this)">
+                    <div class="bank-badge font-num" style="color: #009286;">ABN</div>
+                    <div class="bank-name">ABN AMRO</div>
+                </div>
+                <div class="bank-option" onclick="selectBank(this)">
+                    <div class="bank-badge font-num" style="color: #002e6e;">RABO</div>
+                    <div class="bank-name">Rabobank</div>
+                </div>
+                <div class="bank-option" onclick="selectBank(this)">
+                    <div class="bank-badge font-num" style="color: #10b981;">BNQ</div>
+                    <div class="bank-name">Bunq Digital</div>
+                </div>
+            </div>
+
+            <div class="payment-progress-bar">
+                <div class="payment-progress-fill" id="idealProgressFill"></div>
+            </div>
+            <div class="text-caption text-center text-white-64" id="idealStatusText">جاهز لتنفيذ أمر التحويل الفوري</div>
+
+            <div class="modal-form-actions mt-3">
+                <button type="button" class="btn-return-main" onclick="closeIdealSimulatorModal()">إغلاق</button>
+                <button type="button" class="action-cta-btn" id="btnConfirmIdeal" onclick="executeIdealPayment()">تأكيد السداد التجريبي اللحظي</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة معاينة وطباعة الفاتورة الإلكترونية المعتمدة -->
+    <div class="modal-overlay" id="invoicePreviewModal" onclick="if(event.target === this) closeInvoicePreviewModal()">
+        <div class="modal-invoice-card">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="d-flex align-items-center gap-2">
+                    <img src="./assets/logo-neon-icon.svg" width="30" height="30" alt="Emblem">
+                    <h3 class="fw-bold mb-0 text-white" style="font-size: 1.15rem;">فاتورة إلكترونية رسمية (e-Invoice)</h3>
+                </div>
+                <button type="button" class="btn-return-main font-num" onclick="closeInvoicePreviewModal()" style="padding: 4px 10px;">✕</button>
+            </div>
+
+            <div class="inv-paper" id="printableInvoice">
+                <div class="inv-head-row">
+                    <div>
+                        <h4 class="fw-bold text-white mb-1">S&R CoreSync Solutions B.V.</h4>
+                        <div class="text-caption text-white-64">KVK: 84920194 | VAT ID: NL849201942B01</div>
+                        <div class="text-caption text-white-64">Keizersgracht 482, 1016 EG Amsterdam, Netherlands</div>
+                    </div>
+                    <div class="inv-qr-block" title="EPC-QR / ZATCA Cryptographic Stamp">
+                        <svg viewBox="0 0 100 100" fill="#010907">
+                            <rect width="100" height="100" fill="#fff"/>
+                            <!-- QR Pattern Elements -->
+                            <rect x="10" y="10" width="25" height="25" fill="#010907"/>
+                            <rect x="15" y="15" width="15" height="15" fill="#fff"/>
+                            <rect x="18" y="18" width="9" height="9" fill="#010907"/>
+                            
+                            <rect x="65" y="10" width="25" height="25" fill="#010907"/>
+                            <rect x="70" y="15" width="15" height="15" fill="#fff"/>
+                            <rect x="73" y="18" width="9" height="9" fill="#010907"/>
+
+                            <rect x="10" y="65" width="25" height="25" fill="#010907"/>
+                            <rect x="15" y="70" width="15" height="15" fill="#fff"/>
+                            <rect x="18" y="73" width="9" height="9" fill="#010907"/>
+
+                            <rect x="42" y="18" width="8" height="8" fill="#010907"/>
+                            <rect x="42" y="42" width="16" height="16" fill="#010907"/>
+                            <rect x="70" y="55" width="12" height="8" fill="#010907"/>
+                            <rect x="65" y="75" width="18" height="12" fill="#010907"/>
+                            <rect x="42" y="75" width="10" height="10" fill="#010907"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="inv-details-grid">
+                    <div>
+                        <span class="text-white-64 d-block">إلى السيد/الشركة:</span>
+                        <strong class="text-white" id="pvClient">Amsterdam Tech Hub</strong>
+                    </div>
+                    <div>
+                        <span class="text-white-64 d-block">رقم الفاتورة:</span>
+                        <strong class="font-num text-white" id="pvNumber">INV-2026-081</strong>
+                    </div>
+                    <div>
+                        <span class="text-white-64 d-block">تاريخ الإصدار:</span>
+                        <span class="font-num text-white" id="pvDate">2026-10-01</span>
+                    </div>
+                    <div>
+                        <span class="text-white-64 d-block">حالة السداد:</span>
+                        <span class="text-success font-num" id="pvStatus">مدفوعة عبر iDEAL ✓</span>
+                    </div>
+                </div>
+
+                <div class="data-table-wrap mb-3">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>الوصف</th>
+                                <th>المبلغ الصافي</th>
+                                <th>الضريبة المحتسبة</th>
+                                <th>الإجمالي</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>تكامل منظومة CoreSync Cloud ERP وحوكمة العمليات المالية</td>
+                                <td class="font-num" id="pvNet">€ 10,000</td>
+                                <td class="font-num" id="pvVat">€ 2,100 (21%)</td>
+                                <td class="font-num tx-amount-highlight" id="pvTotal">€ 12,100</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="inv-total-row">
+                    <span>الإجمالي المستحق والمقيد بالدفاتر:</span>
+                    <span class="font-num" id="pvGrandTotal">€ 12,100</span>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <span class="text-caption text-white-64">معتمدة رقمياً ومطابقة للمعيار الأوروبي EN 16931</span>
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn-return-main" onclick="window.print()">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                        طباعة الفاتورة
+                    </button>
+                    <button type="button" class="action-cta-btn" onclick="closeInvoicePreviewModal()">تم الإطلاع</button>
                 </div>
             </div>
         </div>
@@ -1258,6 +1813,212 @@
 
             closeNewTxModal();
             alert('تمت إضافة المعاملة بنجاح وتحديث قيود الـ ERP والرسوم البيانية لحظياً!');
+        }
+
+        // ==========================================
+        // 1. توليد ومعاينة الفواتير الإلكترونية (Feature 1)
+        // ==========================================
+        function openInvoiceGeneratorModal() {
+            document.getElementById('newInvoiceModal').classList.add('active');
+        }
+
+        function closeInvoiceGeneratorModal() {
+            document.getElementById('newInvoiceModal').classList.remove('active');
+        }
+
+        function generateNewInvoice() {
+            const client = document.getElementById('invClient').value || 'Rotterdam Tech BV';
+            const netAmount = parseFloat(document.getElementById('invAmount').value) || 10000;
+            const taxPct = parseFloat(document.getElementById('invTaxRegime').value) || 0;
+            const vatAmount = Math.round(netAmount * (taxPct / 100));
+            const total = netAmount + vatAmount;
+            const invNum = 'INV-2026-0' + Math.floor(83 + Math.random() * 20);
+            const dateStr = '2026-10-06';
+            const taxLabel = taxPct > 0 ? `${taxPct}% BTW` : 'Reverse Charge 0%';
+
+            const tbody = document.getElementById('invoicesTableBody');
+            const tr = document.createElement('tr');
+            tr.setAttribute('data-status', 'pending');
+            tr.id = 'inv-row-' + invNum;
+
+            tr.innerHTML = `
+                <td class="font-num">${invNum}</td>
+                <td>${client}</td>
+                <td class="font-num">€ ${netAmount.toLocaleString()}</td>
+                <td class="font-num">€ ${vatAmount.toLocaleString()} (${taxLabel})</td>
+                <td class="font-num tx-amount-highlight">€ ${total.toLocaleString()}</td>
+                <td><span class="status-badge status-processing" id="status-badge-${invNum}">جديدة - تستحق السداد</span></td>
+                <td>
+                    <button type="button" class="table-action-btn pay-action-btn" id="btn-pay-${invNum}" onclick="openIdealSimulatorModal('${invNum}', '${client}', ${total})">سداد iDEAL</button>
+                    <button type="button" class="table-action-btn" onclick="previewInvoiceModal('${invNum}', '${client}', ${netAmount}, ${vatAmount}, ${total}, 'قيد الانتظار', '${dateStr}', '${taxLabel}')">معاينة</button>
+                </td>
+            `;
+
+            tbody.prepend(tr);
+
+            // تحديث العدادات
+            const pendingEl = document.getElementById('inv-stat-pending');
+            const currentPending = 35000 + total;
+            pendingEl.innerText = `€ ${currentPending.toLocaleString()}`;
+
+            updateInvoiceCounters();
+            closeInvoiceGeneratorModal();
+            previewInvoiceModal(invNum, client, netAmount, vatAmount, total, 'قيد الانتظار', dateStr, taxLabel);
+        }
+
+        function previewInvoiceModal(num, client, net, vat, total, status, date, taxType) {
+            document.getElementById('pvNumber').innerText = num;
+            document.getElementById('pvClient').innerText = client;
+            document.getElementById('pvNet').innerText = `€ ${net.toLocaleString()}`;
+            document.getElementById('pvVat').innerText = `€ ${vat.toLocaleString()} (${taxType || 'BTW'})`;
+            document.getElementById('pvTotal').innerText = `€ ${total.toLocaleString()}`;
+            document.getElementById('pvGrandTotal').innerText = `€ ${total.toLocaleString()}`;
+            document.getElementById('pvStatus').innerText = status;
+            document.getElementById('pvDate').innerText = date || '2026-10-06';
+            document.getElementById('invoicePreviewModal').classList.add('active');
+        }
+
+        function closeInvoicePreviewModal() {
+            document.getElementById('invoicePreviewModal').classList.remove('active');
+        }
+
+        function updateInvoiceCounters() {
+            const all = document.querySelectorAll('#invoicesTableBody tr').length;
+            const paid = document.querySelectorAll('#invoicesTableBody tr[data-status="paid"]').length;
+            const pending = document.querySelectorAll('#invoicesTableBody tr[data-status="pending"]').length;
+            if (document.getElementById('count-all')) document.getElementById('count-all').innerText = all;
+            if (document.getElementById('count-paid')) document.getElementById('count-paid').innerText = paid;
+            if (document.getElementById('count-pending')) document.getElementById('count-pending').innerText = pending;
+        }
+
+        function filterInvoices(status, el) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+            const rows = document.querySelectorAll('#invoicesTableBody tr');
+            rows.forEach(r => {
+                if (status === 'all' || r.getAttribute('data-status') === status) {
+                    r.style.display = '';
+                } else {
+                    r.style.display = 'none';
+                }
+            });
+        }
+
+        // ==========================================
+        // 2. محاكي الدفع الفوري iDEAL الهولندي
+        // ==========================================
+        let currentPayingInv = { num: '', client: '', amount: 0 };
+
+        function openIdealSimulatorModal(invNum, client, amount) {
+            currentPayingInv = { num: invNum, client: client, amount: amount };
+            document.getElementById('idealInvNum').innerText = invNum;
+            document.getElementById('idealClientName').innerText = client;
+            document.getElementById('idealTotalAmount').innerText = `€ ${amount.toLocaleString()}`;
+            document.getElementById('idealProgressFill').style.width = '0%';
+            document.getElementById('idealStatusText').innerText = 'اختر البنك واضغط على تأكيد السداد الفوري';
+            document.getElementById('btnConfirmIdeal').disabled = false;
+            document.getElementById('btnConfirmIdeal').innerText = 'تأكيد السداد التجريبي اللحظي';
+            document.getElementById('idealSimulatorModal').classList.add('active');
+        }
+
+        function closeIdealSimulatorModal() {
+            document.getElementById('idealSimulatorModal').classList.remove('active');
+        }
+
+        function selectBank(el) {
+            document.querySelectorAll('.bank-option').forEach(b => b.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function executeIdealPayment() {
+            const btn = document.getElementById('btnConfirmIdeal');
+            const progress = document.getElementById('idealProgressFill');
+            const statusText = document.getElementById('idealStatusText');
+            btn.disabled = true;
+            btn.innerText = 'جاري المعالجة البنكية...';
+
+            progress.style.width = '45%';
+            statusText.innerText = 'الاتصال الآمن ببروتوكول iDEAL 2.0 وSEPA Instant...';
+
+            setTimeout(() => {
+                progress.style.width = '100%';
+                statusText.innerHTML = '<span style="color: #10b981; font-weight: 700;">✓ تمت تسوية المبلغ وتحويله لحساب المؤسسة بنجاح!</span>';
+
+                // تحديث حالة الفاتورة في الجدول
+                const badge = document.getElementById('status-badge-' + currentPayingInv.num) || document.getElementById('status-badge-inv-82');
+                if (badge) {
+                    badge.className = 'status-badge status-completed';
+                    badge.innerText = 'مدفوعة عبر iDEAL ✓';
+                }
+                const payBtn = document.getElementById('btn-pay-' + currentPayingInv.num) || document.getElementById('btn-pay-inv-82');
+                if (payBtn) {
+                    payBtn.style.display = 'none';
+                }
+
+                const targetRow = document.getElementById('inv-row-' + currentPayingInv.num) || document.getElementById('inv-row-2');
+                if (targetRow) {
+                    targetRow.setAttribute('data-status', 'paid');
+                }
+
+                // تحديث العدادات والرسوم البيانية
+                const paidStat = document.getElementById('inv-stat-paid');
+                if (paidStat) paidStat.innerText = `€ ${(142500 + currentPayingInv.amount).toLocaleString()}`;
+                
+                const revStat = document.getElementById('stat-revenue');
+                if (revStat) revStat.innerText = `€ ${(842500 + currentPayingInv.amount).toLocaleString()}`;
+
+                if (revenueChartInstance) {
+                    const dataArr = revenueChartInstance.data.datasets[0].data;
+                    dataArr[dataArr.length - 1] += currentPayingInv.amount;
+                    revenueChartInstance.update();
+                }
+
+                updateInvoiceCounters();
+
+                setTimeout(() => {
+                    closeIdealSimulatorModal();
+                }, 1200);
+            }, 900);
+        }
+
+        // ==========================================
+        // 3. وضع العرض التقديمي للزبائن (Presentation Mode)
+        // ==========================================
+        let isPresentationActive = false;
+
+        function togglePresentationMode() {
+            const btn = document.getElementById('btnPresentationToggle');
+            isPresentationActive = !isPresentationActive;
+            if (isPresentationActive) {
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen().catch(() => {});
+                }
+                btn.classList.add('active');
+                btn.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14h6m0 0v6m0-6L3 21m17-7h-6m0 0v6m0-6l7 7M14 4h6m-6 0v6m0-6l7-7M4 10h6m0 0V4m0 6L3 3"></path></svg> <span>الخروج من العرض</span>`;
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen().catch(() => {});
+                }
+                btn.classList.remove('active');
+                btn.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg> <span>وضع عرض الزبائن</span>`;
+            }
+        }
+
+        // ==========================================
+        // 4. مزامنة بيانات الديمو مع استمارة التواصل (Feature 3)
+        // ==========================================
+        function syncDemoToConsultation() {
+            const activeTab = document.querySelector('.nav-item.active span')?.innerText || 'نظام ERP';
+            let service = 'erp';
+            if (activeTab.includes('ERP')) service = 'erp';
+            else if (activeTab.includes('المالي') || activeTab.includes('القيادة')) service = 'erp';
+            else if (activeTab.includes('الذكاء') || activeTab.includes('AI')) service = 'ai';
+            else if (activeTab.includes('الخوادم')) service = 'software';
+            else if (activeTab.includes('الفواتير')) service = 'erp';
+
+            const revText = document.getElementById('stat-revenue')?.innerText || '€ 842,500';
+            const note = encodeURIComponent(`طلب استشارة بناءً على المعاينة التجريبية: القسم المستهدف (${activeTab})، وحجم العمليات المقدر في الجلسة: ${revText}`);
+            window.location.href = `index.html?service=${service}&budget=3&source=demo&notes=${note}#contact`;
         }
     </script>
 </body>

@@ -6414,6 +6414,57 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 mx-auto">
+                        <!-- شريط مزامنة البيانات من المنصة التجريبية -->
+                        <div id="demo-sync-banner" class="demo-sync-notification" style="display: none;">
+                            <div class="demo-sync-icon-glow">✨</div>
+                            <div class="demo-sync-text">
+                                <h4 id="demo-sync-title">تمت مزامنة بياناتك من المنصة السحابية التجريبية بنجاح!</h4>
+                                <p id="demo-sync-desc">تم ملء نوع الخدمة والميزانية ونبذة المشروع تلقائياً بناءً على ما اخترته في الجلسة التجريبية.</p>
+                            </div>
+                            <button type="button" class="demo-sync-close" onclick="document.getElementById('demo-sync-banner').style.display='none'" aria-label="إغلاق">✕</button>
+                        </div>
+                        <style>
+                            .demo-sync-notification {
+                                background: linear-gradient(135deg, rgba(197, 168, 128, 0.22), rgba(1, 9, 7, 0.95));
+                                border: 1px solid var(--primary-gold);
+                                box-shadow: 0 10px 30px rgba(197, 168, 128, 0.25);
+                                border-radius: 16px;
+                                padding: 1.2rem 1.5rem;
+                                margin-bottom: 2rem;
+                                display: flex;
+                                align-items: center;
+                                gap: 14px;
+                                position: relative;
+                            }
+                            .demo-sync-icon-glow {
+                                font-size: 1.8rem;
+                                filter: drop-shadow(0 0 12px var(--primary-gold));
+                            }
+                            .demo-sync-text h4 {
+                                font-size: 1.05rem;
+                                color: #fff;
+                                margin-bottom: 4px;
+                                font-weight: 700;
+                            }
+                            .demo-sync-text p {
+                                font-size: 0.85rem;
+                                color: rgba(248, 250, 252, 0.82);
+                                margin: 0;
+                            }
+                            .demo-sync-close {
+                                margin-right: auto;
+                                background: transparent;
+                                border: none;
+                                color: rgba(255, 255, 255, 0.6);
+                                font-size: 1.2rem;
+                                cursor: pointer;
+                                padding: 4px 8px;
+                                transition: color 0.2s;
+                            }
+                            .demo-sync-close:hover {
+                                color: #fff;
+                            }
+                        </style>
                         <form class="form-cta" onsubmit="event.preventDefault(); alert('شكرًا لتواصلك مع S&R CoreSync Solutions! تم استلام طلبك وسيتواصل معك الشريكان المؤسسان خلال ساعات قليلة.');">
                             <div class="form-content">
                                 <div class="tf-grid-layout sm-col-2">
@@ -9331,6 +9382,46 @@
             });
         });
         
+    </script>
+    <script>
+        // مزامنة اختيارات المنصة التجريبية (Demo Sync Handler)
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                if (params.get('source') === 'demo' || params.has('service') || params.has('notes')) {
+                    const service = params.get('service');
+                    const budget = params.get('budget');
+                    const notes = params.get('notes');
+
+                    const serviceSelect = document.getElementById('contact-service');
+                    if (serviceSelect && service) {
+                        serviceSelect.value = service;
+                    }
+
+                    const budgetSelect = document.getElementById('contact-budget');
+                    if (budgetSelect && budget) {
+                        budgetSelect.value = budget;
+                    }
+
+                    const detailsInput = document.getElementById('contact-details');
+                    if (detailsInput && notes) {
+                        detailsInput.value = decodeURIComponent(notes);
+                    }
+
+                    const banner = document.getElementById('demo-sync-banner');
+                    if (banner) {
+                        banner.style.display = 'flex';
+                    }
+
+                    const contactEl = document.getElementById('contact');
+                    if (contactEl) {
+                        setTimeout(() => {
+                            contactEl.scrollIntoView({ behavior: 'smooth' });
+                        }, 250);
+                    }
+                }
+            } catch(e) { console.error('Demo sync error:', e); }
+        });
     </script>
     <!-- محرك الخدمات والأنظمة المؤسسية الذكية -->
     <script src="./css/enterprise-suite.js"></script>
