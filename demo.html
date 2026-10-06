@@ -76,6 +76,10 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
                 <span>حالة الخوادم السحابية</span>
             </div>
+            <div class="nav-item" onclick="switchPortalTab('whitelabel', this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+                <span>تخصيص الهوية (White-Label)</span>
+            </div>
 
             <div class="sidebar-spacer"></div>
 
@@ -466,6 +470,98 @@
                     <p class="text-white-64">
                         تعتمد منصة S&R CoreSync على بنية تحتية سحابية هجينة تضمن عزل بيانات كل عميل في قواعد بيانات مشفرة مستقلة، مع شهادات التوافق مع اللائحة العامة لحماية البيانات في الاتحاد الأوروبي (GDPR) وأنظمة الأمن السيبراني المصرفية.
                     </p>
+                </div>
+            </section>
+
+            <!-- 6. شاشة تخصيص الهوية والعلامة البيضاء (White-Label Studio) -->
+            <section class="tab-section" id="tab-whitelabel">
+                <div class="section-header">
+                    <div class="section-title-wrap">
+                        <h2>محرك العلامة البيضاء وتخصيص هوية العميل (White-Label Studio)</h2>
+                        <p>شاهد كيف تتحول لوحة تحكم الـ ERP السحابية فورياً لتلائم هوية شركتك وشعارك وألوانك المؤسسية</p>
+                    </div>
+                    <button type="button" class="btn-return-main" onclick="resetBrandIdentity()">
+                        استعادة هوية S&R الأصلية
+                    </button>
+                </div>
+
+                <div class="grid-2-cols gap-4 mb-4">
+                    <!-- لوحة اختيار السمة اللونية الفاخرة -->
+                    <div class="glass-box">
+                        <h3 class="mb-2">1. اختيار السمة اللونية الفاخرة (Theme Presets)</h3>
+                        <p class="text-caption text-white-64 mb-4">انقر على أي سمة لمشاهدة تحول ألوان الأزرار والمخططات والإضاءات فوراً:</p>
+
+                        <div class="theme-presets-grid">
+                            <div class="theme-preset-card active" onclick="applyThemeColor('gold', this)">
+                                <div class="theme-color-swatch swatch-gold"></div>
+                                <div class="theme-preset-info">
+                                    <div class="theme-preset-title">الذهب الملكي (Royal Gold)</div>
+                                    <div class="theme-preset-desc">الهوية الرسمية المعتمدة لـ S&R CoreSync</div>
+                                </div>
+                            </div>
+                            <div class="theme-preset-card" onclick="applyThemeColor('cyan', this)">
+                                <div class="theme-color-swatch swatch-cyan"></div>
+                                <div class="theme-preset-info">
+                                    <div class="theme-preset-title">التيتانيوم السيبراني (Titanium Cyan)</div>
+                                    <div class="theme-preset-desc">لشركات التقنية السحابية وهندسة البيانات</div>
+                                </div>
+                            </div>
+                            <div class="theme-preset-card" onclick="applyThemeColor('emerald', this)">
+                                <div class="theme-color-swatch swatch-emerald"></div>
+                                <div class="theme-preset-info">
+                                    <div class="theme-preset-title">الزمرد المالي (Fintech Emerald)</div>
+                                    <div class="theme-preset-desc">للبنوك والمؤسسات المالية وحلول الامتثال</div>
+                                </div>
+                            </div>
+                            <div class="theme-preset-card" onclick="applyThemeColor('violet', this)">
+                                <div class="theme-color-swatch swatch-violet"></div>
+                                <div class="theme-preset-info">
+                                    <div class="theme-preset-title">الياقوت الإمبراطوري (Imperial Violet)</div>
+                                    <div class="theme-preset-desc">لشركات الذكاء الاصطناعي والابتكار الرقمي</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- لوحة رفع الشعار وتغيير اسم الشركة -->
+                    <div class="glass-box">
+                        <h3 class="mb-2">2. تطبيق اسم وشعار شركتك (Client Custom Brand)</h3>
+                        <p class="text-caption text-white-64 mb-3">أدخل اسم مؤسستك أو ارفع شعارك لمعاينة نظام الـ ERP باسمك:</p>
+
+                        <div class="modal-form-fields mb-3">
+                            <div>
+                                <label class="text-caption text-white-64 mb-1 d-block" for="clientBrandNameInput">اسم شركتك أو مؤسستك:</label>
+                                <input type="text" id="clientBrandNameInput" class="ai-chat-input modal-form-input" value="مجموعة الرياض للخدمات اللوجستية" placeholder="اسم شركتك" title="اسم الشركة">
+                            </div>
+
+                            <div>
+                                <label class="text-caption text-white-64 mb-1 d-block" for="clientLogoUploadInput">شعار الشركة (اختياري - PNG / SVG / JPG):</label>
+                                <input type="file" id="clientLogoUploadInput" accept="image/*" class="ai-chat-input modal-form-input" onchange="handleClientLogoUpload(event)">
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2 flex-wrap mb-3">
+                            <span class="text-caption text-white-64 d-block w-100">أو اختر نموذجاً جاهزاً سريعاً:</span>
+                            <button type="button" class="filter-btn" onclick="applySampleClientBrand('مجموعة الرياض للخدمات اللوجستية', '🇸🇦')">مجموعة الرياض 🇸🇦</button>
+                            <button type="button" class="filter-btn" onclick="applySampleClientBrand('Amsterdam Digital Trade BV', '🇳🇱')">Amsterdam BV 🇳🇱</button>
+                            <button type="button" class="filter-btn" onclick="applySampleClientBrand('بنك التقنية الحديثة', '🏦')">بنك التقنية 🏦</button>
+                        </div>
+
+                        <button type="button" class="action-cta-btn w-100" onclick="applyClientBrand()">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg>
+                            تطبيق الهوية فوراً على المنصة بالكامل
+                        </button>
+                    </div>
+                </div>
+
+                <div class="glass-box">
+                    <h3 class="mb-2">جاهز لإطلاق نسختك الخاصة من النظام؟</h3>
+                    <p class="text-white-64 mb-3">
+                        يمكن لشركة S&R CoreSync Solutions تخصيص نظام الـ ERP ونظام الفوترة والمحاسبة الذكية بالكامل تحت علامتك التجارية (White-Label Deployment) على نطاقك الخاص (yourcompany.com) مع خوادم معزولة بالكامل.
+                    </p>
+                    <button type="button" class="btn-sync-consultation" onclick="syncDemoToConsultation()">
+                        طلب عرض سعر لنظام White-Label مخصص
+                    </button>
                 </div>
             </section>
 
@@ -1083,6 +1179,87 @@
             window.location.href = `index.html?service=${service}&budget=3&source=demo&notes=${note}#contact`;
         }
     
+
+        // ==========================================
+        // 5. محرك تخصيص الهوية والعلامة البيضاء (White-Label)
+        // ==========================================
+        const themePalette = {
+            gold: { gold: '#c5a880', hover: '#e0c59e', glow: 'rgba(197, 168, 128, 0.25)', border: 'rgba(197, 168, 128, 0.18)' },
+            cyan: { gold: '#38bdf8', hover: '#7dd3fc', glow: 'rgba(56, 189, 248, 0.25)', border: 'rgba(56, 189, 248, 0.2)' },
+            emerald: { gold: '#10b981', hover: '#34d399', glow: 'rgba(16, 185, 129, 0.25)', border: 'rgba(16, 185, 129, 0.2)' },
+            violet: { gold: '#a855f7', hover: '#c084fc', glow: 'rgba(168, 85, 247, 0.25)', border: 'rgba(168, 85, 247, 0.2)' }
+        };
+
+        function applyThemeColor(themeName, el) {
+            document.querySelectorAll('.theme-preset-card').forEach(c => c.classList.remove('active'));
+            if (el) el.classList.add('active');
+
+            const p = themePalette[themeName] || themePalette.gold;
+            document.documentElement.style.setProperty('--gold', p.gold);
+            document.documentElement.style.setProperty('--gold-hover', p.hover);
+            document.documentElement.style.setProperty('--gold-glow', p.glow);
+            document.documentElement.style.setProperty('--border-glass', p.border);
+
+            if (revenueChartInstance) {
+                revenueChartInstance.data.datasets[0].borderColor = p.gold;
+                revenueChartInstance.data.datasets[0].pointBackgroundColor = p.gold;
+                revenueChartInstance.update();
+            }
+        }
+
+        let uploadedLogoDataUrl = null;
+
+        function handleClientLogoUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                uploadedLogoDataUrl = evt.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function applySampleClientBrand(name, iconChar) {
+            document.getElementById('clientBrandNameInput').value = name;
+            uploadedLogoDataUrl = null;
+            applyClientBrand(name, iconChar);
+        }
+
+        function applyClientBrand(customName, customIcon) {
+            const name = customName || document.getElementById('clientBrandNameInput').value || 'S&R CORESYNC';
+            
+            // Update brand text in header
+            const brandH1 = document.querySelector('.portal-brand-text h1');
+            if (brandH1) {
+                brandH1.innerHTML = `<span>${name}</span> ERP`;
+            }
+
+            // Update user card
+            const userNameEl = document.querySelector('.sidebar-user-card .user-name');
+            if (userNameEl) userNameEl.innerText = name;
+            const userAvatar = document.querySelector('.sidebar-user-card .user-avatar');
+            if (userAvatar) {
+                userAvatar.innerText = customIcon || name.substring(0, 2).toUpperCase();
+            }
+
+            // Update emblem if uploaded
+            if (uploadedLogoDataUrl) {
+                const emblem = document.querySelector('.portal-brand-emblem');
+                if (emblem) emblem.src = uploadedLogoDataUrl;
+            }
+
+            alert(`✨ تم تطبيق هوية [${name}] بنجاح على نظام الـ ERP السحابي بالكامل!`);
+        }
+
+        function resetBrandIdentity() {
+            applyThemeColor('gold');
+            document.querySelector('.portal-brand-text h1').innerHTML = `<span>S&R</span> CORESYNC`;
+            document.querySelector('.sidebar-user-card .user-name').innerText = 'جلسة معاينة تفاعلية';
+            document.querySelector('.sidebar-user-card .user-avatar').innerText = 'SR';
+            document.querySelector('.portal-brand-emblem').src = './assets/logo-neon-icon.svg';
+            alert('تمت استعادة هوية S&R CoreSync Solutions الرسمية المعتمدة.');
+        }
+
         // تفعيل اختصارات لوحة المفاتيح لوضع العرض التقديمي (Key Shortcuts)
         document.addEventListener('keydown', function(e) {
             const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
