@@ -9,6 +9,7 @@ const PRECACHE_ASSETS = [
   './assets/logo-neon-icon.svg',
   './css/dananajmah-bundle.min.css',
   './css/enterprise-suite.css',
+  './css/demo-portal.css',
   './css/enterprise-suite.js'
 ];
 
