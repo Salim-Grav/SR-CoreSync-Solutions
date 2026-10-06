@@ -14,6 +14,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- JSZip Local Engine -->
+  <script src="./js/jszip.min.js"></script>
 
   <style>
     :root {
@@ -58,6 +60,35 @@
       background: #27272a;
       border-radius: 9999px;
     }
+  
+    /* تنسيقات الطباعة الدقيقة لبطاقات الأعمال */
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      #print-area, #print-area * {
+        visibility: visible !important;
+      }
+      #print-area {
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        background: #ffffff !important;
+        padding: 20mm !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 15mm !important;
+        z-index: 999999 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+
   </style>
 </head>
 <body class="min-h-screen text-zinc-200 antialiased selection:bg-cyan-500 selection:text-black">
@@ -425,6 +456,18 @@
           </div>
 
           <div class="text-[11px] text-zinc-400 mt-3 text-center">انعكاس ضوئي متجاوب بزاوية الماوس 360°</div>
+          
+          <!-- أزرار تصدير وطباعة بطاقة الأعمال -->
+          <div class="w-full mt-3 pt-3 border-t border-white/10 flex flex-col gap-2">
+            <button type="button" onclick="openCardPrintModal()" class="w-full py-2 px-3 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/50 text-amber-300 text-xs font-bold font-tech flex items-center justify-center gap-2 transition hover:scale-[1.02]">
+              <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+              <span>تصدير وطباعة بطاقة الأعمال (Print Ready PDF / 85x55mm)</span>
+            </button>
+            <div class="flex items-center justify-between text-[10px] text-zinc-400 px-1 font-mono">
+              <span>قياس أوروبي معتمد: 85×55 mm</span>
+              <span class="text-amber-400 font-bold">NFC + Dynamic QR</span>
+            </div>
+          </div>
         </div>
 
         <!-- 2. شاشة Apple Pro Display XDR (واجهة الـ ERP في الشاشة) -->
@@ -525,10 +568,16 @@
           </h3>
           <p class="text-xs text-zinc-400">المعايير الرسمية المعتمدة للألوان، الخطوط، وأصول العلامة التجارية للاستخدام المؤسسي والمطبعي والويب.</p>
         </div>
-        <button type="button" onclick="exportBrandBookPdf()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-black text-xs font-bold font-tech flex items-center gap-2 transition shadow-lg shadow-amber-400/20 hover:scale-105">
-          <i data-lucide="printer" class="w-4 h-4"></i>
-          تصدير وطباعة دليل الهوية (Brand Book Sheet)
-        </button>
+        <div class="flex items-center flex-wrap gap-3">
+          <button type="button" onclick="downloadAssetsZipPack()" id="btn-zip-pack" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-black text-xs font-bold font-tech flex items-center gap-2 transition shadow-lg shadow-cyan-500/20 hover:scale-105">
+            <i data-lucide="package" class="w-4 h-4"></i>
+            <span id="zip-btn-text">تنزيل حزمة الهوية الكاملة (Instant ZIP Pack)</span>
+          </button>
+          <button type="button" onclick="exportBrandBookPdf()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-black text-xs font-bold font-tech flex items-center gap-2 transition shadow-lg shadow-amber-400/20 hover:scale-105">
+            <i data-lucide="printer" class="w-4 h-4"></i>
+            تصدير وطباعة دليل الهوية (Brand Book Sheet)
+          </button>
+        </div>
       </div>
 
       <!-- شبكة الألوان المعتمدة مع النسخ الفوري -->
@@ -607,6 +656,169 @@
     </section>
 
   </main>
+
+  
+  <!-- ======================================================== -->
+  <!-- مودال تصدير وطباعة بطاقات الأعمال المطبعية (Print Card Modal) -->
+  <!-- ======================================================== -->
+  <div id="card-print-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-[#121217] border border-white/15 rounded-2xl max-w-4xl w-full p-6 text-right relative shadow-2xl my-8">
+      
+      <!-- رأس المودال -->
+      <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
+        <div>
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <i data-lucide="credit-card" class="w-5 h-5 text-amber-400"></i>
+            تصدير وطباعة بطاقات الأعمال المعتمدة (S&R CoreSync Executive NFC Cards)
+          </h3>
+          <p class="text-xs text-zinc-400 mt-1">النموذج المطبعي القياسي الأوروبي المعتمد (85mm × 55mm) مع خطوط القص (Bleed 3mm) وشيفرة الـ QR الذكية.</p>
+        </div>
+        <button type="button" onclick="closeCardPrintModal()" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white flex items-center justify-center transition">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- مساحة عرض وجهي البطاقة (Front & Back) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        
+        <!-- 1. الوجه الأمامي (Front Face) -->
+        <div class="flex flex-col items-center">
+          <div class="text-xs font-mono text-amber-400 mb-2 flex items-center justify-between w-full px-2">
+            <span>الوجه الأمامي (Front Face)</span>
+            <span>Matt Black & Hot Foil Gold</span>
+          </div>
+          <div id="print-card-front" class="w-full max-w-[380px] h-[220px] rounded-xl p-5 flex flex-col justify-between relative overflow-hidden shadow-2xl border border-amber-500/40"
+               style="background: radial-gradient(circle at 85% 15%, #2a241b 0%, #0d0d12 75%);">
+            
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-amber-400/20 border border-amber-400 flex items-center justify-center p-1">
+                  <img src="./assets/logo-neon-icon.svg" class="w-full h-full object-contain" alt="Emblem">
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-white font-tech">S&R CORESYNC</div>
+                  <div class="text-[9px] text-amber-300 font-code tracking-wider">SOLUTIONS B.V.</div>
+                </div>
+              </div>
+              <div class="text-[10px] text-amber-400 font-code flex items-center gap-1">
+                <i data-lucide="wifi" class="w-3.5 h-3.5 rotate-90"></i>
+                <span>NFC CHIP</span>
+              </div>
+            </div>
+
+            <div class="my-auto text-right">
+              <div class="text-sm font-bold text-white">Eng. Mohammad Salim Aziza</div>
+              <div class="text-[10px] text-amber-400 font-code">Co-Founder & CTO // Cloud Architect</div>
+              <div class="text-xs font-bold text-zinc-200 mt-1">Mr. Mohammad Raed Kaakeh</div>
+              <div class="text-[10px] text-amber-400/80 font-code">Co-Founder & CFO // Financial ERP</div>
+            </div>
+
+            <div class="flex items-center justify-between text-[9px] text-zinc-400 font-mono pt-2 border-t border-white/10">
+              <span>Keizersgracht 482, Amsterdam</span>
+              <span class="text-amber-400 font-bold">KVK: 84920194</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. الوجه الخلفي مع الـ QR Code (Back Face) -->
+        <div class="flex flex-col items-center">
+          <div class="text-xs font-mono text-cyan-400 mb-2 flex items-center justify-between w-full px-2">
+            <span>الوجه الخلفي (Back Face)</span>
+            <span>Security Seal & Dynamic QR</span>
+          </div>
+          <div id="print-card-back" class="w-full max-w-[380px] h-[220px] rounded-xl p-5 flex flex-col justify-between relative overflow-hidden shadow-2xl border border-cyan-500/40"
+               style="background: radial-gradient(circle at 15% 85%, #051d28 0%, #09090e 75%);">
+            
+            <div class="flex items-center justify-between">
+              <span class="text-[9px] text-cyan-300 font-mono tracking-wider">ENTERPRISE SYSTEM CONNECT</span>
+              <span class="text-[9px] text-zinc-400 font-mono">BTW: NL863920194B01</span>
+            </div>
+
+            <div class="flex items-center justify-between my-auto px-2">
+              <div class="space-y-1 text-right">
+                <div class="text-xs font-bold text-white font-tech">Scan or Tap to Connect</div>
+                <div class="text-[10px] text-zinc-300">امسح الكود لزيارة المنصة</div>
+                <div class="text-[9px] text-cyan-400 font-code">coresync.cloud</div>
+                <div class="text-[8px] text-zinc-500 font-mono mt-1">Amsterdam • Frankfurt • Riyadh</div>
+              </div>
+
+              <!-- SVG Dynamic QR Code Box -->
+              <div class="w-20 h-20 bg-white rounded-lg p-1.5 shadow-lg flex items-center justify-center">
+                <svg viewBox="0 0 100 100" class="w-full h-full" fill="#000000">
+                  <!-- Simplified High Quality Geometric QR Code Shape -->
+                  <rect x="0" y="0" width="30" height="30" fill="#000" rx="3" />
+                  <rect x="5" y="5" width="20" height="20" fill="#fff" rx="2" />
+                  <rect x="9" y="9" width="12" height="12" fill="#c5a880" rx="1" />
+                  
+                  <rect x="70" y="0" width="30" height="30" fill="#000" rx="3" />
+                  <rect x="75" y="5" width="20" height="20" fill="#fff" rx="2" />
+                  <rect x="79" y="9" width="12" height="12" fill="#c5a880" rx="1" />
+
+                  <rect x="0" y="70" width="30" height="30" fill="#000" rx="3" />
+                  <rect x="5" y="75" width="20" height="20" fill="#fff" rx="2" />
+                  <rect x="9" y="79" width="12" height="12" fill="#c5a880" rx="1" />
+
+                  <!-- Pattern dots -->
+                  <rect x="36" y="8" width="8" height="8" fill="#000" />
+                  <rect x="48" y="14" width="8" height="8" fill="#000" />
+                  <rect x="58" y="8" width="8" height="8" fill="#000" />
+                  <rect x="36" y="24" width="8" height="8" fill="#000" />
+                  <rect x="48" y="36" width="12" height="12" fill="#0284c7" />
+                  <rect x="14" y="42" width="8" height="8" fill="#000" />
+                  <rect x="24" y="48" width="8" height="8" fill="#000" />
+                  <rect x="68" y="42" width="10" height="10" fill="#000" />
+                  <rect x="84" y="48" width="8" height="8" fill="#000" />
+                  <rect x="36" y="62" width="8" height="8" fill="#000" />
+                  <rect x="48" y="72" width="10" height="10" fill="#000" />
+                  <rect x="64" y="66" width="8" height="8" fill="#000" />
+                  <rect x="78" y="76" width="10" height="10" fill="#000" />
+                  <rect x="64" y="84" width="8" height="8" fill="#000" />
+                </svg>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between text-[8px] text-zinc-500 font-mono pt-2 border-t border-white/10">
+              <span>Encrypted NFC CoreSync Tag</span>
+              <span class="text-emerald-400">Security Verified</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- شريط أدوات التصدير -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-white/10">
+        <label class="flex items-center gap-2 text-xs text-zinc-300 cursor-pointer">
+          <input type="checkbox" id="toggle-bleed" checked onchange="toggleBleedGuide(this.checked)" class="rounded bg-zinc-800 border-white/20 text-amber-500 focus:ring-0">
+          <span>إظهار إرشادات وهوامش القص المطبعي القياسية (3mm Bleed Marks)</span>
+        </label>
+
+        <div class="flex items-center gap-2.5 w-full sm:w-auto">
+          <button type="button" onclick="downloadCardsAsSvg()" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white text-xs font-semibold flex items-center justify-center gap-2 transition">
+            <i data-lucide="download" class="w-4 h-4 text-cyan-400"></i>
+            تنزيل بصيغة SVG
+          </button>
+          <button type="button" onclick="triggerCardPrint()" class="px-5 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-black text-xs font-bold font-tech flex items-center justify-center gap-2 transition shadow-lg shadow-amber-400/20 hover:scale-105">
+            <i data-lucide="printer" class="w-4 h-4"></i>
+            طباعة البطاقة فورياً / حفظ كـ PDF
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- منطقة الطباعة المخصصة المعزولة (Isolated Print Sheet Area) -->
+  <div id="print-area" class="hidden">
+    <div style="font-family:'Plus Jakarta Sans',sans-serif; text-align:center; margin-bottom:10mm;">
+      <h2 style="font-size:16pt; margin:0; color:#111;">S&R CORESYNC SOLUTIONS B.V. — OFFICIAL BUSINESS CARDS</h2>
+      <p style="font-size:9pt; color:#666; margin:3mm 0 0;">Standard Euro Spec: 85x55 mm • 300 DPI High-Precision Vectors</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:12mm; justify-content:center;">
+      <div id="print-sheet-front" style="width:85mm; height:55mm; border:1px dashed #bbb; padding:5mm; background:#0d0d12; color:#fff; border-radius:4mm; box-sizing:border-box;"></div>
+      <div id="print-sheet-back" style="width:85mm; height:55mm; border:1px dashed #bbb; padding:5mm; background:#09090e; color:#fff; border-radius:4mm; box-sizing:border-box;"></div>
+    </div>
+  </div>
 
   <!-- رسالة التنبيه العائمة (Toast Notification) -->
   <div id="toast" class="fixed bottom-6 left-6 bg-cyan-500 text-black px-4 py-2.5 rounded-xl text-xs font-bold shadow-2xl flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 z-50">
@@ -790,7 +1002,36 @@
                 .orb-rot-c-4 { transform-origin: 50px 50px; animation: counterOrbit4 30s linear infinite; }
                 .neon-pulse-4 { animation: neonPulse4 3s ease-in-out infinite; }
                 .star-glint-4 { transform-origin: 50px 25px; animation: starGlint4 2.2s ease-in-out infinite; }
-              </style>
+              
+    /* تنسيقات الطباعة الدقيقة لبطاقات الأعمال */
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      #print-area, #print-area * {
+        visibility: visible !important;
+      }
+      #print-area {
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        background: #ffffff !important;
+        padding: 20mm !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 15mm !important;
+        z-index: 999999 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+
+  </style>
               <radialGradient id="neonOrbGrad4" cx="45%" cy="38%" r="65%">
                 <stop offset="0%" stop-color="#2a1a00" stop-opacity="0.95" />
                 <stop offset="60%" stop-color="#120b00" stop-opacity="0.98" />
@@ -859,7 +1100,36 @@
                   50% { filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 3px ${color1}) drop-shadow(0 0 8px ${color2}); }
                 }
                 .neon-txt-4 { animation: textGlow4 3s ease-in-out infinite; }
-              </style>
+              
+    /* تنسيقات الطباعة الدقيقة لبطاقات الأعمال */
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      #print-area, #print-area * {
+        visibility: visible !important;
+      }
+      #print-area {
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        background: #ffffff !important;
+        padding: 20mm !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 15mm !important;
+        z-index: 999999 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+
+  </style>
             </defs>
             ${iconSvg}
             <g class="neon-txt-4">
@@ -880,7 +1150,36 @@
           <defs>
             <style>
               @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap');
-            </style>
+            
+    /* تنسيقات الطباعة الدقيقة لبطاقات الأعمال */
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      #print-area, #print-area * {
+        visibility: visible !important;
+      }
+      #print-area {
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        background: #ffffff !important;
+        padding: 20mm !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 15mm !important;
+        z-index: 999999 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+
+  </style>
           </defs>
           ${iconSvg}
           <text x="50" y="118" font-family="'Plus Jakarta Sans', sans-serif" font-size="10.2" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="-0.2">
@@ -985,6 +1284,224 @@
       setTimeout(() => {
         toast.classList.add('translate-y-20', 'opacity-0');
       }, 3000);
+    }
+
+    
+    // ==========================================
+    // 6. مودال وطباعة بطاقات الأعمال المعتمدة (Business Card Print & Export)
+    // ==========================================
+    function openCardPrintModal() {
+      const modal = document.getElementById('card-print-modal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        lucide.createIcons();
+      }
+    }
+
+    function closeCardPrintModal() {
+      const modal = document.getElementById('card-print-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function toggleBleedGuide(show) {
+      const front = document.getElementById('print-card-front');
+      const back = document.getElementById('print-card-back');
+      if (show) {
+        front.style.outline = '2px dashed rgba(245, 158, 11, 0.4)';
+        back.style.outline = '2px dashed rgba(6, 182, 212, 0.4)';
+      } else {
+        front.style.outline = 'none';
+        back.style.outline = 'none';
+      }
+    }
+
+    function triggerCardPrint() {
+      // نسخ المحتوى إلى منطقة الطباعة المخصصة
+      const frontSrc = document.getElementById('print-card-front').innerHTML;
+      const backSrc = document.getElementById('print-card-back').innerHTML;
+      const sheetFront = document.getElementById('print-sheet-front');
+      const sheetBack = document.getElementById('print-sheet-back');
+      
+      if (sheetFront && sheetBack) {
+        sheetFront.innerHTML = frontSrc;
+        sheetBack.innerHTML = backSrc;
+      }
+      
+      const printArea = document.getElementById('print-area');
+      printArea.classList.remove('hidden');
+      window.print();
+      printArea.classList.add('hidden');
+    }
+
+    function downloadCardsAsSvg() {
+      const frontSvg = generateBusinessCardSvg('front');
+      const blob = new Blob([frontSvg], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'SR-CoreSync-Business-Card-85x55mm.svg';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      showToast('تم تنزيل بطاقة الأعمال بدقة متجهة SVG عالية النقاء!');
+    }
+
+    function generateBusinessCardSvg(face = 'front') {
+      if (face === 'front') {
+        return `<svg viewBox="0 0 850 550" width="850" height="550" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="cardGrad" cx="85%" cy="15%" r="75%">
+              <stop offset="0%" stop-color="#2a241b"/>
+              <stop offset="75%" stop-color="#0d0d12"/>
+            </radialGradient>
+          </defs>
+          <rect width="850" height="550" rx="30" fill="url(#cardGrad)" stroke="#c5a880" stroke-width="4"/>
+          <text x="60" y="80" font-family="'Plus Jakarta Sans', sans-serif" font-size="28" font-weight="800" fill="#ffffff">S&amp;R CORESYNC</text>
+          <text x="60" y="110" font-family="'JetBrains Mono', monospace" font-size="16" fill="#c5a880" letter-spacing="4">SOLUTIONS B.V.</text>
+          
+          <text x="60" y="270" font-family="'Plus Jakarta Sans', sans-serif" font-size="34" font-weight="800" fill="#ffffff">Eng. Mohammad Salim Aziza</text>
+          <text x="60" y="305" font-family="'JetBrains Mono', monospace" font-size="18" fill="#f59e0b">Co-Founder &amp; CTO // Cloud Architect</text>
+          
+          <text x="60" y="380" font-family="'Plus Jakarta Sans', sans-serif" font-size="30" font-weight="800" fill="#e4e4e7">Mr. Mohammad Raed Kaakeh</text>
+          <text x="60" y="415" font-family="'JetBrains Mono', monospace" font-size="18" fill="#d97706">Co-Founder &amp; CFO // Financial ERP</text>
+          
+          <line x1="60" y1="465" x2="790" y2="465" stroke="#333" stroke-width="2"/>
+          <text x="60" y="505" font-family="'JetBrains Mono', monospace" font-size="16" fill="#a1a1aa">Keizersgracht 482, Amsterdam</text>
+          <text x="650" y="505" font-family="'JetBrains Mono', monospace" font-size="16" font-weight="700" fill="#c5a880">KVK: 84920194</text>
+        </svg>`;
+      }
+      return '';
+    }
+
+    // ==========================================
+    // 7. محرك توليد وتنزيل حزمة أصول الهوية بالكامل (Instant ZIP Pack Generator)
+    // ==========================================
+    async function downloadAssetsZipPack() {
+      const btn = document.getElementById('btn-zip-pack');
+      const btnText = document.getElementById('zip-btn-text');
+      
+      if (typeof JSZip === 'undefined') {
+        showToast('جاري تجهيز محرك الضغط... يرجى الانتظار ثانية.');
+        return;
+      }
+
+      if (btnText) btnText.textContent = 'جاري تجميع الملفات (ZIP)...';
+      if (btn) btn.disabled = true;
+
+      try {
+        const zip = new JSZip();
+
+        // 1. الشعار الأول المعتمد (SVG)
+        const svgQuantum = generateSvgString(true, 300);
+        zip.file("01-Logo-Official-Quantum-Orb.svg", svgQuantum);
+
+        // 2. الشعار النيوني الذهبي الملكي (SVG)
+        const currentTmp = currentVariant;
+        currentVariant = 4;
+        const colorTmp1 = color1;
+        const colorTmp2 = color2;
+        color1 = '#c5a880';
+        color2 = '#e6ca9f';
+        const svgRoyalGold = generateSvgString(true, 300);
+        zip.file("02-Logo-Royal-Neon-Gold.svg", svgRoyalGold);
+        
+        // استعادة الحالة
+        currentVariant = currentTmp;
+        color1 = colorTmp1;
+        color2 = colorTmp2;
+
+        // 3. رمز الشعار المستقل (Icon Only Vector)
+        const svgIconOnly = generateSvgString(false, 180);
+        zip.file("03-Logo-Emblem-Icon-Only.svg", svgIconOnly);
+
+        // 4. بطاقة الأعمال الفاخرة (SVG Vector 85x55mm)
+        zip.file("04-Founders-Business-Card-85x55mm.svg", generateBusinessCardSvg('front'));
+
+        // 5. ملف أكواد الألوان والتوكنز الرسمية (JSON)
+        const tokensJson = {
+          brand: "S&R CoreSync Solutions B.V.",
+          headquarters: "Keizersgracht 482, Amsterdam, The Netherlands",
+          kvk: "84920194",
+          btw: "NL863920194B01",
+          colors: {
+            royalGold: { hex: "#c5a880", rgb: "rgb(197, 168, 128)", usage: "Primary Luxury Brand & High-Tier Assets" },
+            cyberCyan: { hex: "#38bdf8", rgb: "rgb(56, 189, 248)", usage: "Cloud Architecture & Tech Interfaces" },
+            fintechEmerald: { hex: "#10b981", rgb: "rgb(16, 185, 129)", usage: "Financial Metrics & Positive Trends" },
+            obsidianBlack: { hex: "#010907", rgb: "rgb(1, 9, 7)", usage: "Deep Background Canvas" }
+          },
+          typography: {
+            arabic: "Alexandria, IBM Plex Sans Arabic",
+            latin: "Plus Jakarta Sans, Space Grotesk",
+            monogram: "Playfair Display"
+          }
+        };
+        zip.file("05-Brand-Design-Tokens.json", JSON.stringify(tokensJson, null, 2));
+
+        // 6. ملف متغيرات التصميم للمطورين (CSS Variables)
+        const cssVariables = `/* S&R CoreSync Solutions - Official Brand Tokens */
+:root {
+  --sr-royal-gold: #c5a880;
+  --sr-royal-gold-hover: #e0c59e;
+  --sr-cyber-cyan: #38bdf8;
+  --sr-fintech-emerald: #10b981;
+  --sr-obsidian-black: #010907;
+  --sr-font-brand: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --sr-font-arabic: 'Alexandria', 'IBM Plex Sans Arabic', sans-serif;
+  --sr-border-glow: 0 0 25px rgba(197, 168, 128, 0.25);
+}
+`;
+        zip.file("06-Brand-Design-Tokens.css", cssVariables);
+
+        // 7. دليل إرشادات الاستخدام المعتمد (README)
+        const readmeContent = `=====================================================
+S&R CORESYNC SOLUTIONS B.V. — OFFICIAL BRAND KIT
+=====================================================
+Company: S&R CoreSync Solutions B.V.
+Address: Keizersgracht 482, 1016 EG Amsterdam, The Netherlands
+Commercial Register (KVK): 84920194
+VAT Number (BTW): NL863920194B01
+
+Founders & Executive Team:
+- Eng. Mohammad Salim Aziza (CTO & Co-Founder // Cloud Architect)
+- Mr. Mohammad Raed Kaakeh (CEO & Co-Founder // Financial ERP Director)
+
+FILES INCLUDED IN THIS PACKAGE:
+1. 01-Logo-Official-Quantum-Orb.svg  -> The Primary Adopted Logo (Orbital Quantum)
+2. 02-Logo-Royal-Neon-Gold.svg       -> The Luxury Royal Neon & Star Edition
+3. 03-Logo-Emblem-Icon-Only.svg      -> Pure 100x100 Vector Emblem Icon
+4. 04-Founders-Business-Card-85x55mm.svg -> Print-ready 85x55mm European Card
+5. 05-Brand-Design-Tokens.json       -> Structured Design Tokens for Web & Apps
+6. 06-Brand-Design-Tokens.css        -> CSS Custom Properties for Developers
+7. README.txt                         -> Official Brand Licensing & Usage Rules
+
+USAGE RULES:
+- Minimum clear space around the emblem must be at least 25% of the emblem width.
+- Do not alter the monogram ligature proportions (S&R).
+- For financial and enterprise portals, use Royal Gold (#c5a880) or Titanium Cyan (#38bdf8).
+
+(c) 2026 S&R CoreSync Solutions B.V. All rights reserved.
+`;
+        zip.file("README-Brand-Kit.txt", readmeContent);
+
+        // توليد ملف الـ ZIP وتنزيله
+        const zipBlob = await zip.generateAsync({ type: "blob" });
+        const downloadUrl = URL.createObjectURL(zipBlob);
+        const link = document.createElement("a");
+        link.href = downloadUrl;
+        link.download = "SR-CoreSync-Official-Brand-Kit.zip";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(downloadUrl);
+
+        showToast("🎉 تم توليد وتنزيل حزمة الهوية الكاملة (ZIP) بنجاح!");
+      } catch (err) {
+        console.error("ZIP Generation error:", err);
+        showToast("حدث خطأ أثناء تجميع ملف ZIP، يرجى إعادة المحاولة.");
+      } finally {
+        if (btnText) btnText.textContent = "تنزيل حزمة الهوية الكاملة (Instant ZIP Pack)";
+        if (btn) btn.disabled = false;
+      }
     }
 
     function scrollToEditor() {
