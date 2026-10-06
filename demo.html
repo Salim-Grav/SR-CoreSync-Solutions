@@ -1516,11 +1516,11 @@
         <div class="modal-card">
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <h3 class="text-white fw-bold mb-0">محاكي بوابات الدفع iDEAL</h3>
-                <span class="status-badge status-completed font-num" style="font-size: 0.75rem;">SEPA Instant ⚡</span>
+                <span class="status-badge status-completed font-num badge-status-sepa">SEPA Instant ⚡</span>
             </div>
             <p class="text-caption text-white-64 mb-3">اختر البنك الهولندي لمحاكاة تسوية الفاتورة اللحظية في حساب الشركة</p>
 
-            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(197,168,128,0.2); border-radius: 12px; padding: 12px; margin-bottom: 1rem;">
+            <div class="ideal-target-card">
                 <div class="d-flex justify-content-between mb-1">
                     <span class="text-caption text-white-64">الفاتورة المستهدفة:</span>
                     <strong class="font-num text-white" id="idealInvNum">INV-2026-082</strong>
@@ -1531,26 +1531,26 @@
                 </div>
                 <div class="d-flex justify-content-between">
                     <span class="text-caption text-white-64">المبلغ الإجمالي المطلوب:</span>
-                    <strong class="font-num text-gold" style="color: var(--gold); font-size: 1.1rem;" id="idealTotalAmount">€ 35,000</strong>
+                    <strong class="font-num ideal-amount-highlight" id="idealTotalAmount">€ 35,000</strong>
                 </div>
             </div>
 
             <label class="text-caption text-white-64 d-block mb-1">اختر البنك الهولندي (Dutch Banking Partner):</label>
             <div class="bank-select-grid">
                 <div class="bank-option selected" onclick="selectBank(this)">
-                    <div class="bank-badge font-num" style="color: #ff6200;">ING</div>
+                    <div class="bank-badge font-num bank-color-ing">ING</div>
                     <div class="bank-name">ING Bank</div>
                 </div>
                 <div class="bank-option" onclick="selectBank(this)">
-                    <div class="bank-badge font-num" style="color: #009286;">ABN</div>
+                    <div class="bank-badge font-num bank-color-abn">ABN</div>
                     <div class="bank-name">ABN AMRO</div>
                 </div>
                 <div class="bank-option" onclick="selectBank(this)">
-                    <div class="bank-badge font-num" style="color: #002e6e;">RABO</div>
+                    <div class="bank-badge font-num bank-color-rabo">RABO</div>
                     <div class="bank-name">Rabobank</div>
                 </div>
                 <div class="bank-option" onclick="selectBank(this)">
-                    <div class="bank-badge font-num" style="color: #10b981;">BNQ</div>
+                    <div class="bank-badge font-num bank-color-bunq">BNQ</div>
                     <div class="bank-name">Bunq Digital</div>
                 </div>
             </div>
@@ -1573,9 +1573,9 @@
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <div class="d-flex align-items-center gap-2">
                     <img src="./assets/logo-neon-icon.svg" width="30" height="30" alt="Emblem">
-                    <h3 class="fw-bold mb-0 text-white" style="font-size: 1.15rem;">فاتورة إلكترونية رسمية (e-Invoice)</h3>
+                    <h3 class="fw-bold mb-0 text-white invoice-preview-title">فاتورة إلكترونية رسمية (e-Invoice)</h3>
                 </div>
-                <button type="button" class="btn-return-main font-num" onclick="closeInvoicePreviewModal()" style="padding: 4px 10px;">✕</button>
+                <button type="button" class="btn-return-main font-num btn-modal-close-sm" onclick="closeInvoicePreviewModal()">✕</button>
             </div>
 
             <div class="inv-paper" id="printableInvoice">
