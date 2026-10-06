@@ -975,3 +975,61 @@
             color: var(--success);
             font-weight: 700;
         }
+
+        /* محرك تخصيص الهوية والعلامة البيضاء (White-Label Styles) */
+        .grid-2-cols {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        .theme-presets-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .theme-preset-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-glass);
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .theme-preset-card:hover {
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateX(-4px);
+        }
+        .theme-preset-card.active {
+            border-color: var(--gold);
+            background: rgba(197, 168, 128, 0.12);
+            box-shadow: 0 0 15px var(--gold-glow);
+        }
+        .theme-color-swatch {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            flex-shrink: 0;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        .swatch-gold { background: linear-gradient(135deg, #c5a880, #e0c59e); }
+        .swatch-cyan { background: linear-gradient(135deg, #38bdf8, #0284c7); }
+        .swatch-emerald { background: linear-gradient(135deg, #10b981, #059669); }
+        .swatch-violet { background: linear-gradient(135deg, #a855f7, #7c3aed); }
+
+        .theme-preset-info {
+            line-height: 1.3;
+        }
+        .theme-preset-title {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .theme-preset-desc {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+
