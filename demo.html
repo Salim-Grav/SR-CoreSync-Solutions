@@ -80,6 +80,10 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
                 <span>تخصيص الهوية (White-Label)</span>
             </div>
+            <div class="nav-item" onclick="switchPortalTab('software', this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                <span>سوق البرمجيات (Software Hub)</span>
+            </div>
 
             <div class="sidebar-spacer"></div>
 
@@ -569,6 +573,268 @@
                     <button type="button" class="btn-sync-consultation" onclick="syncDemoToConsultation()">
                         طلب عرض سعر لنظام White-Label مخصص
                     </button>
+                </div>
+            </section>
+
+            <!-- 7. سوق البرمجيات الحصرية وحلول التطبيقات (Software Hub & App Store) -->
+            <section class="tab-section" id="tab-software">
+                <div class="section-header">
+                    <div class="section-title-wrap">
+                        <h2>سوق البرمجيات والحلول الحصرية (S&R Software Hub & Store)</h2>
+                        <p>تطبيقات سطح المكتب للكمبيوتر، تطبيقات الهاتف، وأدوات الربط المطورة حصرياً بعوائد وتراخيص رقمية</p>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="button" class="action-cta-btn" onclick="openPublishSoftwareModal()">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            نشر برنامج جديد (Publish)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- شريط فلترة التصنيفات -->
+                <div class="glass-box mb-4 p-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <div class="filter-pill-group">
+                        <button type="button" class="filter-btn active" onclick="filterSoftwareCategory('all', this)">الكل (5)</button>
+                        <button type="button" class="filter-btn" onclick="filterSoftwareCategory('desktop', this)">برامج الكمبيوتر PC/Mac (2)</button>
+                        <button type="button" class="filter-btn" onclick="filterSoftwareCategory('mobile', this)">تطبيقات الموبايل (1)</button>
+                        <button type="button" class="filter-btn" onclick="filterSoftwareCategory('pos', this)">نقاط البيع POS (1)</button>
+                        <button type="button" class="filter-btn" onclick="filterSoftwareCategory('sdk', this)">أدوات المطورين SDK (1)</button>
+                    </div>
+                    <span class="text-caption text-white-64">تراخيص رقمية فورية وتنزيل مباشر</span>
+                </div>
+
+                <!-- شبكة كروت البرمجيات -->
+                <div class="software-grid" id="softwareGridContainer">
+                    
+                    <!-- 1. برنامج S&R TaxSync Desktop -->
+                    <div class="software-card" data-category="desktop">
+                        <span class="software-card-badge">الأكثر طلباً للمحاسبين ★</span>
+                        <div>
+                            <div class="software-card-top">
+                                <div class="software-icon-wrap">💻</div>
+                                <div>
+                                    <div class="software-info-title">S&R TaxSync Desktop</div>
+                                    <div class="software-info-version">
+                                        <span>v2.4 Pro</span>
+                                        <span class="platform-pill">Win 11/10</span>
+                                        <span class="platform-pill">macOS</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="software-desc">برنامج سطح مكتب مستقل يعمل بدون إنترنت (Offline-First) لحساب ضريبة القيمة المضافة BTW/VAT 21% وتوليد إقرارات XML لمصلحة الضرائب الهولندية والخليجية.</p>
+                            <ul class="software-features-list">
+                                <li class="software-feature-item">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    تشفير البيانات محلياً على جهازك دون اتصال
+                                </li>
+                                <li class="software-feature-item">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    تصدير آلي لتقارير BTW والمحاسبة بضغطة زر
+                                </li>
+                                <li class="software-feature-item">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    طباعة فواتير رسمية وتوافق مع EN 16931
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="software-card-bottom">
+                            <div class="software-price-wrap">
+                                <span class="software-price-amount">€ 189</span>
+                                <span class="software-price-unit">ترخيص سنوي / جهاز</span>
+                            </div>
+                            <div class="software-btn-group">
+                                <button type="button" class="btn-software-trial" onclick="openSoftwareModal('taxsync', 'trial')">تجربة 14 يوماً</button>
+                                <button type="button" class="btn-software-buy" onclick="openSoftwareModal('taxsync', 'buy')">شراء الترخيص</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. تطبيق S&R FlowScan AI Mobile -->
+                    <div class="software-card" data-category="mobile">
+                        <span class="software-card-badge" style="background:linear-gradient(135deg, #38bdf8, #0284c7); color:#fff;">ذكاء اصطناعي OCR</span>
+                        <div>
+                            <div class="software-card-top">
+                                <div class="software-icon-wrap" style="color:#38bdf8; background:rgba(56,189,248,0.12);">📱</div>
+                                <div>
+                                    <div class="software-info-title">S&R FlowScan AI Mobile</div>
+                                    <div class="software-info-version">
+                                        <span>v1.8</span>
+                                        <span class="platform-pill">iOS 17+</span>
+                                        <span class="platform-pill">Android 14+</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="software-desc">تطبيق هاتف ذكي للمسح الضوئي الذكي للإيصالات والفواتير الورقية بالكاميرا واستخراج بيانات الضريبة والمبالغ آلياً وترحيلها لحظياً للـ ERP.</p>
+                            <ul class="software-features-list">
+                                <li class="software-feature-item">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    معالجة OCR فائقة السرعة بدقة 99.4%
+                                </li>
+                                <li class="software-feature-item">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    فرز تلقائي لمصاريف الوقود، الضيافة، والتشغيل
+                                </li>
+                                <li class="software-feature-item">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    مزامنة فورية سحابية مع لوحة تحكم الشركة
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="software-card-bottom">
+                            <div class="software-price-wrap">
+                                <span class="software-price-amount">€ 9.99</span>
+                                <span class="software-price-unit">شهرياً / مستخدم</span>
+                            </div>
+                            <div class="software-btn-group">
+                                <button type="button" class="btn-software-trial" onclick="openSoftwareModal('flowscan', 'trial')">تجربة مجانية</button>
+                                <button type="button" class="btn-software-buy" onclick="openSoftwareModal('flowscan', 'buy')">اشتراك</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. أداة S&R CloudPOS Connector -->
+                    <div class="software-card" data-category="pos">
+                        <span class="software-card-badge" style="background:linear-gradient(135deg, #10b981, #059669); color:#fff;">ربط نقاط البيع POS</span>
+                        <div>
+                            <div class="software-card-top">
+                                <div class="software-icon-wrap" style="color:#10b981; background:rgba(16,185,129,0.12);">⚡</div>
+                                <div>
+                                    <div class="software-info-title">S&R CloudPOS Connector</div>
+                                    <div class="software-info-version">
+                                        <span>v3.1 Agent</span>
+                                        <span class="platform-pill">Windows POS</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="software-desc">وسيط برمجي خفيف يعمل في خلفية أجهزة الكاشير القديمة لربطها فورياً بنظام الـ ERP السحابي لمزامنة حركة المخازن والسيولة دون تغيير الأجهزة.</p>
+                            <ul class="software-features-list">
+                                <li class="software-feature-item">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    تكامل فوري مع أجهزة طابعات الفواتير والباركود
+                                </li>
+                                <li class="software-feature-item">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    مزامنة مبيعات أوفلاين عند انقطاع الإنترنت
+                                </li>
+                                <li class="software-feature-item">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    حماية وأمان معزول للأرصدة النقدية
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="software-card-bottom">
+                            <div class="software-price-wrap">
+                                <span class="software-price-amount">€ 25</span>
+                                <span class="software-price-unit">شهرياً / نقطة بيع</span>
+                            </div>
+                            <div class="software-btn-group">
+                                <button type="button" class="btn-software-trial" onclick="openSoftwareModal('cloudpos', 'trial')">تجربة الربط</button>
+                                <button type="button" class="btn-software-buy" onclick="openSoftwareModal('cloudpos', 'buy')">تفعيل</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. برنامج S&R SecureVault B2B -->
+                    <div class="software-card" data-category="desktop">
+                        <span class="software-card-badge" style="background:linear-gradient(135deg, #a855f7, #7c3aed); color:#fff;">حماية ونسخ احتياطي</span>
+                        <div>
+                            <div class="software-card-top">
+                                <div class="software-icon-wrap" style="color:#a855f7; background:rgba(168,85,247,0.12);">🛡️</div>
+                                <div>
+                                    <div class="software-info-title">S&R SecureVault B2B</div>
+                                    <div class="software-info-version">
+                                        <span>v2.0 Enterprise</span>
+                                        <span class="platform-pill">Win / Linux / Mac</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="software-desc">برمجية تشفير وحماية النسخ الاحتياطية لقواعد البيانات والمستندات الحساسة بمعيار AES-256 العسكري مع تخزين متوافق 100% مع قانون GDPR الأوروبي.</p>
+                            <ul class="software-features-list">
+                                <li class="software-feature-item">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    تخزين معزول في خوادم أمستردام المشفرة
+                                </li>
+                                <li class="software-feature-item">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    استعادة كاملة لقواعد بيانات الـ ERP في ثوانٍ
+                                </li>
+                                <li class="software-feature-item">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    تقارير امتثال وجاهزية للتدقيق القانوني
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="software-card-bottom">
+                            <div class="software-price-wrap">
+                                <span class="software-price-amount">€ 49</span>
+                                <span class="software-price-unit">شهرياً (1TB Encrypted)</span>
+                            </div>
+                            <div class="software-btn-group">
+                                <button type="button" class="btn-software-trial" onclick="openSoftwareModal('vault', 'trial')">تجربة مجانية</button>
+                                <button type="button" class="btn-software-buy" onclick="openSoftwareModal('vault', 'buy')">اشتراك</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. حزمة S&R Financial AI SDK -->
+                    <div class="software-card" data-category="sdk">
+                        <span class="software-card-badge">للمطورين والشركات</span>
+                        <div>
+                            <div class="software-card-top">
+                                <div class="software-icon-wrap">🧩</div>
+                                <div>
+                                    <div class="software-info-title">S&R Financial AI SDK</div>
+                                    <div class="software-info-version">
+                                        <span>v1.2 Dev</span>
+                                        <span class="platform-pill">Python</span>
+                                        <span class="platform-pill">Node.js</span>
+                                        <span class="platform-pill">C#</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="software-desc">مكتبة برمجية للمطورين والشركات البرمجية لدمج خوارزميات الذكاء الاصطناعي المالي والفوترة والامتثال المحاسبي في تطبيقاتهم الخاصة بسهولة عبر REST APIs.</p>
+                            <ul class="software-features-list">
+                                <li class="software-feature-item">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    توثيق تفاعلي كامل وكود تشغيل جاهز
+                                </li>
+                                <li class="software-feature-item">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    توليد فوري لمفاتيح الـ API مع Rate Limiting
+                                </li>
+                                <li class="software-feature-item">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    تحديثات دورية متوافقة مع القوانين المالية
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="software-card-bottom">
+                            <div class="software-price-wrap">
+                                <span class="software-price-amount">€ 99</span>
+                                <span class="software-price-unit">شهرياً (50k Calls)</span>
+                            </div>
+                            <div class="software-btn-group">
+                                <button type="button" class="btn-software-trial" onclick="openSoftwareModal('sdk', 'trial')">تحميل الـ SDK</button>
+                                <button type="button" class="btn-software-buy" onclick="openSoftwareModal('sdk', 'buy')">طلب الترخيص</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- صندوق لوحة الشركاء والمطورين (Developer Monetization Callout) -->
+                <div class="glass-box">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <div>
+                            <h3 class="mb-1 text-white">هل ترغب في برمجة ونشر برنامجك التجاري الخاص عبر المنصة؟</h3>
+                            <p class="text-white-64 mb-0">
+                                توفر شركة S&R CoreSync Solutions بنية متكاملة للمطورين لتوزيع البرمجيات مع نظام التراخيص الرقمية المشفرة وبوابات الدفع الهولندية والأوروبية والخليجية.
+                            </p>
+                        </div>
+                        <button type="button" class="btn-sync-consultation" onclick="openPublishSoftwareModal()">
+                            إضافة برنامج جديد الآن
+                        </button>
+                    </div>
                 </div>
             </section>
 
@@ -1408,6 +1674,257 @@
             }
         }
 
+        
+        // ==========================================
+        // 6. محرك سوق وتراخيص البرمجيات الحصرية (Software Marketplace Engine)
+        // ==========================================
+        const softwareCatalog = {
+            taxsync: {
+                title: 'S&R TaxSync Desktop',
+                icon: '💻',
+                version: 'v2.4 Pro (Build 2026.10)',
+                price: 189,
+                desc: 'برنامج سطح مكتب محاسبي وضريبي مستقل يعمل بدون إنترنت (Offline-First) لحساب ضريبة القيمة المضافة BTW/VAT 21% وتوليد إقرارات XML لمصلحة الضرائب الهولندية والخليجية.',
+                category: 'desktop',
+                os: 'Win 11/10 (64-bit) & macOS'
+            },
+            flowscan: {
+                title: 'S&R FlowScan AI Mobile',
+                icon: '📱',
+                version: 'v1.8 AI Engine',
+                price: 9.99,
+                desc: 'تطبيق هاتف ذكي للمسح الضوئي الذكي للإيصالات والفواتير الورقية بالكاميرا واستخراج بيانات الضريبة والمبالغ آلياً وترحيلها لحظياً للـ ERP.',
+                category: 'mobile',
+                os: 'iOS 17+ & Android 14+'
+            },
+            cloudpos: {
+                title: 'S&R CloudPOS Connector',
+                icon: '⚡',
+                version: 'v3.1 Agent Service',
+                price: 25,
+                desc: 'وسيط برمجي خفيف يعمل في خلفية أجهزة الكاشير القديمة لربطها فورياً بنظام الـ ERP السحابي لمزامنة حركة المخازن والسيولة دون تغيير الأجهزة.',
+                category: 'pos',
+                os: 'Windows POS Agent'
+            },
+            vault: {
+                title: 'S&R SecureVault B2B',
+                icon: '🛡️',
+                version: 'v2.0 Enterprise Encrypted',
+                price: 49,
+                desc: 'برمجية تشفير وحماية النسخ الاحتياطية لقواعد البيانات والمستندات الحساسة بمعيار AES-256 العسكري مع تخزين متوافق 100% مع قانون GDPR الأوروبي.',
+                category: 'desktop',
+                os: 'Win / Linux / Mac Server'
+            },
+            sdk: {
+                title: 'S&R Financial AI SDK',
+                icon: '🧩',
+                version: 'v1.2 Developer Kit',
+                price: 99,
+                desc: 'مكتبة برمجية للمطورين والشركات البرمجية لدمج خوارزميات الذكاء الاصطناعي المالي والفوترة والامتثال المحاسبي في تطبيقاتهم الخاصة بسهولة عبر REST APIs.',
+                category: 'sdk',
+                os: 'Python / Node.js / C#'
+            }
+        };
+
+        let currentActiveSoftware = null;
+
+        function filterSoftwareCategory(cat, btn) {
+            document.querySelectorAll('#tab-software .filter-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            const cards = document.querySelectorAll('#softwareGridContainer .software-card');
+            cards.forEach(card => {
+                if (cat === 'all' || card.getAttribute('data-category') === cat) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function generateCryptoLicenseKey(prefix = 'SR') {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            function part(len) {
+                let res = '';
+                for (let i = 0; i < len; i++) res += chars.charAt(Math.floor(Math.random() * chars.length));
+                return res;
+            }
+            return `${prefix}-${part(4)}-${part(4)}-${part(4)}-2026`;
+        }
+
+        function openSoftwareModal(id, mode = 'trial') {
+            const sw = softwareCatalog[id] || softwareCatalog.taxsync;
+            currentActiveSoftware = sw;
+
+            document.getElementById('modalSwTitle').innerText = sw.title;
+            document.getElementById('modalSwIcon').innerText = sw.icon;
+            document.getElementById('modalSwVersion').innerText = `${sw.version} • ${sw.os}`;
+            document.getElementById('modalSwDesc').innerText = sw.desc;
+
+            const badge = document.getElementById('modalSwLicBadge');
+            const keyEl = document.getElementById('modalSwKey');
+            const btnBuy = document.getElementById('modalBtnBuy');
+
+            if (mode === 'trial') {
+                badge.innerText = 'ترخيص تجريبي 14 يوماً';
+                badge.className = 'status-badge status-processing';
+                keyEl.innerText = generateCryptoLicenseKey(`TRIAL-${id.toUpperCase()}`);
+                btnBuy.innerText = `ترقية للنسخة الكاملة (€ ${sw.price})`;
+            } else {
+                badge.innerText = 'ترخيص تجاري كامل (Pro)';
+                badge.className = 'status-badge status-completed';
+                keyEl.innerText = generateCryptoLicenseKey(`PRO-${id.toUpperCase()}`);
+                btnBuy.innerText = `إتمام الشراء والفوترة (€ ${sw.price})`;
+            }
+
+            document.getElementById('softwareModal').classList.add('active');
+        }
+
+        function closeSoftwareModal() {
+            document.getElementById('softwareModal').classList.remove('active');
+        }
+
+        function copySoftwareLicenseKey() {
+            const key = document.getElementById('modalSwKey').innerText;
+            navigator.clipboard.writeText(key).then(() => {
+                showPortalToast(`🔑 تم نسخ مفتاح الترخيص: ${key}`);
+            }).catch(() => {
+                showPortalToast(`🔑 تم نسخ المفتاح: ${key}`);
+            });
+        }
+
+        function triggerSoftwareDownload() {
+            if (!currentActiveSoftware) return;
+            const title = currentActiveSoftware.title;
+            const key = document.getElementById('modalSwKey').innerText;
+
+            // توليد ملف حزمة التثبيت التجريبية
+            const fileContent = `=====================================================
+${title.toUpperCase()} — OFFICIAL SOFTWARE PACKAGE
+=====================================================
+Publisher: S&R CoreSync Solutions B.V. (Amsterdam, Netherlands)
+License Key: ${key}
+Issued: 2026-10-06
+Status: Verified Digital Signature (SHA-256)
+
+INSTALLATION INSTRUCTIONS:
+1. Run the installer matching your OS (Windows .msi or macOS .dmg).
+2. Enter the License Key provided above when prompted during first launch.
+3. For enterprise cloud sync, configure your CoreSync Tenant API URL.
+
+Support & Documentation: https://coresync.cloud/docs
+Direct Founders Contact: info@coresync.cloud
+=====================================================
+(c) 2026 S&R CoreSync Solutions B.V. All rights reserved.
+`;
+            const blob = new Blob([fileContent], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${title.replace(/\s+/g, '_')}_QuickStart_Package.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showPortalToast(`⚡ بدأ تنزيل حزمة التثبيت لـ [${title}] بنجاح!`);
+        }
+
+        function triggerSoftwareCheckout() {
+            if (!currentActiveSoftware) return;
+            closeSoftwareModal();
+            const sw = currentActiveSoftware;
+            const currentName = localStorage.getItem('sr_custom_brand_name') || 'مجموعة الرياض للخدمات اللوجستية';
+            
+            previewInvoiceModal(
+                `INV-SW-${Math.floor(1000 + Math.random() * 9000)}`,
+                `S&R Enterprise Client (${sw.title})`,
+                sw.price,
+                Math.round(sw.price * 0.21 * 100) / 100,
+                Math.round(sw.price * 1.21 * 100) / 100,
+                'فاتورة شراء ترخيص برمجيات معتمدة ✓',
+                '2026-10-06',
+                '21% BTW',
+                'S&R CoreSync Software Licensing B.V.'
+            );
+            showPortalToast(`🎉 تم تجهيز فاتورة شراء ترخيص [${sw.title}] بنجاح!`);
+        }
+
+        function openPublishSoftwareModal() {
+            document.getElementById('publishSoftwareModal').classList.add('active');
+        }
+
+        function closePublishSoftwareModal() {
+            document.getElementById('publishSoftwareModal').classList.remove('active');
+        }
+
+        function handlePublishSoftwareSubmit(e) {
+            e.preventDefault();
+            const title = document.getElementById('pubTitle').value;
+            const cat = document.getElementById('pubCategory').value;
+            const ver = document.getElementById('pubVersion').value;
+            const price = parseFloat(document.getElementById('pubPrice').value) || 99;
+            const desc = document.getElementById('pubDesc').value;
+
+            // إضافة كرت جديد للحاوية ديناميكياً
+            const id = 'custom_' + Date.now();
+            softwareCatalog[id] = {
+                title: title,
+                icon: cat === 'mobile' ? '📱' : cat === 'sdk' ? '🧩' : cat === 'pos' ? '⚡' : '💻',
+                version: ver,
+                price: price,
+                desc: desc,
+                category: cat,
+                os: cat === 'mobile' ? 'iOS / Android' : 'Cross-Platform'
+            };
+
+            const newCard = document.createElement('div');
+            newCard.className = 'software-card';
+            newCard.setAttribute('data-category', cat);
+            newCard.innerHTML = `
+                <span class="software-card-badge" style="background:linear-gradient(135deg, #10b981, #059669); color:#fff;">جديد مُضاف بواسطة المؤسس ★</span>
+                <div>
+                    <div class="software-card-top">
+                        <div class="software-icon-wrap">${softwareCatalog[id].icon}</div>
+                        <div>
+                            <div class="software-info-title">${title}</div>
+                            <div class="software-info-version">
+                                <span>${ver}</span>
+                                <span class="platform-pill">${softwareCatalog[id].os}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="software-desc">${desc}</p>
+                    <ul class="software-features-list">
+                        <li class="software-feature-item">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            ترخيص رقمي مشفر مع دعم التحديثات
+                        </li>
+                        <li class="software-feature-item">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            ربط مباشر عبر بوابات الدفع والفواتير
+                        </li>
+                    </ul>
+                </div>
+                <div class="software-card-bottom">
+                    <div class="software-price-wrap">
+                        <span class="software-price-amount">€ ${price}</span>
+                        <span class="software-price-unit">ترخيص معتمد</span>
+                    </div>
+                    <div class="software-btn-group">
+                        <button type="button" class="btn-software-trial" onclick="openSoftwareModal('${id}', 'trial')">تجربة</button>
+                        <button type="button" class="btn-software-buy" onclick="openSoftwareModal('${id}', 'buy')">شراء</button>
+                    </div>
+                </div>
+            `;
+
+            const grid = document.getElementById('softwareGridContainer');
+            grid.insertBefore(newCard, grid.firstChild);
+
+            closePublishSoftwareModal();
+            showPortalToast(`🚀 تم نشر برنامج [${title}] بنجاح في متجر المنصة!`);
+        }
+
         // استعادة التخصيص المحفوظ عند تحميل الصفحة
         window.addEventListener('DOMContentLoaded', restoreSavedBrandSettings);
 
@@ -1426,6 +1943,100 @@
             }
         });
     </script>
+
+    
+    <!-- نافذة تفاصيل وتحميل وترخيص البرمجيات (Software Modal) -->
+    <div class="modal-overlay" id="softwareModal" onclick="if(event.target === this) closeSoftwareModal()">
+        <div class="modal-card" style="max-width: 600px;">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="software-icon-wrap" id="modalSwIcon" style="width:38px; height:38px; font-size:1.1rem;">💻</div>
+                    <div>
+                        <h4 class="fw-bold mb-0 text-white" id="modalSwTitle">S&R TaxSync Desktop</h4>
+                        <span class="text-caption text-white-64" id="modalSwVersion">v2.4 Pro • Verified Build</span>
+                    </div>
+                </div>
+                <button type="button" class="btn-return-main font-num btn-modal-close-sm" onclick="closeSoftwareModal()">✕</button>
+            </div>
+
+            <p class="text-caption text-white-64 mb-3" id="modalSwDesc">
+                برنامج سطح مكتب محاسبي وضريبي متكامل يعمل بدون اتصال بالإنترنت.
+            </p>
+
+            <div class="glass-box p-3 mb-3" style="background:rgba(255,255,255,0.02);">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="text-caption text-white-64">مفتاح الترخيص الرقمي (Digital License Key):</span>
+                    <span class="status-badge status-completed" id="modalSwLicBadge">نشط 14 يوماً</span>
+                </div>
+                <div class="license-key-display">
+                    <span id="modalSwKey">SR-TAX-2026-X89B-492A-TRIAL</span>
+                    <button type="button" class="table-action-btn" onclick="copySoftwareLicenseKey()">نسخ المفتاح</button>
+                </div>
+                <div class="d-flex justify-content-between text-caption text-white-64">
+                    <span>التوافق: Windows 11/10 (64-bit), macOS 13+</span>
+                    <span>توقيع رقمي: SHA-256 Validated</span>
+                </div>
+            </div>
+
+            <div class="modal-form-actions">
+                <button type="button" class="btn-return-main" onclick="closeSoftwareModal()">إغلاق</button>
+                <button type="button" class="btn-secondary-glow" id="modalBtnDownload" onclick="triggerSoftwareDownload()">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    تنزيل حزمة التثبيت المباشرة (Installer .zip)
+                </button>
+                <button type="button" class="action-cta-btn" id="modalBtnBuy" onclick="triggerSoftwareCheckout()">
+                    شراء الترخيص وإصدار فاتورة
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة نشر برنامج جديد من قبل المؤسس/المطور (Publish Software Modal) -->
+    <div class="modal-overlay" id="publishSoftwareModal" onclick="if(event.target === this) closePublishSoftwareModal()">
+        <div class="modal-card" style="max-width: 580px;">
+            <h3 class="text-white mb-2 fw-bold">نشر وتوزيع برنامج جديد عبر المنصة</h3>
+            <p class="text-caption text-white-64 mb-4">بصفتك مطوراً ومهندساً للبرمجيات، يمكنك إضافة حلولك وتطبيقاتك الحصرية للبيع والتوزيع:</p>
+            
+            <form onsubmit="handlePublishSoftwareSubmit(event)">
+                <div class="modal-form-fields">
+                    <div>
+                        <label class="text-caption text-white-64 mb-1 d-block" for="pubTitle">اسم البرنامج أو التطبيق</label>
+                        <input type="text" id="pubTitle" required class="ai-chat-input modal-form-input" placeholder="مثال: S&R InventorySync Pro" title="اسم البرنامج">
+                    </div>
+                    <div>
+                        <label class="text-caption text-white-64 mb-1 d-block" for="pubCategory">التصنيف والمنصة</label>
+                        <select id="pubCategory" class="ai-chat-input modal-form-select" title="التصنيف">
+                            <option value="desktop">برنامج سطح مكتب للكمبيوتر (Desktop PC/Mac)</option>
+                            <option value="mobile">تطبيق هاتف ذكي (iOS / Android)</option>
+                            <option value="pos">حلول ونقاط بيع (POS Agent)</option>
+                            <option value="sdk">مكتبة أو حزمة مطورين (SDK / API)</option>
+                        </select>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <div style="flex:1;">
+                            <label class="text-caption text-white-64 mb-1 d-block" for="pubVersion">رقم الإصدار</label>
+                            <input type="text" id="pubVersion" required class="ai-chat-input modal-form-input font-num" placeholder="v1.0" value="v1.0" title="رقم الإصدار">
+                        </div>
+                        <div style="flex:1;">
+                            <label class="text-caption text-white-64 mb-1 d-block" for="pubPrice">سعر الترخيص باليورو (€)</label>
+                            <input type="number" id="pubPrice" required class="ai-chat-input modal-form-input font-num" placeholder="149" value="149" title="سعر الترخيص">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-caption text-white-64 mb-1 d-block" for="pubDesc">وصف موجز ومميزات البرنامج</label>
+                        <textarea id="pubDesc" required class="ai-chat-input modal-form-input" style="height:70px; resize:none;" placeholder="اكتب وصفاً موجزاً لما يقوم به البرنامج وكيف يساعد العملاء..." title="الوصف"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-form-actions mt-3">
+                    <button type="button" class="btn-return-main" onclick="closePublishSoftwareModal()">إلغاء</button>
+                    <button type="submit" class="action-cta-btn">
+                        نشر البرنامج فورياً في المتجر 🚀
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- إشعار التخصيص العائم (Portal Floating Toast) -->
     <div id="portal-toast" style="position:fixed; bottom:24px; left:24px; z-index:9999; background:rgba(9,9,11,0.92); backdrop-filter:blur(12px); border:1px solid var(--gold); border-radius:12px; padding:12px 18px; color:#fff; font-size:13px; font-weight:600; display:flex; align-items:center; gap:10px; box-shadow:0 12px 32px rgba(0,0,0,0.6); transform:translateY(100px); opacity:0; transition:all 0.35s ease; pointer-events:none;">
