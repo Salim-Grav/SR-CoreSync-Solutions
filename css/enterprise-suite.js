@@ -1333,6 +1333,62 @@
         }
     };
 
+    /* =====================================================================
+       WEBHOOK NOTIFICATION ENGINE — Supabase Edge / Zapier / Telegram
+       Fires instant notifications to executive team on client events.
+       To activate live Telegram: set window.CORESYNC_TG_BOT_TOKEN & CORESYNC_TG_CHAT_ID
+       To activate Zapier:        set window.CORESYNC_ZAPIER_WEBHOOK_URL
+       To activate Supabase Edge: set window.CORESYNC_SUPABASE_WEBHOOK_URL
+       ===================================================================== */
+    window.CoreSyncWebhook = {
+        async fire(eventType, payload) {
+            const body = { eventType, timestamp: new Date().toISOString(), platform: 'S&R CoreSync Client Portal', ...payload };
+
+            // 1. Zapier multi-step webhook
+            const zapierUrl = window.CORESYNC_ZAPIER_WEBHOOK_URL || '';
+            if (zapierUrl) {
+                fetch(zapierUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+                    .catch(e => console.warn('[CoreSync Zapier Webhook]', e.message));
+            }
+
+            // 2. Supabase Edge Function
+            const supaUrl = window.CORESYNC_SUPABASE_WEBHOOK_URL || '';
+            const supaKey = window.CORESYNC_SUPABASE_KEY || '';
+            if (supaUrl && supaKey) {
+                fetch(supaUrl, { method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': supaKey, 'Authorization': `Bearer ${supaKey}` }, body: JSON.stringify(body) })
+                    .catch(e => console.warn('[CoreSync Supabase Webhook]', e.message));
+            }
+
+            // 3. Telegram Bot notification
+            const tgToken = window.CORESYNC_TG_BOT_TOKEN || '';
+            const tgChat  = window.CORESYNC_TG_CHAT_ID  || '';
+            if (tgToken && tgChat) {
+                const text = `🔔 *S\&R CoreSync Portal Alert*\n\n` +
+                    `📌 *Event:* ${eventType}\n` +
+                    `🏢 *Client:* ${payload.client || 'N/A'}\n` +
+                    `📁 *Project:* ${payload.projectCode || 'N/A'}\n` +
+                    (payload.detail ? `📝 *Detail:* ${payload.detail}\n` : '') +
+                    `⏰ *Time:* ${new Date().toLocaleString('ar')}\n` +
+                    `\n_— Sent automatically by CoreSync Client Portal_`;
+                fetch(`https://api.telegram.org/bot${tgToken}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: tgChat, text, parse_mode: 'Markdown' })
+                }).catch(e => console.warn('[CoreSync Telegram Webhook]', e.message));
+            }
+
+            // 4. Always log for audit trail in localStorage
+            try {
+                const log = JSON.parse(localStorage.getItem('coresync_event_log') || '[]');
+                log.unshift({ ...body });
+                if (log.length > 100) log.length = 100;
+                localStorage.setItem('coresync_event_log', JSON.stringify(log));
+            } catch (_) {}
+
+            console.info(`[CoreSync Webhook] ${eventType}`, payload);
+        }
+    };
+
     window.doClientLogin = function() {
         const code = (document.getElementById('esLoginCode')?.value || '').trim().toUpperCase();
         const pin = (document.getElementById('esLoginPin')?.value || '').trim();
@@ -1346,6 +1402,15 @@
             if (err) err.textContent = res.msg;
             return;
         }
+
+        // 🔔 Fire instant notification webhook to executive team
+        window.CoreSyncWebhook.fire('CLIENT_LOGIN', {
+            projectCode: code,
+            client: res.project?.client || code,
+            executive: res.project?.executive || 'Unknown',
+            detail: `تسجيل دخول إلى بوابة المشروع ${code} بواسطة ${res.project?.executive || 'العميل'}`
+        });
+
         window.renderClientPortalView();
     };
 
@@ -1356,7 +1421,12 @@
 
     window.renderClientDashboard = function(container, code, proj) {
         const dotIcon = { done: '✓', active: '◉', pending: '○' };
-        const phases = proj.phases.map((p, i) => `
+
+        // Milestone Approval: render phases with approve button on active/done phases
+        const phases = proj.phases.map((p, i) => {
+            const isApprovable = (p.status === 'active' || p.status === 'done') && !p.approved;
+            const isApproved = !!p.approved;
+            return `
             <div class="es-timeline-item">
                 <div class="es-timeline-track">
                     <div class="es-timeline-dot ${p.status}">${dotIcon[p.status]}</div>
@@ -1366,28 +1436,56 @@
                     <div class="es-timeline-title">${p.title}</div>
                     <div class="es-timeline-sub">${p.sub}</div>
                     ${p.status === 'active' ? `<div class="es-progress-bar-mini"><div class="es-progress-bar-fill" style="width:0%" data-target="${p.pct}%"></div></div>` : ''}
+                    ${isApproved
+                        ? `<div class="es-milestone-approved-badge">✅ معتمدة رقمياً من العميل — ${p.approvedAt || ''}</div>`
+                        : isApprovable
+                            ? `<button class="es-milestone-approve-btn" onclick="window.approveMilestone('${code}', ${i})">✔ اعتماد هذه المرحلة رقمياً</button>`
+                            : ''
+                    }
                 </div>
-            </div>
-        `).join('');
+            </div>`;
+        }).join('');
 
-        const deliverables = (proj.deliverables || []).map(d => `
+        // Deliverables with webhook-tracked download
+        const deliverables = (proj.deliverables || []).map((d, di) => `
             <div class="es-deliverable-item">
                 <div>
                     <div style="font-weight:700;color:#ffffff;">📄 ${d.name}</div>
                     <div style="font-size:0.7rem;color:rgba(255,255,255,0.5);">${d.type} · ${d.size} · ${d.date}</div>
                 </div>
-                <button class="es-deliverable-btn" onclick="alert('جاري تنزيل الملف المشفر: ' + '${d.name}')">تحميل ⬇</button>
+                <button class="es-deliverable-btn" onclick="window.downloadDeliverable('${code}', ${di}, '${d.name}')">
+                    تحميل ⬇
+                </button>
             </div>
         `).join('');
 
-        const invoices = (proj.invoices || []).map(inv => `
+        // Invoices — pending ones get Stripe & iDEAL pay buttons
+        const invoices = (proj.invoices || []).map((inv, ii) => {
+            const isPending = inv.status !== 'paid';
+            const waPayMsg = encodeURIComponent(`طلب دفع فاتورة: ${inv.invNo} بمبلغ ${inv.amount} للمشروع ${code}`);
+            const stripeUrl = inv.stripeUrl || `https://wa.me/${WHATSAPP_NUM}?text=${waPayMsg}`;
+            const idealUrl  = inv.idealUrl  || `https://wa.me/${WHATSAPP_NUM}?text=${waPayMsg}`;
+            return `
             <tr>
                 <td style="font-weight:700;">${inv.invNo}</td>
                 <td>${inv.date}</td>
                 <td style="font-weight:700;color:var(--es-gold-light);">${inv.amount}</td>
-                <td><span class="es-inv-status ${inv.status === 'paid' ? 'es-inv-paid' : 'es-inv-pending'}">${inv.statusText}</span></td>
-            </tr>
-        `).join('');
+                <td>
+                    <span class="es-inv-status ${isPending ? 'es-inv-pending' : 'es-inv-paid'}">${inv.statusText}</span>
+                    ${isPending ? `
+                    <div class="es-inv-pay-actions">
+                        <a href="${stripeUrl}" target="_blank" rel="noopener" class="es-pay-btn es-pay-stripe" onclick="window.trackInvoicePayment('${code}', '${inv.invNo}', 'Stripe')">
+                            <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C4.661 23.211 7.499 24 10.08 24c2.64 0 4.687-.642 6.116-1.865 1.594-1.34 2.418-3.368 2.418-5.824 0-4.103-2.529-5.813-4.638-7.161z"/></svg>
+                            Stripe
+                        </a>
+                        <a href="${idealUrl}" target="_blank" rel="noopener" class="es-pay-btn es-pay-ideal" onclick="window.trackInvoicePayment('${code}', '${inv.invNo}', 'iDEAL')">
+                            <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M1 0h22C23.55 0 24 .45 24 1v22c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V1C0 .45.45 0 1 0zm5.5 6C4.57 6 3 7.57 3 9.5v5C3 16.43 4.57 18 6.5 18H11v-2.5H6.5A1.5 1.5 0 0 1 5 14v-5A1.5 1.5 0 0 1 6.5 7.5H11V6H6.5zM13 6v2.5h4.5A1.5 1.5 0 0 1 19 10v4a1.5 1.5 0 0 1-1.5 1.5H13V18h4.5C19.43 18 21 16.43 21 14.5v-4C21 8.57 19.43 7 17.5 7L13 6z"/></svg>
+                            iDEAL
+                        </a>
+                    </div>` : ''}
+                </td>
+            </tr>`;
+        }).join('');
 
         const directMsg = encodeURIComponent(`مرحباً فريق S&R CoreSync، أنا العميل ${proj.executive} من شركة ${proj.client} (مشروع ${code})، أود الاستفسار حول تقدم المشروع.`);
 
@@ -1422,23 +1520,25 @@
                 </div>
             </div>
 
-            <!-- Phases Timeline -->
-            <h4 style="font-size:0.85rem;color:var(--es-gold);margin-bottom:8px;">مراحل التنفيذ والجدول الزمني</h4>
+            <!-- Phases Timeline with Milestone Approvals -->
+            <h4 style="font-size:0.85rem;color:var(--es-gold);margin-bottom:4px;">مراحل التنفيذ والجدول الزمني</h4>
+            <p style="font-size:0.72rem;color:rgba(255,255,255,0.45);margin-bottom:10px;">يمكنك اعتماد المراحل المنجزة رقمياً بتوقيع إلكتروني تلقائي محمي ومؤرخ.</p>
             <div class="es-project-timeline">${phases}</div>
 
             <!-- Deliverables Vault -->
             <h4 style="font-size:0.85rem;color:var(--es-gold);margin:14px 0 8px 0;">المستندات والملفات المعتمدة (Deliverables Vault)</h4>
             <div class="es-deliverables-list">${deliverables}</div>
 
-            <!-- Invoices Ledger -->
-            <h4 style="font-size:0.85rem;color:var(--es-gold);margin:14px 0 8px 0;">سجل الفواتير والدفعات المالية</h4>
+            <!-- Invoices Ledger with Payment Buttons -->
+            <h4 style="font-size:0.85rem;color:var(--es-gold);margin:14px 0 4px 0;">سجل الفواتير والدفعات المالية</h4>
+            <p style="font-size:0.72rem;color:rgba(255,255,255,0.45);margin-bottom:8px;">الفواتير المعلقة مفعّل عليها الدفع الفوري عبر Stripe (بطاقات دولية) و iDEAL (الدفع الهولندي المباشر).</p>
             <table class="es-invoices-table">
                 <thead>
                     <tr>
                         <th>رقم الفاتورة</th>
                         <th>التاريخ</th>
                         <th>المبلغ</th>
-                        <th>الحالة</th>
+                        <th>الحالة / الدفع</th>
                     </tr>
                 </thead>
                 <tbody>${invoices}</tbody>
@@ -1457,6 +1557,95 @@
                 bar.style.width = bar.dataset.target;
             });
         }, 100);
+    };
+
+    /* =====================================================================
+       CLIENT MILESTONE APPROVAL — Digital sign-off with webhook notification
+       ===================================================================== */
+    window.approveMilestone = function(projectCode, phaseIndex) {
+        const all = window.CoreSyncProjectDB.getAll();
+        const proj = all[projectCode];
+        if (!proj || !proj.phases[phaseIndex]) return;
+
+        const phase = proj.phases[phaseIndex];
+        const approvedAt = new Date().toLocaleString('ar');
+        const session = window.CoreSyncProjectDB.getSession();
+
+        // Show confirmation dialog
+        const confirmMsg = `هل تؤكد الموافقة الرقمية المعتمدة على المرحلة:\n"${phase.title}"؟\n\nسيتم توثيق توقيعك الإلكتروني وإشعار فريق S&R CoreSync فوراً.`;
+        if (!confirm(confirmMsg)) return;
+
+        // Mark phase as approved
+        proj.phases[phaseIndex].approved = true;
+        proj.phases[phaseIndex].approvedBy = session?.client || 'العميل';
+        proj.phases[phaseIndex].approvedAt = approvedAt;
+        window.CoreSyncProjectDB.save(projectCode, proj);
+
+        // 🔔 Fire Webhook notification to executive team
+        window.CoreSyncWebhook.fire('MILESTONE_APPROVED', {
+            projectCode,
+            client: proj.client,
+            executive: proj.executive,
+            detail: `اعتماد المرحلة "${phase.title}" (مرحلة ${phaseIndex + 1}) بتاريخ ${approvedAt}`,
+            approvedBy: session?.client || proj.executive,
+            phaseName: phase.title,
+            phaseIndex
+        });
+
+        // Show approval receipt notification in portal
+        const receipt = document.createElement('div');
+        receipt.className = 'es-approval-receipt';
+        receipt.innerHTML = `
+            <div class="es-approval-receipt-icon">✅</div>
+            <div>
+                <div class="es-approval-receipt-title">تمت الموافقة الرقمية بنجاح!</div>
+                <div class="es-approval-receipt-sub">المرحلة: <strong>${phase.title}</strong> · التوقيع بتاريخ: ${approvedAt}</div>
+                <div class="es-approval-receipt-sub">🔔 تم إشعار فريق S&R CoreSync المختص فوراً. شكراً لثقتكم.</div>
+            </div>
+        `;
+        document.querySelector('#esPortalContainer')?.prepend(receipt);
+        setTimeout(() => receipt.style.opacity = '0', 5000);
+        setTimeout(() => receipt.remove(), 5600);
+
+        // Re-render dashboard to reflect new approval state
+        setTimeout(() => window.renderClientPortalView(), 400);
+    };
+
+    /* =====================================================================
+       DELIVERABLE DOWNLOAD — Webhook-tracked secure download event
+       ===================================================================== */
+    window.downloadDeliverable = function(projectCode, deliverableIndex, fileName) {
+        const all = window.CoreSyncProjectDB.getAll();
+        const proj = all[projectCode];
+        const session = window.CoreSyncProjectDB.getSession();
+
+        // 🔔 Fire Webhook notification on file download
+        window.CoreSyncWebhook.fire('DELIVERABLE_DOWNLOADED', {
+            projectCode,
+            client: proj?.client || projectCode,
+            executive: session?.executive || 'Unknown',
+            detail: `تنزيل ملف: "${fileName}" من مخزن المستندات للمشروع ${projectCode}`,
+            fileName,
+            deliverableIndex
+        });
+
+        // Simulate download (in production, replace with signed URL from Supabase Storage or Firebase)
+        alert(`⬇ جاري تنزيل الملف المشفر:\n${fileName}\n\n✅ تم توثيق عملية التنزيل وإشعار الفريق التنفيذي.`);
+    };
+
+    /* =====================================================================
+       INVOICE PAYMENT TRACKING — webhook on pay button click
+       ===================================================================== */
+    window.trackInvoicePayment = function(projectCode, invoiceNo, gateway) {
+        const all = window.CoreSyncProjectDB.getAll();
+        const proj = all[projectCode];
+        window.CoreSyncWebhook.fire('INVOICE_PAYMENT_INITIATED', {
+            projectCode,
+            client: proj?.client || projectCode,
+            invoiceNo,
+            gateway,
+            detail: `بدء عملية دفع الفاتورة ${invoiceNo} عبر ${gateway} للمشروع ${projectCode}`
+        });
     };
 
     window.lookupProjectPublic = function() {
