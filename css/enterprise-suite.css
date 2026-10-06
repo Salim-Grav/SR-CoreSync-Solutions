@@ -1403,3 +1403,121 @@ input[type="range"].es-slider::-webkit-slider-thumb { -webkit-appearance: none; 
     align-items: center;
     gap: 6px;
 }
+
+/* ==========================================================================
+   16. Milestone Approval — Digital Sign-off Buttons & Approved Badge
+   ========================================================================== */
+.es-milestone-approve-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 8px;
+    padding: 5px 14px;
+    background: linear-gradient(135deg, rgba(197, 168, 128, 0.15), rgba(197, 168, 128, 0.06));
+    border: 1px solid rgba(197, 168, 128, 0.5);
+    color: var(--es-gold-light);
+    border-radius: 8px;
+    font-size: 0.74rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    letter-spacing: 0.3px;
+}
+.es-milestone-approve-btn::before { content: '✍'; margin-left: 2px; }
+.es-milestone-approve-btn:hover {
+    background: var(--es-gold);
+    border-color: var(--es-gold);
+    color: #010907;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(197, 168, 128, 0.4);
+}
+.es-milestone-approved-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 7px;
+    padding: 4px 10px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    color: #6ee7b7;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+/* Approval Receipt Toast */
+.es-approval-receipt {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(197, 168, 128, 0.1));
+    border: 1px solid rgba(16, 185, 129, 0.5);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    animation: esSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.6s ease;
+}
+@keyframes esSlideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.es-approval-receipt-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+.es-approval-receipt-title {
+    font-size: 0.88rem;
+    font-weight: 900;
+    color: #6ee7b7;
+    margin-bottom: 4px;
+}
+.es-approval-receipt-sub {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+   17. Invoice Payment Buttons — Stripe & iDEAL
+   ========================================================================== */
+.es-inv-pay-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
+.es-pay-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-decoration: none !important;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.es-pay-stripe {
+    background: rgba(99, 91, 255, 0.15);
+    border-color: rgba(99, 91, 255, 0.45);
+    color: #a5b4fc;
+}
+.es-pay-stripe:hover {
+    background: #635bff;
+    color: #ffffff;
+    box-shadow: 0 3px 12px rgba(99, 91, 255, 0.45);
+}
+.es-pay-ideal {
+    background: rgba(205, 0, 113, 0.12);
+    border-color: rgba(205, 0, 113, 0.4);
+    color: #f9a8d4;
+}
+.es-pay-ideal:hover {
+    background: #cc0072;
+    color: #ffffff;
+    box-shadow: 0 3px 12px rgba(205, 0, 113, 0.4);
+}
