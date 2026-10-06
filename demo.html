@@ -806,6 +806,15 @@
         let categoryChartInstance;
 
         document.addEventListener('DOMContentLoaded', function () {
+            // تفعيل التبويب المباشر عبر الهاش (#whitelabel, #invoices, إلخ)
+            if (window.location.hash) {
+                const tabName = window.location.hash.replace('#', '');
+                const targetNav = document.querySelector(`.nav-item[onclick*="'${tabName}'"]`);
+                if (targetNav) {
+                    switchPortalTab(tabName, targetNav);
+                }
+            }
+
             // رسم بياني الإيرادات الشهرية
             const ctxRev = document.getElementById('revenueChart').getContext('2d');
             revenueChartInstance = new Chart(ctxRev, {
